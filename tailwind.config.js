@@ -3,7 +3,7 @@ import typography from '@tailwindcss/typography';
 
 module.exports = {
   content: [
-    './app/**/*.{ts,tsx}', 
+    './app/**/*.{js,ts,jsx,tsx,mdx}', 
     './content/**/*.mdx',
     './public/**/*.svg', 
     './components/**/*.{js,ts,jsx,tsx,mdx}'
@@ -27,6 +27,6 @@ module.exports = {
     future: {
       hoverOnlyWhenSupported: true,
     },
-    plugins: [typography],
+    plugins: [require('@tailwindcss/typography')],
 }
 
