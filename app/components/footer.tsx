@@ -55,7 +55,7 @@ export default function Footer() {
       </ul>
       <div className="prose mt-8 text-neutral-600 dark:text-neutral-300 ">
       <p className="text-left">
-      <span className="font-semibold">dir-diere</span> by <a href='https://www.instagram.com/syauqashdllh/' target="_blank" className="font-semibold font-mono">@syauqashdllh</a> make with 💔 and 💸 
+      <span className="font-semibold">dir-diare</span> by <a href='https://www.instagram.com/syauqashdllh/' target="_blank" className="font-semibold font-mono">@syauqashdllh</a> make with 💔 and 💸 
       © {new Date().getFullYear()} All rights reserved.
       </p>
       </div>
