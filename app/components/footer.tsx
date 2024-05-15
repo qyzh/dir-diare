@@ -12,48 +12,28 @@ function ArrowIcon() {
         fill="currentColor"
       />
     </svg>
+    
+  )
+}
+
+function AuthorIcon() {
+  return (
+    <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    viewBox="0 0 16 16" 
+    fill="currentColor" 
+    className="w-4 h-4"
+    >
+  <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM12.735 14c.618 0 1.093-.561.872-1.139a6.002 6.002 0 0 0-11.215 0c-.22.578.254 1.139.872 1.139h9.47Z" 
+  fill="currentColor"/>
+</svg>
   )
 }
 
 export default function Footer() {
   return (
-    <footer className="mb-16">
-      <ul className="font-sm mt-8 flex flex-col space-x-0 space-y-2 text-neutral-600 md:flex-row md:space-x-4 md:space-y-0 dark:text-neutral-300">
-        <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="/rss"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">rss</p>
-          </a>
-        </li>
-        <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://github.com/qyzh"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">github</p>
-          </a>
-        </li>
-        <li>
-          <a
-            className="flex items-center transition-all hover:text-neutral-800 dark:hover:text-neutral-100"
-            rel="noopener noreferrer"
-            target="_blank"
-            href="https://github.com/qyzh/dir-diare"
-          >
-            <ArrowIcon />
-            <p className="ml-2 h-7">view source</p>
-          </a>
-        </li>
-      </ul>
-      <div className="prose mt-8 text-neutral-600 dark:text-neutral-300 ">
+    <footer className="prose mb-16">
+      <div className="mt-8 text-neutral-600 dark:text-neutral-300 ">
       <p className="text-left">
       <span className="font-semibold">dir-diare</span> by <a href='https://www.instagram.com/syauqashdllh/' target="_blank" className="font-semibold font-mono">@syauqashdllh</a> make with 💔 and 💸 
       © {new Date().getFullYear()} All rights reserved.
