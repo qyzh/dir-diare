@@ -66,7 +66,7 @@ function Kutiptengah(props) {
 function Kutipkiri(props) {
   return (
 <blockquote className="text-xl italic font-semibold text-left mb-4  text-gray-900 dark:text-white">
-  {props.children} 
+  {props.children}
   </blockquote>
   );
 }
