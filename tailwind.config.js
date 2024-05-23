@@ -39,6 +39,6 @@ module.exports = {
       hoverOnlyWhenSupported: true,
     },
     plugins: [
-      require('@tailwindcss/typography')],
+      require('@tailwindcss/typography','prettier-plugin-tailwindcss')],
 }
 
