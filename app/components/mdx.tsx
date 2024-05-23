@@ -31,7 +31,7 @@ function CustomLink(props) {
 
   if (href.startsWith('/')) {
     return (
-      <Link href={href} {...props}>
+      <Link className="text-sky-400 after:content-['_↗']" href={href} {...props}>
         {props.children}
       </Link>
     )
@@ -46,6 +46,47 @@ function CustomLink(props) {
 
 function RoundedImage(props) {
   return <Image alt={props.alt} className="rounded-lg" {...props} />
+}
+function Linkext(props) {
+  return (
+  <Link 
+  target="_blank" 
+  rel="noopener noreferrer" 
+  className="text-slate-50  after:content-['_↗']" 
+  href={props.href}>{props.text}
+      </Link>
+  )
+}
+
+function FN(props) {
+  return (
+<a 
+href={props.href}
+aria-describedby="footnote-label" 
+id={props.id}>{props.children}
+</a> 
+  )
+}
+function Footarea(props) {
+  return (
+    <div className='footnote font-mono my-2 py-4'>
+    <h2 id="footnote-label" className='hidden invisible'>Footnotes : </h2>
+    <ol>{props.children}
+    </ol>
+  </div>
+  )
+}
+function FNlist(props) {
+  return (
+    <li 
+    id={props.id}
+    >{props.children} 
+    <a 
+    aria-label="Back to content">
+      ↩
+    </a>
+    </li>
+  )
 }
 function Penting(props) {
   return (
@@ -124,7 +165,8 @@ let components = {
   h5: createHeading(5),
   h6: createHeading(6),
   Image: RoundedImage,
-  a: CustomLink,Penting,Kutiptengah,Kutipkiri,Kutipkanan,
+  a: CustomLink,Penting,Kutiptengah,Kutipkiri,
+  Kutipkanan,Linkext,FN,Footarea,FNlist,
   code: Code,
   Table,
 }
