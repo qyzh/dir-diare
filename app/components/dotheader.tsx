@@ -1,6 +1,7 @@
+"use client";
 import React from "react";
 import { cn } from "utils/cn";
-import { Spotlight } from "app/components/spotlight";
+import { Spotlight } from "app/components/ui/spotlight";
 
 export function SpotlightPreview() {
   return (
