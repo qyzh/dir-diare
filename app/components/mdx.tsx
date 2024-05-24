@@ -69,7 +69,7 @@ id={props.id}>{props.children}
 }
 function Footarea(props) {
   return (
-    <div className='footnote font-mono my-2 py-4'>
+    <div className='footnote rounded-lg border border-dashed p-4 lg:p-9 border-gray-700 font-mono my-2 py-4'>
     <h2 id="footnote-label" className='hidden invisible'>Footnotes : </h2>
     <ol>{props.children}
     </ol>
@@ -119,6 +119,12 @@ function Kutipkanan(props) {
   </blockquote>
   );
 }
+
+function Marker(props) {
+  return (
+   <mark className='transition bg-purple-300 text-purple-900 hover:bg-purple-600 hover:text-zinc-300'>{props.children}</mark>
+  );
+}
 function Code({ children, ...props }) {
   let codeHTML = highlight(children)
   return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
@@ -166,7 +172,7 @@ let components = {
   h6: createHeading(6),
   Image: RoundedImage,
   a: CustomLink,Penting,Kutiptengah,Kutipkiri,
-  Kutipkanan,Linkext,FN,Footarea,FNlist,
+  Kutipkanan,Linkext,FN,Footarea,FNlist,Marker,
   code: Code,
   Table,
 }

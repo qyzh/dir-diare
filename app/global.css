@@ -200,3 +200,5 @@ table {
 .footnote :target {
   @apply px-2 border-l-4 border-indigo-700 bg-pink-500 hover:bg-pink-800 text-white dark:text-zinc-50;
 }
+
+/* addon */

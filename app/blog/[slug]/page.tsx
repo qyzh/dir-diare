@@ -92,7 +92,7 @@ export default function Blog({ params }) {
       <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
         {post.metadata.title}
       </h1>
-      <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+      <article className="prose  dark: text-white/60">
         <CustomMDX source={post.content} />
       </article>
     </section>
