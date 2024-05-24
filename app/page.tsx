@@ -3,22 +3,22 @@ import React from "react";
 import { FlipWords } from './components/ui/flip-words'
 import { HoverEffect } from "./components/ui/card-hover-effect";
 
-export const projects = [
-  {
-    title: "Blog",
-    description:
-      "A daily random journal.",
-    link: "/blog",
-  },
-  {
-    title: "404",
-    description:
-      "On Working on it...",
-    link: "/work",
-  },
-];
 export default function Page() {
   const words = ["darling...", "cute...", "beautiful...", "baby..."];
+  const projects = [
+    {
+      title: "Blog",
+      description:
+        "A daily random journal.",
+      link: "/blog",
+    },
+    {
+      title: "404",
+      description:
+        "On Working on it...",
+      link: "/work",
+    },
+  ];
   return (
   <section>
   <div>
