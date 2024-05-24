@@ -86,10 +86,10 @@ export default function Blog({ params }) {
        ← writing
        </a>
       </div>
-      <p className="text-sm text-neutral-600 dark:text-neutral-400">
+      <p className="text-sm proportional-nums text-neutral-600 dark:text-neutral-400">
           {formatDate(post.metadata.publishedAt)}
       </p>
-      <h1 className="title font-semibold text-2xl tracking-tighter">
+      <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
         {post.metadata.title}
       </h1>
       <article className="prose prose-quoteless prose-neutral dark:prose-invert">
