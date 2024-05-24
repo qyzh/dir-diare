@@ -32,10 +32,10 @@ function AuthorIcon() {
 
 export default function Footer() {
   return (
-    <footer className=" mb-16">
+    <footer className="mb-8">
       <div className="mt-8 text-neutral-600 dark:text-neutral-300 ">
       <p className="text-left">
-      <span className="font-semibold text-neutral-500 dark:text-neutral-200">dir-diare</span> by <a href='https://www.instagram.com/syauqashdllh/' target="_blank" className="font-semibold font-mono">@syauqashdllh</a> make with 💔 and 💸 
+      <span className="font-semibold text-neutral-500 dark:text-neutral-200">dir-diare</span> by <a href='https://www.instagram.com/syauqashdllh/' target="_blank" className=" text-neutral-500 dark:text-neutral-200 font-semibold font-mono">@syauqashdllh</a> make with 💔 and 💸 
       © {new Date().getFullYear()} All rights reserved.
       </p>
       </div>

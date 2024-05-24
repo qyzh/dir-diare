@@ -99,7 +99,7 @@ function Penting(props) {
 function Kutiptengah(props) {
   return (
 <blockquote className="text-xl italic font-semibold text-center mb-4 text-gray-900 dark:text-white">
-  {props.children} 
+  {props.children}  <cite className='text-xs font-normal'>- {props.cite}</cite>
   </blockquote>
   );
 }
@@ -107,7 +107,7 @@ function Kutiptengah(props) {
 function Kutipkiri(props) {
   return (
 <blockquote className="text-xl italic font-semibold text-left mb-4  text-gray-900 dark:text-white">
-  {props.children}
+  {props.children} <cite className='text-xs font-normal'>- {props.cite}</cite>
   </blockquote>
   );
 }
@@ -115,7 +115,7 @@ function Kutipkiri(props) {
 function Kutipkanan(props) {
   return (
 <blockquote className="text-xl italic font-semibold text-right mb-4  text-gray-900 dark:text-white">
-  {props.children} 
+  {props.children} <cite className='text-xs font-normal'>- {props.cite}</cite>
   </blockquote>
   );
 }
