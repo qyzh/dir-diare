@@ -2,6 +2,7 @@
 import React from "react";
 import { FlipWords } from './components/ui/flip-words'
 import { HoverEffect } from "./components/ui/card-hover-effect";
+import { NavIndex, Navbar } from './components/nav';
 
 export default function Page() {
   const words = ["darling...", "cute...", "beautiful...", "baby..."];
@@ -21,6 +22,7 @@ export default function Page() {
   ];
   return (
   <section>
+<NavIndex/>
   <div>
 
   <div className="justify-center items-center px-24 sm:px-16 md:px-12">

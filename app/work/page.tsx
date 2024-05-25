@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-
+import { NavIndex, Navbar } from '../components/nav';
 export const metadata: Metadata = {
   title: 'Work',
   description: 'A summary of my work and contributions.',
@@ -9,6 +9,7 @@ export const metadata: Metadata = {
 export default function WorkPage() {
   return (
     <section>
+      <Navbar/>
       <h1 className="font-medium text-2xl mb-8 tracking-tighter">my work</h1>
       <div className="prose prose-neutral dark:prose-invert">
         <p>
