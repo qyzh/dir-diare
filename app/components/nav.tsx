@@ -32,9 +32,9 @@ export function Navbar() {
             
           </div>
           <div className='flex align-middle relative py-1.5 px-2 m-1 ml-auto'>
-          <span className='text-neutral-300 dark:text-neutral-500 pr-2'>Random world</span>
-          <span className='font-bold'> / </span> 
-          <span className='font-mono pl-2 '>.dir-diare</span> 
+          <span className='text-neutral-300 dark:text-neutral-500 pr-2 hover:animate-pulse'>Random world</span>
+          <span className='font-bold hover:animate-spin'> / </span> 
+          <span className='transition-all font-mono pl-2 hover:text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-neutral-600"'>.dir-diare</span> 
           </div>
         </nav>
       </div>
