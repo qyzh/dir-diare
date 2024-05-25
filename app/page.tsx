@@ -13,9 +13,9 @@ export default function Page() {
       link: "/blog",
     },
     {
-      title: "404",
+      title: "Work",
       description:
-        "On Working on it...",
+        "A summary of my work and contributions.",
       link: "/work",
     },
   ];
