@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, LayoutGroup } from "framer-motion";
+import { BackgroundBeams } from "../ui/background-beams";
 import { cn } from "utils/cn";
 let interval: any;
 

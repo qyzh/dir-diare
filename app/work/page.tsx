@@ -1,6 +1,8 @@
+import React from "react";
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { NavIndex, Navbar } from '../components/nav';
+import { BackgroundBeams } from "..//components/ui/background-beams";
 export const metadata: Metadata = {
   title: 'Work',
   description: 'A summary of my work and contributions.',
