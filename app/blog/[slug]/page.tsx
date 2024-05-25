@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
-
+import { NavIndex, Navbar } from 'app/components/nav';
 
 export async function generateStaticParams() {
   let posts = getBlogPosts()
@@ -59,6 +59,7 @@ export default function Blog({ params }) {
 
   return (
     <section>
+      <Navbar/>
       <script
         type="application/ld+json"
         suppressHydrationWarning
