@@ -41,7 +41,7 @@ export default function Footer() {
                     </span>{' '}
                     by{' '}
                     <a
-                        href="https://www.instagram.com/syauqashdllh/"
+                        href="/about"
                         target="_blank"
                         className=" text-neutral-500 dark:text-neutral-200 font-semibold font-mono"
                     >
