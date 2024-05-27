@@ -81,7 +81,7 @@ export default function Page() {
                     <div className="text-3xl md:text-7xl font-bold mb-6 relative dark:text-zinc-100 text-zinc-700 max-w-4xl">
                         Hi,
                         <FlipWords words={words} /><br />
-                        <div className="relative font-regular text-zinc-500 tracking-wide mb-8 max-w-2xl antialiased md:text-5xl">
+                        <div className="relative text-xl font-regular text-zinc-500 mb-4 tracking-wide md:mb-8 max-w-2xl antialiased md:text-5xl">
                         Welcome to dir-diare
                     </div>
                     
@@ -91,7 +91,8 @@ export default function Page() {
                 <BackgroundBeams />
                 <div className='z-5 mb-8'>
 
-<div className='z-5 mb-8 text-xs flex items-center leading-5 font-medium text-neutral-500 dark:text-neutral-400 bg-neutral-400/10 rounded-full py-1 px-1 hover:bg-red xl:flex items-center py-1 px-3'>
+<div className='z-5 mb-8 text-xs flex items-center leading-5 border border-transparent
+        hover:border-white/[0.2] font-medium text-neutral-500 dark:text-neutral-400 bg-neutral-400/10 rounded-full py-1 px-1 hover:bg-red xl:flex items-center py-1 px-3'>
 <strong className='hidden items-center md:block'>new</strong>
 <BlogLink
           name="Hello World!"
