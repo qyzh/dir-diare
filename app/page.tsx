@@ -44,6 +44,22 @@ function ArrowIcon() {
     );
   }
 
+  function BlogLink({ slug, name }) {
+    return (
+        
+        <a
+          href={`/blog/${slug}`}
+          className="md:ml-2"
+        >
+          <div className="flex flex-col">
+            <p className="font-small text-neutral-900 dark:text-neutral-100">
+              {name}
+            </p>
+        </div>
+        </a>
+    );
+  }
+
 export default function Page() {
     const words = ['darling...', 'cute...', 'beautiful...', 'baby...']
     const projects = [
@@ -68,13 +84,28 @@ export default function Page() {
                         <div className="relative font-regular text-zinc-500 tracking-wide mb-8 max-w-2xl antialiased md:text-5xl">
                         Welcome to dir-diare
                     </div>
-                <div className='flex justify-center animate-bounce text-sm'><ArrowIcon/></div>
                     
 
                     </div>
                 </div>
                 <BackgroundBeams />
+                <div className='z-5 mb-8'>
+
+<div className='z-5 mb-8 text-xs flex items-center leading-5 font-medium text-neutral-500 dark:text-neutral-400 bg-neutral-400/10 rounded-full py-1 px-1 hover:bg-red xl:flex items-center py-1 px-3'>
+<strong className='hidden items-center md:block'>new</strong>
+<BlogLink
+          name="Hello World!"
+          slug="hello-w"
+        />
+
+</div>
+
+                <div className='flex justify-center animate-bounce text-sm'><ArrowIcon/></div>
+
+</div>
             </div>
+            
+
             <div>
                 <div className="max-w-5xl mx-auto px-8">
                     <HoverEffect items={projects} />
