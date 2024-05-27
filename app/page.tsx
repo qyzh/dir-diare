@@ -2,7 +2,6 @@
 import React from 'react'
 import { FlipWords } from './components/ui/flip-words'
 import { HoverEffect } from './components/ui/card-hover-effect'
-import { NavIndex, Navbar } from './components/nav'
 import { BackgroundBeams } from './components/ui/background-beams'
 
 function ArrowIcon() {
@@ -101,13 +100,13 @@ export default function Page() {
 
 </div>
 
-                <div className='flex justify-center animate-bounce text-sm'><ArrowIcon/></div>
+                <div className='flex justify-center animate-bounce text-sm'><a href='#sec2'><ArrowIcon/></a></div>
 
 </div>
             </div>
             
 
-            <div>
+            <div id='sec2'>
                 <div className="max-w-5xl mx-auto px-8">
                     <HoverEffect items={projects} />
                 </div>
