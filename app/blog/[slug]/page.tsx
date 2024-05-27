@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
-import { NavIndex, Navbar } from 'app/components/nav'
+import {  Navbar } from 'app/components/nav'
 
 export async function generateStaticParams() {
     let posts = getBlogPosts()
@@ -98,7 +98,7 @@ export default function Blog({ params }) {
             <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
                 {post.metadata.title}
             </h1>
-            <article className="prose  dark: text-white/60">
+            <article className="prose prose-quoteless prose-neutral dark:prose-invert">
                 <CustomMDX source={post.content} />
             </article>
         </section>
