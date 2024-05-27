@@ -1,7 +1,10 @@
+
 import React from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { NavIndex, Navbar } from '../components/nav'
+import GitHubCalendar from 'react-github-calendar';
+
 export const metadata: Metadata = {
     title: 'About',
     description: 'Little about me and this blog.',
@@ -30,6 +33,7 @@ export default function AboutkPage() {
                     it. Because if I don't express these feelings, it can make
                     me <strong>gila</strong>.
                 </p>
+                <GitHubCalendar username="qyzh" />
                 <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
             </div>
         </section>
