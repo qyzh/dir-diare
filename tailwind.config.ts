@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+import typography from '@tailwindcss/typography';
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 const colors = require('tailwindcss/colors')
@@ -8,7 +9,8 @@ const {
 
 module.exports = {
     content: [
-        './app/**/*.{js,ts,jsx,tsx,mdx}',
+        '.app/**/*.{js,ts,jsx,tsx,mdx}',
+        './content/**/*.mdx',
         '.app/components/**.{js,ts,jsx,tsx,mdx}',
         '.app/components/ui/*.{js,ts,jsx,tsx,mdx}',
     ],
@@ -51,7 +53,7 @@ module.exports = {
     future: {
         hoverOnlyWhenSupported: true,
     },
-    plugins: [require('@tailwindcss/typography'), addVariablesForColors],
+    plugins: [typography, addVariablesForColors],
 }
 function addVariablesForColors({ addBase, theme }: any) {
     let allColors = flattenColorPalette(theme('colors'))
