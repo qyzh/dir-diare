@@ -33,7 +33,7 @@ function AuthorIcon() {
 
 export default function Footer() {
     return (
-        <footer className="mb-8">
+        <footer className="prose mb-8">
             <div className="mt-8 text-neutral-600 dark:text-neutral-300 ">
                 <p className="text-left">
                     <span className="font-semibold text-neutral-500 dark:text-neutral-200">
@@ -42,7 +42,6 @@ export default function Footer() {
                     by{' '}
                     <a
                         href="/about"
-                        target="_blank"
                         className=" text-neutral-500 dark:text-neutral-200 font-semibold font-mono"
                     >
                         @syauqashdllh
