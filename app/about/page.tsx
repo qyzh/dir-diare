@@ -33,7 +33,6 @@ export default function AboutkPage() {
                     it. Because if I don't express these feelings, it can make
                     me <strong>gila</strong>.
                 </p>
-                <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
             </div>
         </section>
     )

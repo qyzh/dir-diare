@@ -25,7 +25,6 @@ export default function WorkPage() {
                     <br />
                     Coming again later.
                 </p>
-                <hr className="my-6 border-neutral-100 dark:border-neutral-800" />
             </div>
         </section>
     )
