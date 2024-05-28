@@ -100,6 +100,8 @@ export default function Blog({ params }) {
             </h1>
             <article className="prose prose-quoteless prose-neutral dark:prose-invert">
                 <CustomMDX source={post.content} />
+
+                <hr className='border-neutral-300 dark:border-neutral-700' />
             </article>
         </section>
     )
