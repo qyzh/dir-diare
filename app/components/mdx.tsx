@@ -84,8 +84,7 @@ function Footarea(props) {
 function FNlist(props) {
     return (
         <li id={props.id}>
-            {props.children}
-            <a aria-label="Back to content">↩</a>
+            {props.children}<a href={props.href}>↩</a>
         </li>
     )
 }

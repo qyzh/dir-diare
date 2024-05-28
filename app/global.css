@@ -198,7 +198,7 @@ table {
  * Highlight target note
  */
 .footnote :target {
-    @apply px-2 border-l-4 border-indigo-700 bg-pink-500 hover:bg-pink-800 text-white dark:text-zinc-50;
+    @apply px-2 border-l-4 border-indigo-700 bg-gradient-to-r from-indigo-600 to-bg-[#111010] hover:bg-pink-800 text-white dark:text-zinc-50;
 }
 
 /* addon */
