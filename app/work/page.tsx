@@ -1,8 +1,9 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import Link from 'next/link'
-import { NavIndex, Navbar } from '../components/nav'
-import { BackgroundBeams } from '..//components/ui/background-beams'
+import ArtList from './ArtList'
+import  Card  from 'app/components/artc'
+import {  Navbar } from '../components/nav'
+
 export const metadata: Metadata = {
     title: 'Work',
     description: 'A summary of my work and contributions.',
@@ -25,7 +26,25 @@ export default function WorkPage() {
                     <br />
                     Coming again later.
                 </p>
+                <hr className='border-neutral-300 dark:border-neutral-700' />
+
             </div>
+
+            <div className="container py-12">
+          <div className="grid grid-cols-1 gap-2 md:grid-cols-2">
+            {ArtList.map((d) => (
+              <Card
+                key={d.title}
+                title={d.title}
+                tagz={d.tagz}
+                description={d.description}
+                imgSrc={d.imgSrc}
+                href={d.href}
+              ></Card>
+            ))}
+          </div>
+        </div>
+
         </section>
     )
 }
