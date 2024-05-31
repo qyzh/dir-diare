@@ -1,4 +1,5 @@
 import Link from "next/link"
+import B2T from "./back2top"
 
 function Linkext({ name, href }) {
     return (
@@ -32,6 +33,7 @@ export default function Footer() {
                     reserved.
                 </p>
             </div>
+            <B2T/>
         </footer>
     )
 }
