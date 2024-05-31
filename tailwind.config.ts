@@ -18,6 +18,7 @@ module.exports = {
         extend: {
             animation: {
                 'meteor-effect': 'meteor 5s linear infinite',
+                'shimmer' : "shimmer 8s infinite",
             },
             keyframes: {
                 meteor: {
@@ -31,6 +32,12 @@ module.exports = {
                         opacity: '0',
                     },
                 },
+                shimmer: {
+                    "0%, 90%, 100%": { 'background-position': "calc(-100% - var(--shimmer-width)) 0",
+                    },
+                    "30%, 60%": { 'background-position' : "calc(100% + var(--shimmer-width)) 0",
+                    },
+                  },
             },
             fontFamily: {
                 sans: ['var(--font-geist-sans)'],

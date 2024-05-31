@@ -3,6 +3,10 @@ import React from 'react'
 import { FlipWords } from './components/ui/flip-words'
 import { HoverEffect } from './components/ui/card-hover-effect'
 import { BackgroundBeams } from './components/ui/background-beams'
+import  AnimatedGridPattern  from './components/ui/animate-gridpattern'
+import TextShimmer from "./components/ui/animated-shiny-text";
+import { cn } from "utils/cn";
+
 
 function ArrowIcon() {
     return (
@@ -41,16 +45,37 @@ function ArrowIcon() {
         </svg>
     )
 }
-
+function ArrowRightIcon() {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" 
+        viewBox="0 0 20 20" 
+        fill="currentColor" 
+        className="size-5
+        ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5
+        "
+        >
+  <path fill-rule="evenodd" d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z" clip-rule="evenodd" />
+</svg>
+    )
+}
 function BlogLink({ slug, name }) {
     return (
-        <a href={`/blog/${slug}`} className="md:ml-2">
-            <div className="flex flex-col">
-                <p className="font-small text-neutral-900 dark:text-neutral-100">
+            <div className="z-10 mb-8 items-center justify-center">
+            <div
+              className={cn(
+                "group rounded-full border border-black/5 bg-neutral-100 text-base text-white transition-all ease-in hover:cursor-pointer hover:bg-neutral-200 dark:border-white/5 dark:bg-neutral-900 dark:hover:bg-neutral-800",
+              )}
+            >
+              <TextShimmer className="inline-flex items-center justify-center px-4 py-1 transition ease-out hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400">
+                <span>✨
+                <a href={`/blog/${slug}`} className="md:ml-2">
                     {name}
-                </p>
+                </a>
+                </span>
+                <ArrowRightIcon/>
+              </TextShimmer>
             </div>
-        </a>
+          </div>
     )
 }
 
@@ -82,16 +107,18 @@ export default function Page() {
                     </div>
                 </div>
                 <BackgroundBeams />
+                <AnimatedGridPattern
+        numSquares={40}
+        maxOpacity={0.5}
+        duration={3}
+        repeatDelay={1}
+        className={cn(
+          "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]",
+          "inset-x-0 inset-y-[-55%] h-[200%] skew-y-0",
+        )}
+      />
                 <div className="z-5 mb-8">
-                    <div
-                        className="z-5 mb-8 text-xs flex items-center leading-5 border border-transparent
-        hover:border-white/[0.2] font-medium text-neutral-500 dark:text-neutral-400 bg-neutral-400/10 rounded-full py-1 px-1 hover:bg-red xl:flex items-center py-1 px-3"
-                    >
-                        <strong className="hidden items-center md:block">
-                            new
-                        </strong>
                         <BlogLink name="Hello World!" slug="hello-w" />
-                    </div>
 
                     <div className="flex justify-center animate-bounce text-sm">
                         <a href="#sec2">
@@ -102,6 +129,7 @@ export default function Page() {
             </div>
 
             <div id="sec2">
+                
                 <div className="max-w-5xl mx-auto px-8">
                     <HoverEffect items={projects} />
                 </div>
