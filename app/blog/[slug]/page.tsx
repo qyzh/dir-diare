@@ -87,7 +87,7 @@ export default function Blog({ params }) {
             <div className="text-left mb-4">
                 <a
                     href="/blog"
-                    className="font-semibold text-neutral-300 dark:text-neutral-200"
+                    className="font-semibold text-neutral-300 hover:text-netural-800 dark:text-neutral-200 hover:text-neutral-500"
                 >
                     ← writing
                 </a>
