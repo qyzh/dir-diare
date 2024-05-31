@@ -11,7 +11,7 @@ function ArrowIcon() {
             width="24"
             height="24"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
             fill="none"
             className="flex 
@@ -35,8 +35,7 @@ function ArrowIcon() {
         focus:shadow-outline"
         >
             <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinejoin="round"
                 d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5"
             />
         </svg>
