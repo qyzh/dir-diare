@@ -2,6 +2,8 @@ import React from 'react'
 import type { Metadata } from 'next'
 import ArtList from './ArtList'
 import  Card  from 'app/components/artc'
+import { GridPattern } from 'app/components/ui/grid-pattern'
+import { cn } from 'utils/cn'
 import {  Navbar } from '../components/nav'
 
 export const metadata: Metadata = {
@@ -17,15 +19,6 @@ export default function WorkPage() {
                 my work
             </h1>
             <div className="prose prose-neutral dark:prose-invert">
-                <p>
-                    Still{' '}
-                    <mark className="transition bg-purple-300 text-purple-900 hover:bg-purple-600 hover:text-zinc-300">
-                        Working
-                    </mark>{' '}
-                    on it.
-                    <br />
-                    Coming again later.
-                </p>
                 <hr className='border-neutral-300 dark:border-neutral-700' />
 
             </div>
@@ -43,6 +36,15 @@ export default function WorkPage() {
               ></Card>
             ))}
           </div>
+          <GridPattern
+        width={20}
+        height={20}
+        x={-1}
+        y={-1}
+        className={cn(
+          "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
+        )}
+      />
         </div>
 
         </section>

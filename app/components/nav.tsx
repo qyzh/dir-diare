@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { BackgroundBeams } from '..//components/ui/background-beams'
 
 const navItems = {
     '/': {
@@ -7,6 +6,9 @@ const navItems = {
     },
     '/blog': {
         name: 'blog',
+    },
+    '/work': {
+        name: 'work',
     },
 }
 

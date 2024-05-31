@@ -3,6 +3,8 @@ import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getArtPosts } from 'app/work/utils'
 import { baseUrl } from 'app/sitemap'
 import { Navbar } from 'app/components/nav'
+import { DotPattern } from 'app/components/ui/dot-pattern'
+import { cn } from 'utils/cn'
 
 export async function generateStaticParams() {
     let posts = getArtPosts()
@@ -103,6 +105,17 @@ export default function Blog({ params }) {
 
                 <hr className='border-neutral-300 dark:border-neutral-700' />
             </article>
+            
+            <DotPattern
+        width={20}
+        height={20}
+        cx={1}
+        cy={1}
+        cr={1}
+        className={cn(
+          "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
+        )}
+      />
         </section>
     )
 }
