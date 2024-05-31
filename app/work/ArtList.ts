@@ -8,6 +8,14 @@ interface ArtList {
   
   const projectsData: ArtList[] = [
     {
+      title: 'Tode Squad',
+      tagz: 'Photoshop',
+      description: `Logo yang dibuat dengan photoshop untuk Team TodeSquad.`,
+      imgSrc: '/images/art/todesquad.jpg',
+      href: 'work/todesquad',
+    
+    },
+    {
       title: 'Hoppla Template',
       tagz: 'Template Blogger',
       description: `Template blogspot dengan gaya simpel,responsive dan lainnya.`,
@@ -18,14 +26,14 @@ interface ArtList {
       title: 'Rock n Troll Template',
       tagz: 'Template Blogger',
       description: `Template blogspot.`,
-      imgSrc: '/images/art/rockntrolltemplate.png',
+      imgSrc: '/images/art/rockntroll.png',
       href: 'work/rockntroll',
     },    
     {
         title: 'MinSim Template',
         tagz: 'Template Blogger',
         description: `Template blogspot yang didesign dengan gaya simpel dan memiliki beberapa fitur.`,
-        imgSrc: '/images/art/minsimtemplate.png',
+        imgSrc: '/images/art/minsim.png',
         href: 'work/minsim',
       },
     {
