@@ -131,7 +131,7 @@ export default function Blog({ params }) {
         data-input-position="bottom"
         data-theme="preferred_color_scheme"
         data-lang="en"
-        crossorigin="anonymous"
+        crossOrigin="anonymous"
         async>
 </script>
             </article>
