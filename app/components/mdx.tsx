@@ -51,6 +51,7 @@ function CustomLink(props) {
 function RoundedImage(props) {
     return <Image alt={props.alt} className="rounded-lg" {...props} />
 }
+
 function Linkext(props) {
     return (
         <Link
@@ -137,12 +138,33 @@ function Error(props) {
 <div className="flex items-center w-4 mr-4">
     
 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="size-12">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+<path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
 </svg>
     
 </div>
 <div className="">{props.children}</div>
 </div>
+    )
+}
+
+function Errorpop(props) {
+    return (
+        <div className="flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md dark:bg-neutral-800">
+        <div className="flex items-center justify-center w-12" style={{}}>
+            <svg className="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z" />
+            </svg>
+        </div>
+    
+        <div className="px-4 -mx-3">
+            <div className="mx-3">
+                <div className="font-semibold text-red-500 dark:text-red-400">{props.title}</div>
+                <div className="not-prose text-sm text-gray-600 dark:text-gray-200">
+                    {props.children}
+                </div>
+            </div>
+        </div>
+    </div>
     )
 }
 function Code({ children, ...props }) {
@@ -200,7 +222,7 @@ let components = {
     FN,Error,
     Footarea,
     FNlist,
-    Marker,
+    Marker,Errorpop,
     code: Code,
     Table,
 }
