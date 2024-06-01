@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
-import React from 'react'
+import React, { Children } from 'react'
 
 function Table({ data }) {
     let headers = data.headers.map((header, index) => (
@@ -137,7 +137,7 @@ function Error(props) {
 <div className="px-4 text-balance py-3 border border-rose-600 bg-rose-900 rounded p-1 flex items-center text-neutral-100 mb-8">
 <div className="flex items-center w-4 mr-4">
     
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="size-12">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="size-12">
 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
 </svg>
     
@@ -170,6 +170,74 @@ function Errorpop(props) {
     </div>
     )
 }
+
+function ComArt({ src, alt}) {
+    return (
+<Image alt={alt} className="rounded-lg border border-zinc-700"
+      loading="lazy"
+      width={900}
+      height={900}
+      quality={100}
+      src={src}
+ />
+    )
+}
+function BtnDownload({ href, text, dis }) {
+    return (
+            <Link href={href} target='_blank'>
+        <button
+        className="flex items-center gap-x-2 bg-white/5 text-white-700 border border-transparent rounded-md px-4 py-2 duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200 "
+        type="button">
+        {text}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
+  <path fillRule="evenodd" d="M5.5 17a4.5 4.5 0 0 1-1.44-8.765 4.5 4.5 0 0 1 8.302-3.046 3.5 3.5 0 0 1 4.504 4.272A4 4 0 0 1 15 17H5.5Zm5.25-9.25a.75.75 0 0 0-1.5 0v4.59l-1.95-2.1a.75.75 0 1 0-1.1 1.02l3.25 3.5a.75.75 0 0 0 1.1 0l3.25-3.5a.75.75 0 1 0-1.1-1.02l-1.95 2.1V7.75Z" clipRule="evenodd" />
+</svg>
+
+      </button>
+      </Link>
+    )
+}
+function BtnSource({ href, text}) {
+    return (
+        <Link href={href} target='_blank'>
+        <button
+        className="flex items-center gap-x-2 bg-white/5 text-white-700 border border-transparent rounded-md px-4 py-2 duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200"
+        type="button">
+        {text}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
+  <path fillRule="evenodd" d="M3.25 3A2.25 2.25 0 0 0 1 5.25v9.5A2.25 2.25 0 0 0 3.25 17h13.5A2.25 2.25 0 0 0 19 14.75v-9.5A2.25 2.25 0 0 0 16.75 3H3.25Zm.943 8.752a.75.75 0 0 1 .055-1.06L6.128 9l-1.88-1.693a.75.75 0 1 1 1.004-1.114l2.5 2.25a.75.75 0 0 1 0 1.114l-2.5 2.25a.75.75 0 0 1-1.06-.055ZM9.75 10.25a.75.75 0 0 0 0 1.5h2.5a.75.75 0 0 0 0-1.5h-2.5Z" clipRule="evenodd" />
+</svg>
+
+      </button>
+      </Link>
+    )
+}
+function BtnPreview({ href, text }) {
+    return (
+        <Link href={href} target='_blank'>
+        <button
+        className="flex items-center gap-x-2 bg-white/5 text-white-700 border border-transparent rounded-md px-4 py-2 duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200"
+        type="button">  
+        {text}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
+  <path fillRule="evenodd" d="M4.25 5.5a.75.75 0 0 0-.75.75v8.5c0 .414.336.75.75.75h8.5a.75.75 0 0 0 .75-.75v-4a.75.75 0 0 1 1.5 0v4A2.25 2.25 0 0 1 12.75 17h-8.5A2.25 2.25 0 0 1 2 14.75v-8.5A2.25 2.25 0 0 1 4.25 4h5a.75.75 0 0 1 0 1.5h-5Z" clipRule="evenodd" />
+  <path fillRule="evenodd" d="M6.194 12.753a.75.75 0 0 0 1.06.053L16.5 4.44v2.81a.75.75 0 0 0 1.5 0v-4.5a.75.75 0 0 0-.75-.75h-4.5a.75.75 0 0 0 0 1.5h2.553l-9.056 8.194a.75.75 0 0 0-.053 1.06Z" clipRule="evenodd" />
+</svg>
+  
+      </button>
+      </Link>
+    )
+}
+function BtnArea(props) {
+    return (
+        <div className=''>
+    <div className='justify-center border border-zinc-700 rounded flex flex-rows gap-2 p-4 mb-2 mt-4'>
+        {props.children}
+    </div>
+    </div>
+    )
+}
+
 function Code({ children, ...props }) {
     let codeHTML = highlight(children)
     return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
@@ -221,10 +289,10 @@ let components = {
     Kutiptengah,
     Kutipkiri,
     Kutipkanan,
-    Linkext,
+    Linkext,ComArt,
     FN,Error,
     Footarea,
-    FNlist,
+    FNlist,BtnArea,BtnDownload,BtnPreview,BtnSource,
     Marker,Errorpop,
     code: Code,
     Table,

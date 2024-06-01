@@ -18,7 +18,7 @@ interface ArtList {
     {
       title: 'Hoppla Template',
       tagz: 'Template Blogger',
-      description: `Template blogspot dengan gaya simpel,responsive dan lainnya.`,
+      description: `Template minimalist ini dapat anda gunakan pada blog anda dengan gratis.Pada template ini terdapat beberapa fitur yaitu, Responsive, HTML5, CSS3, dan beberapa lagi lainnya.`,
       imgSrc: '/images/art/hopplatemplate.png',
       href: 'work/hoppla',
     },
@@ -32,7 +32,7 @@ interface ArtList {
     {
         title: 'MinSim Template',
         tagz: 'Template Blogger',
-        description: `Template blogspot yang didesign dengan gaya simpel dan memiliki beberapa fitur.`,
+        description: `Template yang kelihatan minimalist tapi elegant.`,
         imgSrc: '/images/art/minsim.png',
         href: 'work/minsim',
       },
