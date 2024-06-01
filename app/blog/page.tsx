@@ -14,6 +14,7 @@ export default function Page() {
         <section>
             <Navbar />
             <FlipWordz />
+            <hr className='mb-6 border-neutral-300 dark:border-neutral-700 ' />
             <BlogPosts />
             <GridPattern
         width={20}
