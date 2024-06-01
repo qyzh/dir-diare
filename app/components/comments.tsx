@@ -17,7 +17,7 @@ export default function Comments() {
       reactionsEnabled="1"
       emitMetadata="0"
       inputPosition="bottom"
-      theme="preferred_color_scheme"
+      theme="transparent_dark"
       lang="en"
       loading="lazy"
     />
