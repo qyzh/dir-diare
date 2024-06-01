@@ -1,3 +1,4 @@
+import 'giscus';
 import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
@@ -118,6 +119,21 @@ export default function Blog({ params }) {
                 <CustomMDX source={post.content} />
 
                 <hr className='my-4 border-neutral-300 dark:border-neutral-700' />
+                <script src="https://giscus.app/client.js"
+        data-repo="qyzh/dir-diare"
+        data-repo-id="R_kgDOL6kgew"
+        data-category="General"
+        data-category-id="DIC_kwDOL6kge84CftWI"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
             </article>
             <DotPattern
         width={20}

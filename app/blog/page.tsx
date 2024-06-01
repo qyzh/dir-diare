@@ -1,6 +1,6 @@
 import { BlogPosts } from 'app/components/posts'
 import { FlipWordz } from '../components/textflipz'
-import { NavIndex, Navbar } from '../components/nav'
+import {  Navbar } from '../components/nav'
 import { GridPattern } from '../components/ui/grid-pattern'
 import { cn } from 'utils/cn'
 
@@ -20,7 +20,7 @@ export default function Page() {
         width={20}
         height={20}
         x={-1}
-        y={-1}
+        y={-4}
         className={cn(
           "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
         )}

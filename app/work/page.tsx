@@ -19,6 +19,7 @@ export default function WorkPage() {
                 my work
             </h1>
             <div className="prose prose-neutral dark:prose-invert">
+              <p>This page is still under construction...</p>
                 <hr className='border-neutral-300 dark:border-neutral-700' />
 
             </div>
@@ -37,10 +38,10 @@ export default function WorkPage() {
             ))}
           </div>
           <GridPattern
-        width={20}
+        width={22}
         height={20}
-        x={-1}
-        y={-1}
+        x={+2}
+        y={-8}
         className={cn(
           "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
         )}
