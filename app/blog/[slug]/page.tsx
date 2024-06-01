@@ -7,6 +7,7 @@ import { Navbar } from 'app/components/nav'
 import  Komentar  from 'app/components/comments'
 import { DotPattern } from 'app/components/ui/dot-pattern'
 import { cn } from 'utils/cn'
+import Saweria from 'app/components/saweria'
 export async function generateStaticParams() {
     let posts = getBlogPosts()
 
@@ -132,6 +133,7 @@ export default function Blog({ params }) {
                 <hr className='my-4 border-neutral-300 dark:border-neutral-700' />
 <Komentar/>
             </article>
+            <Saweria/>
             <DotPattern
         width={20}
         height={20}
