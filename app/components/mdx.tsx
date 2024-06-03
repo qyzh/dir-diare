@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React, { Children } from 'react'
-import { CodeIcon, DownloadIcon, RocketIcon } from '@radix-ui/react-icons'
+import { CodeIcon, DownloadIcon, DrawingPinFilledIcon, Link2Icon, RocketIcon } from '@radix-ui/react-icons'
 
 function Table({ data }) {
     let headers = data.headers.map((header, index) => (
@@ -75,11 +75,19 @@ function FN(props) {
 }
 function Footarea(props) {
     return (
-        <div className="footnote rounded-lg border border-dashed p-4 lg:p-9 border-gray-700 font-mono my-2 py-4">
+        <div className="footnote relative overflow-hidden tracking-tight text-lg my-8 lg:py-6 lg:pl-6 pr-12 p-4 border dark:border-zinc-800 border-zinc-200 rounded-md">
             <h2 id="footnote-label" className="hidden invisible">
                 Footnotes :{' '}
             </h2>
             <ol>{props.children}</ol>
+        </div>
+    )
+}
+function Cbox(props) {
+    return (
+        <div className='relative overflow-hidden tracking-tight text-s my-8 lg:py-6 lg:pl-6 pr-12 p-4 border dark:border-zinc-800 border-zinc-200 rounded-md'>
+<DrawingPinFilledIcon className='absolute size-24 right-0 -top-2 dark:text-zinc-800 text-zinc-200'/>
+{props.children} <a href={props.href} target='_blank' className='text-zinc-500'><Link2Icon className='inline mr-1'/>{props.source}</a>
         </div>
     )
 }
@@ -284,7 +292,7 @@ let components = {
     Kutipkanan,
     Linkext,ComArt,
     FN,Error,
-    Footarea,
+    Footarea,Cbox,
     FNlist,BtnArea,BtnDownload,BtnPreview,BtnSource,
     Marker,Errorpop,
     code: Code,
