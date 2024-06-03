@@ -1,3 +1,4 @@
+
 import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getArtPosts } from 'app/work/utils'
@@ -5,6 +6,7 @@ import { baseUrl } from 'app/sitemap'
 import { Navbar } from 'app/components/nav'
 import { DotPattern } from 'app/components/ui/dot-pattern'
 import { cn } from 'utils/cn'
+import { motion } from 'framer-motion'
 
 export async function generateStaticParams() {
     let posts = getArtPosts()
@@ -62,7 +64,7 @@ export default function Blog({ params }) {
     }
 
     return (
-        <section>
+        <div>
             <Navbar />
             <script
                 type="application/ld+json"
@@ -116,6 +118,6 @@ export default function Blog({ params }) {
           "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
         )}
       />
-        </section>
+        </div>
     )
 }

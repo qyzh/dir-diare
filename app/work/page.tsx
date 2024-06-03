@@ -1,28 +1,26 @@
-import React from 'react'
+//"use client";
+import React from "react";
 import type { Metadata } from 'next'
 import ArtList from './ArtList'
 import  Card  from 'app/components/artc'
 import { GridPattern } from 'app/components/ui/grid-pattern'
 import { cn } from 'utils/cn'
 import {  Navbar } from '../components/nav'
+import SecHead  from "app/components/sechead";
 
 export const metadata: Metadata = {
-    title: 'Work',
-    description: 'A summary of my work and contributions.',
+  title: 'Work',
+  description: 'The list of my work.',
 }
 
 export default function WorkPage() {
+
     return (
+
         <section>
             <Navbar />
-            <h1 className="font-medium text-2xl mb-8 tracking-tighter">
-                my work
-            </h1>
-            <div className="prose prose-neutral dark:prose-invert">
-              <p>This page is still under construction...</p>
-                <hr className='border-neutral-300 dark:border-neutral-700' />
+              <SecHead judul='my work' desc='This page till on working'/>
 
-            </div>
 
             <div className="container py-12">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">

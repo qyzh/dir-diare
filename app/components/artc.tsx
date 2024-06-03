@@ -1,9 +1,15 @@
+"use client";
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 const Card = ({ title, description, imgSrc, href, tagz }) => (
-  
-  <div className="
+
+  <motion.div 
+  animate={{  x:0 ,opacity: 1 }}
+  initial={{  x: 40 , opacity: 0 }}
+
+  className="
   bg-white/[4%]  rounded-xl bg-clip-border text-gray-700 shadow-lg 
   dark:shadow-[0_8px_16px_rgb(0_0_0/0.4)] 
   transition-colors hover:bg-white/[6%] focus-visible:ring-1 focus-visible:ring-white
@@ -84,7 +90,7 @@ View
 
       </div>
     </div>
-  </div>
+  </motion.div>
 )
 
 export default Card
