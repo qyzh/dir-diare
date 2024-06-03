@@ -8,6 +8,7 @@ import  Komentar  from 'app/components/comments'
 import { DotPattern } from 'app/components/ui/dot-pattern'
 import { cn } from 'utils/cn'
 import Saweria from 'app/components/saweria'
+import { CalendarIcon, CaretRightIcon } from '@radix-ui/react-icons'
 export async function generateStaticParams() {
     let posts = getBlogPosts()
 
@@ -100,22 +101,18 @@ export default function Blog({ params }) {
                 </a>
                 <span className="mx-2">
 
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
-  <path fillRule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
-</svg>
+<CaretRightIcon/>
                 </span>
                 <p className="text-neutral-600 dark:text-neutral-400 text-sm font-mono">
                     {post.metadata.title}
                 </p>
             </div>
             <div className="flex items-center gap-x-2 font-mono text-m text-neutral-600 dark:text-neutral-400 mb-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="size-5">
-  <path fillRule="evenodd" d="M5.75 2a.75.75 0 0 1 .75.75V4h7V2.75a.75.75 0 0 1 1.5 0V4h.25A2.75 2.75 0 0 1 18 6.75v8.5A2.75 2.75 0 0 1 15.25 18H4.75A2.75 2.75 0 0 1 2 15.25v-8.5A2.75 2.75 0 0 1 4.75 4H5V2.75A.75.75 0 0 1 5.75 2Zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75Z" clipRule="evenodd" />
-</svg>
-                <time className='proportional-nums pt-1' dateTime={post.metadata.publishedAt} >{formatDate(post.metadata.publishedAt)}</time>
+<CalendarIcon />
+                <time className='proportional-nums ' dateTime={post.metadata.publishedAt} >{formatDate(post.metadata.publishedAt)}</time>
                 <Link
                 href="#comments"
-                className="flex items-center gap-x-2 font-mono text-m text-sky-500 hover:text-sky-600  pt-1"
+                className="flex items-center gap-x-2 font-mono text-m text-sky-500 hover:text-sky-600 "
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
   <path fillRule="evenodd" d="M5.337 21.718a6.707 6.707 0 0 1-.533-.074.75.75 0 0 1-.44-1.223 3.73 3.73 0 0 0 .814-1.686c.023-.115-.022-.317-.254-.543C3.274 16.587 2.25 14.41 2.25 12c0-5.03 4.428-9 9.75-9s9.75 3.97 9.75 9c0 5.03-4.428 9-9.75 9-.833 0-1.643-.097-2.417-.279a6.721 6.721 0 0 1-4.246.997Z" clipRule="evenodd" />

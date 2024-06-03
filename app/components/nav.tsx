@@ -1,3 +1,4 @@
+import { SlashIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 
 const navItems = {
@@ -34,13 +35,13 @@ export function Navbar() {
                         })}
                     </div>
 
-                    <div className="flex align-middle relative py-1.5 px-2 m-1 ml-auto">
+                    <div className="flex align-middle relative py-1 px-2 m-1 ml-auto">
                         <span className="hidden text-neutral-300 dark:text-neutral-500 md:pr-2 md:block hover:animate-pulse">
                             Random world
                         </span>
-                        <span className="font-bold hover:animate-spin">
+                        <span className="font-bold pt-1 hover:animate-spin">
                             {' '}
-                            /{' '}
+                            <SlashIcon/> {' '}
                         </span>
                         <span className=' transition-all font-mono md:pl-2 hover:text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-neutral-600"'>
                             .dir-diare

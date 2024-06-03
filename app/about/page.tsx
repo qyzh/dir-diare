@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {  Navbar } from '../components/nav'
 import Saweria from 'app/components/saweria'
+import { SlashIcon } from '@radix-ui/react-icons';
 
 
 function Webzx ({ children }) {
@@ -55,7 +56,7 @@ export default function AboutkPage() {
                     <h2 className=''> Syauqi Ashadullah is my name. </h2>
 
                     <p>I am a Communication student who has an interest in technology and coffee, and am currently living in Bandung, West Java.</p>
-                    <p>I created <Webzx> <a href='/blog'>this blog</a></Webzx> actually for <strong>personal</strong> reasons, as well as a place for me to try / learn about the <Webzx>Web</Webzx>.</p>
+                    <p>I created <Webzx> <a href='/blog'>this blog</a></Webzx> actually for <strong>personal</strong> reasons, as well as a place for me to try <SlashIcon className='inline hover:text-red-500'/> learn about the <Webzx>Web</Webzx>.</p>
                     <p>In addition, because I do not like to talk to other people, I pour out my thoughts through this blog, 
                         like how to <strong>express my life's grievances</strong>, <strong>feelings</strong>,<strong>love</strong>,<strong>college</strong>, or <strong>friendship</strong>.</p>
 

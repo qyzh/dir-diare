@@ -3,14 +3,14 @@ import B2T from "./back2top"
 
 function Linkext({ name, href }) {
     return (
-        <Link
+        <a
             target="_blank"
             rel="noopener noreferrer"
             className="text-slate-50  after:content-['_↗']"
             href={href}
         >
             {name}
-        </Link>
+        </a>
     )
 }
 

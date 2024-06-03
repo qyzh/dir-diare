@@ -5,59 +5,9 @@ import { HoverEffect } from './components/ui/card-hover-effect'
 import { BackgroundBeams } from './components/ui/background-beams'
 import  AnimatedGridPattern  from './components/ui/animate-gridpattern'
 import TextShimmer from "./components/ui/animated-shiny-text";
+import { ArrowRightIcon, DoubleArrowDownIcon } from '@radix-ui/react-icons'
 import { cn } from "utils/cn";
 
-
-function ArrowIcon() {
-    return (
-        <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            strokeWidth="1.5"
-            stroke="currentColor"
-            fill="none"
-            className="flex 
-        justify-center 
-        items-center 
-        select-none 
-        bg-black 
-        border-2 
-        text-neutral-300 
-        text-sm
-        font-bold 
-        p-2 
-        m-2 
-        rounded-full 
-        shadow-[0_8px_16px_rgb(0_0_0/0.4)] 
-        border border-transparent
-        border-white/[0.2]
-        h-12 
-        w-12 
-        focus:outline-none 
-        focus:shadow-outline"
-        >
-            <path
-                strokeLinejoin="round"
-                d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5"
-            />
-        </svg>
-    )
-}
-function ArrowRightIcon() {
-    return (
-        <svg xmlns="http://www.w3.org/2000/svg" 
-        viewBox="0 0 20 20" 
-        fill="currentColor" 
-        className="size-5
-        ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5
-        "
-        >
-  <path fillRule="evenodd" d="M2 10a.75.75 0 0 1 .75-.75h12.59l-2.1-1.95a.75.75 0 1 1 1.02-1.1l3.5 3.25a.75.75 0 0 1 0 1.1l-3.5 3.25a.75.75 0 1 1-1.02-1.1l2.1-1.95H2.75A.75.75 0 0 1 2 10Z" clipRule="evenodd" />
-</svg>
-    )
-}
 function BlogLink({ slug, name }) {
     return (
             <div className="z-10 mb-8 items-center justify-center">
@@ -122,7 +72,27 @@ export default function Page() {
 
                     <div className="flex justify-center animate-bounce text-sm">
                         <a href="#sec2">
-                            <ArrowIcon />
+                            <DoubleArrowDownIcon className='
+                            flex 
+                            justify-center 
+                            items-center 
+                            select-none 
+                            bg-black 
+                            border-2 
+                            text-neutral-300 
+                            text-sm
+                            font-bold 
+                            p-2 
+                            m-2 
+                            rounded-full 
+                            shadow-[0_8px_16px_rgb(0_0_0/0.4)] 
+                            border border-transparent
+                            border-white/[0.2]
+                            h-12 
+                            w-12 
+                            focus:outline-none 
+                            focus:shadow-outline"
+                            ' />
                         </a>
                     </div>
                 </div>
