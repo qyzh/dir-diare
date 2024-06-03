@@ -6,6 +6,7 @@ import { BackgroundBeams } from './components/ui/background-beams'
 import  AnimatedGridPattern  from './components/ui/animate-gridpattern'
 import TextShimmer from "./components/ui/animated-shiny-text";
 import { ArrowRightIcon, DoubleArrowDownIcon } from '@radix-ui/react-icons'
+import { motion, useAnimate } from 'framer-motion'
 import { cn } from "utils/cn";
 
 function BlogLink({ slug, name }) {
@@ -45,15 +46,57 @@ export default function Page() {
     ]
     return (
         <section>
+                    <motion.div
+          className='will-change-[opacity] '
+          initial={{
+            opacity: 0
+          }}
+          animate={{
+            opacity: 1
+          }}
+          transition={{
+            duration: 0.5
+          }}
+        >
             <div className="h-screen w-full rounded-md relative text-center flex flex-col items-center justify-center antialiased lg:h-screen lg:text-left">
                 <div className="max-w-2xl mx-auto p-4">
                     <div className="text-3xl md:text-7xl font-bold mb-6 relative dark:text-zinc-100 text-zinc-700 max-w-4xl">
+                    <motion.div 
+                    className='will-change-[transform,opacity] '
+                    initial={{
+                        x: 40,
+                        opacity: 0
+                      }}
+                      animate={{
+                        x: 0,
+                        opacity: 1
+                      }}
+                      transition={{
+                        duration: 2.5
+                      }}
+                    
+                    >
                         Hi,
-                        <FlipWords words={words} />
-                        <br />
+                        <FlipWords words={words} />                        <br />
+                    </motion.div>
+                        <motion.div
+                        className='will-change-[transform,opacity] '
+                        initial={{
+                            x: -40,
+                            opacity: 0
+                          }}
+                          animate={{
+                            x: 0,
+                            opacity: 1
+                          }}
+                          transition={{
+                            duration: 2.5
+                          }}
+                        >
                         <div className="relative text-xl font-regular text-zinc-500 mb-4 tracking-wide md:mb-8 max-w-2xl antialiased md:text-5xl">
                             Welcome to dir-diare
                         </div>
+                        </motion.div>
                     </div>
                 </div>
                 <BackgroundBeams />
@@ -68,9 +111,37 @@ export default function Page() {
         )}
       />
                 <div className="z-5 mb-8">
+                    <motion.div 
+                    className='will-change-[transform,opacity] '
+                    initial={{
+                        y: -40,
+                        opacity: 0
+                      }}
+                      animate={{
+                        y: 0,
+                        opacity: 1
+                      }}
+                      transition={{
+                        duration: 2.5
+                      }}
+                    >
                         <BlogLink name="Hello World!" slug="hello-w" />
-
+                        </motion.div>
                     <div className="flex justify-center animate-bounce text-sm">
+                    <motion.div 
+                    className='will-change-[transform,opacity] '
+                    initial={{
+                        y: 40,
+                        opacity: 0
+                      }}
+                      animate={{
+                        y: 0,
+                        opacity: 1
+                      }}
+                      transition={{
+                        duration: 2.5
+                      }}
+                    >
                         <a href="#sec2">
                             <DoubleArrowDownIcon className='
                             flex 
@@ -94,16 +165,53 @@ export default function Page() {
                             focus:shadow-outline"
                             ' />
                         </a>
+                    </motion.div>
                     </div>
+                    
                 </div>
             </div>
-
+            </motion.div>
+            
+            <motion.div
+          className='will-change-[transform,opacity]'
+          initial={{
+            y: 40,
+            opacity: 0
+          }}
+          animate={{
+            y: 0,
+            opacity: 1
+          }}
+          transition={{
+            duration: 0.5
+          }}
+        >
+          
+          <motion.div
+                        
+                        initial={{
+                            opacity: 0,
+                          }}
+                        animate={{
+                          y:40,
+                        }}
+                        whileInView={{
+                            opacity: 1,
+                            y:0
+                        }}
+                        viewport={{ 
+                          once: true,
+                          amount: "all",
+                        }}
+                        >
             <div id="sec2">
                 
                 <div className="max-w-5xl mx-auto px-8">
                     <HoverEffect items={projects} />
                 </div>
             </div>
+            </motion.div>
+            </motion.div>
         </section>
     )
 }

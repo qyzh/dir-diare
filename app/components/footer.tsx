@@ -1,3 +1,5 @@
+"use client"
+import {motion} from "framer-motion"
 import Link from "next/link"
 import B2T from "./back2top"
 
@@ -17,7 +19,11 @@ function Linkext({ name, href }) {
 export default function Footer() {
     return (
         <footer className="prose mb-8">
-            <div className="mt-8 text-neutral-600 dark:text-neutral-300 ">
+            <motion.div
+            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            transition={{ duration: 0.5 }}
+            className="mt-8 text-neutral-600 dark:text-neutral-300 ">
                 <p className="text-left">
                     <span className="font-semibold text-neutral-500 dark:text-neutral-200">
                         dir-diare
@@ -32,7 +38,7 @@ export default function Footer() {
                     make with 💔 and 💸 © {new Date().getFullYear()} All rights
                     reserved.
                 </p>
-            </div>
+            </motion.div>
             <B2T/>
         </footer>
     )

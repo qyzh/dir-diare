@@ -2,6 +2,7 @@ import { BlogPosts } from 'app/components/posts'
 import { FlipWordz } from '../components/textflipz'
 import {  Navbar } from '../components/nav'
 import { GridPattern } from '../components/ui/grid-pattern'
+import { motion } from "framer-motion"
 import { cn } from 'utils/cn'
 
 export const metadata = {

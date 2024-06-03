@@ -1,5 +1,7 @@
+"use client"
 import { SlashIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 const navItems = {
     '/': {
@@ -16,7 +18,20 @@ const navItems = {
 export function Navbar() {
     return (
         <aside className="-ml-[8px] mb-16 tracking-tight">
-            <div className="lg:sticky lg:top-20">
+            <motion.div 
+                                initial={{
+                                    y: -40,
+                                    opacity: 0
+                                  }}
+                                  animate={{
+                                    y: 0,
+                                    opacity: 1
+                                  }}
+                                  transition={{
+                                    duration: 0.5
+                                  }}
+            
+            className="lg:sticky lg:top-20">
                 <nav
                     className="flex flex-row relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
                     id="nav"
@@ -48,7 +63,7 @@ export function Navbar() {
                         </span>
                     </div>
                 </nav>
-            </div>
+            </motion.div>
         </aside>
     )
 }
