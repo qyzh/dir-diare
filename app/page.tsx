@@ -125,7 +125,7 @@ export default function Page() {
                         duration: 2.5
                       }}
                     >
-                        <BlogLink name="Hello World!" slug="hello-w" />
+                        <BlogLink name="New Home!" slug="new-home" />
                         </motion.div>
                     <div className="flex justify-center animate-bounce text-sm">
                     <motion.div 

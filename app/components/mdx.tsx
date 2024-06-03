@@ -85,9 +85,9 @@ function Footarea(props) {
 }
 function Cbox(props) {
     return (
-        <div className='relative overflow-hidden tracking-tight text-s my-8 lg:py-6 lg:pl-6 pr-12 p-4 border dark:border-zinc-800 border-zinc-200 rounded-md'>
-<DrawingPinFilledIcon className='absolute size-24 right-0 -top-2 dark:text-zinc-800 text-zinc-200'/>
+        <div className='relative overflow-hidden tracking-tight text-s my-8 lg:py-6 lg:pl-6 pr-16 md:pr-14 p-4 border dark:border-zinc-800 border-zinc-200 rounded-md'>
 {props.children} <a href={props.href} target='_blank' className='text-zinc-500'><Link2Icon className='inline mr-1'/>{props.source}</a>
+<DrawingPinFilledIcon className='absolute size-24 -right-0 -bottom-2 dark:text-zinc-800 text-zinc-200'/>
         </div>
     )
 }
