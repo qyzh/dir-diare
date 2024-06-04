@@ -8,7 +8,7 @@ import  Komentar  from 'app/components/comments'
 import { DotPattern } from 'app/components/ui/dot-pattern'
 import { cn } from 'utils/cn'
 import Saweria from 'app/components/saweria'
-import { CalendarIcon, CaretRightIcon, ChatBubbleIcon } from '@radix-ui/react-icons'
+import { CalendarIcon, CaretRightIcon, ChatBubbleIcon, Link1Icon } from '@radix-ui/react-icons'
 export async function generateStaticParams() {
     let posts = getBlogPosts()
 

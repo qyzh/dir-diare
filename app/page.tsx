@@ -201,10 +201,15 @@ export default function Page() {
                         }}
                         viewport={{ 
                           once: true,
-                          amount: "all",
+                          amount: 0.5,
                         }}
                         >
-            <div id="sec2">
+            <div id="sec2" className='
+            h-screen
+            flex 
+            justify-center 
+            items-center 
+            '>
                 
                 <div className="max-w-5xl mx-auto px-8">
                     <HoverEffect items={projects} />

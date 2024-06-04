@@ -17,7 +17,7 @@ const navItems = {
 
 export function Navbar() {
     return (
-        <aside className="-ml-[8px] mb-16 tracking-tight">
+        <aside className="-ml-[14px] mb-16 tracking-tight">
             <motion.div 
                                 initial={{
                                     y: -40,

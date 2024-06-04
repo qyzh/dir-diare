@@ -28,7 +28,7 @@ export function BlogPosts() {
                                 {formatDate(post.metadata.publishedAt, false)}
                             </p>
                             
-                            <p className="transition-all active:opacity-0 bg-neutral-900 w-full pt-5 pl-2 font-bold font-mono -ml-6 flex align-middle text-neutral-900 hover:-ml-2 hover:bg-neutral-800 dark:text-neutral-100 tracking-tight">
+                            <p className="transition-all active:opacity-0 bg-neutral-900 w-full pt-5 pl-2 font-bold -ml-6 flex align-middle text-neutral-900 hover:-ml-2 hover:bg-neutral-800 dark:text-neutral-100 tracking-tight">
                                 {post.metadata.title}
                             </p>
                             
