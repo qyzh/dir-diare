@@ -30,8 +30,8 @@ export function BlogPosts() {
 
 <div className=' relative bg-red-500 h-24 w-32 rounded-md overflow-clip place-self-center'>
 <Image
-                  src={post.metadata.image}
-                  className="dark:bg-zinc-800 bg-zinc-100 rounded-md object-cover group-hover:scale-125 duration-300"
+                  src={post.metadata.image || '/images/bg-noise.png' }
+                  className="dark:bg-zinc-800 bg-zinc-100 rounded object-cover group-hover:scale-125 duration-300"
                   alt={post.metadata.title}
                   layout="fill"
                 />
