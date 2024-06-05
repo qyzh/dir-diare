@@ -1,6 +1,9 @@
 
 import Link from 'next/link'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
+import Image from 'next/image'
+import { CalendarIcon } from '@radix-ui/react-icons'
+
 
 export function BlogPosts() {
     let allBlogs = getBlogPosts()
@@ -20,19 +23,35 @@ export function BlogPosts() {
                 .map((post) => (
                     <Link
                         key={post.slug}
-                        className="flex bg-white/[60%] border-zinc-800 border rounded shadow-md flex-col space-y-1 mb-4 hover:bg-white/[90%]"
+                        className="group"
                         href={`/blog/${post.slug}`}
                     >
-                        <div className="w-full flex flex-row">
-                            <p className="text-neutral-400 p-2 font-mono dark:text-neutral-600 w-[100px] tabular-nums hover:text-neutral-600">
-                                {formatDate(post.metadata.publishedAt, false)}
-                            </p>
-                            
-                            <p className="transition-all active:opacity-0 bg-neutral-900 w-full pt-5 pl-2 font-bold -ml-6 flex align-middle text-neutral-900 hover:-ml-2 hover:bg-neutral-800 dark:text-neutral-100 tracking-tight">
-                                {post.metadata.title}
-                            </p>
-                            
-                        </div>
+            <div className='flex flex-row  gap-2 bg-black/20 border-zinc-700 p-2 border rounded shadow-md mb-4 group-hover:bg-black/30 group-hover:border-zinc-600'>
+
+<div className=' relative bg-red-500 h-24 w-32 rounded-md overflow-clip place-self-center'>
+<Image
+                  src={post.metadata.image}
+                  className="dark:bg-zinc-800 bg-zinc-100 rounded-md object-cover group-hover:scale-125 duration-300"
+                  alt={post.metadata.title}
+                  layout="fill"
+                />
+</div>
+
+<div className=' p-4'>
+<p className='title text-xl font-bold'>{post.metadata.title}</p>
+
+<p className='text-sm text-zinc-500  '>
+<CalendarIcon className=' inline-block mr-1 -mt-1'/>
+<span>{formatDate(post.metadata.publishedAt, false)} </span>
+
+<span>{post.metadata.tag}</span>
+</p>
+<p className='text-zinc-400'>
+{post.metadata.summary}
+</p>
+</div>
+</div>
+
                     </Link>
                 ))}
         </div>
