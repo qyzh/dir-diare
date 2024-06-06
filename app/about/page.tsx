@@ -70,7 +70,6 @@ export default function AboutkPage() {
             >
                 <h2 className=''>Recent Activity</h2>
                 <Strava/></div>
-            <Strava/>
             <Saweria/>
         </section>
     )
