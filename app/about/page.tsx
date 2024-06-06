@@ -6,6 +6,7 @@ import Image from 'next/image';
 import {  Navbar } from '../components/nav'
 import Saweria from 'app/components/saweria'
 import { SlashIcon } from '@radix-ui/react-icons';
+import Strava from 'app/components/strava';
 
 
 function Webzx ({ children }) {
@@ -36,9 +37,9 @@ export default function AboutkPage() {
             <h1 className="font-medium text-2xl mb-8 tracking-tighter">
                 about me & this blog
             </h1>
-            <div className="absolute inset-0 -z-10 bg-top opacity-10 forced-colors:hidden" 
+            <div className="fixed inset-0 h-full w-full -z-10 bg-top opacity-10 forced-colors:hidden" 
             style={{ 
-                backgroundImage: `url("/Image/bg-noise.png")`}} aria-hidden="true"></div>
+                backgroundImage: `url("/images/bg-noise.png")`}} aria-hidden="true"></div>
             <div className="prose prose-neutral dark:prose-invert">
                 
                 <div className='grid grid-rows-1 md:grid-cols-2 gap-2'>
@@ -65,6 +66,11 @@ export default function AboutkPage() {
             </div>
             </div>
             <hr className='my-4 border-neutral-300 dark:border-neutral-700' />
+            <div className=''
+            >
+                <h2 className=''>Recent Activity</h2>
+                <Strava/></div>
+            <Strava/>
             <Saweria/>
         </section>
     )
