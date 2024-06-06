@@ -60,11 +60,12 @@ const Card = ({ title, description, imgSrc, href, tagz }) => (
           )}
         </h2>
         <p className="
-        block p-4 mb-4 text-base text-black/50
+        block min-h-[12rem] max-h-[12rem] p-4 mb-4 text-base text-black/50
         antialiased font-light leading-relaxed
         dark:text-white/50">{description}</p>
         {href && (
-            <button
+            <Link
+            href={href}
 className="block w-full select-none rounded-lg 
             bg-white/[4%] py-3.5 px-7 text-center
             align-middle text-sm font-bold uppercase 
@@ -78,14 +79,14 @@ className="block w-full select-none rounded-lg
             
             "
 type="button">
-          <Link
-            href={href}
-            className="p-4 text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+          <button
+            
+            className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
             aria-label={`Link to ${title}`}
           > 
 View
-</Link>
-          </button>
+</button>
+          </Link>
         )}
 
       </div>

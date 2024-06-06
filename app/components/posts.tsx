@@ -31,14 +31,14 @@ export function BlogPosts() {
 <div className=' relative bg-red-500 h-24 w-32 rounded-md overflow-clip place-self-center'>
 <Image
                   src={post.metadata.image || '/images/bg-noise.png' }
-                  className="dark:bg-zinc-800 bg-zinc-100 rounded object-cover group-hover:scale-125 duration-300"
+                  className="dark:bg-zinc-800 bg-zinc-100 layout-fill grayscale group-hover:grayscale-0 rounded object-cover group-hover:scale-125 duration-300"
                   alt={post.metadata.title}
-                  layout="fill"
+layout='fill'
                 />
 </div>
 
 <div className=' p-4'>
-<p className='title text-xl font-bold'>{post.metadata.title}</p>
+<p className='title text-md md:text-xl font-bold'>{post.metadata.title}</p>
 
 <p className='text-sm text-zinc-500  '>
 <CalendarIcon className=' inline-block mr-1 -mt-1'/>
@@ -46,7 +46,7 @@ export function BlogPosts() {
 
 <span>{post.metadata.tag}</span>
 </p>
-<p className='text-zinc-400'>
+<p className='text-zinc-400 text-sm md:text-md'>
 {post.metadata.summary}
 </p>
 </div>

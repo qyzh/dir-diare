@@ -15,7 +15,7 @@ export default function Page() {
     return (
         <section>
             <Navbar />
-            <SecHead judul='my blog' desc='Sekumpulan cerita, curhatan, opini dan lain-lainnya'/>
+            <SecHead judul='my blog' desc={`cerita, curhatan, opini dan lain-lainnya`}/>
             <BlogPosts />
             <GridPattern
         width={20}
