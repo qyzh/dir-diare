@@ -52,6 +52,16 @@ function CustomLink(props) {
 function RoundedImage(props) {
     return <Image alt={props.alt} className="rounded-lg" {...props} />
 }
+function Imgfull(props) {
+    return (
+        <div className="flex justify-center items-center my-2 h-96 lg:h-svh md:h-svh">
+        <figure className="absolute left-0">
+        <img className="relative h-96 lg:h-svh md:h-svh w-screen" src={props.src} alt={props.alt}/>
+        <figcaption className="relative my-2 text-sm text-center md:text-left lg:text-center text-gray-500 dark:text-gray-400">{props.caption}</figcaption>
+      </figure>
+      </div>
+      )
+}
 
 function Linkext(props) {
     return (
@@ -286,7 +296,7 @@ let components = {
     h6: createHeading(6),
     Image: RoundedImage,
     a: CustomLink,
-    Penting,
+    Penting,Imgfull,
     Kutiptengah,
     Kutipkiri,
     Kutipkanan,
