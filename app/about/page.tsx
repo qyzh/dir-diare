@@ -6,7 +6,6 @@ import Image from 'next/image';
 import {  Navbar } from '../components/nav'
 import Saweria from 'app/components/saweria'
 import { SlashIcon } from '@radix-ui/react-icons';
-import Strava from 'app/components/strava';
 
 
 function Webzx ({ children }) {
@@ -69,7 +68,7 @@ export default function AboutkPage() {
             <div className=''
             >
                 <h2 className=''>Recent Activity</h2>
-                <Strava/></div>
+                </div>
             <Saweria/>
         </section>
     )
