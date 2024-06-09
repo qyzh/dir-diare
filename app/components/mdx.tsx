@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React, { Children } from 'react'
-import { CodeIcon, DownloadIcon, DrawingPinFilledIcon, Link2Icon, RocketIcon } from '@radix-ui/react-icons'
+import { CalendarIcon, CodeIcon, CursorArrowIcon, DownloadIcon, DrawingPinFilledIcon, IconJarLogoIcon, Link2Icon, RocketIcon, ThickArrowRightIcon } from '@radix-ui/react-icons'
 
 function Table({ data }) {
     let headers = data.headers.map((header, index) => (
@@ -63,6 +63,28 @@ function Imgfull(props) {
       )
 }
 
+function Relatepost(props) {
+    return (
+        <Link href={props.href} className='no-prose'>
+        <div className="flex items-center m-auto bg-black/20 border border-zinc-700 p-4 rounded-lg w-full md:w-1/2 overflow-hidden">
+  <div className="flex-none relative">
+    <img src={props.img}
+    alt={props.title} 
+    className="w-20 h-20 object-cover rounded-full " 
+    loading="lazy" />
+  </div>
+           <div className='flex-auto ml-4'>
+            <div className=''>
+           <span className='text-lg font-semibold '>{props.title}</span><br/>
+           <span className="text-sm text-gray-500 dark:text-gray-400">{props.desc}</span>
+           </div>
+            </div>
+           
+        </div>
+        </Link>
+      )
+}
+
 function Linkext(props) {
     return (
         <Link
@@ -93,14 +115,22 @@ function Footarea(props) {
         </div>
     )
 }
-function Cbox(props) {
-    return (
-        <div className='relative overflow-hidden tracking-tight text-s my-8 lg:py-6 lg:pl-6 pr-16 md:pr-14 p-4 border dark:border-zinc-800 border-zinc-200 rounded-md'>
-{props.children} <a href={props.href} target='_blank' className='text-zinc-500'><Link2Icon className='inline mr-1'/>{props.source}</a>
-<DrawingPinFilledIcon className='absolute size-24 -right-0 -bottom-2 dark:text-zinc-800 text-zinc-200'/>
-        </div>
-    )
-}
+const Cbox = ({ children, href, source }) => (
+    <div 
+        className='relative tracking-tight text-pretty text-s my-8 p-4 border border-zinc-600 rounded-md'
+    >
+        <span className="absolute flex h-8 w-8 -right-4 -top-4"> 
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-8 w-8 bg-sky-500 items-center justify-center">
+            <DrawingPinFilledIcon/>
+            </span>
+        </span>
+        {children}{' '}
+        <a href={href} target='_blank' className='text-zinc-500'>
+            <Link2Icon className='inline mr-1'/>{source}
+        </a>
+    </div>
+)
 function FNlist(props) {
     return (
         <li id={props.id}>
@@ -298,7 +328,7 @@ let components = {
     a: CustomLink,
     Penting,Imgfull,
     Kutiptengah,
-    Kutipkiri,
+    Kutipkiri,Relatepost,
     Kutipkanan,
     Linkext,ComArt,
     FN,Error,

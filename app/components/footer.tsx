@@ -35,7 +35,7 @@ export default function Footer() {
                     />
                     {' '}
                     
-                    make with 💔 and 💸 © {new Date().getFullYear()} All rights
+                    make with <span className="animate-ping">💔</span> and 💸 © {new Date().getFullYear()} All rights
                     reserved.
                 </p>
             </motion.div>

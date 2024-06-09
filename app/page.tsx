@@ -6,7 +6,7 @@ import { BackgroundBeams } from './components/ui/background-beams'
 import  AnimatedGridPattern  from './components/ui/animate-gridpattern'
 import TextShimmer from "./components/ui/animated-shiny-text";
 import { ArrowRightIcon, DoubleArrowDownIcon } from '@radix-ui/react-icons'
-import { motion, useAnimate } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { cn } from "utils/cn";
 
 function BlogLink({ slug, name }) {
@@ -125,7 +125,7 @@ export default function Page() {
                         duration: 2.5
                       }}
                     >
-                        <BlogLink name="New Home!" slug="new-home" />
+                        <BlogLink name="Jadi Gua Tuh FED?" slug="fedorbed" />
                         </motion.div>
                     <div className="flex justify-center animate-bounce text-sm">
                     <motion.div 
