@@ -64,7 +64,7 @@ function Imgfull(props) {
 }
 function ImgLg(props) {
     return (
-        <div className="my-36 scale-150">
+        <div className="my-8 md:my-36 md:scale-150 ">
         <figure className="w-full h-96 relative">
         <img className="absolute inset-0 w-full h-full object-cover"
          src={props.src} alt={props.alt}/>
@@ -129,10 +129,10 @@ function Footarea(props) {
 }
 const Cbox = ({ children, href, source }) => (
     <div 
-        className='relative tracking-tight text-pretty text-s my-8 border border-zinc-600 rounded-md'
+        className='relative tracking-tight text-pretty text-soverflow-hidden my-8 border border-zinc-600 rounded-md'
     >
-        <span className="absolute flex h-8 w-8 -right-4 -top-4"> 
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+        <span className="absolute flex h-12 w-12 -right-4 rounded-full items-center justify-center -top-4 overflow-hidden"> 
+            <span className="animate-ping absolute inline-flex  h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-8 w-8 bg-blue-500 items-center justify-center">
             <DrawingPinFilledIcon/>
             </span>
