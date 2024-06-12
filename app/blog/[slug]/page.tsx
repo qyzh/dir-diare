@@ -112,7 +112,7 @@ export default function Blog({ params }) {
                 <time className='proportional-nums ' dateTime={post.metadata.publishedAt} >{formatDate(post.metadata.publishedAt)}</time>
                 <Link
                 href="#comments"
-                className="flex items-center gap-x-2 font-mono text-m text-sky-500 hover:text-sky-600 "
+                className="flex items-center gap-x-2 font-mono text-m text-blue-500 hover:text-sky-600 "
               >
                 <ChatBubbleIcon/>
                 <div className="#comments">Comments</div>

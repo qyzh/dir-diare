@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React, { Children } from 'react'
-import { CalendarIcon, CodeIcon, CursorArrowIcon, DownloadIcon, DrawingPinFilledIcon, IconJarLogoIcon, Link2Icon, RocketIcon, ThickArrowRightIcon } from '@radix-ui/react-icons'
+import { CodeIcon,DownloadIcon, DrawingPinFilledIcon, Link2Icon, RocketIcon } from '@radix-ui/react-icons'
 
 function Table({ data }) {
     let headers = data.headers.map((header, index) => (
@@ -58,31 +58,35 @@ function Imgfull(props) {
         <figure className="absolute left-0">
         <img className="relative h-96 lg:h-svh md:h-svh w-screen" src={props.src} alt={props.alt}/>
         <figcaption className="relative my-2 text-sm text-center md:text-left lg:text-center text-gray-500 dark:text-gray-400">{props.caption}</figcaption>
-      </figure>
-      </div>
-      )
+    </figure>
+    </div>
+    )
 }
-
-function Relatepost(props) {
+function ImgLg(props) {
     return (
-        <Link href={props.href} className='no-prose'>
-        <div className="flex items-center m-auto bg-black/20 border border-zinc-700 p-4 rounded-lg w-full md:w-1/2 overflow-hidden">
-  <div className="flex-none relative">
-    <img src={props.img}
-    alt={props.title} 
-    className="w-20 h-20 object-cover rounded-full " 
-    loading="lazy" />
-  </div>
-           <div className='flex-auto ml-4'>
-            <div className=''>
-           <span className='text-lg font-semibold '>{props.title}</span><br/>
-           <span className="text-sm text-gray-500 dark:text-gray-400">{props.desc}</span>
-           </div>
-            </div>
-           
+        <div className="my-36 scale-150">
+        <figure className="w-full h-96 relative">
+        <img className="absolute inset-0 w-full h-full object-cover"
+         src={props.src} alt={props.alt}/>
+        <figcaption className="relative my-2 text-sm text-center md:text-left lg:text-center text-gray-500 dark:text-gray-400">{props.caption}</figcaption>
+    </figure>
+    </div>
+    )
+}
+function Relatepost({ href, img, title, desc }) {
+    return (
+        <Link href={href} className='no-prose'>
+        <div className="flex items-center shadow-lg m-auto bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 p-4 rounded-lg w-full md:w-1/2 overflow-hidden">
+<div className="flex-none relative">
+    <img src={img} alt={title} className="border-2 border-zinc-700 w-20 h-20 object-cover rounded-full" loading="lazy" />
+</div>
+        <div className='flex-auto ml-4'>
+        <span className='text-lg font-semibold'>{title}</span><br/>
+        <span className="text-sm text-gray-500 dark:text-gray-400">{desc}</span>
         </div>
+            </div>
         </Link>
-      )
+    )
 }
 
 function Linkext(props) {
@@ -97,7 +101,15 @@ function Linkext(props) {
         </Link>
     )
 }
-
+function StabiloBiru(props) {
+    return (
+        <span
+            className="font-semibold italic opacity-50 hover:opacity-100 bg-blue-200 text-zinc-900 border-b-2 border-blue-500"
+        >
+            {props.children}
+        </span>
+    )
+}
 function FN(props) {
     return (
         <a href={props.href} aria-describedby="footnote-label" id={props.id}>
@@ -117,18 +129,22 @@ function Footarea(props) {
 }
 const Cbox = ({ children, href, source }) => (
     <div 
-        className='relative tracking-tight text-pretty text-s my-8 p-4 border border-zinc-600 rounded-md'
+        className='relative tracking-tight text-pretty text-s my-8 border border-zinc-600 rounded-md'
     >
         <span className="absolute flex h-8 w-8 -right-4 -top-4"> 
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-8 w-8 bg-sky-500 items-center justify-center">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-8 w-8 bg-blue-500 items-center justify-center">
             <DrawingPinFilledIcon/>
             </span>
         </span>
+        <div className='p-8'>
         {children}{' '}
-        <a href={href} target='_blank' className='text-zinc-500'>
+        </div>
+        <div className='flex bg-neutral-800 text-zinc-200 py-2 px-8 border-t border-zinc-400'>
+        <a href={href} target='_blank' >
             <Link2Icon className='inline mr-1'/>{source}
         </a>
+        </div>
     </div>
 )
 function FNlist(props) {
@@ -201,9 +217,9 @@ function Errorpop(props) {
         <div className="flex w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-md dark:bg-neutral-800">
         <div className="flex items-center justify-center w-12 bg-rose-500">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-  <path fillRule="evenodd" d="M12 6.75a5.25 5.25 0 0 1 6.775-5.025.75.75 0 0 1 .313 1.248l-3.32 3.319c.063.475.276.934.641 1.299.365.365.824.578 1.3.64l3.318-3.319a.75.75 0 0 1 1.248.313 5.25 5.25 0 0 1-5.472 6.756c-1.018-.086-1.87.1-2.309.634L7.344 21.3A3.298 3.298 0 1 1 2.7 16.657l8.684-7.151c.533-.44.72-1.291.634-2.309A5.342 5.342 0 0 1 12 6.75ZM4.117 19.125a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Z" clipRule="evenodd" />
-  <path d="m10.076 8.64-2.201-2.2V4.874a.75.75 0 0 0-.364-.643l-3.75-2.25a.75.75 0 0 0-.916.113l-.75.75a.75.75 0 0 0-.113.916l2.25 3.75a.75.75 0 0 0 .643.364h1.564l2.062 2.062 1.575-1.297Z" />
-  <path fillRule="evenodd" d="m12.556 17.329 4.183 4.182a3.375 3.375 0 0 0 4.773-4.773l-3.306-3.305a6.803 6.803 0 0 1-1.53.043c-.394-.034-.682-.006-.867.042a.589.589 0 0 0-.167.063l-3.086 3.748Zm3.414-1.36a.75.75 0 0 1 1.06 0l1.875 1.876a.75.75 0 1 1-1.06 1.06L15.97 17.03a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
+<path fillRule="evenodd" d="M12 6.75a5.25 5.25 0 0 1 6.775-5.025.75.75 0 0 1 .313 1.248l-3.32 3.319c.063.475.276.934.641 1.299.365.365.824.578 1.3.64l3.318-3.319a.75.75 0 0 1 1.248.313 5.25 5.25 0 0 1-5.472 6.756c-1.018-.086-1.87.1-2.309.634L7.344 21.3A3.298 3.298 0 1 1 2.7 16.657l8.684-7.151c.533-.44.72-1.291.634-2.309A5.342 5.342 0 0 1 12 6.75ZM4.117 19.125a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75h-.008a.75.75 0 0 1-.75-.75v-.008Z" clipRule="evenodd" />
+<path d="m10.076 8.64-2.201-2.2V4.874a.75.75 0 0 0-.364-.643l-3.75-2.25a.75.75 0 0 0-.916.113l-.75.75a.75.75 0 0 0-.113.916l2.25 3.75a.75.75 0 0 0 .643.364h1.564l2.062 2.062 1.575-1.297Z" />
+<path fillRule="evenodd" d="m12.556 17.329 4.183 4.182a3.375 3.375 0 0 0 4.773-4.773l-3.306-3.305a6.803 6.803 0 0 1-1.53.043c-.394-.034-.682-.006-.867.042a.589.589 0 0 0-.167.063l-3.086 3.748Zm3.414-1.36a.75.75 0 0 1 1.06 0l1.875 1.876a.75.75 0 1 1-1.06 1.06L15.97 17.03a.75.75 0 0 1 0-1.06Z" clipRule="evenodd" />
 </svg>
 
         </div>
@@ -223,11 +239,11 @@ function Errorpop(props) {
 function ComArt({ src, alt}) {
     return (
 <Image alt={alt} className="rounded-lg border border-zinc-700"
-      loading="lazy"
-      width={900}
-      height={900}
-      quality={100}
-      src={src}
+    loading="lazy"
+    width={900}
+    height={900}
+    quality={100}
+    src={src}
  />
     )
 }
@@ -252,8 +268,8 @@ function BtnSource({ href, text}) {
         type="button">
         {text}
 <CodeIcon/>
-      </button>
-      </Link>
+    </button>
+    </Link>
     )
 }
 function BtnPreview({ href, text }) {
@@ -264,9 +280,8 @@ function BtnPreview({ href, text }) {
         type="button">  
         {text}
 <RocketIcon/>
-  
-      </button>
-      </Link>
+    </button>
+    </Link>
     )
 }
 function BtnArea(props) {
@@ -326,12 +341,12 @@ let components = {
     h6: createHeading(6),
     Image: RoundedImage,
     a: CustomLink,
-    Penting,Imgfull,
+    Penting,Imgfull,ImgLg,
     Kutiptengah,
     Kutipkiri,Relatepost,
     Kutipkanan,
     Linkext,ComArt,
-    FN,Error,
+    FN,Error,StabiloBiru,
     Footarea,Cbox,
     FNlist,BtnArea,BtnDownload,BtnPreview,BtnSource,
     Marker,Errorpop,
