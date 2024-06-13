@@ -73,12 +73,13 @@ function ImgLg(props) {
     </div>
     )
 }
+
 function Relatepost({ href, img, title, desc }) {
     return (
         <Link href={href} className='no-prose'>
-        <div className="flex items-center shadow-lg m-auto bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 p-4 rounded-lg w-full md:w-1/2 overflow-hidden">
+        <div className="flex items-center shadow-lg m-auto border border-zinc-700 p-4 rounded-lg w-full md:w-1/2 overflow-hidden">
 <div className="flex-none relative">
-    <img src={img} alt={title} className="border-2 border-zinc-700 w-20 h-20 object-cover rounded-full" loading="lazy" />
+    <img src={img} alt={title} className="border-2 border-zinc-700 w-20 h-20 object-cover" loading="lazy" />
 </div>
         <div className='flex-auto ml-4'>
         <span className='text-lg font-semibold'>{title}</span><br/>
@@ -88,6 +89,7 @@ function Relatepost({ href, img, title, desc }) {
         </Link>
     )
 }
+
 
 function Linkext(props) {
     return (

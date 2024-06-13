@@ -3,6 +3,7 @@ import {  Navbar } from '../components/nav'
 import { GridPattern } from '../components/ui/grid-pattern'
 import { cn } from 'utils/cn'
 import Uq from 'app/components/uq';
+import SecHead from 'app/components/sechead';
 
 export const metadata = {
     title: 'Blog',
@@ -13,6 +14,7 @@ export default function Page() {
     return (
         <section>
             <Navbar />
+            <SecHead judul='My note' desc='Tentang random hal,Tjinta,Opini,Tjoerhatan dan sebagainja' />
             <BlogPosts />
             <GridPattern
         width={20}
