@@ -8,7 +8,8 @@ import  Komentar  from 'app/components/comments'
 import { DotPattern } from 'app/components/ui/dot-pattern'
 import { cn } from 'utils/cn'
 import Saweria from 'app/components/saweria'
-import { CalendarIcon, CaretRightIcon, ChatBubbleIcon, Link1Icon } from '@radix-ui/react-icons'
+import { CalendarIcon, ChatBubbleIcon } from '@radix-ui/react-icons'
+import Breadcrumbs from 'app/components/breadcrumbs'
 export async function generateStaticParams() {
     let posts = getBlogPosts()
 
@@ -89,24 +90,7 @@ export default function Blog({ params }) {
                     }),
                 }}
             />
-            <div className="relative flex items-center bg-zinc-900 rounded border border-zinc-800 p-2 mb-4 ">
-                <a
-                    href="/blog"
-                    className="
-                    whitespace-nowrap text-zinc-400 hover:dark:text-white hover:text-zinc-700 text-sm border-b dark:border-zinc-700 border-zinc-200
-                    
-                    "
-                >
-                    dir ..
-                </a>
-                <span className="mx-2">
-
-<CaretRightIcon/>
-                </span>
-                <p className="text-neutral-600 dark:text-neutral-400 text-sm font-mono">
-                    {post.metadata.title}
-                </p>
-            </div>
+            <Breadcrumbs post={post}/>
             <div className="flex items-center gap-x-2 font-mono text-m text-neutral-600 dark:text-neutral-400 mb-2">
 <CalendarIcon />
                 <time className='proportional-nums ' dateTime={post.metadata.publishedAt} >{formatDate(post.metadata.publishedAt)}</time>

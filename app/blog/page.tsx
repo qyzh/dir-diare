@@ -1,10 +1,8 @@
 import { BlogPosts } from 'app/components/posts'
-import { FlipWordz } from '../components/textflipz'
 import {  Navbar } from '../components/nav'
 import { GridPattern } from '../components/ui/grid-pattern'
-import { motion } from "framer-motion"
 import { cn } from 'utils/cn'
-import  SecHead from 'app/components/sechead';
+import Uq from 'app/components/uq';
 
 export const metadata = {
     title: 'Blog',
@@ -15,7 +13,6 @@ export default function Page() {
     return (
         <section>
             <Navbar />
-            <SecHead judul='my blog' desc={`cerita, curhatan, opini dan lain-lainnya`}/>
             <BlogPosts />
             <GridPattern
         width={20}
