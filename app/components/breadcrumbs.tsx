@@ -19,7 +19,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
 
-        className="relative flex font-mono items-center bg-black/20 rounded border border-zinc-800 p-2 mb-4">
+        className="relative flex font-mono items-center backdrop-blur-sm backdrop-saturate-50 bg-black/20 rounded border border-zinc-800 p-2 mb-4">
             <a
                 href="/blog"
                 className="
@@ -31,7 +31,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
             <span className="mx-2">
                 <CaretRightIcon />
             </span>
-            <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+            <p className="text-neutral-600 truncate hover:text-clip dark:text-neutral-400 text-sm">
                 {title}.mdx
             </p>
         </motion.div>

@@ -26,7 +26,7 @@ export function BlogPosts() {
                         className="group"
                         href={`/blog/${post.slug}`}
                     >
-            <div className='flex flex-row items-center gap-2 bg-black/20 border-zinc-700 px-4 py-4 border rounded shadow-md mb-4 group-hover:bg-black/30 group-hover:border-zinc-600'>
+            <div className='flex flex-row items-center gap-2 backdrop-blur-sm backdrop-saturate-50 bg-black/20 border-zinc-700 px-4 py-4 border shadow-md rounded-lg mb-4 group-hover:bg-black/30 group-hover:border-zinc-600'>
 
 <div className=' relative h-24 w-32 rounded-md overflow-clip place-self-center '>
 <Image

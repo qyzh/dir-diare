@@ -1,23 +1,26 @@
 "use client"
-import { SlashIcon } from '@radix-ui/react-icons'
+import { FileIcon, SlashIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 
 const navItems = {
     '/': {
         name: 'home',
+        icon: <FileIcon/>,
     },
     '/blog': {
         name: 'blog',
+        icon: <FileIcon/>,
     },
     '/work': {
         name: 'work',
+        icon: <SlashIcon/>,
     },
 }
 
 export function Navbar() {
     return (
-        <aside className="-ml-[6px] mb-16 tracking-tight">
+        <aside className="-ml-[6px] mb-16 tracking-tight sticky z-1 top-4">
             <motion.div 
                                 initial={{
                                     y: -40,
@@ -31,20 +34,20 @@ export function Navbar() {
                                     duration: 0.5
                                   }}
             
-            className="lg:sticky lg:top-20">
+            className="rounded-lg backdrop-blur-sm backdrop-saturate-50 bg-neutral-500/20 dark:bg-neutral-900/20 lg:sticky lg:top-20">
                 <nav
                     className="flex flex-row relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
                     id="nav"
                 >
                     <div className="flex flex-row space-x-0 pr-10 ">
-                        {Object.entries(navItems).map(([path, { name }]) => {
+                        {Object.entries(navItems).map(([path, { icon,name }]) => {
                             return (
                                 <Link
                                     key={path}
                                     href={path}
-                                    className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative py-1 px-2 m-1"
+                                    className="transition-all hover:text-sky-800 dark:hover:text-[#9353d3] flex align-middle relative py-1 px-2 m-1"
                                 >
-                                    {name}
+                                   {name}
                                 </Link>
                             )
                         })}
