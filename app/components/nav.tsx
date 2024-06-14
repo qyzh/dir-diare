@@ -2,6 +2,7 @@
 import { FileIcon, SlashIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { ProfileImage } from './ui/uqimg'
 
 const navItems = {
     '/': {
@@ -20,7 +21,7 @@ const navItems = {
 
 export function Navbar() {
     return (
-        <aside className="-ml-[6px] mb-16 tracking-tight sticky z-1 top-4">
+        <aside className="mb-16 tracking-tight sticky z-1 top-4">
             <motion.div 
                                 initial={{
                                     y: -40,
@@ -34,9 +35,9 @@ export function Navbar() {
                                     duration: 0.5
                                   }}
             
-            className="rounded-lg backdrop-blur-sm backdrop-saturate-50 bg-neutral-500/20 dark:bg-neutral-900/20 lg:sticky lg:top-20">
+            className="rounded-lg p-2 backdrop-blur-sm backdrop-saturate-50 border border-zinc-700 bg-white/20 dark:bg-black/20 lg:sticky lg:top-20">
                 <nav
-                    className="flex flex-row relative px-0 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
+                    className="flex flex-row relative px-2 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
                     id="nav"
                 >
                     <div className="flex flex-row space-x-0 pr-10 ">
@@ -45,7 +46,7 @@ export function Navbar() {
                                 <Link
                                     key={path}
                                     href={path}
-                                    className="transition-all hover:text-sky-800 dark:hover:text-[#9353d3] flex align-middle relative py-1 px-2 m-1"
+                                    className="transition-all hover:text-sky-800 dark:hover:text-blue-500 flex align-middle relative px-2 m-1"
                                 >
                                    {name}
                                 </Link>
@@ -53,17 +54,13 @@ export function Navbar() {
                         })}
                     </div>
 
-                    <div className="flex align-middle relative py-1 px-2 m-1 ml-auto">
-                        <span className="hidden text-neutral-300 dark:text-neutral-500 md:pr-2 md:block hover:animate-pulse">
-                            Random world
-                        </span>
-                        <span className="font-bold pt-1 hover:animate-spin">
-                            {' '}
-                            <SlashIcon/> {' '}
-                        </span>
-                        <span className=' transition-all font-mono md:pl-2 hover:text-transparent bg-clip-text bg-gradient-to-r from-neutral-200 to-neutral-600"'>
-                            .dir-diare
-                        </span>
+                    <div className="flex relative group overflow-hidden ml-auto">
+                        <div className='py-1 px-2 text-neutral-500/90 transition-all hidden group-hover:block'>
+                            Syauqi Ashadullah
+                        </div><a href='/about'>
+                        <div className='group transition-all md:pl-2'>
+                            <ProfileImage />
+                        </div></a>
                     </div>
                 </nav>
             </motion.div>

@@ -21,11 +21,13 @@ className="flex flex-row my-12"
 >
 <div className="space-y-8 px-2">
           <div className="flex items-center space-x-6">
-            <div className="border-4 transition ease-out border-zinc-700 rounded-full hover:border-zinc-500 hover:shadow-lg hover:scale-105">
+            <a href="/about">
+            <div className="border-4 transition ease-out border-zinc-700 rounded-full hover:border-indigo-500/70 hover:shadow-lg hover:scale-105">
             <div className="h-24 w-24 rounded-full overflow-hidden">
             <ProfileImageLarge/>
             </div>
             </div>
+            </a>
             <div className="mt-2">
               <h1 className="text-2xl font-semibold leading-none text-neutral-100/90">
                 Uki's note
