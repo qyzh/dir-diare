@@ -1,9 +1,9 @@
-import { BlogPosts } from 'app/components/posts'
+
 import {  Navbar } from '../components/nav'
 import { GridPattern } from '../components/ui/grid-pattern'
 import { cn } from 'utils/cn'
-import Uq from 'app/components/uq';
 import SecHead from 'app/components/sechead';
+import { BlogPosts } from 'app/components/posts';
 
 export const metadata = {
     title: 'Blog',

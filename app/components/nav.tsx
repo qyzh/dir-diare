@@ -46,7 +46,7 @@ export function Navbar() {
                                 <Link
                                     key={path}
                                     href={path}
-                                    className="transition-all hover:text-sky-800 dark:hover:text-blue-500 flex align-middle relative px-2 m-1"
+                                    className="transition-all hover:text-sky-800 dark:hover:text-blue-500 flex align-middle relative px-2 py-[2px] m-1"
                                 >
                                    {name}
                                 </Link>
@@ -55,12 +55,14 @@ export function Navbar() {
                     </div>
 
                     <div className="flex relative group overflow-hidden ml-auto">
-                        <div className='py-1 px-2 text-neutral-500/90 transition-all hidden group-hover:block'>
+                        <div className='py-1 px-2 text-neutral-500/90 transition-all hidden group-hover:md:block'>
                             Syauqi Ashadullah
-                        </div><a href='/about'>
-                        <div className='group transition-all md:pl-2'>
-                            <ProfileImage />
-                        </div></a>
+                        </div>
+                        <a href='/about'>
+                            <div className='group transition-all md:pl-2'>
+                                <ProfileImage />
+                            </div>
+                        </a>
                     </div>
                 </nav>
             </motion.div>
