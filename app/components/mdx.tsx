@@ -77,9 +77,9 @@ function ImgLg(props) {
 function Relatepost({ href, img, title, desc }) {
     return (
         <Link href={href} className='no-prose'>
-        <div className="flex items-center shadow-lg m-auto border border-zinc-700 p-4 rounded-lg w-full md:w-1/2 overflow-hidden">
-<div className="flex-none relative">
-    <img src={img} alt={title} className="border-2 border-zinc-700 w-20 h-20 object-cover" loading="lazy" />
+        <div className="flex items-center shadow-lg m-auto border border-zinc-900 rounded-lg w-full overflow-hidden">
+<div className="flex-none w-48 h-32 relative">
+    <img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
 </div>
         <div className='flex-auto ml-4'>
         <span className='text-lg font-semibold'>{title}</span><br/>
@@ -106,7 +106,7 @@ function Linkext(props) {
 function StabiloBiru(props) {
     return (
         <span
-            className="font-semibold italic opacity-50 hover:opacity-100 bg-blue-200 text-zinc-900 border-b-2 border-blue-500"
+            className="font-semibold italic bg-blue-200/60 hover:bg-blue-200 text-zinc-900 border-b-2 border-blue-500"
         >
             {props.children}
         </span>
@@ -131,7 +131,7 @@ function Footarea(props) {
 }
 const Cbox = ({ children, href, source }) => (
     <div 
-        className='relative tracking-tight text-pretty text-soverflow-hidden my-8 border border-zinc-600 rounded-md'
+        className='relative tracking-tight text-pretty text-soverflow-hidden my-8 border border-zinc-800 rounded-md'
     >
         <span className="absolute flex h-12 w-12 -right-4 rounded-full items-center justify-center -top-4 overflow-hidden"> 
             <span className="animate-ping absolute inline-flex  h-full w-full rounded-full bg-blue-400 opacity-75"></span>
@@ -142,7 +142,7 @@ const Cbox = ({ children, href, source }) => (
         <div className='p-8'>
         {children}{' '}
         </div>
-        <div className='flex bg-neutral-800 text-zinc-200 py-2 px-8 border-t border-zinc-400'>
+        <div className='flex bg-neutral-900 text-zinc-200 py-2 px-8 border-t border-zinc-700'>
         <a href={href} target='_blank' >
             <Link2Icon className='inline mr-1'/>{source}
         </a>

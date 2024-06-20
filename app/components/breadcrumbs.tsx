@@ -19,16 +19,16 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
 
-        className="relative flex font-mono items-center backdrop-blur-sm backdrop-saturate-50 bg-black/20 rounded border border-zinc-800 p-2 mb-4">
+        className="relative flex font-mono items-center backdrop-blur-sm backdrop-saturate-50 bg-neutral-800/20 rounded border border-zinc-800 p-2 mb-4">
             <a
                 href="/blog"
                 className="
-                    whitespace-nowrap truncate text-[#5de4c7] hover:dark:text-white text-sm border-b dark:border-zinc-700 border-zinc-200
+                    whitespace-nowrap truncate text-teal-400 hover:dark:text-teal-200 text-sm border-b dark:border-zinc-700 border-zinc-200
                 "
             >
                 dir ..
             </a>
-            <span className="mx-2">
+            <span className="mx-2 text-yellow-400 ">
                 <CaretRightIcon />
             </span>
             <p className="text-neutral-600 truncate hover:text-clip dark:text-neutral-400 text-sm">

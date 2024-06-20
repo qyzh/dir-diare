@@ -4,9 +4,9 @@ import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getArtPosts } from 'app/work/utils'
 import { baseUrl } from 'app/sitemap'
 import { Navbar } from 'app/components/nav'
-import { DotPattern } from 'app/components/ui/dot-pattern'
 import { cn } from 'utils/cn'
-import { motion } from 'framer-motion'
+import { CalendarIcon, CaretRightIcon } from '@radix-ui/react-icons'
+import Saweria from 'app/components/saweria'
 
 export async function generateStaticParams() {
     let posts = getArtPosts()
@@ -89,15 +89,36 @@ export default function Blog({ params }) {
                 }}
             />
             <div className="text-left mb-4">
+            <div
+        className="relative flex font-mono items-center backdrop-blur-sm backdrop-saturate-50 bg-neutral-800/20 rounded border border-zinc-800 p-2 mb-4">
+            <a
+                href="/"
+                className="
+                    whitespace-nowrap truncate text-teal-400 hover:dark:text-teal-200 text-sm border-b dark:border-zinc-700 border-zinc-200
+                "
+            >
+                dir ..
+            </a>
+            <span className="text-yellow-400 ">
+                <CaretRightIcon />
+            </span>
                 <a
                     href="/work"
-                    className="font-semibold text-neutral-300 dark:text-neutral-200"
+                    className="ml-1 whitespace-nowrap truncate text-teal-400 hover:text-teal-200 dark:text-neutral-400 text-sm"
                 >
-                    ← work
+                    work
                 </a>
+            <span className="text-yellow-400 ">
+                <CaretRightIcon />
+            </span>
+            <p className="ml-1 text-neutral-600 truncate hover:text-clip dark:text-neutral-400 text-sm">
+                {post.metadata.title}.mdx
+            </p>
+        </div>
             </div>
-            <p className="text-sm proportional-nums text-neutral-600 dark:text-neutral-400">
-                {formatDate(post.metadata.publishedAt)}
+            <p className="text-sm font-mono text-neutral-600 dark:text-neutral-400">
+                <time className='proportional-nums ' dateTime={post.metadata.publishedAt} >{formatDate(post.metadata.publishedAt)}</time>
+
             </p>
             <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
                 {post.metadata.title}
@@ -105,19 +126,9 @@ export default function Blog({ params }) {
             <article className="prose prose-quoteless prose-neutral dark:prose-invert">
                 <CustomMDX source={post.content} />
 
-                <hr className='border-neutral-300 dark:border-neutral-700' />
+                <hr className='mb-2 border-neutral-300 dark:border-neutral-800' />
             </article>
-            
-            <DotPattern
-        width={20}
-        height={20}
-        cx={1}
-        cy={1}
-        cr={1}
-        className={cn(
-          "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
-        )}
-      />
+            <Saweria/>
         </div>
     )
 }

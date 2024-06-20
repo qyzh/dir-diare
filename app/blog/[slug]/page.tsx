@@ -5,7 +5,6 @@ import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
 import { Navbar } from 'app/components/nav'
 import  Komentar  from 'app/components/comments'
-import { DotPattern } from 'app/components/ui/dot-pattern'
 import { cn } from 'utils/cn'
 import Saweria from 'app/components/saweria'
 import { CalendarIcon, ChatBubbleIcon } from '@radix-ui/react-icons'
@@ -96,7 +95,7 @@ export default function Blog({ params }) {
                 <time className='proportional-nums ' dateTime={post.metadata.publishedAt} >{formatDate(post.metadata.publishedAt)}</time>
                 <Link
                 href="#comments"
-                className="flex items-center gap-x-2 font-mono text-m text-blue-500 hover:text-sky-600 "
+                className="flex items-center gap-x-2 font-mono text-m text-teal-400 hover:text-teal-200 "
               >
                 <ChatBubbleIcon/>
                 <div className="#comments">Comments</div>
@@ -113,16 +112,6 @@ export default function Blog({ params }) {
 <Komentar/>
             </article>
             <Saweria/>
-            <DotPattern
-        width={20}
-        height={20}
-        cx={1}
-        cy={1}
-        cr={1}
-        className={cn(
-          "[mask-image:linear-gradient(to_bottom_right,white,transparent,transparent)] ",
-        )}
-      />
         </section>
     )
 }

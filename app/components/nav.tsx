@@ -21,7 +21,7 @@ const navItems = {
 
 export function Navbar() {
     return (
-        <aside className="mb-16 tracking-tight sticky z-1 top-4">
+        <aside className="mb-16 tracking-tight sticky z-1 top-2">
             <motion.div 
                                 initial={{
                                     y: -40,
@@ -35,7 +35,7 @@ export function Navbar() {
                                     duration: 0.5
                                   }}
             
-            className="rounded-lg p-2 backdrop-blur-sm backdrop-saturate-50 border border-zinc-700 bg-white/20 dark:bg-black/20 lg:sticky lg:top-20">
+            className="rounded p-2 backdrop-blur-sm backdrop-saturate-50 border border-zinc-800 bg-neutral-800/60 dark:bg-neutral-800/60 lg:sticky lg:top-20">
                 <nav
                     className="flex flex-row relative px-2 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
                     id="nav"
@@ -46,7 +46,7 @@ export function Navbar() {
                                 <Link
                                     key={path}
                                     href={path}
-                                    className="transition-all hover:text-sky-800 dark:hover:text-blue-500 flex align-middle relative px-2 py-[2px] m-1"
+                                    className="transition-all hover:text-teal-400 rounded hover:bg-neutral-800 dark:hover:text-teal-400 flex align-middle relative px-2 py-[2px] m-1"
                                 >
                                    {name}
                                 </Link>
