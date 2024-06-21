@@ -121,11 +121,20 @@ function FN(props) {
 }
 function Footarea(props) {
     return (
-        <div className="footnote relative overflow-hidden tracking-tight text-lg my-8 lg:py-6 lg:pl-6 pr-12 p-4 border dark:border-zinc-800 border-zinc-200 rounded-md">
-            <h2 id="footnote-label" className="hidden invisible">
+        <div className="
+        footnote relative 
+        overflow-hidden 
+        tracking-tight 
+        text-sm
+        border-t
+        dark:border-zinc-800 
+        border-zinc-200 
+        ">
+            <h2 id={props.id} className="hidden invisible">
                 Footnotes :{' '}
             </h2>
-            <ol>{props.children}</ol>
+            <ol className='list-decimal ml-4 font-mono italic'>
+                {props.children}</ol>
         </div>
     )
 }
