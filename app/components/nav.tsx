@@ -1,5 +1,5 @@
 "use client"
-import { FileIcon, SlashIcon } from '@radix-ui/react-icons'
+import { ArchiveIcon, HomeIcon, PersonIcon, RocketIcon,  } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ProfileImage } from './ui/uqimg'
@@ -7,21 +7,21 @@ import { ProfileImage } from './ui/uqimg'
 const navItems = {
     '/': {
         name: 'home',
-        icon: <FileIcon/>,
+        icon: <HomeIcon/>,
     },
     '/blog': {
         name: 'blog',
-        icon: <FileIcon/>,
+        icon: <ArchiveIcon/>,
     },
     '/work': {
         name: 'work',
-        icon: <SlashIcon/>,
+        icon: <RocketIcon/>,
     },
 }
 
 export function Navbar() {
     return (
-        <aside className="mb-16 tracking-tight sticky z-1 top-2">
+        <aside className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 flex h-12 px-6 align-middle items-center">
             <motion.div 
                                 initial={{
                                     y: -40,
@@ -35,34 +35,32 @@ export function Navbar() {
                                     duration: 0.5
                                   }}
             
-            className="rounded p-2 backdrop-blur-sm backdrop-saturate-50 border border-zinc-800 bg-neutral-800/60 dark:bg-neutral-800/60 lg:sticky lg:top-20">
+            className="relative 
+            mx-auto flex 
+            h-full items-
+            center rounded 
+            border border-zinc-800 bg-neutral-900 dark:bg-neutral-900">
                 <nav
-                    className="flex flex-row relative px-2 pb-0 fade md:overflow-auto scroll-pr-6 md:relative"
+                    className="flex flex-row relative"
                     id="nav"
                 >
-                    <div className="flex flex-row space-x-0 pr-10 ">
+                    <div className="flex flex-row align-middle items-center space-x-0">
                         {Object.entries(navItems).map(([path, { icon,name }]) => {
                             return (
                                 <Link
                                     key={path}
                                     href={path}
-                                    className="transition-all hover:text-teal-400 rounded hover:bg-neutral-800 dark:hover:text-teal-400 flex align-middle relative px-2 py-[2px] m-1"
+                                    className="transition-all hover:text-teal-400 rounded 
+                                    hover:bg-neutral-800 dark:hover:text-teal-400 flex 
+                                    align-middle px-4 py-4
+                                    
+                                    "
+                                    
                                 >
-                                   {name}
+                                   {icon}
                                 </Link>
                             )
                         })}
-                    </div>
-
-                    <div className="flex relative group overflow-hidden ml-auto">
-                        <div className='py-1 px-2 text-neutral-500/90 transition-all hidden group-hover:md:block'>
-                            Syauqi Ashadullah
-                        </div>
-                        <a href='/about'>
-                            <div className='group transition-all md:pl-2'>
-                                <ProfileImage />
-                            </div>
-                        </a>
                     </div>
                 </nav>
             </motion.div>

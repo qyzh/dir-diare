@@ -105,6 +105,7 @@ export default function Blog({ params }) {
             <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
                 {post.metadata.title}
             </h1>
+            <p className='text-neutral-600 dark:text-neutral-400'>{post.metadata.summary}</p>
             <article className="prose prose-quoteless prose-neutral dark:prose-invert">
                 <CustomMDX source={post.content} />
 

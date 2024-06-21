@@ -40,7 +40,7 @@ export default function BasicExample(): JSX.Element {
             onClick={backToTop}
             className={` ${
               showButton ? `inline-block` : `hidden`
-            } fixed bottom-[40px] right-[40px] p-3 bg-black/[70%]  text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-neutral-500  hover:shadow-lg focus:bg-neutral-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-neutral-800 active:shadow-lg transition duration-150 ease-in-out`}
+            } fixed z-30 bottom-[22px] right-[40px] p-3 bg-neutral-900/[70%]  text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-neutral-500  hover:shadow-lg focus:bg-neutral-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-neutral-800 active:shadow-lg transition duration-150 ease-in-out`}
           >
 <ArrowUpIcon/>
           </button>

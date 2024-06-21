@@ -13,7 +13,7 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
       initial={{ opacity: 0 }}
     >
     <Link href={href} aria-label={`Link to ${title}`}>
-    <div className="bg-neutral-900 rounded bg-clip-border text-gray-700 shadow-lg dark:shadow-[0_8px_16px_rgb(0_0_0/0.4)] transition-colors hover:bg-neutral-800 focus-visible:ring-1 focus-visible:ring-white border border-transparent border-zinc-800">
+    <div className="bg-neutral-900 rounded-md bg-clip-border text-gray-700 shadow-lg dark:shadow-[0_8px_16px_rgb(0_0_0/0.4)] transition-colors hover:bg-neutral-800 focus-visible:ring-1 focus-visible:ring-white border border-transparent border-zinc-800">
       <div className="overflow-hidden p-4 flex flex-row">
         {imgSrc && (
           <div className="w-32 h-32 relative">
@@ -22,7 +22,7 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
                 <Image
                   alt={title}
                   src={imgSrc}
-                  className="absolute inset-0 w-full h-full object-cover bg-clip-border bg-black shadow-lg"
+                  className="absolute inset-0 w-full h-full object-cover bg-clip-border bg-black shadow-lg rounded-xl"
                   width={544}
                   height={306}
                 />
@@ -31,7 +31,7 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
               <Image
                 alt={title}
                 src={imgSrc}
-                className="absolute inset-0 w-full h-full object-cover bg-clip-border bg-black shadow-lg rounded-xl"
+                className="absolute inset-0 w-full h-full object-cover bg-clip-border bg-black shadow-lg rounded-md"
                 width={544}
                 height={306}
               />
@@ -49,10 +49,10 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
             )}
           </h2>
           
-          <div className="truncate overflow-hidden mb-2 text-sm font-semibold text-white text-xs ">
+          <div className="truncate overflow-hidden mb-2 text-sm font-semibold text-zinc-400 text-xs ">
             {description}
           </div>
-          <div className="inline bg-zinc-800 dark:bg-zinc-800 rounded px-3 py-1 text-sm font-semibold text-white text-xs">
+          <div className="inline bg-zinc-800 dark:bg-zinc-800 rounded px-3 py-1 text-sm font-semibold text-zinc-400 text-xs">
             {tagz}
           </div>
         </div>
