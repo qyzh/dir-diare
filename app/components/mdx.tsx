@@ -77,7 +77,7 @@ function ImgLg(props) {
 function Relatepost({ href, img, title, desc }) {
     return (
         <Link href={href} className='no-prose'>
-        <div className="flex items-center shadow-lg m-auto border border-zinc-900 rounded-lg w-full overflow-hidden">
+        <div className="flex items-center shadow-lg m-auto border border-zinc-800 rounded-lg w-full overflow-hidden">
 <div className="flex-none w-48 h-32 relative">
     <img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
 </div>

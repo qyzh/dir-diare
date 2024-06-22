@@ -30,7 +30,7 @@ className="flex flex-row my-12"
             <ProfileImageLarge/>
             </div>
             <div className="absolute z-10 -bottom-2 -right-0  bg-neutral-800 rounded-full border border-amber-500 overflow-hidden ">
-            <div className="relative flex p-1 align-middle justify-center items-center duration-200 group-hover:rotate-360">
+            <div className="relative flex h-8 w-8 align-middle justify-center items-center duration-200 group-hover:rotate-360">
             <div>👻</div>
             </div>
             </div>
