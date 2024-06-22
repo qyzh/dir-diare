@@ -57,19 +57,20 @@ const FBRecentPost = () => {
   };
   
   const FeaturedBlogPostsList = async () => {
-    const featuredPosts = await getBlogPosts();
+    const featuredPosts = await getBlogPosts()
     return (
       <>
-        {featuredPosts.slice(3)
-        .sort((a, b) => {
-            if (
-                new Date(a.metadata.publishedAt) >
-                new Date(b.metadata.publishedAt)
-            ) {
-                return -1
-            }
-            return 1
-        })
+        {featuredPosts
+                        .sort((a, b) => {
+                          if (
+                              new Date(a.metadata.publishedAt) >
+                              new Date(b.metadata.publishedAt)
+                          ) {
+                              return -1
+                          }
+                          return 1
+                      })
+        .slice(0, 3)
         .map((post) => (
             <Link
                 key={post.slug}
@@ -98,9 +99,6 @@ export default function Page() {
     return (
         <section>
             <Uq />
-
-
-    
       <Suspense fallback={<FBRecentPost />}>
     <div className='flex justify-between mb-4'>
       <div className='title font-semibold text-lg place-self-center '><h2>Recent Post:</h2></div>
@@ -112,7 +110,6 @@ export default function Page() {
     </div>
         <FeaturedBlogPostsList />
       </Suspense>
-
       <Suspense  fallback={<FBRecentWork />}>
       <div className='flex justify-between mb-4'>
       <div className='title font-semibold text-lg place-self-center '><h2>Recent Work:</h2></div>
