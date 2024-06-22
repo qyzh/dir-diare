@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ProfileImageLarge } from "./ui/uqimg";
+import { ArrowDownIcon } from "@radix-ui/react-icons";
 
 export default function Uq() {
     return (
@@ -28,9 +29,9 @@ className="flex flex-row my-12"
             <div className="relative h-24 w-24 rounded-full overflow-clip group-hover:scale-105">
             <ProfileImageLarge/>
             </div>
-            <div className="absolute z-10 -bottom-2 -right-0 h-8 w-8 px-1 py-0.5  bg-neutral-800 rounded-full border border-amber-500 overflow-hidden ">
-            <div className="flex items-center duration-200 group-hover:rotate-360">
-            👾 
+            <div className="absolute z-10 -bottom-2 -right-0  bg-neutral-800 rounded-full border border-amber-500 overflow-hidden ">
+            <div className="relative flex p-1 align-middle justify-center items-center duration-200 group-hover:rotate-360">
+            <div>👻</div>
             </div>
             </div>
             </div>
