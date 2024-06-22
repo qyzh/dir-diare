@@ -46,7 +46,7 @@ export default function RootLayout({
         <html
             lang="en"
             className={cx(
-                'text-black bg-white dark:text-white dark:bg-[#111010] [color-scheme:dark] scroll-smooth',
+                'text-black bg-white dark:text-white dark:bg-neutral-900 [color-scheme:dark] scroll-smooth',
                 GeistSans.variable,
                 GeistMono.variable
             )}
