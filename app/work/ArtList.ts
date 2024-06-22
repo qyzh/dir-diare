@@ -2,6 +2,7 @@ interface ArtList {
     title: string,
     tagz: string,
     description: string,
+    thumbnail?: string,
     href?: string,
     imgSrc?: string,
   }
@@ -12,6 +13,7 @@ interface ArtList {
       tagz: 'Photoshop',
       description: `Logo yang dibuat dengan photoshop untuk Team TodeSquad.`,
       imgSrc: '/images/art/todesquad.jpg',
+      thumbnail: '/images/art/TDTB.jpg',
       href: 'work/todesquad',
     
     },
@@ -20,6 +22,7 @@ interface ArtList {
       tagz: 'Template Blogger',
       description: `Template minimalist ini dapat anda gunakan pada blog anda dengan gratis.Pada template ini terdapat beberapa fitur yaitu, Responsive, HTML5, CSS3, dan beberapa lagi lainnya.`,
       imgSrc: '/images/art/hopplatemplate.png',
+      thumbnail: '/images/art/hopplatemplate.png',
       href: 'work/hoppla',
     },
     {
@@ -27,6 +30,7 @@ interface ArtList {
       tagz: 'Template Blogger',
       description: `Template blogspot.`,
       imgSrc: '/images/art/rockntroll.png',
+      thumbnail: '/images/art/rockntroll.png',
       href: 'work/rockntroll',
     },    
     {
@@ -34,6 +38,7 @@ interface ArtList {
         tagz: 'Template Blogger',
         description: `Template yang kelihatan minimalist tapi elegant.`,
         imgSrc: '/images/art/minsim.png',
+        thumbnail: '/images/art/minsim.png',
         href: 'work/minsim',
       },
     {
@@ -41,6 +46,7 @@ interface ArtList {
       tagz: 'HTML & CSS',
       description: `Sebuah keisengan membuat typograph.`,
       imgSrc: '/images/art/codepenkopizine.png',
+      thumbnail: '/images/art/codepenkopizine.png',
       href: 'https://codepen.io/yourbaemyb/pen/bmPBxr',
     
     },

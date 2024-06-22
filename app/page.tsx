@@ -46,8 +46,8 @@ const FBRecentPost = () => {
         <div className="flex bg-zinc-800 opacity-80 group-hover:opacity-100 mb-4 rounded-md">
         <div className='w-full h-[240px] min-h-[240px] relative rounded-md overflow-clip place-self-center  overflow-hidden'>
         <div className='absolute z-10 font-semibold block bottom-4 left-8 items-center py-2 px-4 rounded bg-black/70'>{d.title}</div>
-        <Image src={d.imgSrc || '/images/bg-noise.png'}  
-            alt="Background" className='grayscale group-hover:grayscale-0 rounded object-cover object-center group-hover:scale-125 duration-300' width={1080} height={240} />
+        <Image src={d.thumbnail || '/images/bg-noise.png'}  
+            alt="Background" className='grayscale group-hover:grayscale-0 rounded object-cover object-center group-hover:scale-125 duration-300' fill={true} />
         </div>
         </div>
         </Link>
@@ -116,7 +116,7 @@ export default function Page() {
       <Suspense  fallback={<FBRecentWork />}>
       <div className='flex justify-between mb-4'>
       <div className='title font-semibold text-lg place-self-center '><h2>Recent Work:</h2></div>
-      <div className=''><Link href='/blog'>
+      <div className=''><Link href='/work'>
         <button className="flex text-sm items-center gap-x-2 bg-white/5 text-white-700 border border-transparent rounded-md px-4 py-2 duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200">
         <CaretRightIcon />
         </button></Link>
