@@ -8,6 +8,7 @@ import Link from 'next/link';
 import ArtList from './work/ArtList'
 import Image from 'next/image'
 import { CaretRightIcon, CaretUpIcon } from '@radix-ui/react-icons';
+import  Strava  from './components/strava';
 
 const FBRecentWork = () => {
     return (
@@ -21,6 +22,13 @@ const FBRecentWork = () => {
       </>
     );
   };
+const StravaComponent = () => {
+    return (
+      <>
+<Strava />
+      </>
+    );
+}
 const FBRecentPost = () => {
     return (
       <>
@@ -121,6 +129,10 @@ export default function Page() {
     </div>
       <RecentWork/>
       </Suspense>
+      <div className='title font-semibold text-lg place-self-center '><h2>Recent Activity:</h2></div>
+      <div className='grid mt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+      <StravaComponent />
+      </div>
             <Navbar />
         </section>
         
