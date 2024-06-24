@@ -47,7 +47,23 @@ interface ActivitiesProps {
 }
 
 const Activities = ({ activities, isLoading }: ActivitiesProps) => {
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return (
+    <div>
+    <div className='flex p-4 mb-4 bg-white/5 border animate-pulse border-transparent rounded-md duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200'>
+    <div className='flex flex-col justify-center space-y-2'>
+      <div className='text-neutral-300 text-3xl font-semibold'>
+        <span className=''>Loading</span>
+      </div>
+      <div className='text-sm text-neutral-300 rounded block'>
+      <span className='text-neutral-300 block'><CalendarIcon className='inline mr-2' /></span>
+       <span className='text-neutral-300 block'><TimerIcon className='inline mr-2' /></span>
+       <span className='text-neutral-300 block'><RulerHorizontalIcon className='inline mr-2' /></span>
+      </div>
+    </div>
+    </div>
+    </div>
+  
+  );
   if (!activities.length) return null;
 
   return (
