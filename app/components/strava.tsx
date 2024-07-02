@@ -1,5 +1,5 @@
 "use client";
-import { CalendarIcon, HeartFilledIcon, RulerHorizontalIcon, TimerIcon } from '@radix-ui/react-icons';
+import { CalendarIcon, RulerHorizontalIcon, TimerIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
@@ -16,11 +16,11 @@ interface ActivityType {
   start_date: string;
 }
 const Strava: React.FC<StravaProps> = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [activities, setActivities] = useState<ActivityType[]>([])
     const clientID = "126947";
     const clientSecret = "908f5c9986fe0b882683aa6fd1d2367e872507d7";
-    const refreshToken = "8048c9f9ab88ae2f2a50d1cd9ac0933571bc32b9";
+    const refreshToken = "668e70ef938ed5929a8187f45b3864b9d0c2b3f7";
     const refreshEndpoint = `https://www.strava.com/oauth/token?client_id=${clientID}&client_secret=${clientSecret}&refresh_token=${refreshToken}&grant_type=refresh_token`;
     const activitiesEndpoint = `https://www.strava.com/api/v3/athlete/activities?access_token=`;
 
@@ -52,7 +52,7 @@ const Activities = ({ activities, isLoading }: ActivitiesProps) => {
     <div className='flex p-4 mb-4 bg-white/5 border animate-pulse border-transparent rounded-md duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200'>
     <div className='flex flex-col justify-center space-y-2'>
       <div className='text-neutral-300 text-3xl font-semibold'>
-        <span className=''>Loading</span>
+        <span className=''>Loading...✨</span>
       </div>
       <div className='text-sm text-neutral-300 rounded block'>
       <span className='text-neutral-300 block'><CalendarIcon className='inline mr-2' /></span>
@@ -72,7 +72,8 @@ const Activities = ({ activities, isLoading }: ActivitiesProps) => {
       {activities.slice(0,1).map((activity) => (
         <Link href={`https://strava.com/activities/${activity.id}`} target="_blank" key={activity.id}>
         <div key={activity.id}>
-        <div className='flex p-4 mb-4 bg-white/5 border border-transparent rounded-md duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200'>
+        <div className='flex p-4 mb-4 bg-white/5 border border-transparent rounded-md duration-200 cursor-pointer 
+        hover:bg-orange-600/10 hover:border-orange-600'>
         <div className='flex flex-col justify-center space-y-2'>
           <div className='text-neutral-300 text-3xl font-semibold'>
             <span className=''>{activity.name}</span>
