@@ -20,7 +20,7 @@ const Strava: React.FC<StravaProps> = () => {
   const [activities, setActivities] = useState<ActivityType[]>([])
     const clientID = "126947";
     const clientSecret = "908f5c9986fe0b882683aa6fd1d2367e872507d7";
-    const refreshToken = "668e70ef938ed5929a8187f45b3864b9d0c2b3f7";
+    const refreshToken = "8048c9f9ab88ae2f2a50d1cd9ac0933571bc32b9";
     const refreshEndpoint = `https://www.strava.com/oauth/token?client_id=${clientID}&client_secret=${clientSecret}&refresh_token=${refreshToken}&grant_type=refresh_token`;
     const activitiesEndpoint = `https://www.strava.com/api/v3/athlete/activities?access_token=`;
 
