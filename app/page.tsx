@@ -109,7 +109,22 @@ export default function Page() {
             <Uq />
       <Suspense fallback={<FBRecentPost />}>
     <div className='flex justify-between mb-4'>
-      <div className='title font-semibold text-lg place-self-center '><h2>Recent Post:</h2></div>
+      <div className='title text-neutral-300 font-semibold text-lg place-self-center '>
+        <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor"
+                className="inline-block size-5 mr-2"
+            >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25"
+                />
+            </svg>
+            <h2 className='inline '>Recent Post:</h2></div>
       <div className=''><Link href='/blog'>
         <button className="flex text-sm items-center gap-x-2 bg-white/5 text-white-700 border border-transparent rounded-md px-4 py-2 duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200">
         <CaretRightIcon />
@@ -120,7 +135,23 @@ export default function Page() {
       </Suspense>
       <Suspense  fallback={<FBRecentWork />}>
       <div className='flex justify-between mb-4'>
-      <div className='title font-semibold text-lg place-self-center '><h2>Recent Work:</h2></div>
+        
+      <div className='title text-neutral-300  font-semibold text-lg place-self-center '>
+      <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+                stroke="currentColor "
+                className="size-5 inline-block mr-2"
+            >
+                <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23-.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"
+                />
+            </svg>
+        <h2 className='inline '>Recent Work:</h2></div>
       <div className=''><Link href='/work'>
         <button className="flex text-sm items-center gap-x-2 bg-white/5 text-white-700 border border-transparent rounded-md px-4 py-2 duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200">
         <CaretRightIcon />
@@ -129,7 +160,17 @@ export default function Page() {
     </div>
       <RecentWork/>
       </Suspense>
-      <div className='title font-semibold text-lg place-self-center '><h2>Recent Activity:</h2></div>
+      <div className='title text-neutral-300  font-semibold text-lg place-self-center mb-4 '>
+      <svg xmlns="http://www.w3.org/2000/svg" 
+      fill="none"
+       viewBox="0 0 24 24" 
+       strokeWidth={1.5} 
+       stroke="currentColor" 
+       className="size-5 inline mr-2">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+</svg>
+
+        <h2 className='inline'>Recent Activity:</h2></div>
       <div className='grid mt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
       <StravaComponent />
       </div>

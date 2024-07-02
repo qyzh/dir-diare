@@ -1,6 +1,6 @@
 
 import {  Navbar } from '../components/nav'
-import SecHead from 'app/components/sechead';
+import { SecHeadBlog } from 'app/components/sechead';
 import { BlogPosts } from 'app/components/posts';
 
 export const metadata = {
@@ -12,7 +12,7 @@ export default function Page() {
     return (
         <section>
             <Navbar />
-            <SecHead judul='My note' desc='Tentang random hal,Tjinta,Opini,Tjoerhatan dan sebagainja' />
+            <SecHeadBlog />
             <BlogPosts />
         </section>
     )
