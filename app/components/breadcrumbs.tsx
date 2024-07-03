@@ -1,5 +1,5 @@
 "use client"
-import { CaretRightIcon } from "@radix-ui/react-icons";
+import { CaretRightIcon, DividerHorizontalIcon, DividerVerticalIcon } from "@radix-ui/react-icons";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 
@@ -11,7 +11,6 @@ interface BreadcrumbsProps {
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
     const pathname = usePathname();
     const title = post?.metadata?.title || pathname.split("/").pop();
-
     return (
         
         <motion.div 
@@ -21,19 +20,20 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
 
         className="relative flex font-mono items-center backdrop-blur-sm backdrop-saturate-50 bg-neutral-800/20 rounded border border-zinc-800 p-2 mb-4">
             <a
-                href="/blog"
+                href="/"
                 className="
                     whitespace-nowrap truncate text-teal-400 hover:dark:text-teal-200 text-sm border-b dark:border-zinc-700 border-zinc-200
                 "
             >
-                dir ..
+            cd ...
             </a>
-            <span className="mx-2 text-yellow-400 ">
+            <span className="ml-2 text-yellow-400 ">
                 <CaretRightIcon />
             </span>
             <p className="text-neutral-600 truncate hover:text-clip dark:text-neutral-400 text-sm">
                 {title}.mdx
             </p>
+            <DividerVerticalIcon className="animate-pulse text-yellow-400  " />
         </motion.div>
     );
 }
