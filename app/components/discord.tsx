@@ -75,7 +75,7 @@ export function LanyardProfile() {
             </div>
             <div className="flex flex-col space-y-1">
                 <p className="text-lg font-semibold text-neutral-300 hover:text-white">
-                   <Link href='/about'> {status.discord_user.username}</Link> {location.pathname === '/about' ? '👋' : ''}
+                   <Link href='/about'> {status.discord_user.username}</Link> 
                 </p>
 
                 <div className="flex flex-row space-x-1 items-center">
