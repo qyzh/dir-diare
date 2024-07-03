@@ -1,16 +1,15 @@
 "use client";
 
 import { useLanyard } from "react-use-lanyard";
-import Image from "next/image";
 import type { Activity } from "react-use-lanyard";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 
 const statusMap = {
-    online: "Online",
-    dnd: "Do Not Disturb",
-    idle: "Idle",
-    offline: "Offline",
+    online: <span className="text-green-500">Online</span>, //""Online",
+    dnd: <span className="text-red-500">Do Not Disturb</span>, //""Do Not Disturb",
+    idle: <span className="text-yellow-500">Idle</span>, //""Idle",
+    offline: <span className="text-neutral-400">Offline</span>, //""Offline",
 };
 
 const statusColorMap = {
@@ -41,13 +40,13 @@ export function LanyardProfile() {
     // }
 
     return loading || !status || !status.discord_user ? (
-        <div className="flex flex-row space-x-2  items-center">
-            <div className="h-[64px] mr-2 w-[64px] rounded-lg" />
-            <div className="flex flex-col space-y-1">
-                <div className="h-4 w-[4.5rem]" />
-                <div className="h-4 translate-y-1 w-36" />
-            </div>
-        </div>
+<div className="flex flex-row space-x-2 items-center animate-pulse">
+  <div className="h-16 mr-2 w-16 rounded-lg bg-white/5"></div>
+  <div className="flex flex-col space-y-1">
+    <div className="h-4 bg-white/5 w-24"></div>
+    <div className="h-4 bg-white/5 w-36 mt-1"></div>
+  </div>
+</div>
     ) : (
         <div className="flex flex-row mb-8 space-x-2 items-center">
             <div className="relative mr-2">
@@ -86,14 +85,14 @@ export function LanyardProfile() {
                                     Listening to
                                     {status.spotify?.song.length! +
                                         status.spotify?.artist.length! <
-                                    30 ? (
+                                    60 ? (
                                         <span>
                                             {" "}
                                             <strong>{status.spotify?.song}</strong> by{" "}
                                             <strong>{status.spotify?.artist}</strong>
                                         </span>
                                     ) : (
-                                        <span> Spotify<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="inline-block size-4">
+                                        <span className="text-green-500 bg-green-700/20 font-semibold border border-green-600 hover:text-green-300 px-1 py-0.5 mx-1 rounded-full"> Spotify<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} stroke="currentColor" className="inline-block size-4">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="m9 9 10.5-3m0 6.553v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 1 1-.99-3.467l2.31-.66a2.25 2.25 0 0 0 1.632-2.163Zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 0 1-1.632 2.163l-1.32.377a1.803 1.803 0 0 1-.99-3.467l2.31-.66A2.25 2.25 0 0 0 9 15.553Z" />
                                       </svg>
                                       </span>
@@ -105,7 +104,7 @@ export function LanyardProfile() {
                         </p>
                     ) : (
                         <p className="text-muted-foreground text-sm">
-                            {statusMap[status.discord_status]} on Discord
+                            {statusMap[status.discord_status]} on <span className="font-bold text-indigo-500">Discord</span>
                         </p>
                     )}
                 </div>
