@@ -9,6 +9,7 @@ import ArtList from './work/ArtList'
 import Image from 'next/image'
 import { CaretRightIcon, CaretUpIcon } from '@radix-ui/react-icons';
 import  Strava  from './components/strava';
+import { LanyardProfile } from './components/discord';
 
 const FBRecentWork = () => {
     return (
@@ -106,7 +107,7 @@ const FBRecentPost = () => {
 export default function Page() {
     return (
         <section>
-            <Uq />
+                <LanyardProfile />
       <Suspense fallback={<FBRecentPost />}>
     <div className='flex justify-between mb-4'>
       <div className='title text-neutral-300 font-semibold text-lg place-self-center '>
