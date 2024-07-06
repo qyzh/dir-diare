@@ -1,13 +1,12 @@
 
 import React from 'react'
 import { Suspense } from 'react';
-import Uq from './components/uq'
 import { getBlogPosts  } from './blog/utils'
 import { Navbar } from './components/nav'
 import Link from 'next/link';
 import ArtList from './work/ArtList'
 import Image from 'next/image'
-import { CaretRightIcon, CaretUpIcon } from '@radix-ui/react-icons';
+import { CaretRightIcon} from '@radix-ui/react-icons';
 import  Strava  from './components/strava';
 import { LanyardProfile } from './components/discord';
 
