@@ -102,12 +102,12 @@ export function LanyardProfile() {
                                     )}
                                 </span>
                             ) : (
-                                <span>Playing <strong>{activity.name}</strong> @ <strong>{activity.details}</strong></span>
+                                <span>Playing <strong>{activity.name}</strong> on <strong>{activity.details}</strong></span>
                             )}
                         </p>
                     ) : (
                         <p className="text-muted-foreground text-sm">
-                            {statusMap[status.discord_status]} on <span className="font-bold text-indigo-500">Discord</span>
+                            <strong>{statusMap[status.discord_status]}</strong> on <span className="font-bold text-indigo-500">Discord</span>
                         </p>
                     )}
                 </div>
