@@ -18,22 +18,31 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
 
-        className="relative flex font-mono items-center backdrop-blur-sm backdrop-saturate-50 bg-neutral-800/20 rounded border border-zinc-800 p-2 mb-4">
+        className="inline-flex font-mono mb-4 text-neutral-500 items-center bg-white/5 rounded px-1 py-1">
             <a
                 href="/"
                 className="
-                    whitespace-nowrap truncate text-teal-400 hover:dark:text-teal-200 text-sm border-b dark:border-zinc-700 border-zinc-200
+                    whitespace-nowrap truncate hover:dark:text-neutral-300 text-sm border-b dark:border-zinc-700 border-zinc-200
                 "
             >
-            cd ...
+            ~/
             </a>
-            <span className="ml-2 text-yellow-400 ">
-                <CaretRightIcon />
-            </span>
-            <p className="text-neutral-600 truncate hover:text-clip dark:text-neutral-400 text-sm">
-                {title}.mdx
-            </p>
-            <DividerVerticalIcon className="animate-pulse text-yellow-400  " />
+            {pathname.split("/").slice(1, -1).map((path) => (
+                <React.Fragment key={path}>
+                    <CaretRightIcon className="text-yellow-400" />
+                    <a
+                        href={`/${path}`}
+                        className="
+                        text-neutral-500 hover:dark:text-neutral-300 text-sm 
+                        "
+                    >
+                        {path}
+                    </a>
+                </React.Fragment>
+            ))}
+            <CaretRightIcon className="text-yellow-400" />
+            <span className="text-neutral-300 text-sm">{pathname.split("/").pop()}</span>
+            <DividerVerticalIcon stroke="currentColor"  className="animate-pulse text-yellow-400  " />
         </motion.div>
     );
 }

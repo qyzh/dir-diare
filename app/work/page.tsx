@@ -5,6 +5,7 @@ import ArtList from './ArtList'
 import  Card  from 'app/components/artc'
 import {  Navbar } from '../components/nav'
 import { SecHeadWork } from "app/components/sechead";
+import Breadcrumbs from "app/components/breadcrumbs";
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -17,6 +18,7 @@ export default function WorkPage() {
 
         <section>
             <Navbar />
+            <Breadcrumbs />
               <SecHeadWork/>
             <div className="container py-12">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
