@@ -42,7 +42,7 @@ export function BlogPosts() {
                             <div className=' relative h-24 w-32 rounded-md overflow-clip place-self-center '>
                                 <Image
                                     src={post.metadata.image || '/images/bg-noise.png' }
-                                    className="dark:bg-zinc-800 bg-zinc-100 object-fill grayscale group-hover:grayscale-0 rounded object-cover group-hover:scale-125 duration-300"
+                                    className="dark:bg-zinc-800 bg-zinc-100  grayscale group-hover:grayscale-0 rounded object-cover group-hover:scale-125 duration-300"
                                     alt={post.metadata.title}
                                     fill={true}
                                 />
