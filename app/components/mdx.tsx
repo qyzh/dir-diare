@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React, { Children } from 'react'
+import { getBlogPosts } from 'app/blog/utils'
 import { CodeIcon,DownloadIcon, DrawingPinFilledIcon, Link2Icon, RocketIcon } from '@radix-ui/react-icons'
 
 function Table({ data }) {
@@ -74,20 +75,29 @@ function ImgLg(props) {
     )
 }
 
-function Relatepost({ href, img, title, desc }) {
+function Relatepost({ linkin }) {
+    const posts = getBlogPosts();
     return (
-        <Link href={href} className='no-prose'>
-        <div className="flex items-center shadow-lg m-auto border border-zinc-800 rounded-lg w-full overflow-hidden">
+        <>
+{posts
+.filter((post) => post.slug === linkin)
+.map((post) => (
+    <Link key={post.slug} 
+    href={`/blog/${post.slug}`}
+    className="flex flex-col ">
+<div className="flex items-center shadow-lg m-auto border border-zinc-800 rounded-lg w-full overflow-hidden">
 <div className="flex-none w-48 h-32 relative">
-    <img src={img} alt={title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
+<img src={post.metadata.image} alt={post.metadata.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
 </div>
-        <div className='flex-auto ml-4'>
-        <span className='text-lg font-semibold'>{title}</span><br/>
-        <span className="text-sm text-gray-500 dark:text-gray-400">{desc}</span>
-        </div>
-            </div>
-        </Link>
-    )
+<div className='flex-auto ml-4'>
+<span className='text-lg font-semibold'>{post.metadata.title}</span><br/>
+<span className="text-sm text-gray-500 dark:text-gray-400">{post.metadata.summary}</span>
+</div>
+    </div>
+    </Link>
+        ))}
+        </>
+    );
 }
 
 
