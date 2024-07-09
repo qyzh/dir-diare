@@ -49,15 +49,15 @@ function Worklist () {
         return (
             <div  className="grid gap-4  grid-cols-12">
             <div className="col-span-3">
-                <div className="text-center text-left mb-14">
+                <div className="text-left mb-14">
                     <h3 className="text-lg font-semibold">Projects</h3>
                 </div>
             </div>
             <div className="relative space-y-6 col-span-9">
-                <div className="space-y-12 relative px-4 col-span-8 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:-left-3 before:dark:bg-neutral-800">
+                <div className="relative px-4 col-span-8 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:-left-3 before:dark:bg-neutral-800">
                 {ArtList.slice(0, 3).map(({ title, href, imgSrc, description}) => (
                     <div key={title} className="flex flex-col relative before:absolute before:top-[3px] before:w-4 before:h-4 before:rounded-full before:left-[-35px] before:z-[1] before:dark:bg-neutral-600">
-                        <Link href={href || ''}><h3 className="text-lg font-semibold tracking-wide">{title}</h3></Link>
+                        <Link className='text-gray-300 hover:text-white hover:underline' href={href || ''}><h3 className="text-lg font-semibold tracking-wide">{title}</h3></Link>
                         <p className="text-sm text-zinc-400">{description}</p>
                         <div className='w-32 h-24 mt-4 rounded-md overflow-hidden'>
                         <Image src={imgSrc || ''} alt={title} width={1280} height={1080} />
@@ -78,12 +78,12 @@ function EduTL () {
     return (
         <div  className="grid gap-4 grid-cols-12">
         <div className="col-span-3">
-            <div className="text-center text-left mb-14">
+            <div className="text-left mb-14">
                 <h3 className="text-lg font-semibold">Edu</h3>
             </div>
         </div>
         <div className="relative space-y-6 col-span-9">
-                <div className="space-y-12 relative px-4 col-span-8 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:-left-3 before:dark:bg-neutral-800">
+                <div className="relative px-4 col-span-8 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:-left-3 before:dark:bg-neutral-800">
               {eduData.map(({ title, desc, year, place }) => (
                 <div key={title} className="flex flex-col relative before:absolute before:top-[3px] before:w-4 before:h-4 before:rounded-full before:left-[-35px] before:z-[1] before:dark:bg-neutral-600">
                 <time className="text-xs tracking-wide uppercase text-gray-500">{year}</time>
@@ -102,7 +102,7 @@ export default function AboutkPage() {
         <section>
             <Uq/>
             <About/>
-            <div className='p-4'>
+            <div className='p-4 grid grid-cols-1 gap-2'>
                 <EduTL/>
                 <Worklist/>
             </div>

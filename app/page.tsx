@@ -92,10 +92,10 @@ const FBRecentPost = () => {
                 alt="Background" className='w-full h-full rounded-full object-cover overflow-hidden'  fill={true}/>
             </div>
         </div>
-        <div className='flex flex-col w-full place-self-center ml-2'>
+        <div className='flex flex-col w-[85%] place-self-center ml-2'>
             <div className='font-semibold'>{post.metadata.title}</div>
-            <div className=' text-sm text-zinc-500'>{post.metadata.summary}</div>
-         </div>
+            <div className=' text-sm text-zinc-500 truncate overflow-hidden'>{post.metadata.summary}</div>
+        </div>
         </div>
           </Link>
         ))}
