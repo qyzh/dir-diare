@@ -84,7 +84,7 @@ function Relatepost({ linkin }) {
 .map((post) => (
     <Link key={post.slug} 
     href={`/blog/${post.slug}`}
-    className="flex flex-col not-prose">
+    className="flex flex-col hover:bg-white/5 not-prose">
 <div className="flex items-center shadow-lg m-auto border border-zinc-800 rounded-lg w-full overflow-hidden">
 <div className="flex-none w-48 h-32 relative">
 <img src={post.metadata.image} alt={post.metadata.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
