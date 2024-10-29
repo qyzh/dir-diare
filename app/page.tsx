@@ -160,7 +160,7 @@ export default function Page() {
     </div>
       <RecentWork/>
       </Suspense>
-      <div className='title text-neutral-300  font-semibold text-lg place-self-center mb-4 '>
+      <div className='title text-neutral-300  font-semibold text-lg mb-4 '>
       <svg xmlns="http://www.w3.org/2000/svg" 
       fill="none"
        viewBox="0 0 24 24" 
