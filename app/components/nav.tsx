@@ -65,7 +65,7 @@ const navItems = {
 
 export function Navbar() {
     return (
-        <aside className="fixed inset-x-0 bottom-0 z-20 mx-auto mb-4 flex h-12 px-6 align-middle items-center">
+        <aside className="fixed flex inset-x-0 bottom-0 z-20 mx-auto mb-4 h-12 px-6 align-middle items-center">
             <motion.div
                 initial={{
                     y: -40,
