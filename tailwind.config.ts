@@ -16,6 +16,15 @@ export default {
           },
         },
       },
+      keyframes: {
+        'spin-reverse': {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(-360deg)' },
+        },
+      },
+      animation: {
+        'spin-reverse': 'spin-reverse 1s linear infinite',
+      },
     },
   },
   future: {

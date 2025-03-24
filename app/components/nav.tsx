@@ -49,7 +49,7 @@ export function Navbar() {
                                 <Link
                                     key={path}
                                     href={path}
-                                    className="transition-all hover:text-teal-400 rounded  dark:hover:text-teal-400 flex align-middle "
+                                    className="transition-all duration-300 hover:text-teal-400 rounded-full p-2 dark:hover:text-teal-400 flex align-middle hover:scale-110 hover:bg-teal-400/10"
                                 >
                                     {icon}
                                 </Link>
