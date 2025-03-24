@@ -1,11 +1,11 @@
 //"use client";
 import React from "react";
 import type { Metadata } from 'next'
-import ArtList from './ArtList'
 import  Card  from 'app/components/artc'
 import {  Navbar } from '../components/nav'
 import { SecHeadWork } from "app/components/sechead";
 import Breadcrumbs from "app/components/breadcrumbs";
+import { getArtPosts } from "./utils";
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 }
 
 export default function WorkPage() {
-
+  let ArtList = getArtPosts()
     return (
 
         <section>
@@ -24,16 +24,16 @@ export default function WorkPage() {
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {ArtList.map((d) => (
               <Card
-                key={d.title}
-                title={d.title}
-                tagz={d.tagz}
-                description={d.description}
-                imgSrc={d.imgSrc}
-                href={d.href}
+                key={d.metadata.title}
+                title={d.metadata.title}
+                tagz={d.metadata.tag}
+                description={d.metadata.summary}
+                imgSrc={d.metadata.image}
+                href={`/work/${d.slug}`}
               ></Card>
             ))}
           </div>
-        </div>
+          </div>
         </section>
     )
 }
