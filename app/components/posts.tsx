@@ -1,8 +1,7 @@
-
 import Link from 'next/link'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import Image from 'next/image'
-import { CalendarIcon } from '@radix-ui/react-icons'
+import { Calendar } from 'lucide-react'
 
 
 export function BlogPosts() {
@@ -52,7 +51,7 @@ export function BlogPosts() {
                                 <p className='title text-md md:text-xl font-bold'>{post.metadata.title}</p>
 
                                 <p className='text-sm text-zinc-500  '>
-                                    <CalendarIcon className=' inline-block mr-1 -mt-1'/>
+                                    <Calendar className=' inline-block mr-1 -mt-1'/>
                                     <span>{formatDate(post.metadata.publishedAt, true)} </span>
 
                                     <span>{post.metadata.tag}</span>

@@ -13,7 +13,12 @@ export const metadata: Metadata = {
 }
 
 export default function WorkPage() {
-  let ArtList = getArtPosts()
+  let ArtList = getArtPosts().sort((a, b) => {
+    if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+      return -1
+    }
+    return 1
+  })
     return (
 
         <section>

@@ -1,11 +1,10 @@
-
 import { notFound } from 'next/navigation'
 import { CustomMDX } from 'app/components/mdx'
 import { formatDate, getArtPosts } from 'app/work/utils'
 import { baseUrl } from 'app/sitemap'
 import { Navbar } from 'app/components/nav'
 import  Breadcrumbs  from 'app/components/breadcrumbs'
-import {  CaretRightIcon } from '@radix-ui/react-icons'
+import { CaretRight } from 'lucide-react'
 import Saweria from 'app/components/saweria'
 
 export async function generateStaticParams() {

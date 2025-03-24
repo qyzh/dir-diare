@@ -4,7 +4,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
 import React, { Children } from 'react'
 import { getBlogPosts } from 'app/blog/utils'
-import { CodeIcon,DownloadIcon, DrawingPinFilledIcon, Link2Icon, RocketIcon } from '@radix-ui/react-icons'
+import { Code as CodeIcon, Download, Pin, Link2, Rocket } from 'lucide-react'
 
 function Table({ data }) {
     let headers = data.headers.map((header, index) => (
@@ -155,7 +155,7 @@ const Cbox = ({ children, href, source }) => (
         <span className="absolute flex h-12 w-12 -right-4 rounded-full items-center justify-center -top-4 overflow-hidden"> 
             <span className="animate-ping absolute inline-flex  h-full w-full rounded-full bg-blue-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-8 w-8 bg-blue-500 items-center justify-center">
-            <DrawingPinFilledIcon/>
+            <Pin/>
             </span>
         </span>
         <div className='p-8'>
@@ -163,7 +163,7 @@ const Cbox = ({ children, href, source }) => (
         </div>
         <div className='flex bg-neutral-900 text-zinc-200 py-2 px-8 border-t border-zinc-700'>
         <a href={href} target='_blank' >
-            <Link2Icon className='inline mr-1'/>{source}
+            <Link2 className='inline mr-1'/>{source}
         </a>
         </div>
     </div>
@@ -275,7 +275,7 @@ function BtnDownload({ href, text, dis }) {
         className="flex items-center gap-x-2 bg-white/5 text-white-700 border border-transparent rounded-md px-4 py-2 duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200 "
         type="button">
         {text}
-<DownloadIcon/>
+<Download/>
 
       </button>
       </Link>
@@ -300,7 +300,7 @@ function BtnPreview({ href, text }) {
         className="flex items-center gap-x-2 bg-white/5 text-white-700 border border-transparent rounded-md px-4 py-2 duration-200 cursor-pointer hover:dark:border-zinc-700 hover:border-zinc-200"
         type="button">  
         {text}
-<RocketIcon/>
+<Rocket/>
     </button>
     </Link>
     )

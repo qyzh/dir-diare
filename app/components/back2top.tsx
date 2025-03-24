@@ -1,5 +1,5 @@
 "use client";
-import { ArrowUpIcon } from "@radix-ui/react-icons";
+import { ArrowUp } from "lucide-react";
 import React, { useState, useEffect } from "react";
 
 export default function BasicExample(): JSX.Element {
@@ -42,7 +42,7 @@ export default function BasicExample(): JSX.Element {
               showButton ? `inline-block` : `hidden`
             } fixed z-30 bottom-[22px] right-[40px] p-3 bg-neutral-900/[70%]  text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-neutral-500  hover:shadow-lg focus:bg-neutral-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-neutral-800 active:shadow-lg transition duration-150 ease-in-out`}
           >
-<ArrowUpIcon/>
+            <ArrowUp/>
           </button>
         </div>
       )}

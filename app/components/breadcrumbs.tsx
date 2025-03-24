@@ -1,48 +1,48 @@
 "use client"
-import { CaretRightIcon, DividerHorizontalIcon, DividerVerticalIcon } from "@radix-ui/react-icons";
+import { ChevronRight, GripVertical } from "lucide-react";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
-
+import Link from "next/link";
 import React from 'react';
 
 interface BreadcrumbsProps {
     post?: { metadata: { title: string } };
 }
+
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
     const pathname = usePathname();
-    const title = post?.metadata?.title || pathname.split("/").pop();
-    return (
-        
-        <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
+    const paths = pathname.split("/").filter(Boolean);
+    const currentTitle = post?.metadata?.title || paths[paths.length - 1] || "home";
 
-        className="inline-flex font-mono mb-4 text-neutral-500 items-center bg-white/5 rounded px-1 py-1">
-            <a
+    return (
+        <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex font-mono mb-4 text-neutral-500 items-center bg-white/5 rounded px-2 py-1.5"
+        >
+            <Link
                 href="/"
-                className="
-                    whitespace-nowrap truncate hover:dark:text-neutral-300 text-sm border-b dark:border-zinc-700 border-zinc-200
-                "
+                className="whitespace-nowrap hover:text-neutral-300 text-sm transition-colors"
             >
-            ~/
-            </a>
-            {pathname.split("/").slice(1, -1).map((path) => (
+                ~/
+            </Link>
+            {paths.map((path, index) => (
                 <React.Fragment key={path}>
-                    <CaretRightIcon className="text-yellow-400" />
-                    <a
-                        href={`/${path}`}
-                        className="
-                        text-neutral-500 hover:dark:text-neutral-300 text-sm 
-                        "
-                    >
-                        {path}
-                    </a>
+                    <ChevronRight className="text-yellow-400 mx-1 h-4 w-4" />
+                    {index === paths.length - 1 ? (
+                        <span className="text-neutral-300 text-sm">{currentTitle}</span>
+                    ) : (
+                        <Link
+                            href={`/${paths.slice(0, index + 1).join("/")}`}
+                            className="text-neutral-500 hover:text-neutral-300 text-sm transition-colors"
+                        >
+                            {path}
+                        </Link>
+                    )}
                 </React.Fragment>
             ))}
-            <CaretRightIcon className="text-yellow-400" />
-            <span className="text-neutral-300 text-sm">{pathname.split("/").pop()}</span>
-            <DividerVerticalIcon stroke="currentColor"  className="animate-pulse text-yellow-400  " />
+            <GripVertical className="animate-pulse text-yellow-400 ml-1 h-4 w-4" />
         </motion.div>
     );
 }

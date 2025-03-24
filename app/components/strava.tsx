@@ -1,5 +1,5 @@
 "use client";
-import { CalendarIcon, RulerHorizontalIcon, TimerIcon } from '@radix-ui/react-icons';
+import { Calendar, Ruler, Timer } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
@@ -55,9 +55,9 @@ const Activities = ({ activities, isLoading }: ActivitiesProps) => {
         <span className=''>Loading...✨</span>
       </div>
       <div className='text-sm text-neutral-300 rounded block'>
-      <span className='text-neutral-300 block'><CalendarIcon className='inline mr-2' /></span>
-       <span className='text-neutral-300 block'><TimerIcon className='inline mr-2' /></span>
-       <span className='text-neutral-300 block'><RulerHorizontalIcon className='inline mr-2' /></span>
+      <span className='text-neutral-300 block'><Calendar className='inline mr-2' /></span>
+       <span className='text-neutral-300 block'><Timer className='inline mr-2' /></span>
+       <span className='text-neutral-300 block'><Ruler className='inline mr-2' /></span>
       </div>
     </div>
     </div>
@@ -79,9 +79,9 @@ const Activities = ({ activities, isLoading }: ActivitiesProps) => {
             <span className=''>{activity.name}</span>
           </div>
           <div className='text-sm text-neutral-300 rounded block'>
-          <span className='text-neutral-300 block'><CalendarIcon className='inline mr-2' /><strong>Date : </strong>{(activity.start_date).toString().substring(0,10).replace(/-/g, "/").match(/(\d{4})\/(\d{2})\/(\d{2})/)?.[0]}</span>
-           <span className='text-neutral-300 block'><TimerIcon className='inline mr-2' /><strong>Time : </strong>{(activity.moving_time * 0.0166667).toPrecision(3).toString()} Minute</span>
-           <span className='text-neutral-300 block'><RulerHorizontalIcon className='inline mr-2' /><strong>Distance : </strong>{(activity.distance / 1000).toPrecision(3)} KM</span>
+          <span className='text-neutral-300 block'><Calendar className='inline mr-2' /><strong>Date : </strong>{(activity.start_date).toString().substring(0,10).replace(/-/g, "/").match(/(\d{4})\/(\d{2})\/(\d{2})/)?.[0]}</span>
+           <span className='text-neutral-300 block'><Timer className='inline mr-2' /><strong>Time : </strong>{(activity.moving_time * 0.0166667).toPrecision(3).toString()} Minute</span>
+           <span className='text-neutral-300 block'><Ruler className='inline mr-2' /><strong>Distance : </strong>{(activity.distance / 1000).toPrecision(3)} KM</span>
           </div>
         </div>
         </div>
