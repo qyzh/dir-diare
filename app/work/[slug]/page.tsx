@@ -4,7 +4,6 @@ import { formatDate, getArtPosts } from 'app/work/utils'
 import { baseUrl } from 'app/sitemap'
 import { Navbar } from 'app/components/nav'
 import  Breadcrumbs  from 'app/components/breadcrumbs'
-import { CaretRight } from 'lucide-react'
 import Saweria from 'app/components/saweria'
 
 export async function generateStaticParams() {
