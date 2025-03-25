@@ -1,13 +1,12 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import ArtList from '../work/ArtList';
 import Image from 'next/image';
 import Saweria from 'app/components/saweria';
 import Uq from 'app/components/uq';
 import Link from 'next/link';
 import { Navbar } from 'app/components/nav';
 import WorkSpace from '../components/workspace';
-
+import { getArtPosts } from '../work/utils';
 export const metadata: Metadata = {
     title: 'About',
     description: 'Little about me and this blog.',
@@ -62,26 +61,27 @@ const eduData: Edu[] = [
 ];
 
 function Worklist() {
+    const ArtList = getArtPosts();
     return (
         <div className="border-1 border-neutral-800 mb-8 rounded-md overflow-hidden">
             <h2 className="font-semibold px-4 pt-4">Project</h2>
             <div className="p-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {ArtList.slice(0, 2).map(({ title, tagz, href, imgSrc }) => (
-                        <Link key={title} href={href || '#'} className='opacity-80 hover:opacity-100'>
+                    {ArtList.slice(0, 2).map(({ metadata, slug }) => (
+                        <Link key={metadata.title} href={`/art/${slug}`} className='opacity-80 hover:opacity-100'>
                             <div className="flex flex-row gap-2">
                                 <div className=" w-20 h-20 overflow-hidden rounded-md">
                                     <Image
-                                        src={imgSrc || '/default-thumbnail.jpg'}
-                                        alt={title}
+                                        src={metadata.image || '/default-thumbnail.jpg'}
+                                        alt={metadata.title}
                                         width={200}
                                         height={200}
                                         className=""
                                     />
                                 </div>
                                 <div className="flex flex-col gap-2 ">
-                                    <h4 className="font-semibold">{title}</h4>
-                                    <p className="text-sm">{tagz}</p>
+                                    <h4 className="font-semibold">{metadata.title}</h4>
+                                    <p className="text-sm">{metadata.tag}</p>
                                 </div>
                             </div>
                         </Link>
