@@ -75,7 +75,12 @@ const ProjectCard = ({ metadata, slug }: { metadata: any; slug: string }) => (
 );
 
 const Worklist = () => {
-    const ArtList = getArtPosts();
+    const ArtList = getArtPosts().sort((a, b) => {
+        if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+            return -1
+        }
+        return 1
+    });
     return (
         <AnimatedSection delay={0.2}>
             <div className="border-1 border-neutral-800 mb-8 rounded-md overflow-hidden">
