@@ -3,58 +3,58 @@
 import { useLanyard } from "react-use-lanyard";
 import type { Activity } from "react-use-lanyard";
 import { useEffect, useState } from "react";
-import Link from "next/link";
 
-const statusMap = {
-    online: <span className="text-green-500">Online</span>,
-    dnd: <span className="text-red-500">Do Not Disturb</span>,
-    idle: <span className="text-yellow-500">Idle</span>,
-    offline: <span className="text-neutral-400">Offline</span>,
-};
+interface DiscordStatusProps {
+    userId: string;
+    className?: string;
+}
 
-const statusColorMap = {
-    online: "bg-green-500",
-    dnd: "bg-red-500",
-    idle: "bg-yellow-500",
-    offline: "bg-neutral-400",
-};
-
-export function LanyardProfile() {
+export function DiscordStatus({ userId, className = "" }: DiscordStatusProps) {
     const [activity, setActivity] = useState<Activity | undefined>(undefined);
 
     const { loading, status } = useLanyard({
-        userId: "334529486773026817",
+        userId,
         socket: true,
     });
 
     useEffect(() => {
-        if (status && status.activities) {
-            setActivity(
-                status.activities.find((activity) => activity.type !== 4)
-            );
+        if (status?.activities) {
+            setActivity(status.activities.find((activity) => activity.type !== 4));
         }
     }, [status]);
 
-    return loading || !status || !status.discord_user ? (
-        <div className="flex flex-row space-x-2 items-center animate-pulse">
-            <div className="h-16 mr-2 w-16 rounded-lg bg-white/5"></div>
-            <div className="flex flex-col space-y-1">
-                <div className="h-4 bg-white/5 w-24"></div>
-                <div className="h-4 bg-white/5 w-36 mt-1"></div>
-            </div>
-        </div>
-    ) : (
-        <div className="fixed inset-x-2 top-2">
-            <div className="flex flex-row-reverse">
-                    <img
-                        src={`https://cdn.discordapp.com/avatars/${status.discord_user.id}/${status.discord_user.avatar}`}
-                        alt="discord avatar"
-                        width={36}
-                        height={36}
-                        className="rounded-full"
-                    />
-                    
+    if (loading || !status?.discord_user) {
+        return (
+            <div className={`flex items-center space-x-3 ${className}`}>
+                <div className="h-9 w-9 rounded-full bg-white/5 animate-pulse" />
+                <div className="flex flex-col space-y-1">
+                    <div className="h-4 w-24 bg-white/5 animate-pulse rounded" />
+                    <div className="h-3 w-32 bg-white/5 animate-pulse rounded" />
                 </div>
             </div>
+        );
+    }
+
+    return (
+        <div className={`flex items-center space-x-3 ${className}`}>
+            <img
+                src={`https://cdn.discordapp.com/avatars/${status.discord_user.id}/${status.discord_user.avatar}`}
+                alt={`${status.discord_user.username}'s avatar`}
+                width={36}
+                height={36}
+                className="rounded-full"
+            />
+            <div className="flex flex-col">
+                <span className="text-sm font-medium text-white">
+                    {status.discord_user.username}
+                </span>
+                {activity && (
+                    <span className="text-xs text-neutral-400">
+                        {activity.name}
+                        {activity.state && ` • ${activity.state}`}
+                    </span>
+                )}
+            </div>
+        </div>
     );
 }

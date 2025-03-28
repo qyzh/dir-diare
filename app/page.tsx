@@ -4,7 +4,7 @@ import FBRecentPost from './components/post-list'
 import PersonalD from './components/pd'
 import FBRecentWork from './components/work-list'
 import Strava from './components/strava'
-
+import { DiscordStatus } from './components/discord'
 export default function Page() {
     return (
         <main className="min-h-screen">
@@ -31,6 +31,9 @@ export default function Page() {
                 </div>
                 <div className="mt-4">
                     <Strava />
+                </div>
+                <div className="mt-4">
+                    <DiscordStatus userId="334529486773026817" />
                 </div>
                 <Navbar />
             </section>
