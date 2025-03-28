@@ -47,7 +47,7 @@ const CustomLink = memo(function CustomLink({ href, children, ...props }: Custom
     if (href.startsWith('/')) {
         return (
             <Link
-                className="text-sky-400 after:content-['_↗']"
+                className="text-sky-400 hover:text-sky-300 after:content-['_↗']"
                 href={href}
                 {...props}
             >
@@ -57,10 +57,24 @@ const CustomLink = memo(function CustomLink({ href, children, ...props }: Custom
     }
 
     if (href.startsWith('#')) {
-        return <a {...props} />
+        return (
+            <a 
+                className="text-sky-400 hover:text-sky-300"
+                href={href} 
+                {...props} 
+            />
+        )
     }
 
-    return <a target="_blank" rel="noopener noreferrer" {...props} />
+    return (
+        <a 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-sky-400 hover:text-sky-300 after:content-['_↗']"
+            href={href} 
+            {...props} 
+        />
+    )
 });
 
 interface ImageProps {
@@ -387,6 +401,7 @@ const components = {
     h6: createHeading(6),
     Image: RoundedImage,
     a: CustomLink,
+    del: ({ children }) => <del className="line-through text-gray-500 dark:text-gray-400">{children}</del>,
     Penting,
     Imgfull,
     ImgLg,
