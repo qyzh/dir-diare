@@ -2,35 +2,48 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { highlight } from 'sugar-high'
-import React, { Children } from 'react'
+import React, { memo, useMemo } from 'react'
 import { getBlogPosts } from 'app/blog/utils'
 import { Code as CodeIcon, Download, Pin, Link2, Rocket, AlertTriangle, Wrench } from 'lucide-react'
 
-function Table({ data }) {
-    let headers = data.headers.map((header, index) => (
-        <th key={index}>{header}</th>
-    ))
-    let rows = data.rows.map((row, index) => (
-        <tr key={index}>
-            {row.map((cell, cellIndex) => (
-                <td key={cellIndex}>{cell}</td>
-            ))}
-        </tr>
-    ))
+interface TableProps {
+    data: {
+        headers: string[];
+        rows: string[][];
+    };
+}
+
+const Table = memo(function Table({ data }: TableProps) {
+    const headers = useMemo(() => 
+        data.headers.map((header, index) => (
+            <th key={index}>{header}</th>
+        )), [data.headers]);
+
+    const rows = useMemo(() => 
+        data.rows.map((row, index) => (
+            <tr key={index}>
+                {row.map((cell, cellIndex) => (
+                    <td key={cellIndex}>{cell}</td>
+                ))}
+            </tr>
+        )), [data.rows]);
 
     return (
-        <table>
+        <table className="w-full border-collapse">
             <thead>
                 <tr>{headers}</tr>
             </thead>
             <tbody>{rows}</tbody>
         </table>
-    )
+    );
+});
+
+interface CustomLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+    href: string;
+    children: React.ReactNode;
 }
 
-function CustomLink(props) {
-    let href = props.href
-
+const CustomLink = memo(function CustomLink({ href, children, ...props }: CustomLinkProps) {
     if (href.startsWith('/')) {
         return (
             <Link
@@ -38,7 +51,7 @@ function CustomLink(props) {
                 href={href}
                 {...props}
             >
-                {props.children}
+                {children}
             </Link>
         )
     }
@@ -48,58 +61,80 @@ function CustomLink(props) {
     }
 
     return <a target="_blank" rel="noopener noreferrer" {...props} />
+});
+
+interface ImageProps {
+    src: string;
+    alt: string;
+    caption?: string;
 }
 
-function RoundedImage(props) {
-    return <Image alt={props.alt} className="rounded-lg" {...props} />
-}
-function Imgfull(props) {
+const RoundedImage = memo(function RoundedImage({ alt, ...props }: ImageProps) {
+    return <Image className="rounded-lg" alt={alt} {...props} />
+});
+
+const Imgfull = memo(function Imgfull({ src, alt, caption }: ImageProps) {
     return (
         <div className="flex mt-8 justify-center items-center my-2 h-96 lg:h-svh md:h-svh">
-        <figure className="absolute left-0">
-        <img className="relative h-96 lg:h-svh md:h-svh w-screen" src={props.src} alt={props.alt}/>
-        <figcaption className="relative my-2 text-sm text-center md:text-center text-gray-500 dark:text-gray-400">{props.caption}</figcaption>
-    </figure>
-    </div>
-    )
-}
-function ImgLg(props) {
-    return (
-        <div className="my-8 md:my-36 md:scale-150 ">
-        <figure className="w-full h-96 relative">
-        <img className="absolute inset-0 w-full h-full object-cover"
-         src={props.src} alt={props.alt}/>
-        <figcaption className="relative my-2 text-sm text-center md:text-left lg:text-center text-gray-500 dark:text-gray-400">{props.caption}</figcaption>
-    </figure>
-    </div>
-    )
-}
-
-function Relatepost({ linkin }) {
-    const posts = getBlogPosts();
-    return (
-        <>
-{posts
-.filter((post) => post.slug === linkin)
-.map((post) => (
-    <Link key={post.slug} 
-    href={`/blog/${post.slug}`}
-    className="flex flex-col hover:bg-white/5 not-prose">
-<div className="flex items-center shadow-lg m-auto border border-zinc-800 rounded-lg w-full overflow-hidden">
-<div className="flex-none w-48 h-32 relative">
-<img src={post.metadata.image} alt={post.metadata.title} className="absolute inset-0 w-full h-full object-cover" loading="lazy" />
-</div>
-<div className='flex-auto ml-4'>
-<span className='text-lg font-semibold'>{post.metadata.title}</span><br/>
-<span className="text-sm text-gray-500 dark:text-gray-400">{post.metadata.summary}</span>
-</div>
-    </div>
-    </Link>
-        ))}
-        </>
+            <figure className="absolute left-0">
+                <img className="relative h-96 lg:h-svh md:h-svh w-screen" src={src} alt={alt}/>
+                {caption && (
+                    <figcaption className="relative my-2 text-sm text-center md:text-center text-gray-500 dark:text-gray-400">
+                        {caption}
+                    </figcaption>
+                )}
+            </figure>
+        </div>
     );
+});
+
+const ImgLg = memo(function ImgLg({ src, alt, caption }: ImageProps) {
+    return (
+        <div className="my-8 md:my-36 md:scale-150">
+            <figure className="w-full h-96 relative">
+                <img className="absolute inset-0 w-full h-full object-cover" src={src} alt={alt}/>
+                {caption && (
+                    <figcaption className="relative my-2 text-sm text-center md:text-left lg:text-center text-gray-500 dark:text-gray-400">
+                        {caption}
+                    </figcaption>
+                )}
+            </figure>
+        </div>
+    );
+});
+
+interface RelatepostProps {
+    linkin: string;
 }
 
+const Relatepost = memo(function Relatepost({ linkin }: RelatepostProps) {
+    const posts = useMemo(() => getBlogPosts(), []);
+    const filteredPost = useMemo(() => 
+        posts.find((post) => post.slug === linkin), [posts, linkin]);
+
+    if (!filteredPost) return null;
+
+    return (
+        <Link 
+            href={`/blog/${filteredPost.slug}`}
+            className="flex flex-col hover:bg-white/5 not-prose">
+            <div className="flex items-center shadow-lg m-auto border border-zinc-800 rounded-lg w-full overflow-hidden">
+                <div className="flex-none w-48 h-32 relative">
+                    <img 
+                        src={filteredPost.metadata.image} 
+                        alt={filteredPost.metadata.title} 
+                        className="absolute inset-0 w-full h-full object-cover" 
+                        loading="lazy" 
+                    />
+                </div>
+                <div className='flex-auto ml-4'>
+                    <span className='text-lg font-semibold'>{filteredPost.metadata.title}</span><br/>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">{filteredPost.metadata.summary}</span>
+                </div>
+            </div>
+        </Link>
+    );
+});
 
 function Linkext(props) {
     return (
@@ -306,25 +341,25 @@ function BtnArea(props) {
     )
 }
 
-function Code({ children, ...props }) {
-    let codeHTML = highlight(children)
-    return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
-}
+const Code = memo(function Code({ children, ...props }: { children: string } & React.HTMLAttributes<HTMLElement>) {
+    const codeHTML = useMemo(() => highlight(children), [children]);
+    return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
+});
 
-function slugify(str) {
+const slugify = (str: string): string => {
     return str
         .toString()
         .toLowerCase()
-        .trim() // Remove whitespace from both ends of a string
-        .replace(/\s+/g, '-') // Replace spaces with -
-        .replace(/&/g, '-and-') // Replace & with 'and'
-        .replace(/[^\w\-]+/g, '') // Remove all non-word characters except for -
-        .replace(/\-\-+/g, '-') // Replace multiple - with single -
-}
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/&/g, '-and-')
+        .replace(/[^\w\-]+/g, '')
+        .replace(/\-\-+/g, '-');
+};
 
-function createHeading(level) {
-    const Heading = ({ children }) => {
-        let slug = slugify(children)
+const createHeading = (level: number) => {
+    const Heading = memo(function Heading({ children }: { children: React.ReactNode }) {
+        const slug = useMemo(() => slugify(children as string), [children]);
         return React.createElement(
             `h${level}`,
             { id: slug },
@@ -336,15 +371,14 @@ function createHeading(level) {
                 }),
             ],
             children
-        )
-    }
+        );
+    });
 
-    Heading.displayName = `Heading${level}`
+    Heading.displayName = `Heading${level}`;
+    return Heading;
+};
 
-    return Heading
-}
-
-let components = {
+const components = {
     h1: createHeading(1),
     h2: createHeading(2),
     h3: createHeading(3),
@@ -353,24 +387,36 @@ let components = {
     h6: createHeading(6),
     Image: RoundedImage,
     a: CustomLink,
-    Penting,Imgfull,ImgLg,
+    Penting,
+    Imgfull,
+    ImgLg,
     Kutiptengah,
-    Kutipkiri,Relatepost,
+    Kutipkiri,
+    Relatepost,
     Kutipkanan,
-    Linkext,ComArt,
-    FN,Error,StabiloBiru,
-    Footarea,Cbox,
-    FNlist,BtnArea,BtnDownload,BtnPreview,BtnSource,
-    Marker,Errorpop,
+    Linkext,
+    ComArt,
+    FN,
+    Error,
+    StabiloBiru,
+    Footarea,
+    Cbox,
+    FNlist,
+    BtnArea,
+    BtnDownload,
+    BtnPreview,
+    BtnSource,
+    Marker,
+    Errorpop,
     code: Code,
     Table,
-}
+};
 
-export function CustomMDX(props) {
+export const CustomMDX = memo(function CustomMDX(props: any) {
     return (
         <MDXRemote
             {...props}
             components={{ ...components, ...(props.components || {}) }}
         />
-    )
-}
+    );
+});
