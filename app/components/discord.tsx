@@ -50,8 +50,16 @@ export function DiscordStatus({ userId, className = "" }: DiscordStatusProps) {
                 </span>
                 {activity && (
                     <span className="text-xs text-neutral-400">
-                        {activity.name}
-                        {activity.state && ` • ${activity.state}`}
+                        {activity.type === 2 ? (
+                            <>
+                                {activity.name} - {activity.state}
+                            </>
+                        ) : (
+                            <>
+                                {activity.name}
+                                {activity.state && ` • ${activity.state}`}
+                            </>
+                        )}
                     </span>
                 )}
             </div>
