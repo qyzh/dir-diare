@@ -5,6 +5,7 @@ import { baseUrl } from 'app/sitemap'
 import { Navbar } from 'app/components/nav'
 import  Breadcrumbs  from 'app/components/breadcrumbs'
 import Saweria from 'app/components/saweria'
+import { CalendarDays } from 'lucide-react'
 
 export async function generateStaticParams() {
     let posts = getArtPosts()
@@ -89,9 +90,9 @@ export default function Blog({ params }) {
             <div className="text-left mb-4">
         <Breadcrumbs post={post}/>
             </div>
-            <p className="text-sm font-mono text-neutral-600 dark:text-neutral-400">
-                <time className='proportional-nums ' dateTime={post.metadata.publishedAt} >{formatDate(post.metadata.publishedAt)}</time>
-
+            <p className="text-sm font-mono text-neutral-600 dark:text-neutral-400 flex items-center gap-2">
+              <CalendarDays size={16} className='text-indigo-500'/>
+              <time className='proportional-nums' dateTime={post.metadata.publishedAt}>{formatDate(post.metadata.publishedAt)}</time>
             </p>
             <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
                 {post.metadata.title}

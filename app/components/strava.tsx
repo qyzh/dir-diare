@@ -1,5 +1,5 @@
 "use client";
-import { Calendar, Ruler, Timer } from 'lucide-react';
+import { Calendar, Ruler, Timer, Dumbbell } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
@@ -118,8 +118,8 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
     >
       <div className="p-4 mb-4 bg-white/5 border border-transparent rounded-md duration-200 cursor-pointer 
         hover:bg-orange-600/10 hover:border-orange-600">
-        <div className="space-y-4">
-          <div className="space-y-2">
+        <div className="flex gap-4">
+          <div className="flex-1 space-y-2">
             <h3 className="text-neutral-300 text-3xl font-semibold truncate">
               {latestActivity.name}
             </h3>
@@ -139,8 +139,8 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
             </div>
           </div>
 
-          {latestActivity.photos?.primary && (
-            <div className="relative w-full h-48 rounded-lg overflow-hidden">
+          <div className="relative w-32 h-32 rounded-lg overflow-hidden bg-white/5 flex items-center justify-center">
+            {latestActivity.photos?.primary ? (
               <Image
                 src={latestActivity.photos.primary.urls['600']}
                 alt={latestActivity.name}
@@ -148,8 +148,10 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
-            </div>
-          )}
+            ) : (
+              <Dumbbell className="h-12 w-12 text-white/20" />
+            )}
+          </div>
         </div>
       </div>
     </Link>
