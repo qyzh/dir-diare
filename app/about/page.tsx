@@ -55,7 +55,7 @@ const eduData: Edu[] = [
 ];
 
 const ProjectCard = ({ metadata, slug }: { metadata: any; slug: string }) => (
-    <Link href={`/art/${slug}`} className='opacity-80 hover:opacity-100 transition-opacity'>
+    <Link href={`/work/${slug}`} className='opacity-80 hover:opacity-100 transition-opacity'>
         <div className="flex flex-row gap-2">
             <div className="w-20 h-20 overflow-hidden rounded-md">
                 <Image
