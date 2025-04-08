@@ -69,9 +69,45 @@ export default function DailyNotes() {
       return null;
     }
 
-    const content = block[block.type].rich_text.map((text: any, index: number) => (
-      <span key={index}>{text.plain_text}</span>
-    ));
+    const content = block[block.type].rich_text.map((text: any, index: number) => {
+      let element = text.plain_text;
+      
+      // Handle text formatting
+      if (text.annotations) {
+        if (text.annotations.bold) {
+          element = <strong key={index}>{element}</strong>;
+        }
+        if (text.annotations.italic) {
+          element = <em key={index}>{element}</em>;
+        }
+        if (text.annotations.strikethrough) {
+          element = <s key={index}>{element}</s>;
+        }
+        if (text.annotations.underline) {
+          element = <u key={index}>{element}</u>;
+        }
+        if (text.annotations.code) {
+          element = <code key={index}>{element}</code>;
+        }
+        
+        // Handle links
+        if (text.href) {
+          element = (
+            <a 
+              key={index} 
+              href={text.href} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+            >
+              {element}
+            </a>
+          );
+        }
+      }
+
+      return element;
+    });
 
     switch (block.type) {
       case 'paragraph':
@@ -95,7 +131,7 @@ export default function DailyNotes() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <Breadcrumbs />
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-4xl font-bold">Daily Notes</h1>
+        <h1 className="text-4xl font-bold">Random Notes</h1>
         <span className="text-sm text-gray-500">Last updated: {lastUpdate}</span>
       </div>
       

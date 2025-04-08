@@ -34,11 +34,9 @@ export async function GET() {
       blocks: blocks.results,
     };
     
-    // Prevent caching
+    // Allow caching but require revalidation
     const headers = new Headers();
-    headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    headers.set('Pragma', 'no-cache');
-    headers.set('Expires', '0');
+    headers.set('Cache-Control', 'public, max-age=0, must-revalidate');
     
     return NextResponse.json(response, { headers });
   } catch (error) {
