@@ -21,7 +21,7 @@ const LoadingFallback = () => (
 )
 
 const sortPostsByDate = (posts: Post[]) => {
-  return posts.sort((a, b) => 
+  return posts.sort((a, b) =>
     new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime()
   )
 }
@@ -39,7 +39,7 @@ const FeaturedBlogPostsList = async () => {
           href={`/blog/${post.slug}`}
         >
           <div className='flex mb-4'>
-            <div className='flex flex-col w-full place-self-center ml-2'>
+            <div className='flex flex-col w-full place-self-center'>
               <div className='text-zinc-400 font-semibold group-hover:text-white transition-all'>
                 {post.metadata.title}
               </div>

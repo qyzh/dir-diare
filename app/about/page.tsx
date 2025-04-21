@@ -2,10 +2,9 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Saweria from 'app/components/saweria';
-import Uq from 'app/components/uq';
+import {DiscordStatus} from 'app/components/discord';
 import Link from 'next/link';
 import { Navbar } from 'app/components/nav';
-import WorkSpace from '../components/workspace';
 import { getArtPosts } from '../work/utils';
 import AnimatedSection from '../components/animated-section';
 
@@ -136,13 +135,16 @@ const EduTL = () => (
 export default function AboutPage() {
     return (
         <section>
-            <Uq />
+                            <div className="mt-4 p-2 border-zinc-700 border-1 rounded">
+                                <div className='bg-neutral-950 rounded'>
+                                <DiscordStatus userId='334529486773026817'/>
+                            </div>
+                            </div>
             <About />
             <div className="p-4 grid grid-cols-1 gap-2">
                 <EduTL />
             </div>
             <Worklist />
-            <WorkSpace/>
             <Navbar />
             <Saweria />
         </section>
