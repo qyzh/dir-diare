@@ -8,7 +8,18 @@ interface DiscordStatusProps {
     userId: string;
     className?: string;
 }
-
+interface DiscordUser {
+    id: string;
+    username: string;
+    avatar?: string;
+    discriminator: string;
+    global_name?: string;
+    clan?: {
+      tag: string;
+      identity_guild_id: string;
+      badge: string;
+    };
+  }
 export function DiscordStatus({ userId,  className = "" }: DiscordStatusProps) {
     const [activity, setActivity] = useState<Activity | undefined>(undefined);
 
@@ -72,10 +83,11 @@ export function DiscordStatus({ userId,  className = "" }: DiscordStatusProps) {
     }[status.discord_status] || "bg-gray-500";
 
 // clan tag
-const clanData = status.discord_user?.clan?.tag || "Unknown Clan";
-const clanId = status.discord_user?.clan?.identity_guild_id || "Unknown Clan ID";
-const clandBadge = status.discord_user?.clan?.badge || "Unknown Badge ID";
-const clanIconUrl = `https://cdn.discordapp.com/clan-badges/${clanId}/${clandBadge}.png?size=16`;
+const clan = (status.discord_user as unknown as DiscordUser)?.clan;
+const clanTag = clan?.tag || "Unknown Clan";
+const clanGuildId = clan?.identity_guild_id || "Unknown Clan ID";
+const clanBadge = clan?.badge || "Unknown Badge";
+const clanIconUrl = clan ? `https://cdn.discordapp.com/clan-badges/${clanGuildId}/${clanBadge}.png?size=16` : "";
 
     return (
         <div className={`flex items-center space-x-3 ${className}`}>
@@ -101,7 +113,7 @@ const clanIconUrl = `https://cdn.discordapp.com/clan-badges/${clanId}/${clandBad
                     width={12}
                     height={12}
                     className="inline-block"
-                />{clanData}
+                />{clanTag}
                         </span>
                 </div>
 
