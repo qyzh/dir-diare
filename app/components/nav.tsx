@@ -2,25 +2,43 @@
 import React from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { House, NotebookPen, TestTubeDiagonal } from 'lucide-react';
+import Image from 'next/image';
+import homeIcon from '/public/svg/home.svg';
+import writeIcon from '/public/svg/quill_ink.svg';
+import tubeIcon from '/public/svg/testtube.svg';
 
 const navItems = {
     '/': {
         name: 'home',
         icon: (
-            <House />
+            <Image
+                src={homeIcon}
+                alt="Home"
+                width={24}
+                height={24}
+            />
         ),
     },
     '/blog': {
         name: 'blog',
         icon: (
-            <NotebookPen />
+            <Image
+            src={writeIcon}
+            alt="blog"
+            width={24}
+            height={24}
+        />
         ),
     },
     '/work': {
         name: 'work',
         icon: (
-            <TestTubeDiagonal />
+            <Image
+            src={tubeIcon}
+            alt="Work"
+            width={24}
+            height={24}
+        />
         ),
     },
 };
@@ -49,7 +67,7 @@ export function Navbar() {
                                 <Link
                                     key={path}
                                     href={path}
-                                    className="transition-all duration-300 hover:text-teal-400 rounded-full p-2 dark:hover:text-teal-400 flex align-middle hover:scale-110 hover:bg-teal-400/10"
+                                    className="transition-all duration-300 hover:text-teal-400 rounded p-2 dark:hover:text-teal-400 flex align-middle hover:scale-110 hover:bg-teal-400/10"
                                 >
                                     {icon}
                                 </Link>

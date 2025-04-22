@@ -1,8 +1,11 @@
 "use client";
-import { Calendar, Ruler, Timer, Dumbbell } from 'lucide-react';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import runningIcon from '/public/svg/running.svg';
+import stopwatchIcon from '/public/svg/stopwatch.svg';
+import lengthIcon from '/public/svg/length.svg';
 
 interface StravaProps {}
 interface ActivityType {
@@ -53,7 +56,7 @@ const Strava: React.FC<StravaProps> = () => {
     return (
       <div className="p-4 bg-red-500/10 border border-red-500 rounded-md">
         <p className="text-red-500">{error}</p>
-        <button 
+        <button
           onClick={fetchActivities}
           className="mt-2 px-4 py-2 bg-red-500/20 text-red-500 rounded-md hover:bg-red-500/30 transition-colors"
         >
@@ -93,7 +96,7 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
   if (isLoading) {
     return (
       <div className="animate-pulse">
-        <div className="p-4 mb-4 bg-white/5 border border-transparent rounded-md">
+        <div className="p-4 bg-white/5 border border-transparent rounded-md">
           <div className="space-y-2">
             <div className="h-8 bg-white/10 rounded w-3/4" />
             <div className="space-y-1">
@@ -110,51 +113,79 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
   if (!activities.length) return null;
 
   return (
-    <Link 
-      href={`https://strava.com/activities/${latestActivity.id}`} 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="block transition-transform hover:scale-[1.02]"
-    >
-      <div className="p-4 mb-4 bg-white/5 border border-transparent rounded-md duration-200 cursor-pointer 
-        hover:bg-orange-600/10 hover:border-orange-600">
-        <div className="flex gap-4">
-          <div className="flex-1 space-y-2">
-            <h3 className="text-neutral-300 text-3xl font-semibold truncate">
+    <Link
+    href={`https://strava.com/activities/${latestActivity.id}`}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block transition-transform"
+  >
+    <div className="bg-white/5 border border-transparent rounded duration-200 cursor-pointer
+      hover:bg-orange-600/10 hover:border-orange-600">
+      <div className="flex flex-col bg-orange-600/10 hover:bg-orange-600 sm:flex-row items-center ">
+        <div className="flex-1 p-2 space-y-2 ">
+
+          <div className="flex items-center flex-wrap gap-2">
+            <Image
+              src={runningIcon}
+              alt="Activity"
+              width={26}
+              height={26}
+            />
+            <span className="text-neutral-300 text-xl sm:text-3xl font-semibold truncate">
               {latestActivity.name}
-            </h3>
-            <div className="space-y-1 text-sm text-neutral-300">
-              <div className="flex items-center">
-                <Calendar className="mr-2 h-4 w-4" />
-                <span><strong>Date:</strong> {formatDate(latestActivity.start_date)}</span>
-              </div>
-              <div className="flex items-center">
-                <Timer className="mr-2 h-4 w-4" />
-                <span><strong>Time:</strong> {formatTime(latestActivity.moving_time * 0.0166667)}</span>
-              </div>
-              <div className="flex items-center">
-                <Ruler className="mr-2 h-4 w-4" />
-                <span><strong>Distance:</strong> {formatDistance(latestActivity.distance)}</span>
-              </div>
-            </div>
+            </span>
+            <span className="text-xs font-mono content-end">• {formatDate(latestActivity.start_date)}</span>
           </div>
 
-          <div className="relative w-32 h-32 rounded-lg overflow-hidden bg-white/5 flex items-center justify-center">
-            {latestActivity.photos?.primary ? (
+          <div className="flex flex-wrap gap-4 text-sm text-neutral-300">
+
+            <div className="flex items-center gap-1">
               <Image
-                src={latestActivity.photos.primary.urls['600']}
-                alt={latestActivity.name}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                src={stopwatchIcon}
+                alt="Time"
+                width={20}
+                height={20}
               />
-            ) : (
-              <Dumbbell className="h-12 w-12 text-white/20" />
-            )}
+              <span>{formatTime(latestActivity.moving_time * 0.0166667)}</span>
+            </div>
+
+            <div className="flex items-center gap-1">
+              <Image
+                src={lengthIcon}
+                alt="Distance"
+                width={20}
+                height={20}
+              />
+              <span>{formatDistance(latestActivity.distance)}</span>
+            </div>
+
           </div>
+
         </div>
+
+        <div className="relative w-full sm:w-32 h-32 rounded overflow-hidden bg-white/5 flex items-center justify-center">
+          {latestActivity.photos?.primary ? (
+            <Image
+              src={latestActivity.photos.primary.urls['600']}
+              alt={latestActivity.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
+            />
+          ) : (
+            <Image
+              src={runningIcon}
+              alt="Activity"
+              width={24}
+              height={24}
+            />
+          )}
+        </div>
+
+
       </div>
-    </Link>
+    </div>
+  </Link>
   );
 });
 

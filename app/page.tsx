@@ -29,11 +29,11 @@ export default function Page() {
                     <div className="space-y-4">
                         <FBRecentPost />
                     </div>
-                    <div className="box-border border-2 border-zinc-700 rounded-md p-4">
+                    <div className="box-border border-1 border-zinc-700 rounded p-2">
                         <FBRecentWork />
                     </div>
                 </div>
-                <div className="mt-4">
+                <div className="box-border border-1 border-zinc-700 rounded p-2 mt-4">
                     <Strava />
                 </div>
                 <Navbar />

@@ -25,7 +25,7 @@ export default function WorkPage() {
             <Navbar />
             <Breadcrumbs />
               <SecHeadWork/>
-            <div className="container py-12">
+            <div className="container">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {ArtList.map((d) => (
               <Card

@@ -62,7 +62,7 @@ async function getAccessToken(): Promise<string> {
   }
 
   const data: StravaTokenResponse = await tokenResponse.json();
-  
+
   // Cache the new token and set expiration (subtract 5 minutes for safety margin)
   cachedToken = data.access_token;
   tokenExpiration = data.expires_at * 1000 - 5 * 60 * 1000;
@@ -80,7 +80,7 @@ export async function GET() {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-        next: { revalidate: 300 }, // Cache for 5 minutes
+        next: { revalidate: 6 }, // Cache for 5 minutes
       }
     );
 
