@@ -119,26 +119,28 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
     rel="noopener noreferrer"
     className="block transition-transform"
   >
-    <div className="bg-white/5 border border-transparent rounded duration-200 cursor-pointer
-      hover:bg-orange-600/10 hover:border-orange-600">
+    <div className="group bg-white/5 border border-transparent rounded duration-200 cursor-pointer
+      hover:bg-orange-600/10 hover:border-orange-600 relative">
       <div className="flex flex-col bg-orange-600/10 hover:bg-orange-600 sm:flex-row items-center ">
         <div className="flex-1 p-2 space-y-2 ">
-
-          <div className="flex items-center flex-wrap gap-2">
-            <Image
+        {/* <div className='absolute top-0 left-0 bg-white/5 rounded'>
+        <Image
               src={runningIcon}
               alt="Activity"
               width={26}
               height={26}
-            />
-            <span className="text-neutral-300 text-xl sm:text-3xl font-semibold truncate">
+            /> <span>Running</span>
+        </div> */}
+          <div className="flex flex-col">
+            <div>
+            <span className="text-xs font-mono bg-orange-600 group-hover:bg-orange-950 px-1 py-0.5"> {formatDate(latestActivity.start_date)}</span>
+            </div>
+            <div className="text-neutral-300 text-xl sm:text-3xl font-semibold truncate">
               {latestActivity.name}
-            </span>
-            <span className="text-xs font-mono content-end">• {formatDate(latestActivity.start_date)}</span>
+            </div>
           </div>
 
           <div className="flex flex-wrap gap-4 text-sm text-neutral-300">
-
             <div className="flex items-center gap-1">
               <Image
                 src={stopwatchIcon}
@@ -163,7 +165,7 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
 
         </div>
 
-        <div className="relative w-full sm:w-32 h-32 rounded overflow-hidden bg-white/5 flex items-center justify-center">
+        <div className="relative w-full sm:w-32 h-32 rounded overflow-hidden bg-white/5 flex items-center justify-center group-hover:bg-amber-950">
           {latestActivity.photos?.primary ? (
             <Image
               src={latestActivity.photos.primary.urls['600']}
