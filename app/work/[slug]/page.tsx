@@ -66,27 +66,27 @@ export default function Blog({ params }) {
         <div>
             <Navbar />
             <script
-                type="application/ld+json"
-                suppressHydrationWarning
-                dangerouslySetInnerHTML={{
-                    __html: JSON.stringify({
-                        '@context': 'https://schema.org',
-                        '@type': 'BlogPosting',
-                        headline: post.metadata.title,
-                        datePublished: post.metadata.publishedAt,
-                        dateModified: post.metadata.publishedAt,
-                        description: post.metadata.summary,
-                        image: post.metadata.image
-                            ? `${baseUrl}${post.metadata.image}`
-                            : `/og?title=${encodeURIComponent(post.metadata.title)}`,
-                        url: `${baseUrl}/art/${post.slug}`,
-                        author: {
-                            '@type': 'Person',
-                            name: 'My Dir',
-                        },
-                    }),
-                }}
-            />
+    type="application/ld+json"
+    suppressHydrationWarning
+    dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
+            headline: post?.metadata?.title || '',
+            datePublished: post?.metadata?.publishedAt || '',
+            dateModified: post?.metadata?.publishedAt || '',
+            description: post?.metadata?.summary || '',
+            image: post?.metadata?.image
+                ? `${baseUrl}${post.metadata.image}`
+                : `/og?title=${encodeURIComponent(post?.metadata?.title || '')}`,
+            url: `${baseUrl}/art/${post?.slug || ''}`,
+            author: {
+                '@type': 'Person',
+                name: 'My Dir',
+            },
+        }),
+    }}
+/>
             <div className="text-left mb-4">
                 <Breadcrumbs post={post}/>
             </div>
