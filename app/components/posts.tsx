@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import Image from 'next/image'
-import calendarIcon from '/public/svg/calendar.svg'
 
 
 export function BlogPosts() {

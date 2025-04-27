@@ -8,7 +8,7 @@ import  Komentar  from 'app/components/comments'
 import Saweria from 'app/components/saweria'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import { readTime } from 'utils/ReadTime'
-import { CalendarDays, Hourglass, MessagesSquare } from 'lucide-react'
+
 export async function generateStaticParams() {
     let posts = getBlogPosts()
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useLanyard } from "react-use-lanyard";
-import type { Activity, LanyardData } from "react-use-lanyard";
+import type { Activity } from "react-use-lanyard";
 import { useEffect, useState } from "react";
 
 interface DiscordStatusProps {
@@ -134,26 +134,45 @@ const clanIconUrl = clan ? `https://cdn.discordapp.com/clan-badges/${clanGuildId
                         <div className="flex items-center gap-1">
                             {activity.assets?.large_image && (
                                 <img
-                                    src={`https://cdn.discordapp.com/app-assets/${activity.application_id}/${activity.assets.large_image}`}
+                                    src={`http://dcdn.dstn.to/app-icons/${activity.application_id}/${activity.assets.large_image}`}
                                     alt="Activity"
                                     className="h-8 w-8 rounded"
                                 />
                             )}
-                            <div className="flex flex-col">
-                                <span className="font-semibold text-neutral-200">
+                            <div className="flex ">
+                            <div className="flex flex-col ml-2">
+
+                                <span className=" font-semibold text-neutral-200">
                                         {activity.name}
                                 </span>
-                            {activity.details && (
-                                <span className="font-mono">{activity.details}</span>
-                            )}
+                                <div className="flex items-center gap-1 font-mono">
+                                    {activity.details && <span>{activity.details}</span>}
+                                    {activity.state && <span>{activity.details ? " @ " : ""}{activity.state}</span>}
+                                </div>
+                            </div>
                         </div>
                         </div>
                     </div>
                 )}
                 {!activity && status.spotify && (
-                    <div className="text-xs text-neutral-400 mt-1 flex items-center gap-1">
-                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-                        <span>Listening to {status.spotify.song} by {status.spotify.artist}</span>
+                    <div className="text-xs text-neutral-400 mt-1">
+                        <div className="flex items-center gap-2">
+                            {status.spotify.album_art_url && (
+                                <img
+                                    src={status.spotify.album_art_url}
+                                    alt={`${status.spotify.song} album art`}
+                                    className="h-8 w-8 rounded"
+                                />
+                            )}
+                            <div className="flex flex-col">
+                                <span className="font-semibold text-neutral-200">
+                                    {status.spotify.song}
+                                </span>
+                                <div className="flex items-center gap-1">
+                                    <span className="text-xs">by {status.spotify.artist}</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>
