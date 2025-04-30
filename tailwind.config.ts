@@ -6,7 +6,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['var(--font-geist-sans)'],
-        mono: ['var(--font-geist-mono)'],
+        mono: ['var(--font-jetbrains-mono)', 'monospace'],
       },
       typography: {
         quoteless: {
@@ -33,4 +33,4 @@ export default {
   plugins: [
     require('@tailwindcss/typography'),
   ],
-} 
+}

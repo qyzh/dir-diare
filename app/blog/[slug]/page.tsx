@@ -93,6 +93,10 @@ export default function Blog({ params }) {
                         }}
                     />
                     <Breadcrumbs post={post}/>
+                    <h1 className="title font-bold text-3xl tracking-tighter max-w-[650px]">
+                        {post.metadata.title}
+                    </h1>
+                    <p className='text-neutral-600 font-mono dark:text-neutral-400'>{post.metadata.summary}</p>
                     <div className='grid gap-4'>
                         <div className="flex flex-col md:flex-row justify-center md:justify-start gap-x-2 gap-y-1 text-m text-neutral-600 dark:text-neutral-400 mb-2">
                             <div className='flex items-center gap-1'>
@@ -119,10 +123,6 @@ export default function Blog({ params }) {
                             </div>
                         </div>
                     </div>
-                    <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
-                        {post.metadata.title}
-                    </h1>
-                    <p className='text-neutral-600 dark:text-neutral-400'>{post.metadata.summary}</p>
                     <article className="prose prose-quoteless prose-neutral dark:prose-invert">
                         <CustomMDX source={post.content} />
                         <hr className='my-4 border-neutral-300 dark:border-neutral-700' />

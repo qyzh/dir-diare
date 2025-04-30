@@ -1,7 +1,7 @@
 import './global.css'
 import type { Metadata } from 'next'
 import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import { JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import Footer from './components/footer'
@@ -38,6 +38,11 @@ export const metadata: Metadata = {
 
 const cx = (...classes) => classes.filter(Boolean).join(' ')
 
+const jetbrainsMono = JetBrains_Mono({
+    subsets: ['latin'],
+    variable: '--font-jetbrains-mono',
+})
+
 export default function RootLayout({
     children,
 }: {
@@ -49,7 +54,7 @@ export default function RootLayout({
             className={cx(
                 'text-black bg-white dark:text-white dark:bg-neutral-900 [color-scheme:dark] scroll-smooth',
                 GeistSans.variable,
-                GeistMono.variable
+                jetbrainsMono.variable
             )}
         >
             <body className="antialiased max-w-2xl mb-40 flex flex-col mx-4 mt-8 md:mx-auto">
