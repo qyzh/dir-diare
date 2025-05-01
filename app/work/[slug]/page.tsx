@@ -72,14 +72,14 @@ export default function Blog({ params }) {
         __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'BlogPosting',
-            headline: work.metadata.title || '',
-            datePublished: work.metadata.publishedAt || '',
-            dateModified: work.metadata.publishedAt || '',
-            description: work.metadata.summary || '',
+            headline: work.metadata.title ,
+            datePublished: work.metadata.publishedAt ,
+            dateModified: work.metadata.publishedAt ,
+            description: work.metadata.summary ,
             image: work.metadata.image
                 ? `${baseUrl}${work.metadata.image}`
-                : `/og?title=${encodeURIComponent(work.metadata.title || '')}`,
-            url: `${baseUrl}/work/${work.slug || ''}`,
+                : `/og?title=${encodeURIComponent(work.metadata.title)}`,
+            url: `${baseUrl}/work/${work.slug}`,
             author: {
                 '@type': 'Person',
                 name: 'My Dir',
