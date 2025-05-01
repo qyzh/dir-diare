@@ -86,7 +86,6 @@ export function DiscordStatus({ userId,  className = "" }: DiscordStatusProps) {
     const clan = (status.discord_user as unknown as DiscordUser)?.clan;
 
     //spotify things
-    const listening = status.spotify?.song;
     const clanTag = clan?.tag || "Unknown Clan";
     const clanGuildId = clan?.identity_guild_id || "Unknown Clan ID";
     const clanBadge = clan?.badge || "Unknown Badge";
