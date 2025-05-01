@@ -81,14 +81,16 @@ export function DiscordStatus({ userId,  className = "" }: DiscordStatusProps) {
         dnd: "bg-red-500",
         offline: "bg-gray-500"
     }[status.discord_status] || "bg-gray-500";
-//spotify things
-const listening = status.spotify?.song
-// clan tag
-const clan = (status.discord_user as unknown as DiscordUser)?.clan;
-const clanTag = clan?.tag || "Unknown Clan";
-const clanGuildId = clan?.identity_guild_id || "Unknown Clan ID";
-const clanBadge = clan?.badge || "Unknown Badge";
-const clanIconUrl = clan ? `https://cdn.discordapp.com/clan-badges/${clanGuildId}/${clanBadge}.png?size=16` : "";
+
+    // clan tag
+    const clan = (status.discord_user as unknown as DiscordUser)?.clan;
+
+    //spotify things
+    const listening = status.spotify?.song;
+    const clanTag = clan?.tag || "Unknown Clan";
+    const clanGuildId = clan?.identity_guild_id || "Unknown Clan ID";
+    const clanBadge = clan?.badge || "Unknown Badge";
+    const clanIconUrl = clan ? `https://cdn.discordapp.com/clan-badges/${clanGuildId}/${clanBadge}.png?size=16` : "";
 
     return (
         <div className={`flex items-center space-x-3 ${className}`}>

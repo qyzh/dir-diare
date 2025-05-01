@@ -72,14 +72,14 @@ export default function Blog({ params }) {
         __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'BlogPosting',
-            headline: work?.metadata?.title || '',
-            datePublished: work?.metadata?.publishedAt || '',
-            dateModified: work?.metadata?.publishedAt || '',
-            description: work?.metadata?.summary || '',
-            image: work?.metadata?.image
+            headline: work.metadata.title || '',
+            datePublished: work.metadata.publishedAt || '',
+            dateModified: work.metadata.publishedAt || '',
+            description: work.metadata.summary || '',
+            image: work.metadata.image
                 ? `${baseUrl}${work.metadata.image}`
-                : `/og?title=${encodeURIComponent(work?.metadata?.title || '')}`,
-            url: `${baseUrl}/work/${work?.slug || ''}`,
+                : `/og?title=${encodeURIComponent(work.metadata.title || '')}`,
+            url: `${baseUrl}/work/${work.slug || ''}`,
             author: {
                 '@type': 'Person',
                 name: 'My Dir',
@@ -90,6 +90,9 @@ export default function Blog({ params }) {
             <div className="text-left mb-4">
                 <Breadcrumbs post={work}/>
             </div>
+            <h1 className="title font-bold text-3xl tracking-tighter max-w-[650px]">
+                {work.metadata.title}
+            </h1>
             <div className="flex items-center flex-wrap gap-4 mb-4">
                 <p className="text-sm font-mono text-neutral-600 dark:text-neutral-400 flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="24" height="24" viewBox="0 0 72 72" className='inline fill-indigo-600'>
@@ -104,10 +107,16 @@ export default function Blog({ params }) {
                         {work.metadata.tag}
                     </span>
                 )}
+<div className="flex flex-wrap gap-2">
+    {work.metadata.language && work.metadata.language.split(',').map((lang, index) => (
+        <div
+            key={index}
+            className="text-sm px-2 py-1 bg-neutral-100 dark:bg-neutral-800 rounded-md hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors duration-200"
+        > <span className='text-neutral-500'>#</span>{lang.trim()}
+        </div>
+    ))}
+</div>
             </div>
-            <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
-                {work.metadata.title}
-            </h1>
             <article className="prose prose-quoteless prose-neutral dark:prose-invert">
                 <CustomMDX source={work.content} />
 
