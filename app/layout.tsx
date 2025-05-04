@@ -4,8 +4,6 @@ import { GeistSans } from 'geist/font/sans'
 import { JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
-import Footer from './components/footer'
-import AnimatedSection from './components/animated-section'
 import { baseUrl } from './sitemap'
 
 export const metadata: Metadata = {
@@ -58,20 +56,9 @@ export default function RootLayout({
             )}
         >
             <body className="antialiased max-w-2xl mb-40 flex flex-col mx-4 mt-8 md:mx-auto">
-                <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-                    <AnimatedSection delay={0.1}>
                         {children}
-                    </AnimatedSection>
-                    <AnimatedSection delay={0.3}>
-                        <Footer />
-                    </AnimatedSection>
-                    <AnimatedSection delay={0.5}>
                         <Analytics />
-                    </AnimatedSection>
-                    <AnimatedSection delay={0.7}>
                         <SpeedInsights />
-                    </AnimatedSection>
-                </main>
             </body>
         </html>
     )

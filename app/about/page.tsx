@@ -6,7 +6,7 @@ import {DiscordStatus} from 'app/components/discord';
 import Link from 'next/link';
 import { Navbar } from 'app/components/nav';
 import { getArtPosts } from '../work/utils';
-import AnimatedSection from '../components/animated-section';
+import { AnimatedAbove, AnimatedLeft, AnimatedZoom, AnimatedRight, AnimatedBelow, AnimatedFade } from 'app/components/animated-section';
 
 export const metadata: Metadata = {
     title: 'About',
@@ -21,8 +21,9 @@ interface Edu {
 }
 
 const About = () => (
-    <AnimatedSection>
+    <AnimatedAbove delay={0.5}>
         <div className="flex flex-col gap-2 p-4 my-4 border-1 border-neutral-700 rounded ">
+        <AnimatedZoom delay={0.8}>
         <div className='flex items-center gap-2'>
         <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0 0 50 50"
         className="fill-neutral-600 dark:fill-neutral-400">
@@ -34,8 +35,9 @@ const About = () => (
                 I am a Communication student who has an interest in interface design & running. My name is{' '}
                 <strong>Syauqi Ashadullah </strong> and am currently living in Bandung, West Java.
             </p>
+            </AnimatedZoom>
         </div>
-    </AnimatedSection>
+        </AnimatedAbove>
 );
 
 const eduData: Edu[] = [
@@ -87,7 +89,7 @@ const Worklist = () => {
         return 1
     });
     return (
-        <AnimatedSection delay={0.2}>
+        <AnimatedFade delay={0.5}>
             <div className="border-1 border-neutral-800 mb-8 rounded-md overflow-hidden">
                 <h2 className="font-semibold px-4 pt-4">Project</h2>
                 <div className="p-4">
@@ -103,7 +105,7 @@ const Worklist = () => {
                     </div>
                 </Link>
             </div>
-        </AnimatedSection>
+        </AnimatedFade>
     );
 };
 
@@ -120,39 +122,47 @@ const EduTimelineItem = ({ title, desc, year, place }: Edu) => (
 );
 
 const EduTL = () => (
-    <AnimatedSection delay={0.1}>
+    <AnimatedZoom delay={0.5}>
         <div className="grid gap-4 grid-cols-12">
             <div className="col-span-3">
                 <div className="text-left mb-14">
+                    <AnimatedLeft delay={0.8}>
                     <h3 className="text-lg font-semibold">Edu</h3>
+                    </AnimatedLeft>
                 </div>
             </div>
             <div className="relative space-y-6 col-span-9">
                 <div className="relative px-4 col-span-8 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:-left-3 before:dark:bg-neutral-800">
-                    {eduData.map((edu) => (
-                        <EduTimelineItem key={edu.title} {...edu} />
-                    ))}
+                {eduData.map((edu, index) => (
+    <AnimatedRight key={edu.title} delay={0.8 + (index * 0.2)}>
+        <EduTimelineItem {...edu} />
+    </AnimatedRight>
+))}
                 </div>
             </div>
         </div>
-    </AnimatedSection>
+    </AnimatedZoom>
 );
 
 export default function AboutPage() {
     return (
         <section>
+            <AnimatedAbove delay={0.2}>
                             <div className="mt-4 p-2 border-zinc-700 border-1 rounded">
                                 <div className='bg-neutral-950 rounded'>
                                 <DiscordStatus userId='334529486773026817'/>
                             </div>
                             </div>
+            </AnimatedAbove>
             <About />
             <div className="p-4 grid grid-cols-1 gap-2">
                 <EduTL />
             </div>
             <Worklist />
-            <Navbar />
+            <AnimatedBelow delay={0.2}>
             <Saweria />
+            </AnimatedBelow>
+            <Navbar />
         </section>
     );
 }

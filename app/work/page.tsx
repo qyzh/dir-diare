@@ -6,6 +6,8 @@ import {  Navbar } from '../components/nav'
 import { SecHeadWork } from "app/components/sechead";
 import Breadcrumbs from "app/components/breadcrumbs";
 import { getArtPosts } from "./utils";
+import { AnimatedAbove, AnimatedBelow, AnimatedZoom } from "app/components/animated-section";
+import Footer from "app/components/footer";
 
 export const metadata: Metadata = {
   title: 'Work',
@@ -22,23 +24,33 @@ export default function WorkPage() {
     return (
 
         <section>
-            <Navbar />
+            <AnimatedAbove delay={0.5}>
             <Breadcrumbs />
+            </AnimatedAbove>
+            <AnimatedAbove delay={0.3}>
               <SecHeadWork/>
+            </AnimatedAbove>
             <div className="container">
+        <AnimatedZoom delay={0.5}>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {ArtList.map((d) => (
+            {ArtList.map((d, index) => (
+                <AnimatedZoom key={d.metadata.title} delay={0.8 + (index * 0.2)}>
               <Card
-                key={d.metadata.title}
                 title={d.metadata.title}
                 tagz={d.metadata.tag}
                 description={d.metadata.summary}
                 imgSrc={d.metadata.image}
                 href={`/work/${d.slug}`}
               ></Card>
+            </AnimatedZoom>
             ))}
           </div>
+        </AnimatedZoom>
           </div>
+          <Navbar />
+          <AnimatedBelow delay={1.0}>
+            <Footer/>
+        </AnimatedBelow>
         </section>
     )
 }
