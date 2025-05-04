@@ -9,6 +9,8 @@ import Saweria from 'app/components/saweria'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import { readTime } from 'utils/ReadTime'
 import { AnimatedAbove, AnimatedBelow, AnimatedLeft, AnimatedZoom } from 'app/components/animated-section'
+import Footer from 'app/components/footer'
+
 
 export async function generateStaticParams() {
     let posts = getBlogPosts()
@@ -96,7 +98,7 @@ export default function Blog({ params }) {
                     <Breadcrumbs post={post}/>
                     </AnimatedAbove>
                     <AnimatedAbove delay={0.3}>
-                    <h1 className="title font-bold text-3xl tracking-tighter max-w-[650px]">
+                    <h1 className="title font-bold text-6xl tracking-tighter max-w-[650px]">
                         {post.metadata.title}
                     </h1>
                     <p className='text-neutral-600 font-mono dark:text-neutral-400'>{post.metadata.summary}</p>
@@ -147,6 +149,7 @@ export default function Blog({ params }) {
                 </>
             )}
             <Navbar />
+            <Footer/>
         </section>
     )
 }
