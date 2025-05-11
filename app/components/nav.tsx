@@ -48,7 +48,7 @@ const navItems = {
         ),
     },
         '/galery': {
-        name: 'work',
+        name: 'galery',
         icon: (
             <Image
             src={photoIcon}

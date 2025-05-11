@@ -1,43 +1,33 @@
 "use client"
 import React from 'react'
 import { motion } from 'framer-motion'
+import Image from 'next/image'
+import PhotoGif from '/public/gif/photo.gif'
+import WriteGif from '/public/gif/writing.gif'
+import ToolGif from '/public/gif/tools.gif'
 
 export const SecHeadWork = () => {
     return (
-        <div>
-        <motion.div className="pb-8"
-        animate={{  opacity: 1 }}
-        initial={{  opacity: 0 }}
-        transition={{duration: 0.5}}
-        >
-
-<svg xmlns="http://www.w3.org/2000/svg" className='inline-block mr-1' width="32" height="32" viewBox="0 0 72 72" fill="currentColor">
-  <path d="M23 8C17.486 8 13 12.486 13 18C13 22.09 15.473 25.611 19 27.158V44.842C15.473 46.389 13 49.909 13 54C13 59.514 17.486 64 23 64C28.514 64 33 59.514 33 54C33 50.014 30.648 46.576 27.266 44.971C27.555 44.444 28.06 44.044 28.672 43.904L43.941 41.141C48.05 40.284 51.266 37.224 52.475 33.365C56.278 31.949 59 28.291 59 24C59 18.486 54.514 14 49 14C43.486 14 39 18.486 39 24C39 27.622 40.943 30.79 43.834 32.545C43.419 32.907 42.915 33.174 42.352 33.299L27.078 36.064C27.052 36.07 27.026 36.078 27 36.084V27.158C30.527 25.611 33 22.091 33 18C33 12.486 28.514 8 23 8ZM23 16C24.103 16 25 16.897 25 18C25 19.103 24.103 20 23 20C21.897 20 21 19.103 21 18C21 16.897 21.897 16 23 16ZM49 22C50.103 22 51 22.897 51 24C51 25.103 50.103 26 49 26C47.897 26 47 25.103 47 24C47 22.897 47.897 22 49 22ZM23 52C24.103 52 25 52.897 25 54C25 55.103 24.103 56 23 56C21.897 56 21 55.103 21 54C21 52.897 21.897 52 23 52Z" />
-</svg> <h1 className="font-medium text-6xl tracking-tighter">My Work</h1>
-
+        <div className="pb-4">
+<div className="flex items-center">
+  <Image src={ToolGif} alt="Tools" className="mr-2" width={32} height={32} />
+  <h1 className="font-medium text-3xl tracking-tighter">My Work</h1>
+</div>
             <div className="prose prose-neutral dark:prose-invert">
               <p>Berisi dengan karya dan sebuah percobaan iseng.</p>
                 <hr className='border-neutral-300 dark:border-neutral-700' />
 
             </div>
-        </motion.div>
         </div>
     )
 }
 export const SecHeadBlog = () => {
     return (
-        <div>
-        <motion.div className="pb-4"
-        animate={{  opacity: 1 }}
-        initial={{  opacity: 0 }}
-        transition={{duration: 0.5}}
-        >
-<h1 className="font-medium text-2xl mb-4 tracking-tighter">
-<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="32" height="32" viewBox="0 0 72 72"
-className='inline-block mr-1' fill='currentColor'>
-<path d="M 58.117188 4.0078125 C 57.956006 4.0018437 57.793406 4.0086719 57.628906 4.0292969 C 38.733906 6.3812969 32.881187 15.703563 31.242188 19.601562 C 29.624971 23.447729 29.650179 27.366739 31.238281 30.416016 C 30.575417 31.778025 30.066337 33.004493 29.722656 34 L 22 34 C 20.343 34 19 35.343 19 37 C 19 38.657 20.343 40 22 40 L 37 40 C 38.657 40 40 38.657 40 37 C 40 35.343 38.657 34 37 34 L 35.070312 34 C 35.207818 33.673688 35.382906 33.312803 35.550781 32.955078 C 46.037265 32.48696 50.036278 25.103681 53.560547 18.544922 C 55.467547 14.995922 57.269469 11.644813 59.980469 9.2578125 C 60.969469 8.3888125 61.276328 6.9753906 60.736328 5.7753906 C 60.262953 4.7245156 59.245459 4.0495937 58.117188 4.0078125 z M 50.552734 11.621094 C 49.747734 12.969094 49.007344 14.345078 48.277344 15.705078 C 45.654558 20.583247 43.554219 24.142621 40.046875 25.855469 C 40.980339 24.695405 42.039767 23.495561 43.267578 22.267578 C 44.244578 21.291578 44.243578 19.709422 43.267578 18.732422 C 42.291578 17.755422 40.709422 17.755422 39.732422 18.732422 C 38.627541 19.837303 37.642197 20.928317 36.748047 21.998047 C 36.757742 21.974532 36.765495 21.951255 36.775391 21.927734 C 38.686391 17.380734 43.637734 13.747094 50.552734 11.621094 z M 23 42 C 21.485 42 20.100875 42.855938 19.421875 44.210938 C 18.975875 45.102938 18.437453 45.827062 17.814453 46.664062 C 16.115453 48.948062 14 51.79 14 58 C 14 60.209 15.791 62 18 62 L 41 62 C 43.209 62 45 60.209 45 58 C 45 51.79 42.885547 48.948062 41.185547 46.664062 C 40.562547 45.827062 40.024125 45.103938 39.578125 44.210938 C 38.900125 42.855938 37.515 42 36 42 L 23 42 z M 25.271484 50.001953 L 33.728516 50.001953 C 34.083516 50.523953 34.435578 50.996406 34.767578 51.441406 C 35.369578 52.251406 35.870188 52.921937 36.242188 53.710938 C 36.304187 53.842938 36.202641 54 36.056641 54 L 22.943359 54 C 22.797359 54 22.696766 53.842938 22.759766 53.710938 C 23.131766 52.921938 23.629422 52.251406 24.232422 51.441406 C 24.564422 50.996406 24.916484 50.523953 25.271484 50.001953 z"></path>
-</svg> My Blog
-            </h1>
+        <div className="pb-4">
+<div className="flex items-center">
+  <Image src={WriteGif} alt="Writing" className="mr-2" width={32} height={32} />
+  <h1 className="font-medium text-3xl tracking-tighter">My Blog</h1>
+</div>
             <div className="prose prose-neutral dark:prose-invert">
               <p>Tentang random hal,
                 <span className="hover:text-rose-500">Tjinta</span>,
@@ -47,7 +37,20 @@ className='inline-block mr-1' fill='currentColor'>
                 <hr className='border-neutral-300 dark:border-neutral-700' />
 
             </div>
-        </motion.div>
+        </div>
+    )
+}
+export const SecHeadGalery = () => {
+    return (
+        <div className="pb-8">
+<div className="flex items-center">
+  <Image src={PhotoGif} alt="Photo" className="mr-2" width={32} height={32} />
+  <h1 className="font-medium text-3xl tracking-tighter">My Galery</h1>
+</div>
+            <div className="prose prose-neutral dark:prose-invert">
+              <p>Foto-foto abstrack.</p>
+                <hr className='border-neutral-300 dark:border-neutral-700' />
+            </div>
         </div>
     )
 }
