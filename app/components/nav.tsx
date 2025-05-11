@@ -7,6 +7,7 @@ import homeIcon from '/public/svg/home.svg';
 import writeIcon from '/public/svg/quill_ink.svg';
 import tubeIcon from '/public/svg/testtube.svg';
 import userIcon from '/public/svg/user.svg';
+import photoIcon from '/public/svg/photo.svg';
 import { usePathname } from 'next/navigation';
 
 const navItems = {
@@ -40,6 +41,18 @@ const navItems = {
             <Image
             src={tubeIcon}
             alt="Work"
+            width={24}
+            height={24}
+            className="transition-all duration-300"
+        />
+        ),
+    },
+        '/galery': {
+        name: 'work',
+        icon: (
+            <Image
+            src={photoIcon}
+            alt="Galery"
             width={24}
             height={24}
             className="transition-all duration-300"
