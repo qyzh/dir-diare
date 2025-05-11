@@ -25,7 +25,7 @@ export default function Page() {
             </AnimatedAbove>
             <AnimatedAbove delay={0.5}>
                 <div className="mt-4 p-2 border-zinc-700 border-1 rounded">
-                    <DiscordStatus userId='334529486773026817'/>
+                    <DiscordStatus/>
                 </div>
             </AnimatedAbove>
 

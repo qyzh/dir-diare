@@ -5,7 +5,7 @@ import type { Activity } from "react-use-lanyard";
 import { useEffect, useState } from "react";
 
 interface DiscordStatusProps {
-    userId: string;
+    userId?: string;
     className?: string;
 }
 interface DiscordUser {
@@ -20,7 +20,7 @@ interface DiscordUser {
       badge: string;
     };
   }
-export function DiscordStatus({ userId,  className = "" }: DiscordStatusProps) {
+export function DiscordStatus({ userId = process.env.NEXT_PUBLIC_DISCORD_USER_ID || '', className = "" }: DiscordStatusProps) {
     const [activity, setActivity] = useState<Activity | undefined>(undefined);
 
     const { loading, status } = useLanyard({
@@ -73,7 +73,6 @@ export function DiscordStatus({ userId,  className = "" }: DiscordStatusProps) {
     const avatarUrl = status.discord_user.avatar
         ? `https://cdn.discordapp.com/avatars/${status.discord_user.id}/${status.discord_user.avatar}`
         : `https://cdn.discordapp.com/embed/avatars/${parseInt(status.discord_user.discriminator) % 5}.png`;
-    const bannerUser = `https://dcdn.dstn.to/banners/${userId}`;
 
     // Handle status colors
     const statusColor = {

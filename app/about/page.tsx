@@ -150,7 +150,7 @@ export default function AboutPage() {
             <AnimatedAbove delay={0.2}>
                             <div className="mt-4 p-2 border-zinc-700 border-1 rounded">
                                 <div className='bg-neutral-950 rounded'>
-                                <DiscordStatus userId='334529486773026817'/>
+                                <DiscordStatus/>
                             </div>
                             </div>
             </AnimatedAbove>
