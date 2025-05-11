@@ -98,7 +98,7 @@ export default function Blog({ params }) {
                     <Breadcrumbs post={post}/>
                     </AnimatedAbove>
                     <AnimatedAbove delay={0.3}>
-                    <h1 className="title font-bold text-6xl tracking-tighter max-w-[650px]">
+                    <h1 className="title font-bold text-4xl tracking-tighter max-w-[650px]">
                         {post.metadata.title}
                     </h1>
                     <p className='text-neutral-600 font-mono dark:text-neutral-400'>{post.metadata.summary}</p>
