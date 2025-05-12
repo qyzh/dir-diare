@@ -21,8 +21,8 @@ export default function Page() {
             <AnimatedAbove delay={0.3}>
             <SecHeadGalery />
             </AnimatedAbove>
-           <AnimatedBelow delay={0.3}>
-             <PhotoGallery username="syauqashdllh" limit={12} />
+             <AnimatedBelow delay={0.3}>
+             <PhotoGallery username="syauqashdllh" limit={9} />
             </AnimatedBelow>
             <AnimatedBelow delay={1.0}>
             <Footer/>
