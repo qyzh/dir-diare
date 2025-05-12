@@ -1,6 +1,6 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
+import { Inter } from 'next/font/google'
 import { JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -36,6 +36,11 @@ export const metadata: Metadata = {
 
 const cx = (...classes) => classes.filter(Boolean).join(' ')
 
+const inter = Inter({
+    subsets: ['latin'],
+    variable: '--font-inter',
+})
+
 const jetbrainsMono = JetBrains_Mono({
     subsets: ['latin'],
     variable: '--font-jetbrains-mono',
@@ -46,12 +51,11 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    return (
-        <html
+    return (        <html
             lang="en"
             className={cx(
                 'text-black bg-white dark:text-white dark:bg-neutral-900 [color-scheme:dark] scroll-smooth',
-                GeistSans.variable,
+                inter.variable,
                 jetbrainsMono.variable
             )}
         >

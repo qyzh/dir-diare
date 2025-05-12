@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { CustomMDX } from 'app/components/mdx'
+import { SimpleMDX } from 'app/components/simple-mdx'
 import { formatDate, getArtPosts } from 'app/work/utils'
 import { baseUrl } from 'app/sitemap'
 import { Navbar } from 'app/components/nav'
@@ -151,10 +151,9 @@ export default function Blog({ params }) {
          </AnimatedRight>
     ))}
 </div>
-            </div>
-            <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+            </div>            <article className="prose prose-quoteless prose-neutral dark:prose-invert">
                <AnimatedZoom delay={0.5}>
-                <CustomMDX source={work.content} />
+                <SimpleMDX content={work.content} />
                 </AnimatedZoom>
                 <hr className='mb-2 border-neutral-300 dark:border-neutral-800' />
             </article>

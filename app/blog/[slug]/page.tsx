@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { CustomMDX } from 'app/components/mdx'
+import { SimpleMDX } from 'app/components/simple-mdx'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
 import { baseUrl } from 'app/sitemap'
 import { Navbar } from 'app/components/nav'
@@ -141,10 +141,9 @@ export default function Blog({ params }) {
                             </div>
                             </AnimatedLeft>
                         </div>
-                    </div>
-                    <AnimatedZoom delay={0.5}>
+                    </div>                    <AnimatedZoom delay={0.5}>
                     <article className="prose prose-quoteless prose-neutral dark:prose-invert">
-                        <CustomMDX source={post.content} />
+                        <SimpleMDX content={post.content} />
                         <hr className='my-4 border-neutral-300 dark:border-neutral-700' />
                         <Komentar/>
                     </article>

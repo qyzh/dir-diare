@@ -1,8 +1,5 @@
-@import 'tailwindcss';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@plugin "@tailwindcss/typography";
+
+@import "tailwindcss";
 
 ::selection {
     background-color: #47a3f3;
@@ -38,8 +35,9 @@ html {
 }
 
 .prose .anchor {
-    @apply absolute invisible no-underline;
-
+    position: absolute;
+    visibility: hidden;
+    text-decoration: none;
     margin-left: -1em;
     padding-right: 0.5em;
     width: 80%;
@@ -48,75 +46,109 @@ html {
 }
 
 .anchor:hover {
-    @apply visible;
+    visibility: visible;
 }
 
 .prose a {
-    @apply transition-all decoration-neutral-400 dark:decoration-neutral-600 underline-offset-2 decoration-[0.1em];
+    transition: all;
+    text-decoration-color: #a3a3a3;
+    text-decoration-color: #525252;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 0.1em;
 }
 
 .prose .anchor:after {
-    @apply text-neutral-300 dark:text-neutral-700;
+    color: #d4d4d4;
+    color: #404040;
     content: '#';
 }
 
 .prose *:hover > .anchor {
-    @apply visible;
+    visibility: visible;
 }
 
 .prose pre {
-    @apply bg-neutral-50 dark:bg-neutral-900 rounded-lg overflow-x-auto border border-neutral-200 dark:border-neutral-900 py-2 px-3 text-sm;
+    background-color: #fafafa;
+    background-color: #171717;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    border: 1px solid #e5e5e5;
+    border-color: #171717;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
 }
 
 .prose code {
-    @apply px-1 py-0.5 rounded-lg;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
 }
 
 .prose pre code {
-    @apply p-0;
+    padding: 0;
     border: initial;
     line-height: 1.5;
 }
 
 .prose code span {
-    @apply font-medium;
+    font-weight: 500;
 }
 
 .prose img {
     /* Don't apply styles to next/image */
-    @apply m-0;
+    margin: 0;
 }
 
 .prose p {
-    @apply my-4 text-neutral-800 dark:text-neutral-300;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    color: #262626;
+    color: #d4d4d4;
 }
 
 .prose h1 {
-    @apply text-4xl font-medium tracking-tight mt-6 mb-2;
+    font-size: 2.25rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .prose h2 {
-    @apply text-xl font-medium tracking-tight mt-6 mb-2;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .prose h3 {
-    @apply text-xl font-medium tracking-tight mt-6 mb-2;
+    font-size: 1.25rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .prose h4 {
-    @apply text-lg font-medium tracking-tight mt-6 mb-2;
+    font-size: 1.125rem;
+    font-weight: 500;
+    letter-spacing: -0.025em;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .prose strong {
-    @apply font-medium;
+    font-weight: 500;
 }
 
 .prose ul {
-    @apply list-disc pl-6;
+    list-style-type: disc;
+    padding-left: 1.5rem;
 }
 
 .prose ol {
-    @apply list-decimal pl-6;
+    list-style-type: decimal;
+    padding-left: 1.5rem;
 }
 
 .prose > :first-child {
@@ -124,9 +156,11 @@ html {
     margin-top: 1.25em !important;
     margin-bottom: 1.25em !important;
 }
-a.not-prose  {
-    @apply no-underline;
+
+a.not-prose {
+    text-decoration: none;
 }
+
 pre::-webkit-scrollbar {
     display: none;
 }
@@ -154,6 +188,7 @@ table {
 .title {
     text-wrap: balance;
 }
+
 /**
  * Inline footnotes references
  * 1. Increment the counter at each new reference

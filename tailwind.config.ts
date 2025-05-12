@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
+import typography from '@tailwindcss/typography';
 
 export default {
   content: ['./app/**/*.{ts,tsx}', './content/**/*.mdx'],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-geist-sans)'],
+        sans: ['var(--font-inter)'],
         mono: ['var(--font-jetbrains-mono)', 'monospace'],
       },
       typography: {
@@ -31,6 +32,6 @@ export default {
     hoverOnlyWhenSupported: true,
   },
   plugins: [
-    require('@tailwindcss/typography'),
+    typography(),
   ],
 }
