@@ -3,9 +3,41 @@
     - any-glob-to-any-file:
       - .github/workflows/**
       - .github/labeler.yml
-      
+
 "documentation":
   - changed-files:
     - any-glob-to-any-file:
       - "**/*.md"
       - "**/*.mdx"
+
+"frontend":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "app/**/*.tsx"
+      - "app/**/*.ts"
+      - "app/**/*.css"
+      - "components/**/*.tsx"
+      - "components/**/*.ts"
+
+"api":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "app/api/**/*.ts"
+
+"content":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "content/**/*.mdx"
+
+"dependencies":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "package.json"
+      - "pnpm-lock.yaml"
+
+"configuration":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "*.config.*"
+      - "tsconfig.json"
+      - "next.config.mjs"

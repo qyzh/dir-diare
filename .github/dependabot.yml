@@ -1,0 +1,33 @@
+version: 2
+updates:
+  # npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps"
+    versioning-strategy: auto
+    groups:
+      minor-patch-dependencies:
+        update-types:
+          - "minor"
+          - "patch"
+        exclude-patterns:
+          - "react"
+          - "next"
+          - "@types/*"
+
+  # GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "ci/cd"
+      - "dependencies"
+    commit-message:
+      prefix: "ci"
