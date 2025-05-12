@@ -22,6 +22,8 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g pnpm
+          echo "Verifying pnpm installation..."
+          pnpm --version
           pnpm install
 
       - name: Run ESLint
