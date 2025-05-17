@@ -6,7 +6,6 @@ import { Navbar } from 'app/components/nav';
 import Breadcrumbs from 'app/components/breadcrumbs';
 import Saweria from 'app/components/saweria';
 import { AnimatedAbove, AnimatedBelow, AnimatedLeft, AnimatedRight, AnimatedZoom } from 'app/components/animated-section';
-import { getBlogPosts } from 'app/blog/utils';
 
 export async function generateStaticParams() {
     let works = getArtPosts();
