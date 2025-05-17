@@ -166,6 +166,14 @@ export default async function Blog({ params }) {
                     </div>
                     <article>
                         <AnimatedZoom delay={0.5}>
+                            <img
+                                className="rounded-lg mb-4 max-h-[500px] w-full object-cover"
+                                loading="lazy"
+                                src={work.metadata.image ? work.metadata.image : '/og?title=' + encodeURIComponent(work.metadata.title)}
+                                alt={work.metadata.title}
+                            />
+                        </AnimatedZoom>
+                        <AnimatedZoom delay={0.5}>
                             <SimpleMDX content={work.content} />
                         </AnimatedZoom>
                         <hr className="mb-2 border-neutral-300 dark:border-neutral-800" />
