@@ -19,10 +19,12 @@ export async function generateStaticParams() {
         slug: post.slug,
     }))
 }
-export function generateMetadata({ params }) {
-    let post = getBlogPosts().find((post) => post.slug === params.slug)
+export async function generateMetadata({ params }) {
+    const { slug } = await params;
+    let post = getBlogPosts().find((post) => post.slug === slug);
+
     if (!post) {
-        return
+        return;
     }
 
     let {
@@ -30,10 +32,10 @@ export function generateMetadata({ params }) {
         publishedAt: publishedTime,
         summary: description,
         image,
-    } = post.metadata
+    } = post.metadata;
     let ogImage = image
         ? image
-        : `${baseUrl}/og?title=${encodeURIComponent(title)}`
+        : `${baseUrl}/og?title=${encodeURIComponent(title)}`;
 
     return {
         title,
@@ -56,14 +58,15 @@ export function generateMetadata({ params }) {
             description,
             images: [ogImage],
         },
-    }
+    };
 }
 
-export default function Blog({ params }) {
-    let post = getBlogPosts().find((post) => post.slug === params.slug)
+export default async function Blog({ params }) {
+    const { slug } = await params;
+    let post = getBlogPosts().find((post) => post.slug === slug);
 
     if (!post) {
-        notFound()
+        notFound();
     }
 
 
@@ -141,8 +144,9 @@ export default function Blog({ params }) {
                             </div>
                             </AnimatedLeft>
                         </div>
-                    </div>                    <AnimatedZoom delay={0.5}>
-                    <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+                    </div>
+                    <AnimatedZoom delay={0.5}>
+                    <article>
                         <SimpleMDX content={post.content} />
                         <hr className='my-4 border-neutral-300 dark:border-neutral-700' />
                         <Komentar/>
