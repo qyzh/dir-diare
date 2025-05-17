@@ -1,6 +1,6 @@
 'use client';
 
-import React, { memo, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { highlight } from 'sugar-high'
 
 const slugify = (str: string): string => {
