@@ -1,8 +1,7 @@
 ## Description
 
-
 ## Related Issues
- Link to any related issues here (e.g., Fixes #123) 
+ Link to any related issues here (e.g., Fixes #123)
 
 ## Type of Change
 
