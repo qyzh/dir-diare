@@ -19,6 +19,7 @@ interface SimpleMDXProps {
 }
 
 export function SimpleMDX({ content }: SimpleMDXProps) {
+
     // Helper function to get icon HTML
     const getIconHtml = (iconName: string): string => {
         switch(iconName) {
@@ -202,8 +203,8 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
 
         // Custom highlighted text similar to StabiloBiru, Marker components
         processedContent = processedContent
-            .replace(/==(.*?)==/g, '<span class="font-semibold italic bg-blue-200/60 hover:bg-blue-200 text-zinc-900 border-b-2 border-blue-500">$1</span>')
-            .replace(/\^\^(.*?)\^\^/g, '<mark class="transition bg-purple-300 text-purple-900 hover:bg-purple-600 hover:text-zinc-300">$1</mark>');
+            .replace(/==(.*?)==/g, '<span class="font-semibold italic text-emerald-900 bg-emerald-500 hover:bg-emerald-300 ">$1</span>')
+            .replace(/\^\^(.*?)\^\^/g, '<mark class="transition bg-rose-300 text-rose-900 hover:bg-rose-600 hover:text-zinc-300">$1</mark>');
 
         // Tables
         processedContent = processedContent
@@ -257,25 +258,7 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
     return (
         <div className="prose prose-invert max-w-none">
             <div dangerouslySetInnerHTML={{ __html: renderContent }} />
-            <style jsx global>{`
-                .anchor {
-                    display: block;
-                    position: relative;
-                    top: -100px;
-                    visibility: hidden;
-                }
-                h1:hover .anchor:after,
-                h2:hover .anchor:after,
-                h3:hover .anchor:after,
-                h4:hover .anchor:after,
-                h5:hover .anchor:after,
-                h6:hover .anchor:after {
-                    content: '#';
-                    display: inline-block;
-                    margin-left: 8px;
-                    color: #6b7280;
-                }
-            `}</style>
+
         </div>
     );
 }
