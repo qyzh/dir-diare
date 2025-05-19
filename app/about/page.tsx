@@ -61,54 +61,6 @@ const eduData: Edu[] = [
     },
 ];
 
-const ProjectCard = ({ metadata, slug }: { metadata: any; slug: string }) => (
-    <Link href={`/work/${slug}`} className='opacity-80 hover:opacity-100 transition-opacity'>
-        <div className="flex flex-row gap-2">
-            <div className="w-20 h-20 overflow-hidden rounded-md">
-                <Image
-                    src={metadata.image || '/default-thumbnail.jpg'}
-                    alt={metadata.title}
-                    width={200}
-                    height={200}
-                    className="object-cover"
-                />
-            </div>
-            <div className="flex flex-col gap-2">
-                <h4 className="font-semibold">{metadata.title}</h4>
-                <p className="text-sm">{metadata.tag}</p>
-            </div>
-        </div>
-    </Link>
-);
-
-const Worklist = () => {
-    const ArtList = getArtPosts().sort((a, b) => {
-        if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
-            return -1
-        }
-        return 1
-    });
-    return (
-        <AnimatedFade delay={0.5}>
-            <div className="border-1 border-neutral-800 mb-8 rounded-md overflow-hidden">
-                <h2 className="font-semibold px-4 pt-4">Project</h2>
-                <div className="p-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {ArtList.slice(0, 2).map(({ metadata, slug }) => (
-                            <ProjectCard key={metadata.title} metadata={metadata} slug={slug} />
-                        ))}
-                    </div>
-                </div>
-                <Link href="/work">
-                    <div className='bg-neutral-600 text-center text-white p-4 cursor-pointer hover:bg-neutral-700 transition-colors'>
-                        view more
-                    </div>
-                </Link>
-            </div>
-        </AnimatedFade>
-    );
-};
-
 const EduTimelineItem = ({ title, desc, year, place }: Edu) => (
     <div className="flex flex-col relative before:absolute before:top-[3px] before:w-4 before:h-4 before:rounded-full before:left-[-35px] before:z-[1] before:dark:bg-neutral-600">
         <time className="text-xs tracking-wide uppercase text-gray-500">{year}</time>
@@ -158,7 +110,6 @@ export default function AboutPage() {
             <div className="p-4 grid grid-cols-1 gap-2">
                 <EduTL />
             </div>
-            <Worklist />
             <AnimatedBelow delay={0.2}>
             <Saweria />
             </AnimatedBelow>

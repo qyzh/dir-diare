@@ -3,7 +3,7 @@ export default function Saweria() {
     return (
       <a
         href="https://saweria.co/UQ14"
-        className="flex flex-col sm:flex-row items-center justify-between text-center sm:text-start gap-4 sm:gap-2 min-h-[110px] hover:dark:bg-[#2e290e44] rounded-lg border dark:border-zinc-800 border-zinc-200 hover:dark:border-[#ffdd0060] hover:border-[#e6d14fe7] duration-300 p-4 sm:p-6 group"
+        className="flex flex-col sm:flex-row items-center justify-between text-center sm:text-start gap-4 sm:gap-2 min-h-[110px] hover:dark:bg-[#2e290e44] rounded border dark:border-zinc-800 border-zinc-200 hover:dark:border-[#ffdd0060] hover:border-[#e6d14fe7] duration-300 p-4 sm:p-6 group"
         target="_blank"
         rel="noreferrer noopener"
       >
@@ -20,4 +20,3 @@ export default function Saweria() {
       </a>
     );
   }
-  
