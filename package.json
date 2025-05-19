@@ -8,7 +8,7 @@
     "dependencies": {
         "@giscus/react": "^3.0.0",
         "@notionhq/client": "^3.0.1",
-        "@react-three/drei": "^9.121.3",
+        "@react-three/drei": "^9.122.0",
         "@react-three/fiber": "^8.17.12",
         "@tailwindcss/typography": "^0.5.16",
         "@types/node": "22.15.18",
