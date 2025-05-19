@@ -71,32 +71,85 @@ export default async function Blog({ params }) {
         notFound();
     }
 
-    const getTagBackgroundColor = (tag) => {
-        switch (tag.toLowerCase()) {
-            case 'code':
-                return 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200';
-            case 'design':
-                return 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200';
-            case 'art':
-                return 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200';
-            case 'project':
-                return 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200';
+    const getCategoryBackgroundColor = (category) => {
+        switch (category.toLowerCase()) {
+            case 'design graphics':
+                return 'bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-200';
+            case 'code projects':
+                return 'bg-emerald-100 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200';
+            case 'ux/ui research':
+                return 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200';
+            case 'client projects':
+                return 'bg-violet-100 dark:bg-violet-900 text-violet-800 dark:text-violet-200';
+            case 'personal projects':
+                return 'bg-rose-100 dark:bg-rose-900 text-rose-800 dark:text-rose-200';
             default:
                 return 'bg-neutral-100 dark:bg-neutral-800';
         }
     };
 
-    const getlangBackgroundColor = (language) => {
-        switch (language.toLowerCase()) {
-            case 'javascript':
-                return 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 hover:bg-yellow-200 hover:dark:bg-yellow-800 hover:border-yellow-400 dark:hover:border-yellow-600 hover:border-2 transition-all duration-200';
-            case 'typescript':
-                return 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 hover:bg-blue-200 hover:dark:bg-blue-800 hover:border-blue-400 dark:hover:border-blue-600 hover:border-2 transition-all duration-200';
-            case 'css':
-                return 'bg-cyan-100 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-200 hover:bg-cyan-200 hover:dark:bg-cyan-800 hover:border-cyan-400 dark:hover:border-cyan-600 hover:border-2 transition-all duration-200';
-            default:
-                return 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 hover:dark:bg-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-600 hover:border-2 transition-all duration-200';
+    const getTagBackgroundColor = (tag) => {
+        // Design Graphics Software Tags
+        const designSoftwareTags = ['photoshop', 'lightroom', 'figma', 'illustrator', 'indesign', 'sketch', 'xd'];
+        if (designSoftwareTags.includes(tag.toLowerCase())) {
+            return 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 hover:bg-blue-200 hover:dark:bg-blue-800 hover:border-blue-400 dark:hover:border-blue-600 hover:border-2 transition-all duration-200';
         }
+
+        // Design Project Type Tags
+        const designProjectTags = ['ui design', 'photo editing', 'digital art', 'mockups', 'prototypes', 'brand identity', 'typography', 'print design', 'social media graphics', 'motion graphics'];
+        if (designProjectTags.includes(tag.toLowerCase())) {
+            return 'bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200 hover:bg-purple-200 hover:dark:bg-purple-800 hover:border-purple-400 dark:hover:border-purple-600 hover:border-2 transition-all duration-200';
+        }
+
+        // Design Style Tags
+        const designStyleTags = ['minimalist', 'modern', 'vintage', 'abstract', 'corporate', 'flat design', '3d', 'illustrative'];
+        if (designStyleTags.includes(tag.toLowerCase())) {
+            return 'bg-pink-100 dark:bg-pink-900 text-pink-800 dark:text-pink-200 hover:bg-pink-200 hover:dark:bg-pink-800 hover:border-pink-400 dark:hover:border-pink-600 hover:border-2 transition-all duration-200';
+        }
+
+        // Code Technology Tags
+        const codeTechTags = ['html', 'css', 'javascript', 'typescript', 'react', 'vue', 'angular', 'php', 'python', 'ruby', 'node.js'];
+        if (codeTechTags.includes(tag.toLowerCase())) {
+            return 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 hover:bg-yellow-200 hover:dark:bg-yellow-800 hover:border-yellow-400 dark:hover:border-yellow-600 hover:border-2 transition-all duration-200';
+        }
+
+        // Code Project Type Tags
+        const codeProjectTags = ['website', 'web app','landing page', 'e-commerce', 'portfolio', 'blog', 'dashboard', 'api integration', 'template'];
+        if (codeProjectTags.includes(tag.toLowerCase())) {
+            return 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 hover:bg-green-200 hover:dark:bg-green-800 hover:border-green-400 dark:hover:border-green-600 hover:border-2 transition-all duration-200';
+        }
+
+        // Code Functionality Tags
+        const codeFuncTags = ['responsive', 'interactive', 'animation', 'database', 'authentication', 'e-commerce', 'seo optimized', 'accessibility', 'performance optimized'];
+        if (codeFuncTags.includes(tag.toLowerCase())) {
+            return 'bg-cyan-100 dark:bg-cyan-900 text-cyan-800 dark:text-cyan-200 hover:bg-cyan-200 hover:dark:bg-cyan-800 hover:border-cyan-400 dark:hover:border-cyan-600 hover:border-2 transition-all duration-200';
+        }
+
+        // UX/UI Research Tags
+        const uxTags = ['user research', 'wireframes', 'user flows', 'information architecture', 'usability testing'];
+        if (uxTags.includes(tag.toLowerCase())) {
+            return 'bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 hover:bg-orange-200 hover:dark:bg-orange-800 hover:border-orange-400 dark:hover:border-orange-600 hover:border-2 transition-all duration-200';
+        }
+
+        // Default case
+        return 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 hover:dark:bg-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-600 hover:border-2 transition-all duration-200';
+    };
+
+    const getLanguageBackgroundColor = (language) => {
+        // Code Technology Tags
+        const codeTechTags = ['html', 'css', 'javascript', 'typescript', 'react', 'vue', 'angular', 'php', 'python', 'ruby', 'node.js', 'xml'];
+        if (codeTechTags.includes(language.toLowerCase())) {
+            return 'bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 hover:bg-yellow-200 hover:dark:bg-yellow-800 hover:border-yellow-400 dark:hover:border-yellow-600 hover:border-2 transition-all duration-200';
+        }
+
+        // Design Software Tags
+        const designSoftwareTags = ['photoshop', 'lightroom', 'figma', 'illustrator', 'indesign', 'sketch', 'xd'];
+        if (designSoftwareTags.includes(language.toLowerCase())) {
+            return 'bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 hover:bg-blue-200 hover:dark:bg-blue-800 hover:border-blue-400 dark:hover:border-blue-600 hover:border-2 transition-all duration-200';
+        }
+
+        // Default
+        return 'bg-neutral-100 dark:bg-neutral-800 hover:bg-neutral-200 hover:dark:bg-neutral-700 hover:border-neutral-400 dark:hover:border-neutral-600 hover:border-2 transition-all duration-200';
     };
 
     return (
@@ -128,13 +181,14 @@ export default async function Blog({ params }) {
                     <AnimatedAbove delay={0.5}>
                         <Breadcrumbs post={work} />
                     </AnimatedAbove>
-                    <AnimatedAbove delay={0.3}>
-                        {work.metadata.tag && (
-                            <span className={`text-sm px-2 py-1 rounded ${getTagBackgroundColor(work.metadata.tag)}`}>
-                                {work.metadata.tag}
-                            </span>
+                        {/* Display main category */}
+                        {work.metadata.category && (
+                            <AnimatedRight delay={0.3}>
+                                <span className={`text-sm font-mono px-2 py-1 rounded ${getCategoryBackgroundColor(work.metadata.category)}`}>
+                                    {work.metadata.category}
+                                </span>
+                            </AnimatedRight>
                         )}
-                    </AnimatedAbove>
                     <AnimatedAbove delay={0.1}>
                         <h1 className="title font-mono font-bold text-3xl tracking-tighter max-w-[650px]">
                             {work.metadata.title}
@@ -152,18 +206,31 @@ export default async function Blog({ params }) {
                                 </time>
                             </p>
                         </AnimatedLeft>
+
+                        {/* Display languages/technologies */}
                         <div className="flex flex-wrap gap-2">
-                            {work.metadata.language && work.metadata.language.split(',').map((lang, index) => (
+                            {work.metadata.languages && work.metadata.languages.split(',').map((lang, index) => (
                                 <AnimatedRight key={index} delay={0.5 + index * 0.1}>
-                                    <div
-                                        className={`text-sm font-mono px-2 py-1 rounded ${getlangBackgroundColor(lang.trim())}`}
-                                    >
-                                        <span className="font-bold">#</span>{lang.trim()}
+                                    <div className={`text-sm font-mono px-2 py-1 rounded ${getLanguageBackgroundColor(lang.trim())}`}>
+                                        <span className="font-bold">$</span> {lang.trim()}
                                     </div>
                                 </AnimatedRight>
                             ))}
                         </div>
                     </div>
+
+                    {/* Display tags */}
+                    {work.metadata.tags && (
+                        <div className="flex flex-wrap gap-2 mb-4">
+                            {work.metadata.tags.split(',').map((tag, index) => (
+                                <AnimatedLeft key={index} delay={0.2 + index * 0.05}>
+                                    <div className={`text-sm font-mono px-2 py-1 rounded ${getTagBackgroundColor(tag.trim())}`}>
+                                       # {tag.trim()}
+                                    </div>
+                                </AnimatedLeft>
+                            ))}
+                        </div>
+                    )}
                     <article>
                         <AnimatedZoom delay={0.5}>
                             <img

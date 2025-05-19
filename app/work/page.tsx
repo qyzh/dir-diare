@@ -37,7 +37,7 @@ export default function WorkPage() {
                 <AnimatedZoom key={d.metadata.title} delay={0.8 + (index * 0.2)}>
               <Card
                 title={d.metadata.title}
-                tagz={d.metadata.tag}
+                tagz={d.metadata.category}
                 description={d.metadata.summary}
                 imgSrc={d.metadata.image}
                 href={`/work/${d.slug}`}

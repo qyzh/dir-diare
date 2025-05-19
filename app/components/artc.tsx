@@ -43,7 +43,7 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
           <div className="truncate overflow-hidden mb-2 text-sm font-semibold text-zinc-400 ">
             {description}
           </div>
-          <div className="inline bg-neutral-700 rounded-full px-3 py-1 text-sm font-semibold text-white ">
+          <div className="inline bg-neutral-800 rounded px-3 py-1 text-xs font-mono text-white truncate ">
             {tagz}
           </div>
         </div>
