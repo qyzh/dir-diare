@@ -1,12 +1,11 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Saweria from 'app/components/saweria';
 import {DiscordStatus} from 'app/components/discord';
 import Link from 'next/link';
 import { Navbar } from 'app/components/nav';
-import { getArtPosts } from '../work/utils';
-import { AnimatedAbove, AnimatedLeft, AnimatedZoom, AnimatedRight, AnimatedBelow, AnimatedFade } from 'app/components/animated-section';
+import { AnimatedAbove, AnimatedZoom, AnimatedRight, AnimatedBelow, AnimatedFade } from 'app/components/animated-section';
+import { getArtPosts } from "../work/utils";
 
 export const metadata: Metadata = {
     title: 'About',
@@ -24,13 +23,16 @@ const About = () => (
     <AnimatedAbove delay={0.5}>
         <div className="flex flex-col gap-2 p-4 my-4 border-1 border-neutral-700 rounded ">
         <AnimatedZoom delay={0.8}>
-        <div className='flex items-center gap-2'>
-        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="22" height="22" viewBox="0 0 50 50"
-        className="fill-neutral-600 dark:fill-neutral-400">
-<path d="M 24.875 3.300781 C 20.183594 3.40625 17.210938 5.328125 15.933594 8.265625 C 14.714844 11.066406 14.980469 14.578125 15.855469 18.25 C 15.394531 18.796875 15.007813 19.535156 15.105469 20.683594 L 15.105469 20.707031 L 15.109375 20.734375 C 15.277344 21.953125 15.613281 22.820313 16.078125 23.433594 C 16.3125 23.734375 16.644531 23.746094 16.933594 23.910156 C 17.101563 24.988281 17.425781 26.058594 17.871094 26.9375 C 18.125 27.441406 18.394531 27.882813 18.671875 28.253906 C 18.792969 28.421875 18.960938 28.527344 19.09375 28.667969 C 19.105469 29.945313 19.160156 30.945313 19.011719 32.234375 C 18.71875 33.011719 17.976563 33.648438 16.757813 34.265625 C 15.503906 34.898438 13.859375 35.460938 12.191406 36.183594 C 10.523438 36.902344 8.820313 37.789063 7.460938 39.167969 C 6.101563 40.546875 5.140625 42.453125 5 44.945313 L 4.945313 46 L 45.058594 46 L 45 44.945313 C 44.859375 42.453125 43.90625 40.550781 42.554688 39.171875 C 41.203125 37.789063 39.503906 36.902344 37.832031 36.183594 C 36.164063 35.460938 34.511719 34.898438 33.238281 34.261719 C 32.007813 33.648438 31.230469 33.003906 30.890625 32.222656 C 30.816406 30.910156 30.808594 29.890625 30.808594 28.65625 C 30.933594 28.515625 31.105469 28.410156 31.222656 28.246094 C 31.492188 27.871094 31.75 27.425781 31.996094 26.929688 C 32.429688 26.050781 32.761719 24.988281 32.964844 23.933594 C 33.285156 23.769531 33.644531 23.757813 33.894531 23.433594 C 34.375 22.800781 34.683594 21.917969 34.796875 20.691406 L 34.796875 20.683594 C 34.886719 19.625 34.558594 18.867188 34.082031 18.289063 C 34.605469 16.6875 35.21875 14.136719 35.019531 11.511719 C 34.914063 10.074219 34.554688 8.632813 33.703125 7.441406 C 32.921875 6.355469 31.65625 5.585938 30.066406 5.253906 C 29.003906 3.859375 27.09375 3.300781 24.902344 3.300781 Z M 24.902344 5.300781 C 26.917969 5.300781 28.21875 5.886719 28.636719 6.601563 L 28.878906 7.023438 L 29.359375 7.089844 C 30.734375 7.28125 31.515625 7.828125 32.074219 8.605469 C 32.632813 9.382813 32.9375 10.464844 33.027344 11.664063 C 33.210938 14.066406 32.515625 16.882813 32.058594 18.164063 L 31.761719 19 L 32.550781 19.394531 C 32.417969 19.328125 32.878906 19.625 32.800781 20.515625 C 32.714844 21.484375 32.472656 21.996094 32.304688 22.21875 C 32.136719 22.4375 32.066406 22.402344 32.097656 22.402344 L 31.234375 22.402344 L 31.109375 23.257813 C 30.980469 24.160156 30.613281 25.214844 30.203125 26.046875 C 30 26.460938 29.78125 26.824219 29.597656 27.078125 C 29.417969 27.332031 29.222656 27.480469 29.304688 27.433594 L 28.800781 27.71875 L 28.800781 28.300781 C 28.800781 29.304688 28.8125 30.1875 28.84375 31.121094 L 25 33.253906 L 21.109375 31.09375 C 21.140625 30.128906 21.097656 29.273438 21.097656 28.300781 L 21.097656 27.71875 L 20.59375 27.433594 C 20.671875 27.472656 20.46875 27.320313 20.277344 27.0625 C 20.085938 26.808594 19.863281 26.449219 19.65625 26.035156 C 19.238281 25.210938 18.878906 24.171875 18.796875 23.304688 L 18.707031 22.402344 L 17.800781 22.402344 C 17.949219 22.402344 17.851563 22.457031 17.671875 22.21875 C 17.488281 21.980469 17.238281 21.441406 17.101563 20.496094 C 17.054688 19.6875 17.539063 19.277344 17.453125 19.332031 L 18.042969 18.9375 L 17.871094 18.253906 C 16.945313 14.609375 16.792969 11.300781 17.765625 9.0625 C 18.738281 6.824219 20.710938 5.398438 24.902344 5.300781 Z M 20.785156 33.203125 L 23.269531 34.582031 L 20.988281 37.417969 L 19.128906 35.160156 C 19.835938 34.640625 20.421875 34.007813 20.785156 33.203125 Z M 29.144531 33.238281 C 29.539063 34.035156 30.15625 34.644531 30.875 35.15625 L 29.011719 37.417969 L 26.730469 34.582031 Z M 17.375 36.179688 L 20.230469 39.636719 C 20.417969 39.867188 20.707031 40.003906 21.007813 40 C 21.308594 40 21.589844 39.859375 21.78125 39.625 L 23.742188 37.1875 L 24.5 37.800781 C 24.5 37.800781 22.746094 40.8125 22.242188 44 L 7.234375 44 C 7.511719 42.574219 8.039063 41.433594 8.886719 40.570313 C 9.949219 39.488281 11.414063 38.695313 12.984375 38.015625 C 14.457031 37.382813 15.996094 36.84375 17.375 36.179688 Z M 32.625 36.179688 C 34.015625 36.84375 35.570313 37.382813 37.042969 38.015625 C 38.609375 38.695313 40.066406 39.488281 41.125 40.566406 C 41.96875 41.429688 42.492188 42.574219 42.765625 44 L 27.765625 44 C 27.265625 40.757813 25.5 37.800781 25.5 37.800781 L 26.257813 37.1875 L 28.21875 39.625 C 28.410156 39.859375 28.691406 40 28.992188 40 C 29.292969 40.003906 29.582031 39.867188 29.769531 39.636719 Z"></path>
-</svg>
-            <h2 className="font-semibold">About</h2>
-            </div>
+            <p className='text-sm text-neutral-500 font-mono'>
+                <span className='text-neutral-300 mr-0.5'>
+                dir-diare
+                </span>
+                /
+                <span className='text-neutral-300 ml-0.5'>
+                about
+                </span>
+                .md
+            </p>
             <p className="prose prose-neutral dark:prose-invert">
                 I am a Communication student who has an interest in interface design & running. My name is{' '}
                 <strong>Syauqi Ashadullah </strong> and am currently living in Bandung, West Java.
@@ -39,7 +41,40 @@ const About = () => (
         </div>
         </AnimatedAbove>
 );
+const workData = getArtPosts();
+const Repo = () => (
+    <AnimatedAbove delay={0.5}>
+            <p className='text-sm text-neutral-500 font-mono mb-2 mt-2'>
+                <span className='text-neutral-300 mr-0.5'>
+                dir-diare
+                </span>
+                /
+                <span className='text-neutral-300 ml-0.5'>
+                projects
+                </span>
+                .md
+            </p>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
+            {workData.map((work, index) => (
+                <AnimatedFade key={index} delay={0.8 + (index * 0.2)}>
+                    <div className="border-1 border-neutral-700 rounded p-4">
+                        <div className="inline-flex group">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="64" height="64" viewBox="0 0 72 72" className='w-6 h-6 mb-2 fill-neutral-400'>
+<path d="M 23 11 C 18.582 11 15 14.582 15 19 L 15 53 C 15 57.418 18.582 61 23 61 L 27 61 L 27 53 L 25.107422 53 C 24.110422 53 23.187344 52.318937 23.027344 51.335938 C 22.824344 50.082938 23.785 49 25 49 L 31 49 L 31 61.382812 C 31 62.125812 31.782266 62.608391 32.447266 62.275391 L 35 61 L 37.552734 62.275391 C 38.217734 62.608391 39 62.125813 39 61.382812 L 39 49 L 44.875 49 C 44.846296 49.365579 44.828125 49.734664 44.828125 50.105469 C 44.828125 51.102981 44.937792 52.07283 45.136719 53 L 43 53 L 43 61 L 51.746094 61 L 52.828125 61 C 54.917125 61 56.782469 59.472578 56.980469 57.392578 C 57.183629 55.266523 55.718076 53.452527 53.742188 53.080078 C 53.344015 52.624776 52.828125 51.603534 52.828125 50.103516 C 52.828125 49.191347 53.036847 48.340878 53.388672 47.683594 C 55.562343 46.253371 57 43.796303 57 41 L 57 19 C 57 14.582 53.418 11 49 11 L 23 11 z M 27.021484 19 L 48 19 C 48.552 19 49 19.448 49 20 L 49 40 C 49 40.552 48.552 41 48 41 L 27.021484 41 L 27.021484 19 z M 31 21 C 29.895 21 29 21.895 29 23 C 29 24.105 29.895 25 31 25 C 32.105 25 33 24.105 33 23 C 33 21.895 32.105 21 31 21 z M 31 28 C 29.895 28 29 28.895 29 30 C 29 31.105 29.895 32 31 32 C 32.105 32 33 31.105 33 30 C 33 28.895 32.105 28 31 28 z M 31 35 C 29.895 35 29 35.895 29 37 C 29 38.105 29.895 39 31 39 C 32.105 39 33 38.105 33 37 C 33 35.895 32.105 35 31 35 z"></path>
+</svg>
+                        <Link href={`/work/${work.slug}`} className="text-md font-semibold text-neutral-400 group-hover:text-neutral-300">{work.metadata.title}</Link>
+                        </div>
 
+                        <p className="text-sm text-zinc-500 group-hover:text-zinc-300 truncate overflow-hidden">{work.metadata.summary}</p>
+                        <div className="flex flex-cols items-center justify-between font-mono mt-2">
+                        <p className="text-xs text-zinc-400">{work.metadata.category}</p>
+                        </div>
+                    </div>
+                </AnimatedFade>
+            ))}
+        </div>
+        </AnimatedAbove>
+);
 const eduData: Edu[] = [
     {
         title: 'Universitas Komputer Indonesia',
@@ -62,7 +97,7 @@ const eduData: Edu[] = [
 ];
 
 const EduTimelineItem = ({ title, desc, year, place }: Edu) => (
-    <div className="flex flex-col relative before:absolute before:top-[3px] before:w-4 before:h-4 before:rounded-full before:left-[-35px] before:z-[1] before:dark:bg-neutral-600">
+    <div className="flex flex-col relative before:absolute before:top-[3px] before:w-4 before:h-4 before:rounded-full before:left-[-7px] before:z-[1] before:dark:bg-neutral-600 pl-4">
         <time className="text-xs tracking-wide uppercase text-gray-500">{year}</time>
         <h3 className="text-md tracking-wide">
             <span className='font-semibold pr-1'>{desc}</span>
@@ -75,16 +110,19 @@ const EduTimelineItem = ({ title, desc, year, place }: Edu) => (
 
 const EduTL = () => (
     <AnimatedZoom delay={0.5}>
-        <div className="grid gap-4 grid-cols-12">
-            <div className="col-span-3">
-                <div className="text-left mb-14">
-                    <AnimatedLeft delay={0.8}>
-                    <h3 className="text-lg font-semibold">Edu</h3>
-                    </AnimatedLeft>
-                </div>
-            </div>
+            <p className='text-sm text-neutral-500 font-mono mb-2'>
+                <span className='text-neutral-300 mr-0.5'>
+                dir-diare
+                </span>
+                /
+                <span className='text-neutral-300 ml-0.5'>
+                edu
+                </span>
+                .md
+            </p>
+        <div className="grid gap-4">
             <div className="relative space-y-6 col-span-9">
-                <div className="relative px-4 col-span-8 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:-left-3 before:dark:bg-neutral-800">
+                <div className="relative px-4 col-span-8 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5  before:dark:bg-neutral-800">
                 {eduData.map((edu, index) => (
     <AnimatedRight key={edu.title} delay={0.8 + (index * 0.2)}>
         <EduTimelineItem {...edu} />
@@ -107,8 +145,9 @@ export default function AboutPage() {
                             </div>
             </AnimatedAbove>
             <About />
-            <div className="p-4 grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-2">
                 <EduTL />
+                <Repo/>
             </div>
             <AnimatedBelow delay={0.2}>
             <Saweria />
