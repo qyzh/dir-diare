@@ -4,7 +4,7 @@ import Saweria from 'app/components/saweria';
 import {DiscordStatus} from 'app/components/discord';
 import Link from 'next/link';
 import { Navbar } from 'app/components/nav';
-import { AnimatedAbove, AnimatedLeft, AnimatedZoom, AnimatedRight, AnimatedBelow, AnimatedFade } from 'app/components/animated-section';
+import { AnimatedAbove, AnimatedZoom, AnimatedRight, AnimatedBelow, AnimatedFade } from 'app/components/animated-section';
 import { getArtPosts } from "../work/utils";
 
 export const metadata: Metadata = {
