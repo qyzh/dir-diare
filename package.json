@@ -11,7 +11,7 @@
         "@react-three/drei": "^9.121.3",
         "@react-three/fiber": "^8.17.12",
         "@tailwindcss/typography": "^0.5.16",
-        "@types/node": "22.15.18",
+        "@types/node": "22.15.21",
         "@types/react": "18.2.55",
         "@types/react-dom": "18.2.19",
         "@vercel/analytics": "^1.1.3",
