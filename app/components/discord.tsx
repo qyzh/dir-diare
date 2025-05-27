@@ -3,6 +3,7 @@
 import { useLanyard } from "react-use-lanyard";
 import type { Activity } from "react-use-lanyard";
 import { useEffect, useState } from "react";
+import { number } from "framer-motion";
 
 interface DiscordStatusProps {
     userId?: string;
@@ -14,10 +15,10 @@ interface DiscordUser {
     avatar?: string;
     discriminator: string;
     global_name?: string;
-    clan?: {
-      tag: string;
-      identity_guild_id: string;
-      badge: string;
+    primary_guild: {
+        tag: string;
+        identity_guild_id: number;
+        badge: string;
     };
   }
 export function DiscordStatus({ userId = process.env.NEXT_PUBLIC_DISCORD_USER_ID || '', className = "" }: DiscordStatusProps) {
@@ -82,14 +83,11 @@ export function DiscordStatus({ userId = process.env.NEXT_PUBLIC_DISCORD_USER_ID
         offline: "bg-gray-500"
     }[status.discord_status] || "bg-gray-500";
 
-    // clan tag
-    const clan = (status.discord_user as unknown as DiscordUser)?.clan;
-
-    //spotify things
-    const clanTag = clan?.tag || "Unknown Clan";
-    const clanGuildId = clan?.identity_guild_id || "Unknown Clan ID";
-    const clanBadge = clan?.badge || "Unknown Badge";
-    const clanIconUrl = clan ? `https://cdn.discordapp.com/clan-badges/${clanGuildId}/${clanBadge}.png?size=16` : "";
+    // Handle clan information
+    const tag = status.discord_user.primary_guild.tag;
+    const Guild_Id = status.discord_user.primary_guild.identity_guild_id;
+    const Guild_Badge = status.discord_user.primary_guild.badge;
+    const Guild_IconUrl = `https://cdn.discordapp.com/clan-badges/${Guild_Id}/${Guild_Badge}.png?size=16`;
 
     return (
         <div
@@ -115,17 +113,17 @@ export function DiscordStatus({ userId = process.env.NEXT_PUBLIC_DISCORD_USER_ID
                         </span>
                             <span className="text-xs font-semibold inline-flex items-center px-1 py-0.5 text-zinc-200 bg-neutral-600 rounded-2xl border border-neutral-500 hover:bg-neutral-700 transition-all">
                             <img
-                        src={clanIconUrl}
+                        src={`${Guild_IconUrl}`}
                         alt={`${status.discord_user.username}'s avatar`}
                         width={12}
                         height={12}
                         className="inline-block"
-                    />{clanTag}
+                    />{tag}
                             </span>
                     </div>
 
                     <span className="text-sm font-mono italic text-neutral-400">
-                        @{status.discord_user.username} • he/him
+                        @{status.discord_user.username} • he/him 
                     </span>
                     <div className="flex items-center gap-1 mt-1">
                         <img src="https://cdn.discordapp.com/badge-icons/2ba85e8026a8614b640c2837bcdfe21b.png" className="w-4 h-4 rounded" alt='Nitro'/>
