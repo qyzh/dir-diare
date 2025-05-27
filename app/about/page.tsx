@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { Navbar } from 'app/components/nav';
 import { AnimatedAbove, AnimatedZoom, AnimatedRight, AnimatedBelow, AnimatedFade } from 'app/components/animated-section';
 import { getArtPosts } from "../work/utils";
+import Breadcrumbs from 'app/components/breadcrumbs';
+import Uq from 'app/components/uq';
 
 export const metadata: Metadata = {
     title: 'About',
@@ -34,16 +36,22 @@ const About = () => (
                 .md
             </p>
             <p className="prose prose-neutral dark:prose-invert">
-                I am a Communication student who has an interest in interface design & running. My name is{' '}
-                <strong>Syauqi Ashadullah </strong> and am currently living in Bandung, West Java.
+                I am a <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500 ">Communication student</span> who has an interest in <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500 ">interface design</span> & <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500 ">running</span>. My name is{' '}
+                <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500 ">Syauqi Ashadullah </span> and am currently living in Bandung, West Java.
             </p>
             </AnimatedZoom>
         </div>
         </AnimatedAbove>
 );
-const workData = getArtPosts();
+const workData = getArtPosts().sort((a, b) => {
+    if (new Date(a.metadata.publishedAt) > new Date(b.metadata.publishedAt)) {
+      return -1
+    }
+    return 1
+});
 const Repo = () => (
     <AnimatedAbove delay={0.5}>
+        <div className="flex flex-cols items-center justify-between font-mono mt-2">
             <p className='text-sm text-neutral-500 font-mono mb-2 mt-2'>
                 <span className='text-neutral-300 mr-0.5'>
                 dir-diare
@@ -54,8 +62,12 @@ const Repo = () => (
                 </span>
                 .md
             </p>
+            <Link href="/work" className="text-sm text-neutral-400 hover:text-neutral-300">
+                view all
+            </Link>
+        </div>
         <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
-            {workData.map((work, index) => (
+            {workData.slice(0,4).map((work, index) => (
                 <AnimatedFade key={index} delay={0.8 + (index * 0.2)}>
                     <div className="border-1 border-neutral-700 rounded p-4">
                         <div className="inline-flex group">
@@ -137,12 +149,11 @@ const EduTL = () => (
 export default function AboutPage() {
     return (
         <section>
+            <AnimatedFade delay={0.2}>
+            <Breadcrumbs/>
+            </AnimatedFade>
             <AnimatedAbove delay={0.2}>
-                            <div className="mt-4 p-2 border-zinc-700 border-1 rounded">
-                                <div className='bg-neutral-950 rounded'>
-                                <DiscordStatus/>
-                            </div>
-                            </div>
+                <Uq />
             </AnimatedAbove>
             <About />
             <div className="grid grid-cols-1 gap-2">

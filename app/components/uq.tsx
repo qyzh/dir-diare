@@ -22,7 +22,7 @@ export default function Uq() {
         >
             <div className="space-y-6 sm:space-y-8">
                 <div className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-6">
-                    <a href="/about" className="flex-shrink-0">
+                    <div className="flex-shrink-0">
                         <div className="group border-4 transition ease-out border-zinc-700 rounded-full hover:border-indigo-500/70 hover:shadow-lg">
                             <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full">
                                 <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full overflow-clip group-hover:scale-105">
@@ -35,7 +35,7 @@ export default function Uq() {
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                     <div className="flex flex-col items-center sm:items-start text-center sm:text-left pt-2 sm:pt-4">
                         <h2 className="text-lg sm:text-xl font-semibold leading-none text-neutral-100/90">
                             Syauqi Ashadullah
