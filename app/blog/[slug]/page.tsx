@@ -7,7 +7,7 @@ import { Navbar } from 'app/components/nav'
 import  Komentar  from 'app/components/comments'
 import Saweria from 'app/components/saweria'
 import Breadcrumbs from 'app/components/breadcrumbs'
-import { readTime } from 'utils/ReadTime'
+import { readTime } from 'lib/ReadTime'
 import { AnimatedAbove, AnimatedBelow, AnimatedLeft, AnimatedZoom } from 'app/components/animated-section'
 import Footer from 'app/components/footer'
 
