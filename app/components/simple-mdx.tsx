@@ -111,7 +111,7 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
                     if (buttonColor === 'gray') colorClasses = 'bg-gray-600 hover:bg-gray-700 text-white';
                     if (buttonColor === 'outline') colorClasses = 'bg-transparent border border-teal-600 text-teal-600 hover:bg-teal-100 dark:hover:bg-teal-900/30';
 
-                    return `<a href="${actualUrl}" class="inline-block ${sizeClasses} ${colorClasses} rounded-md font-medium text-center transition-colors no-underline my-2">${buttonText}</a>`;
+                    return `<a href="${actualUrl}" target='_blank' class="inline-block ${sizeClasses} ${colorClasses} rounded-md font-medium text-center transition-colors no-underline my-2">${buttonText}</a>`;
                 }
 
                 // Custom link styles with optional icon
@@ -121,14 +121,14 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
                 const linkClass = url.includes('#style=') ? url.match(/#style=(\w+)/)[1] : 'default';
                 const actualUrl = url.replace(/#style=\w+/, '');
 
-                let linkClasses = 'text-sky-400 hover:text-sky-300'; // default
-                if (linkClass === 'underline') linkClasses = 'text-sky-400 hover:text-sky-300 underline';
-                if (linkClass === 'bold') linkClasses = 'text-sky-400 hover:text-sky-300 font-bold';
+                let linkClasses = 'text-teal-400 hover:text-teal-300'; // default
+                if (linkClass === 'underline') linkClasses = 'text-teal-400 hover:text-teal-300 underline';
+                if (linkClass === 'bold') linkClasses = 'text-teal-400 hover:text-teal-300 font-bold';
                 if (linkClass === 'fancy') linkClasses = 'text-purple-500 hover:text-purple-400 font-medium border-b border-purple-500 pb-1 transition-all hover:border-purple-400';
 
                 // Add icon if specified
                 const iconHtml = icon ? getIconHtml(icon) : '';
-                return `<a href="${actualUrl}" class="${linkClasses}">${iconHtml}${linkText}</a>`;
+                return `<a href="${actualUrl}" class="${linkClasses}" target='_blank'>${iconHtml}${linkText}</a>`;
             });
 
         // Blockquotes - Different styles similar to your Kutiptengah, Kutipkiri components
