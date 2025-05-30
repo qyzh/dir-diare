@@ -5,6 +5,7 @@ import { Drawer } from 'vaul';
 import Link from 'next/link';
 
 interface UnsplashPhoto {
+  exif: any;
   id: string;
   urls: {
     regular: string;
@@ -16,7 +17,9 @@ interface UnsplashPhoto {
   };
   likes: number;
   downloads: number;
-  location?: {
+  location: {
+    city: string;
+    country: string;
     title: string;
   };
   tags: {
@@ -160,18 +163,60 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
                     </svg>
                     {photo.downloads || 0} downloads
                   </div>
-                  {photo.location?.title && (
+                  
+
+                  {photo.exif && (
+                    <div className="col-span-2 grid grid-cols-1 bg-zinc-200 p-2 border-1 border-zinc-300 mt-2 font-mono text-zinc-600 rounded">
+                      {(photo.exif.make || photo.exif.model || photo.exif.name) && (
+                        <div className="flex items-center gap-1">
+
+                          <span>
+                            {photo.exif.make ? `${photo.exif.make} ` : ''}
+                            {photo.exif.model ? `${photo.exif.model} ` : ''}
+                            {photo.exif.name ? `(${photo.exif.name})` : ''}
+                          </span>
+                        </div>
+                      )}
+                      {photo.exif.exposure_time && (
+                        <div className="flex items-center gap-1">
+
+                          Exposure: {photo.exif.exposure_time}
+                        </div>
+                      )}
+                      {photo.exif.aperture && (
+                        <div className="flex items-center gap-1">
+ 
+                          Aperture: f/{photo.exif.aperture}
+                        </div>
+                      )}
+                      {photo.exif.focal_length && (
+                        <div className="flex items-center gap-1">
+
+                          Focal Length: {photo.exif.focal_length}mm
+                        </div>
+                      )}
+                      {photo.exif.iso && (
+                        <div className="flex items-center gap-1">
+
+                          ISO: {photo.exif.iso}
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+
+                  {photo.location && (
                     <div className="col-span-2 flex items-center gap-1  text-zinc-600">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                      </svg>
-                      {photo.location.title}
-                    </div>
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        {photo.location.title || `${photo.location.city || ' '} ${photo.location.country || ' '}`}
+                      </div>
                   )}
                 </div>
                 {photo.tags && photo.tags.length > 0 && (
-                  <div className="mt-4 text-zinc-900">
+                  <div className="mt-4 text-zinc-600">
                     <div className="text-sm font-medium mb-2"><p>Tags:</p></div>
                     <div className="flex flex-wrap gap-2">
                       {photo.tags.map((tag: any) => (
