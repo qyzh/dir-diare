@@ -59,11 +59,13 @@ export default function RootLayout({
                 jetbrainsMono.variable
             )}
         >
-            <body className="antialiased max-w-2xl mb-40 flex flex-col mx-4 mt-8 md:mx-auto">
-                        {children}
-                        <Analytics />
-                        <SpeedInsights />
-            </body>
+      <body className="antialiased tracking-tight">
+          <main className=" max-w-2xl mb-40 flex flex-col mx-4 mt-8 md:mx-auto">
+            {children}
+          </main>
+          <SpeedInsights />
+          <Analytics />
+      </body>
         </html>
     )
 }
