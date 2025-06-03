@@ -1,6 +1,5 @@
 
 import {  Navbar } from '../components/nav'
-import { SecHeadGalery } from 'app/components/sechead';
 import Breadcrumbs from 'app/components/breadcrumbs';
 import { AnimatedAbove, AnimatedBelow } from 'app/components/animated-section';
 import Footer from 'app/components/footer';
@@ -17,9 +16,6 @@ export default function Page() {
             <Navbar />
             <AnimatedAbove delay={0.5}>
             <Breadcrumbs />
-            </AnimatedAbove>
-            <AnimatedAbove delay={0.3}>
-            <SecHeadGalery />
             </AnimatedAbove>
              <AnimatedBelow delay={0.3}>
              <PhotoGallery username="syauqashdllh" limit={9} />

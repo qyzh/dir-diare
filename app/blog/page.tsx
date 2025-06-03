@@ -1,6 +1,4 @@
-
-import {  Navbar } from '../components/nav'
-import { SecHeadBlog } from 'app/components/sechead';
+import {  Navbar } from '../components/nav';
 import { BlogPosts } from 'app/components/posts';
 import Breadcrumbs from 'app/components/breadcrumbs';
 import { AnimatedAbove, AnimatedBelow } from 'app/components/animated-section';
@@ -17,9 +15,6 @@ export default function Page() {
             <Navbar />
             <AnimatedAbove delay={0.5}>
             <Breadcrumbs />
-            </AnimatedAbove>
-            <AnimatedAbove delay={0.3}>
-            <SecHeadBlog />
             </AnimatedAbove>
             <AnimatedBelow delay={0.3}>
             <BlogPosts />

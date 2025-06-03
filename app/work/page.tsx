@@ -3,7 +3,6 @@ import React from "react";
 import type { Metadata } from 'next'
 import  Card  from 'app/components/artc'
 import {  Navbar } from '../components/nav'
-import { SecHeadWork } from "app/components/sechead";
 import Breadcrumbs from "app/components/breadcrumbs";
 import { getArtPosts } from "./utils";
 import { AnimatedAbove, AnimatedBelow, AnimatedZoom } from "app/components/animated-section";
@@ -26,9 +25,6 @@ export default function WorkPage() {
         <section>
             <AnimatedAbove delay={0.5}>
             <Breadcrumbs />
-            </AnimatedAbove>
-            <AnimatedAbove delay={0.3}>
-              <SecHeadWork/>
             </AnimatedAbove>
             <div className="container">
         <AnimatedZoom delay={0.5}>
