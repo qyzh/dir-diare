@@ -1,5 +1,4 @@
 "use client"
-import { ChevronRight, GripVertical } from "lucide-react";
 import { motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -23,26 +22,28 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
         >
             <Link
                 href="/"
-                className="whitespace-nowrap hover:text-neutral-300 text-sm transition-colors"
+                className="whitespace-nowrap px-1 hover:text-neutral-300 text-sm transition-colors"
             >
-                ~/
+                ~
             </Link>
             {paths.map((path, index) => (
                 <React.Fragment key={path}>
-                    <ChevronRight className="text-yellow-400 mx-1 h-4 w-4" />
+                    <div className="text-yellow-400 " >
+                    /
+                    </div>
                     {index === paths.length - 1 ? (
-                        <span className="text-neutral-300 text-sm">{currentTitle}</span>
+                        <span className="text-sky-300 px-2 text-sm">{currentTitle}</span>
                     ) : (
                         <Link
                             href={`/${paths.slice(0, index + 1).join("/")}`}
-                            className="text-neutral-500 hover:text-neutral-300 text-sm transition-colors"
+                            className="px-1 text-neutral-500 hover:text-teal-600 text-sm transition-colors"
                         >
                             {path}
                         </Link>
                     )}
                 </React.Fragment>
             ))}
-            <GripVertical className="animate-pulse text-yellow-400 ml-1 h-4 w-4" />
+            
         </motion.div>
     );
 }
