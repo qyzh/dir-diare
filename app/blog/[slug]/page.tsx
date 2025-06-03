@@ -97,10 +97,10 @@ export default async function Blog({ params }) {
                             }),
                         }}
                     />
-                    <AnimatedAbove delay={0.5}>
+                    <AnimatedAbove delay={0.2}>
                     <Breadcrumbs post={post}/>
                     </AnimatedAbove>
-                    <AnimatedAbove delay={0.3}>
+                    <AnimatedAbove delay={0.1}>
                     <h1 className="title font-bold text-4xl tracking-tighter max-w-[650px]">
                         {post.metadata.title}
                     </h1>
@@ -109,16 +109,17 @@ export default async function Blog({ params }) {
 
                     <div className='grid gap-4'>
                         <div className="flex flex-col md:flex-row justify-center md:justify-start gap-x-2 gap-y-1 text-m text-neutral-600 dark:text-neutral-400 mb-2">
-                        <AnimatedLeft delay={0.7}>
+                        <AnimatedLeft delay={0.3}>
+                            
                                 <div className='flex items-center'>
-                                            <div className='hover:bg-indigo-500/20 hover:text-indigo-500 transition-all rounded p-1'>
-                                    <time className='proportional-nums font-mono' dateTime={post.metadata.publishedAt}>{formatDate(post.metadata.publishedAt, true)}</time>
-                                </div>
+
+                                    <time className='proportional-nums font-mono' dateTime={post.metadata.publishedAt}>{formatDate(post.metadata.publishedAt, true, 'long')}</time>
+
                             </div>
                             </AnimatedLeft>
-                            <AnimatedLeft delay={0.5}>
+                            <AnimatedLeft delay={0.4}>
                             <div className='flex items-center text-m text-teal-400 hover:text-teal-200'>
-                                <div className='hover:bg-teal-500/20 hover:text-teal-500 transition-all rounded p-1'>
+                               
                                 <Link
                                     href="#comments"
                                     className="flex items-center gap-1"
@@ -128,26 +129,25 @@ export default async function Blog({ params }) {
                                     </svg>
                                     <div className="#comments">Comments</div>
                                 </Link>
-                                </div>
                             </div>
                             </AnimatedLeft>
-                            <AnimatedLeft delay={0.3}>
+                            <AnimatedLeft delay={0.5}>
                             <div className='flex items-center gap-1'>
-                                <div className='hover:bg-blue-500/20 hover:text-blue-500 transition-all rounded p-1'>
+
                                     {readTime(post.content)} read
-                                </div>
+
                             </div>
                             </AnimatedLeft>
                         </div>
                     </div>
-                    <AnimatedZoom delay={0.5}>
+                    <AnimatedZoom delay={0.6}>
                     <article>
                         <SimpleMDX content={post.content} />
                         <hr className='my-4 border-neutral-300 dark:border-neutral-700' />
                         <Komentar/>
                     </article>
                     </AnimatedZoom>
-                    <AnimatedBelow delay={0.5}>
+                    <AnimatedBelow delay={0.7}>
                     <Saweria/>
                     </AnimatedBelow>
                 </>

@@ -54,38 +54,28 @@ export function getBlogPosts() {
     return getMDXData(path.join(process.cwd(), 'content'))
 }
 
-export function formatDate(date: string, includeRelative = false) {
+export function formatDate(
+    date: string, 
+    includeRelative = false, 
+    format: 'short' | 'long' | 'month-date' | 'short-month-date' = 'short'
+) {
     let currentDate = new Date()
     if (!date.includes('T')) {
         date = `${date}T00:00:00`
     }
     let targetDate = new Date(date)
 
-    let yearsAgo = currentDate.getFullYear() - targetDate.getFullYear()
-    let monthsAgo = currentDate.getMonth() - targetDate.getMonth()
-    let daysAgo = currentDate.getDate() - targetDate.getDate()
-
-    let formattedDate = ''
-
-    if (yearsAgo > 0) {
-        formattedDate = `${yearsAgo}y ago`
-    } else if (monthsAgo > 0) {
-        formattedDate = `${monthsAgo}mo ago`
-    } else if (daysAgo > 0) {
-        formattedDate = `${daysAgo}d ago`
-    } else {
-        formattedDate = 'Today'
+    const formatOptions: Intl.DateTimeFormatOptions = {
+        month: format === 'short' || format === 'short-month-date' ? 'short' : 'long',
+        day: 'numeric',
+        year: format === 'month-date' || format === 'short-month-date' ? undefined : 'numeric',
     }
 
-    let fullDate = targetDate.toLocaleString('en-us', {
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-    })
+    let formattedDate = targetDate.toLocaleDateString('en-us', formatOptions)
 
     if (!includeRelative) {
-        return fullDate
+        return formattedDate
     }
 
-    return `${fullDate} (${formattedDate})`
+    return formattedDate
 }

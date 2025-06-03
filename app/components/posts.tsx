@@ -19,38 +19,33 @@ interface PostCardProps {
 }
 
 const PostCard = ({ post }: PostCardProps) => {
-    const formattedDate = formatDate(post.metadata.publishedAt, true)
+    const formattedDate = formatDate(post.metadata.publishedAt, true, 'short-month-date')
     
     return (
-        <Link
-            key={post.slug}
-            className="group flex "
-            href={`/blog/${post.slug}`}
-            aria-label={`Read blog post: ${post.metadata.title}`}
-        >
-            <div className='
-                flex flex-1 flex-row
-                backdrop-blur-sm
-                backdrop-saturate-50
-                bg-neutral-800/20
-                border-zinc-800
-                px-4 py-4 border
-                shadow-md rounded mb-4
-                group-hover:bg-neutral-800/30
-                group-hover:border-zinc-700 truncate '
-            >
-
-
-                <div className='z-2 overflow-hidden'>
-                    <div className='title font-bold'>{post.metadata.title}</div>
-
-                    <div className='text-zinc-200 font-mono '>
-                        {post.metadata.summary}
+        <div className="space-y-1">
+            <div key={post.slug} className="opacity-80 group-hover:opacity-40 hover:!opacity-100 transition-all duration-200  group-hover:blur-[1px] hover:!blur-none">
+                <Link
+                    key={post.slug}
+                    className="group flex w-full p-2 transition-colors duration-200"
+                    href={`/blog/${post.slug}`}
+                    aria-label={`Read blog post: ${post.metadata.title}`}
+                >
+                    <div className="rotate-180 py-2 flex items-center justify-center [writing-mode:_vertical-lr]">
+                        <time className="text-xs font-bold text-neutral-400 uppercase">
+                            <span>{formattedDate}</span>
+                        </time>
                     </div>
-                </div>
-                
+                    <div className="flex-1 min-w-0">
+                        <div className="items-center content-center transition-all duration-200">
+                            <div className="font-bold">{post.metadata.title}</div>
+                            <div className="text-zinc-200 font-mono line-clamp-1 text-sm ">
+                                {post.metadata.summary}
+                            </div>
+                        </div>
+                    </div>
+                </Link>
             </div>
-        </Link>
+        </div>
     )
 }
 
@@ -64,7 +59,7 @@ export function BlogPosts() {
     }, [allBlogs])
 
     return (
-        <div role="list" aria-label="Blog posts">
+        <div role="list" aria-label="Blog posts" className="group">
             {sortedBlogs.map((post) => (
                 <PostCard key={post.slug} post={post} />
             ))}
