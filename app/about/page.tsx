@@ -1,7 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import Saweria from 'app/components/saweria';
-import {DiscordStatus} from 'app/components/discord';
 import Link from 'next/link';
 import { Navbar } from 'app/components/nav';
 import { AnimatedAbove, AnimatedZoom, AnimatedRight, AnimatedBelow, AnimatedFade } from 'app/components/animated-section';

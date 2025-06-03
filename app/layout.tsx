@@ -5,6 +5,7 @@ import { JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { baseUrl } from './sitemap'
+import BackToTop from './components/back2top'
 
 export const metadata: Metadata = {
     metadataBase: new URL(baseUrl),
@@ -63,6 +64,7 @@ export default function RootLayout({
           <main className=" max-w-2xl mb-40 flex flex-col mx-4 mt-8 md:mx-auto">
             {children}
           </main>
+          <BackToTop />
           <SpeedInsights />
           <Analytics />
       </body>
