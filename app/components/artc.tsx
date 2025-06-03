@@ -6,6 +6,20 @@ import { motion } from 'framer-motion'
 import React from 'react';
 
 const Card = ({ title, description, imgSrc, href, tagz }) => {
+  const getTagColor = (tag) => {
+    const tagLower = tag.toLowerCase();
+    switch (tagLower) {
+      case 'personal projects':
+        return 'bg-rose-900/50 group-hover:bg-rose-800/50';
+      case 'design graphics':
+        return 'bg-indigo-900/50 group-hover:bg-indigo-800/50';
+      case 'code projects':
+        return 'bg-emerald-900/50 group-hover:bg-emerald-800/50';
+      default:
+        return 'bg-neutral-800 group-hover:bg-neutral-700';
+    }
+  };
+
   return (
     <motion.div
       whileHover={{ scale: 1.05 }}
@@ -18,7 +32,7 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
           <div className="overflow-hidden flex flex-row">
             <div className="rotate-180 flex items-center justify-center [writing-mode:_vertical-lr]">
               <time className="text-xs font-bold text-neutral-400 uppercase">
-                <div className="inline bg-neutral-800 px-3 py-1 text-xs font-mono text-white truncate">
+                <div className={`inline ${getTagColor(tagz)} px-3 py-1 text-xs font-mono text-white truncate`}>
                   {tagz}
                 </div>
               </time>
