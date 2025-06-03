@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { formatDate, getBlogPosts } from 'app/blog/utils'
-import Image from 'next/image'
 import { useMemo } from 'react'
 
 interface BlogPost {

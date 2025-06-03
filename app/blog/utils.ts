@@ -59,7 +59,6 @@ export function formatDate(
     includeRelative = false, 
     format: 'short' | 'long' | 'month-date' | 'short-month-date' = 'short'
 ) {
-    let currentDate = new Date()
     if (!date.includes('T')) {
         date = `${date}T00:00:00`
     }

@@ -43,10 +43,10 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
                 <div className="w-24 h-24 relative flex-shrink-0">
                   <Image
                     alt={title}
-                    src={imgSrc || '/images/bg-noise.png'}
+                    src={imgSrc}
                     className="absolute inset-0 w-full h-full object-cover bg-clip-border bg-black shadow-lg rounded-md"
-                    width={120}
-                    height={120}
+                    width={180}
+                    height={180}
                     priority={false}
                   />
                 </div>
