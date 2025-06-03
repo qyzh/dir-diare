@@ -22,20 +22,20 @@ const PostCard = ({ post }: PostCardProps) => {
     const formattedDate = formatDate(post.metadata.publishedAt, true, 'short-month-date')
     
     return (
-        <div className="space-y-1">
+        <div className="mb-2">
             <div key={post.slug} className="opacity-80 group-hover:opacity-40 hover:!opacity-100 transition-all duration-200  group-hover:blur-[1px] hover:!blur-none">
                 <Link
                     key={post.slug}
-                    className="group flex w-full p-2 transition-colors duration-200"
+                    className="group flex w-full transition-colors duration-200"
                     href={`/blog/${post.slug}`}
                     aria-label={`Read blog post: ${post.metadata.title}`}
                 >
-                    <div className="rotate-180 py-2 flex items-center justify-center [writing-mode:_vertical-lr]">
+                    <div className="rotate-180 flex items-center justify-center [writing-mode:_vertical-lr]">
                         <time className="text-xs font-bold text-neutral-400 uppercase">
                             <span>{formattedDate}</span>
                         </time>
                     </div>
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 pl-2 min-w-0">
                         <div className="items-center content-center transition-all duration-200">
                             <div className="font-bold">{post.metadata.title}</div>
                             <div className="text-zinc-200 font-mono line-clamp-1 text-sm ">
