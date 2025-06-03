@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect, useState } from 'react'
 import { highlight } from 'sugar-high'
 
 const slugify = (str: string): string => {
@@ -19,6 +19,11 @@ interface SimpleMDXProps {
 }
 
 export function SimpleMDX({ content }: SimpleMDXProps) {
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
 
     // Helper function to get icon HTML
     const getIconHtml = (iconName: string): string => {
@@ -277,6 +282,10 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
 
         return processedContent;
     }, [content]);
+
+    if (!isMounted) {
+        return <div className="prose prose-invert max-w-none" />;
+    }
 
     return (
         <div className="prose prose-invert max-w-none">
