@@ -11,7 +11,7 @@ interface BadgeProps {
     hoverTextColor: string;
 }
 
-export const Badge: React.FC<BadgeProps> = ({
+export const Badge = React.memo(({
     icon,
     text,
     borderColor,
@@ -20,14 +20,16 @@ export const Badge: React.FC<BadgeProps> = ({
     hoverBorderColor,
     hoverBgColor,
     hoverTextColor,
-}) => {
+}: BadgeProps) => {
+    const baseClasses = "inline-flex items-center transition-all px-2 py-1 text-xs font-medium border rounded";
+    const dynamicClasses = `${borderColor} ${bgColor} ${textColor} ${hoverBorderColor} ${hoverBgColor} ${hoverTextColor}`;
+
     return (
-        <div
-            className={`inline-flex items-center  transition-all px-2 py-1 text-xs font-medium border ${borderColor} ${bgColor} ${textColor} rounded
-                        hover:${hoverBorderColor} hover:${hoverBgColor} hover:${hoverTextColor}`}
-        >
+        <div className={`${baseClasses} ${dynamicClasses}`}>
             {icon}
             {text}
         </div>
     );
-};
+});
+
+Badge.displayName = 'Badge';

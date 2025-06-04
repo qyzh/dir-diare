@@ -51,9 +51,9 @@ export default function Uq() {
                                     borderColor="border-teal-800"
                                     bgColor="bg-teal-900/50"
                                     textColor="text-teal-400"
-                                    hoverBorderColor="border-teal-500/70"
-                                    hoverBgColor="bg-teal-800/50"
-                                    hoverTextColor="text-teal-300"
+                                    hoverBorderColor="hover:border-teal-500/70"
+                                    hoverBgColor="hover:bg-teal-800/50"
+                                    hoverTextColor="hover:text-teal-300"
                                 />
                                 <Badge
                                     icon={<Activity className="size-4 mr-1"/>}
@@ -61,9 +61,9 @@ export default function Uq() {
                                     borderColor="border-orange-800"
                                     bgColor="bg-orange-900/50"
                                     textColor="text-orange-400"
-                                    hoverBorderColor="border-orange-500/70"
-                                    hoverBgColor="bg-orange-800/50"
-                                    hoverTextColor="text-orange-300"
+                                    hoverBorderColor="hover:border-orange-500/70"
+                                    hoverBgColor="hover:bg-orange-800/50"
+                                    hoverTextColor="hover:text-orange-300"
                                 />
                                 <Badge
                                     icon={<Gamepad2 className="size-4 mr-1"/>}
@@ -71,9 +71,9 @@ export default function Uq() {
                                     borderColor="border-rose-800"
                                     bgColor="bg-rose-900/50"
                                     textColor="text-rose-400"
-                                    hoverBorderColor="border-rose-500/70"
-                                    hoverBgColor="bg-rose-800/50"
-                                    hoverTextColor="text-rose-300"
+                                    hoverBorderColor="hover:border-rose-500/70"
+                                    hoverBgColor="hover:bg-rose-800/50"
+                                    hoverTextColor="hover:text-rose-300"
                                 />
                             </div>
                         </div>

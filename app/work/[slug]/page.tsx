@@ -69,7 +69,7 @@ export default async function Blog({ params }) {
 
     const CATEGORY_STYLES = {
         'design graphics': {
-            color: 'purple',
+            color: 'indigo',
             border: true
         },
         'code projects': {
@@ -92,9 +92,66 @@ export default async function Blog({ params }) {
 
     const getCategoryStyle = (category: string) => {
         const normalizedCategory = category.toLowerCase();
-        return CATEGORY_STYLES[normalizedCategory as keyof typeof CATEGORY_STYLES] || {
+        const style = CATEGORY_STYLES[normalizedCategory as keyof typeof CATEGORY_STYLES] || {
             color: 'neutral',
             border: false
+        };
+
+        const color = style.color;
+        const colorClasses = {
+            indigo: {
+                border: 'border-indigo-800',
+                bg: 'bg-indigo-900/50',
+                text: 'text-indigo-400',
+                hoverBorder: 'hover:border-indigo-500/70',
+                hoverBg: 'hover:bg-indigo-800/50',
+                hoverText: 'hover:text-indigo-300'
+            },
+            emerald: {
+                border: 'border-emerald-800',
+                bg: 'bg-emerald-900/50',
+                text: 'text-emerald-400',
+                hoverBorder: 'hover:border-emerald-500/70',
+                hoverBg: 'hover:bg-emerald-800/50',
+                hoverText: 'hover:text-emerald-300'
+            },
+            orange: {
+                border: 'border-orange-800',
+                bg: 'bg-orange-900/50',
+                text: 'text-orange-400',
+                hoverBorder: 'hover:border-orange-500/70',
+                hoverBg: 'hover:bg-orange-800/50',
+                hoverText: 'hover:text-orange-300'
+            },
+            violet: {
+                border: 'border-violet-800',
+                bg: 'bg-violet-900/50',
+                text: 'text-violet-400',
+                hoverBorder: 'hover:border-violet-500/70',
+                hoverBg: 'hover:bg-violet-800/50',
+                hoverText: 'hover:text-violet-300'
+            },
+            rose: {
+                border: 'border-rose-800',
+                bg: 'bg-rose-900/50',
+                text: 'text-rose-400',
+                hoverBorder: 'hover:border-rose-500/70',
+                hoverBg: 'hover:bg-rose-800/50',
+                hoverText: 'hover:text-rose-300'
+            },
+            neutral: {
+                border: 'border-neutral-800',
+                bg: 'bg-neutral-900/50',
+                text: 'text-neutral-400',
+                hoverBorder: 'hover:border-neutral-500/70',
+                hoverBg: 'hover:bg-neutral-800/50',
+                hoverText: 'hover:text-neutral-300'
+            }
+        };
+
+        return {
+            ...style,
+            classes: colorClasses[color as keyof typeof colorClasses] || colorClasses.neutral
         };
     };
 
@@ -140,13 +197,13 @@ export default async function Blog({ params }) {
                         <AnimatedRight delay={0.3}>
                             <Badge
                                 text={work.metadata.category}
-                                borderColor={`border-${categoryStyle.color}-800`}
-                                bgColor={`bg-${categoryStyle.color}-900/50`}
-                                textColor={`text-${categoryStyle.color}-400`}
-                                hoverBorderColor={`border-${categoryStyle.color}-500/70`}
-                                hoverBgColor={`bg-${categoryStyle.color}-800/50`}
-                                hoverTextColor={`text-${categoryStyle.color}-300`}
-                            />
+                                borderColor={categoryStyle.classes.border}
+                                bgColor={categoryStyle.classes.bg}
+                                textColor={categoryStyle.classes.text}
+                                hoverBorderColor={categoryStyle.classes.hoverBorder}
+                                hoverBgColor={categoryStyle.classes.hoverBg}
+                                hoverTextColor={categoryStyle.classes.hoverText}
+                            /> 
                         </AnimatedRight>
                     )}
                     <AnimatedAbove delay={0.1}>
