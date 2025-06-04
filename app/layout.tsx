@@ -1,11 +1,11 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import { JetBrains_Mono } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { baseUrl } from './sitemap'
 import BackToTop from './components/back2top'
+import { monaspace } from './fonts'
 
 export const metadata: Metadata = {
     metadataBase: new URL(baseUrl),
@@ -37,14 +37,9 @@ export const metadata: Metadata = {
 
 const cx = (...classes) => classes.filter(Boolean).join(' ')
 
-const inter = Inter({
+const montserrat = Montserrat({
     subsets: ['latin'],
-    variable: '--font-inter',
-})
-
-const jetbrainsMono = JetBrains_Mono({
-    subsets: ['latin'],
-    variable: '--font-jetbrains-mono',
+    variable: '--font-montserrat',
 })
 
 export default function RootLayout({
@@ -55,9 +50,9 @@ export default function RootLayout({
     return (        <html
             lang="en"
             className={cx(
-                'text-black bg-white dark:text-white dark:bg-neutral-900 [color-scheme:dark] scroll-smooth',
-                inter.variable,
-                jetbrainsMono.variable
+                'bg-white dark:bg-neutral-900 [color-scheme:dark] scroll-smooth',
+                montserrat.variable,
+                monaspace.variable
             )}
         >
       <body className="antialiased tracking-tight">
