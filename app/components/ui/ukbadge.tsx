@@ -1,7 +1,7 @@
 import React from "react";
 
 interface BadgeProps {
-    icon: React.ReactNode;
+    icon?: React.ReactNode;
     text: string;
     borderColor: string;
     bgColor: string;
@@ -23,7 +23,7 @@ export const Badge: React.FC<BadgeProps> = ({
 }) => {
     return (
         <div
-            className={`inline-flex items-center  transition-all px-2 py-1 text-xs font-medium border ${borderColor} ${bgColor} ${textColor} rounded-full
+            className={`inline-flex items-center  transition-all px-2 py-1 text-xs font-medium border ${borderColor} ${bgColor} ${textColor} rounded
                         hover:${hoverBorderColor} hover:${hoverBgColor} hover:${hoverTextColor}`}
         >
             {icon}

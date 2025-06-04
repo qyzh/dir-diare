@@ -79,9 +79,9 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
         processedContent = processedContent
             .replace(/```([\s\S]*?)```/g, (_, codeContent) => {
                 const highlighted = highlight(codeContent);
-                return `<pre class="p-4 bg-neutral-800 rounded-md overflow-x-auto"><code>${highlighted}</code></pre>`;
+                return `<pre class="p-4 my-2 rounded-md overflow-x-auto"><code>${highlighted}</code></pre>`;
             })
-            .replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 bg-neutral-800 rounded text-sm">$1</code>');
+            .replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 bg-neutral-800 text-neutral-300 rounded text-sm">$1</code>');
 
         // Links
         processedContent = processedContent
@@ -288,9 +288,8 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
     }
 
     return (
-        <div className="prose prose-invert max-w-none">
+
             <div dangerouslySetInnerHTML={{ __html: renderContent }} />
 
-        </div>
     );
 }

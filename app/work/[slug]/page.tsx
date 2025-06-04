@@ -4,6 +4,7 @@ import { formatDate, getArtPosts } from 'app/work/utils';
 import { baseUrl } from 'app/sitemap';
 import { Navbar } from 'app/components/nav';
 import Breadcrumbs from 'app/components/breadcrumbs';
+import { Badge } from 'app/components/ui/ukbadge';
 import Saweria from 'app/components/saweria';
 import { AnimatedAbove, AnimatedBelow, AnimatedLeft, AnimatedRight, AnimatedZoom } from 'app/components/animated-section';
 
@@ -32,9 +33,8 @@ export async function generateMetadata({ params }) {
         summary: description,
         image,
     } = work.metadata;
-    let ogImage = image
-        ? image
-        : `${baseUrl}/og?title=${encodeURIComponent(title)}`;
+
+    const ogImage = image || `${baseUrl}/og?title=${encodeURIComponent(title)}`;
 
     return {
         title,
@@ -45,11 +45,7 @@ export async function generateMetadata({ params }) {
             type: 'article',
             publishedTime,
             url: `${baseUrl}/work/${work.slug}`,
-            images: [
-                {
-                    url: ogImage,
-                },
-            ],
+            images: [{ url: ogImage }],
         },
         twitter: {
             card: 'summary_large_image',
@@ -73,63 +69,36 @@ export default async function Blog({ params }) {
 
     const CATEGORY_STYLES = {
         'design graphics': {
-            color: 'indigo',
-            opacity: {
-                light: '100',
-                dark: '900/50'
-            },
+            color: 'purple',
             border: true
         },
         'code projects': {
             color: 'emerald',
-            opacity: {
-                light: '100/50',
-                dark: '900/50'
-            },
             border: true
         },
         'ux/ui research': {
             color: 'orange',
-            opacity: {
-                light: '100/50',
-                dark: '900/50'
-            },
             border: true
         },
         'client projects': {
             color: 'violet',
-            opacity: {
-                light: '100/50',
-                dark: '900/50'
-            },
             border: true
         },
         'personal projects': {
             color: 'rose',
-            opacity: {
-                light: '100/50',
-                dark: '900/30'
-            },
             border: true
         }
     };
 
-    const getCategoryBackgroundColor = (category) => {
+    const getCategoryStyle = (category: string) => {
         const normalizedCategory = category.toLowerCase();
-        const style = CATEGORY_STYLES[normalizedCategory] || {
+        return CATEGORY_STYLES[normalizedCategory as keyof typeof CATEGORY_STYLES] || {
             color: 'neutral',
-            opacity: {
-                light: '100',
-                dark: '800/50'
-            }
+            border: false
         };
-
-        const { color, opacity, border } = style;
-        const baseClasses = `bg-${color}-${opacity.light} dark:bg-${color}-${opacity.dark} text-${color}-800 dark:text-${color}-200 transition-opacity duration-200 opacity-80 hover:opacity-100`;
-        const borderClasses = border ? `border border-${color}-800` : '';
-
-        return `${baseClasses} ${borderClasses}`.trim();
     };
+
+    const categoryStyle = work.metadata.category ? getCategoryStyle(work.metadata.category) : null;
 
     return (
         <section>
@@ -160,14 +129,19 @@ export default async function Blog({ params }) {
                     <AnimatedAbove delay={0.5}>
                         <Breadcrumbs post={work} />
                     </AnimatedAbove>
-                        {/* Display main category */}
-                        {work.metadata.category && (
-                            <AnimatedRight delay={0.3}>
-                                <span className={`text-sm font-mono px-2 py-1 rounded ${getCategoryBackgroundColor(work.metadata.category)}`}>
-                                    {work.metadata.category}
-                                </span>
-                            </AnimatedRight>
-                        )}
+                    {work.metadata.category && categoryStyle && (
+                        <AnimatedRight delay={0.3}>
+                            <Badge
+                                text={work.metadata.category}
+                                borderColor={`border-${categoryStyle.color}-800`}
+                                bgColor={`bg-${categoryStyle.color}-900/50`}
+                                textColor={`text-${categoryStyle.color}-400`}
+                                hoverBorderColor={`border-${categoryStyle.color}-500/70`}
+                                hoverBgColor={`bg-${categoryStyle.color}-800/50`}
+                                hoverTextColor={`text-${categoryStyle.color}-300`}
+                            />
+                        </AnimatedRight>
+                    )}
                     <AnimatedAbove delay={0.1}>
                         <h1 className="title font-mono font-bold text-3xl tracking-tighter max-w-[650px]">
                             {work.metadata.title}
@@ -178,7 +152,7 @@ export default async function Blog({ params }) {
                         <AnimatedLeft delay={0.5}>
                             <p className="text-sm font-mono text-neutral-600 dark:text-neutral-400 flex items-center gap-2">
                                 <time className="proportional-nums" dateTime={work.metadata.publishedAt}>
-                                {formatDate(work.metadata.publishedAt, true, )}
+                                    {formatDate(work.metadata.publishedAt, true)}
                                 </time>
                             </p>
                         </AnimatedLeft>
@@ -189,7 +163,7 @@ export default async function Blog({ params }) {
                             <img
                                 className="rounded-lg mb-4 max-h-[500px] w-full object-cover"
                                 loading="lazy"
-                                src={work.metadata.image ? work.metadata.image : '/og?title=' + encodeURIComponent(work.metadata.title)}
+                                src={work.metadata.image || `/og?title=${encodeURIComponent(work.metadata.title)}`}
                                 alt={work.metadata.title}
                             />
                         </AnimatedZoom>

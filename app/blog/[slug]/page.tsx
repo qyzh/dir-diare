@@ -141,7 +141,7 @@ export default async function Blog({ params }) {
                         </div>
                     </div>
                     <AnimatedZoom delay={0.6}>
-                    <article>
+                    <article  className="prose prose-invert max-w-none" >
                         <SimpleMDX content={post.content} />
                         <hr className='my-4 border-neutral-300 dark:border-neutral-700' />
                         <Komentar/>

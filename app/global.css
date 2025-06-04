@@ -71,11 +71,11 @@ html {
 
 .prose pre {
     background-color: #fafafa;
-    background-color: #171717;
+    background-color: #101010;
     border-radius: 0.5rem;
     overflow-x: auto;
     border: 1px solid #e5e5e5;
-    border-color: #171717;
+    border-color: #2c2c2c;
     padding: 0.5rem 0.75rem;
     font-size: 0.875rem;
 }
