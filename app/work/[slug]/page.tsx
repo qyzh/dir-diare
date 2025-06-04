@@ -100,6 +100,13 @@ export default async function Blog({ params }) {
 
     const categoryStyle = work.metadata.category ? getCategoryStyle(work.metadata.category) : null;
 
+    const formatTag = (tag: string) => {
+        return tag
+            .split(' ')
+            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+            .join(' ');
+    };
+
     return (
         <section>
             {work && (
@@ -153,7 +160,8 @@ export default async function Blog({ params }) {
                             <p className="text-sm font-mono text-neutral-600 dark:text-neutral-400 flex items-center gap-2">
                                 <time className="proportional-nums" dateTime={work.metadata.publishedAt}>
                                     {formatDate(work.metadata.publishedAt, true)}
-                                </time>
+                                </time> -
+                                {work.metadata.languages ? ` ${work.metadata.languages.split(',').map(lang => lang.trim()).join(', ')}` : ''}
                             </p>
                         </AnimatedLeft>
                     </div>
@@ -170,7 +178,19 @@ export default async function Blog({ params }) {
                         <AnimatedZoom delay={0.5}>
                             <SimpleMDX content={work.content} />
                         </AnimatedZoom>
-                        <hr className="mb-2 border-neutral-300 dark:border-neutral-800" />
+                        <hr className="mt-2 mb-2 border-neutral-300 dark:border-neutral-800" />
+                        <AnimatedZoom delay={0.5}>
+                            <p className="text-sm text-neutral-400 dark:text-neutral-200">
+                                Tags: 
+                               <span className='font-mono text-neutral-500 dark:text-neutral-400'>
+                                {' '}
+                                {work.metadata.tags ? work.metadata.tags.split(',').map(tag => formatTag(tag.trim())).join(', ') : ''}
+
+                                </span>
+                                {' '}
+                            </p>
+                        </AnimatedZoom>
+                        <hr className="mt-2 mb-2 border-neutral-300 dark:border-neutral-800" />
                     </article>
                     <AnimatedBelow delay={0.5}>
                         <Saweria />
