@@ -48,22 +48,22 @@ export default function Uq() {
                                 <Badge
                                     icon={<SquareChevronRight className="size-4 mr-1"/>}
                                     text="Developer"
-                                    borderColor="border-fuchsia-800"
-                                    bgColor="bg-fuchsia-900/50"
-                                    textColor="text-fuchsia-400"
-                                    hoverBorderColor="border-fuchsia-500/70"
-                                    hoverBgColor="bg-fuchsia-800/50"
-                                    hoverTextColor="text-fuchsia-300"
+                                    borderColor="border-teal-800"
+                                    bgColor="bg-teal-900/50"
+                                    textColor="text-teal-400"
+                                    hoverBorderColor="border-teal-500/70"
+                                    hoverBgColor="bg-teal-800/50"
+                                    hoverTextColor="text-teal-300"
                                 />
                                 <Badge
                                     icon={<Activity className="size-4 mr-1"/>}
                                     text="Amature Runner"
-                                    borderColor="border-emerald-800"
-                                    bgColor="bg-emerald-900/50"
-                                    textColor="text-emerald-400"
-                                    hoverBorderColor="border-emerald-500/70"
-                                    hoverBgColor="bg-emerald-800/50"
-                                    hoverTextColor="text-emerald-300"
+                                    borderColor="border-orange-800"
+                                    bgColor="bg-orange-900/50"
+                                    textColor="text-orange-400"
+                                    hoverBorderColor="border-orange-500/70"
+                                    hoverBgColor="bg-orange-800/50"
+                                    hoverTextColor="text-orange-300"
                                 />
                                 <Badge
                                     icon={<Gamepad2 className="size-4 mr-1"/>}

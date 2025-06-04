@@ -59,7 +59,7 @@ const Repo = () => (
                 <span className='text-neutral-300 ml-0.5'>
                 projects
                 </span>
-                .md
+                .tsx
             </p>
             <Link href="/work" className="text-sm text-neutral-400 hover:text-neutral-300">
                 view all
