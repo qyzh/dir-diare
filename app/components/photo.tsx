@@ -140,24 +140,24 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
         <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
         <Drawer.Content
-          className="right-2 top-2 bottom-2 fixed z-10 outline-none w-[310px] flex text-zinc-600"
+          className="right-2 top-2 bottom-2 fixed z-10 outline-none w-[310px] flex text-white dark:text-zinc-600"
           // The gap between the edge of the screen and the drawer is 8px in this case.
           style={{ '--initial-transform': 'calc(100% + 8px)' } as React.CSSProperties}
         >
-          <div className="bg-zinc-50 h-full w-full grow p-5 flex flex-col rounded-[16px]">
+          <div className="bg-black dark:bg-zinc-50 h-full w-full grow p-5 flex flex-col rounded-[16px]">
             <div className="max-w-md mx-auto">
-              <Drawer.Title className="font-medium mb-2 text-zinc-900">Photo by {photo.user.name}</Drawer.Title>
-              <Drawer.Description className="mb-4  text-zinc-600 font-mono">
+              <Drawer.Title className="font-medium mb-2 text-white dark:text-zinc-900">Photo by {photo.user.name}</Drawer.Title>
+              <Drawer.Description className="mb-4 text-white dark:text-zinc-600 font-mono">
                   {photo.alt_description || 'No description available.'}
                 </Drawer.Description>
-                <div className="grid grid-cols-2 gap-2 text-sm text-zinc-600">
+                <div className="grid grid-cols-2 gap-2 text-sm text-white dark:text-zinc-600">
                   <div className="flex items-center gap-1">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
                     {photo.likes || 0} likes
                   </div>
-                  <div className="flex items-center gap-1  text-zinc-600">
+                  <div className="flex items-center gap-1  text-white dark:text-zinc-600">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
@@ -166,7 +166,7 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
                   
 
                   {photo.exif && (
-                    <div className="col-span-2 grid grid-cols-1 bg-zinc-200 p-2 border-1 border-zinc-300 mt-2 font-mono text-zinc-600 rounded">
+                    <div className="col-span-2 grid grid-cols-1 bg-white/5 dark:bg-zinc-200 p-2 border-1 border-neutral-900 dark:border-zinc-300 mt-2 font-mono text-neutral-400 dark:text-zinc-600 rounded">
                       {(photo.exif.make || photo.exif.model || photo.exif.name) && (
                         <div className="flex items-center gap-1">
 
@@ -206,7 +206,7 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
 
 
                   {photo.location && (
-                    <div className="col-span-2 flex items-center gap-1  text-zinc-600">
+                    <div className="col-span-2 flex items-center gap-1  text-white dark:text-zinc-600">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -216,11 +216,11 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
                   )}
                 </div>
                 {photo.tags && photo.tags.length > 0 && (
-                  <div className="mt-4 text-zinc-600">
+                  <div className="mt-4 text-white dark:text-zinc-600">
                     <div className="text-sm font-medium mb-2"><p>Tags:</p></div>
                     <div className="flex flex-wrap gap-2">
                       {photo.tags.map((tag: any) => (
-                        <span key={tag.title} className="px-2 py-1 bg-zinc-200 rounded-full text-xs">
+                        <span key={tag.title} className="px-2 py-1 bg-white/5 dark:bg-zinc-200 rounded-full text-xs">
                           {tag.title}
                         </span>
                       ))}

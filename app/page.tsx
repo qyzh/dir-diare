@@ -15,7 +15,7 @@ export default function Page() {
             <AnimatedAbove delay={1.5}>
             <header>
             <h1 className="text-2xl font-bold">Wagwan,</h1>
-                    <p className="text-gray-400">
+                    <p className="text-black/50 dark:text-gray-400">
                         Welcome to my little space on internet, place to share my thoughts and ideas,
                         <span className="transition-all opacity-25 blur-sm hover:opacity-100 hover:blur-[0px]">
                             {' '}w/o to think about the algorithm of social media.
@@ -24,7 +24,7 @@ export default function Page() {
             </header>
             </AnimatedAbove>
             <AnimatedAbove delay={0.5}>
-                <div className="mt-4 p-2 border-zinc-700 border-1 rounded">
+                <div className="mt-4 p-2 border-neutral-300 dark:border-neutral-700 border-1 rounded">
                     <DiscordStatus/>
                 </div>
             </AnimatedAbove>
@@ -36,13 +36,13 @@ export default function Page() {
                     </div>
                 </AnimatedZoom>
                 <AnimatedRight delay={2.8}>
-                    <div className="box-border border-1 border-zinc-700 rounded p-2">
+                    <div className="box-border border-1 border-neutral-300 dark:border-neutral-700 rounded p-2">
                         <FBRecentWork />
                     </div>
                 </AnimatedRight>
                 </div>
                 <AnimatedBelow delay={0.5}>
-                <div className="box-border border-1 border-zinc-700 rounded p-2 mt-4">
+                <div className="box-border border-1 border-neutral-300 dark:border-neutral-700 rounded p-2 mt-4">
                     <Strava />
                 </div>
                 </AnimatedBelow>

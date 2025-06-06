@@ -4,6 +4,7 @@ import typography from '@tailwindcss/typography';
 export default {
   content: ['./app/**/*.{ts,tsx}', './content/**/*.mdx'],
   theme: {
+    darkMode: 'class',
     extend: {
       fontFamily: {
         sans: ['var(--font-inter)'],
