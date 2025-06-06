@@ -104,48 +104,48 @@ export default async function Blog({ params }) {
                 bg: 'bg-indigo-900/50',
                 text: 'text-indigo-400',
                 hoverBorder: 'hover:border-indigo-500/70',
-                hoverBg: 'hover:bg-indigo-800/50',
-                hoverText: 'hover:text-indigo-300'
+                hoverBg: 'hover:bg-indigo-800/70 dark:hover:bg-indigo-800/50',
+                hoverText: 'bg-indigo-900 dark:hover:text-indigo-300'
             },
             emerald: {
                 border: 'border-emerald-800',
-                bg: 'bg-emerald-900/50',
+                bg: 'bg-emerald-900 dark:bg-emerald-900/50',
                 text: 'text-emerald-400',
                 hoverBorder: 'hover:border-emerald-500/70',
-                hoverBg: 'hover:bg-emerald-800/50',
-                hoverText: 'hover:text-emerald-300'
+                hoverBg: 'dark:hover:bg-emerald-800/50',
+                hoverText: 'bg-emerald-900 dark:hover:text-emerald-300'
             },
             orange: {
                 border: 'border-orange-800',
-                bg: 'bg-orange-900/50',
+                bg: 'bg-orange-900 dark:bg-orange-900/50',
                 text: 'text-orange-400',
                 hoverBorder: 'hover:border-orange-500/70',
-                hoverBg: 'hover:bg-orange-800/50',
-                hoverText: 'hover:text-orange-300'
+                hoverBg: 'dark:hover:bg-orange-800/50',
+                hoverText: 'bg-orange-900 dark:hover:text-orange-300'
             },
             violet: {
                 border: 'border-violet-800',
-                bg: 'bg-violet-900/50',
+                bg: 'bg-violet-900 dark:bg-violet-900/50',
                 text: 'text-violet-400',
                 hoverBorder: 'hover:border-violet-500/70',
-                hoverBg: 'hover:bg-violet-800/50',
-                hoverText: 'hover:text-violet-300'
+                hoverBg: 'dark:hover:bg-violet-800/50',
+                hoverText: 'bg-violet-900 dark:hover:text-violet-300'
             },
             rose: {
                 border: 'border-rose-800',
-                bg: 'bg-rose-900/50',
+                bg: 'bg-rose-900 dark:bg-rose-900/50',
                 text: 'text-rose-400',
                 hoverBorder: 'hover:border-rose-500/70',
-                hoverBg: 'hover:bg-rose-800/50',
-                hoverText: 'hover:text-rose-300'
+                hoverBg: 'hover:bg-rose-800/70 dark:hover:bg-rose-800/50',
+                hoverText: 'bg-rose-900 dark:hover:text-rose-300'
             },
             neutral: {
                 border: 'border-neutral-800',
-                bg: 'bg-neutral-900/50',
+                bg: 'bg-neutral-900 dark:bg-neutral-900/50',
                 text: 'text-neutral-400',
                 hoverBorder: 'hover:border-neutral-500/70',
-                hoverBg: 'hover:bg-neutral-800/50',
-                hoverText: 'hover:text-neutral-300'
+                hoverBg: 'dark:hover:bg-neutral-800/50',
+                hoverText: 'bg-neutral-900 dark:hover:text-neutral-300'
             }
         };
 
@@ -235,9 +235,9 @@ export default async function Blog({ params }) {
                         <AnimatedZoom delay={0.5}>
                             <SimpleMDX content={work.content} />
                         </AnimatedZoom>
-                        <hr className="mt-2 mb-2 border-neutral-300 dark:border-neutral-800" />
+                        <hr className="mt-2 mb-2 border-neutral-200 dark:border-neutral-800" />
                         <AnimatedZoom delay={0.5}>
-                            <p className="text-sm text-neutral-400 dark:text-neutral-200">
+                            <p className="text-sm text-black dark:text-neutral-200">
                                 Tags: 
                                <span className='font-mono text-neutral-500 dark:text-neutral-400'>
                                 {' '}
@@ -247,7 +247,7 @@ export default async function Blog({ params }) {
                                 {' '}
                             </p>
                         </AnimatedZoom>
-                        <hr className="mt-2 mb-2 border-neutral-300 dark:border-neutral-800" />
+                        <hr className="mt-2 mb-2 border-neutral-200 dark:border-neutral-800" />
                     </article>
                     <AnimatedBelow delay={0.5}>
                         <Saweria />

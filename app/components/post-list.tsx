@@ -40,10 +40,10 @@ const FeaturedBlogPostsList = async () => {
         >
           <div className='flex mb-4'>
             <div className='flex flex-col w-full place-self-center'>
-              <div className='text-zinc-400 font-semibold group-hover:text-white transition-all'>
+              <div className='text-black/60 dark:text-neutral-600 font-semibold group-hover:text-black dark:group-hover:text-neutral-400 transition-all'>
                 {post.metadata.title}
               </div>
-              <div className='text-sm text-zinc-500 group-hover:text-zinc-300 truncate overflow-hidden'>
+              <div className='text-black/50 dark:text-neutral-700 text-sm group-hover:text-black/60 dark:group-hover:text-neutral-400 truncate overflow-hidden'>
                 {post.metadata.summary}
               </div>
             </div>

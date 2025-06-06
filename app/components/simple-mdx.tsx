@@ -81,7 +81,7 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
                 const highlighted = highlight(codeContent);
                 return `<pre class="p-4 my-2 rounded-md overflow-x-auto"><code>${highlighted}</code></pre>`;
             })
-            .replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 bg-neutral-800 text-neutral-300 rounded text-sm">$1</code>');
+            .replace(/`([^`]+)`/g, '<code class="px-1 py-0.5 bg-black dark:bg-neutral-800 text-neutal-700 dark:text-neutral-300 rounded text-sm">$1</code>');
 
         // Links
         processedContent = processedContent
@@ -170,7 +170,7 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
             .replace(/:::(note|warning|tip|error|important) ([\s\S]*?):::/g, (_, type, content) => {
                 switch(type) {
                     case 'error':
-                        return `<div class="px-4 py-3 border border-rose-600 bg-rose-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
+                        return `<div class="px-4 py-3 border border-rose-600 bg-rose-900 dark:bg-rose-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
                             <div class="flex items-center w-10 mr-4">
 
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class='animate-pulse fill-red-500 ' width="64" height="64" viewBox="0 0 72 72">
@@ -181,7 +181,7 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
                             <div class="">${content.trim()}</div>
                         </div>`;
                     case 'warning':
-                        return `<div class="px-4 py-3 border border-yellow-600 bg-yellow-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
+                        return `<div class="px-4 py-3 border border-yellow-600 bg-yellow-900 dark:bg-yellow-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
                             <div class="flex items-center w-10 mr-4">
 
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class='animate-pulse fill-amber-300' width="64" height="64" viewBox="0 0 72 72">
@@ -192,7 +192,7 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
                             <div class="">${content.trim()}</div>
                         </div>`;
                     case 'tip':
-                        return `<div class="px-4 py-3 border border-sky-600 bg-sky-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
+                        return `<div class="px-4 py-3 border border-sky-600 bg-sky-900 dark:bg-sky-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
                             <div class="flex items-center w-10 mr-4">
 
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class='fill-sky-500' width="64" height="64" viewBox="0 0 72 72">
@@ -203,7 +203,7 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
                             <div class="">${content.trim()}</div>
                         </div>`;
                     case 'important':
-                        return `<div class="px-4 py-3 border border-amber-600 bg-amber-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
+                        return `<div class="px-4 py-3 border border-amber-600 bg-amber-900 dark:bg-amber-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
                             <div class="flex items-center w-10 mr-4">
 
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class='fill-amber-500' width="64" height="64" viewBox="0 0 72 72">
@@ -214,7 +214,7 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
                             <div class="">${content.trim()}</div>
                         </div>`;
                     default: // note
-                        return `<div class="px-4 py-3 border border-emerald-600 bg-emerald-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
+                        return `<div class="px-4 py-3 border border-emerald-600 bg-emerald-900 dark:bg-emerald-900/30 rounded p-1 flex items-center text-neutral-100 mb-8">
                             <div class="flex items-center w-10 mr-4">
 
 <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class='fill-emerald-500' width="64" height="64" viewBox="0 0 72 72">
@@ -289,7 +289,7 @@ export function SimpleMDX({ content }: SimpleMDXProps) {
 
     return (
 
-            <div dangerouslySetInnerHTML={{ __html: renderContent }} />
+            <div className='prose prose-invert max-w-none' dangerouslySetInnerHTML={{ __html: renderContent }} />
 
     );
 }

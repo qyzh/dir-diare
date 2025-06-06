@@ -40,7 +40,7 @@ const PostCard = ({ post, isLatest }: PostCardProps) => {
                             <div className="font-bold flex items-center gap-2">
                                 {post.metadata.title}
                                 {isLatest && (
-                                    <span className="relative px-2 py-0.5 text-xs font-semibold bg-green-500/20 text-green-400 rounded">
+                                    <span className="relative px-2 py-0.5 text-xs font-semibold bg-green-500 dark:bg-green-500/20 text-green-100 dark:text-green-400 rounded">
                                         <span className="absolute -top-1 -right-1 flex h-2 w-2">
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -49,7 +49,7 @@ const PostCard = ({ post, isLatest }: PostCardProps) => {
                                     </span>
                                 )}
                             </div>
-                            <div className="text-zinc-200 font-mono line-clamp-1 text-sm ">
+                            <div className="text-black/50 dark:text-neutral-600 font-mono line-clamp-1 text-sm ">
                                 {post.metadata.summary}
                             </div>
                         </div>

@@ -10,13 +10,13 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
     const tagLower = tag.toLowerCase();
     switch (tagLower) {
       case 'personal projects':
-        return 'bg-rose-900/50 group-hover:bg-rose-800/50';
+        return 'bg-rose-900 dark:bg-rose-900/50 dark:group-hover:bg-rose-800/50';
       case 'design graphics':
-        return 'bg-indigo-900/50 group-hover:bg-indigo-800/50';
+        return 'bg-indigo-900 dark:bg-indigo-900/50 group-hover:bg-indigo-800/50';
       case 'code projects':
-        return 'bg-emerald-900/50 group-hover:bg-emerald-800/50';
+        return 'bg-emerald-900 dark:bg-emerald-900/50 dark:group-hover:bg-emerald-800/50';
       default:
-        return 'bg-neutral-800 group-hover:bg-neutral-700';
+        return 'bg-neutral-800 dark:bg-neutral-800 dark:group-hover:bg-neutral-700';
     }
   };
 
@@ -27,7 +27,7 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
       initial={{ opacity: 0 }}
       transition={{ duration: 0.2 }}
     >
-      <div className="group hover:bg-white/5 border border-neutral-800 bg-clip-border text-gray-700 hover:border-zinc-700 transition-colors duration-200">
+      <div className="group dark:hover:bg-white/5 border border-neutral-300 dark:border-neutral-800 bg-clip-border dark:text-gray-700 dark:hover:border-zinc-700 transition-colors duration-200">
         <Link href={href} aria-label={`Link to ${title}`}>
           <div className="overflow-hidden flex flex-row">
             <div className="rotate-180 flex items-center justify-center [writing-mode:_vertical-lr]">
@@ -53,7 +53,7 @@ const Card = ({ title, description, imgSrc, href, tagz }) => {
               )}
               
               <div className="flex-1 min-w-0">
-                <h2 className="font-bold tracking-tight text-black dark:text-white group-hover:text-neutral-200 transition-colors duration-200">
+                <h2 className="font-bold tracking-tight text-black dark:text-white dark:group-hover:text-neutral-200 transition-colors duration-200">
                   {title}
                 </h2>
                 <div className="truncate font-mono pr-4 overflow-hidden mt-1 text-sm font-medium text-zinc-400">

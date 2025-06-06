@@ -118,7 +118,7 @@ export default async function Blog({ params }) {
                             </div>
                             </AnimatedLeft>
                             <AnimatedLeft delay={0.4}>
-                            <div className='flex items-center text-m text-teal-400 hover:text-teal-200'>
+                            <div className='flex items-center text-m text-teal-600 dark:text-teal-400 hover:text-800 dark:hover:text-teal-200'>
                                
                                 <Link
                                     href="#comments"
@@ -141,7 +141,7 @@ export default async function Blog({ params }) {
                         </div>
                     </div>
                     <AnimatedZoom delay={0.6}>
-                    <article  className="prose prose-invert max-w-none" >
+                    <article >
                         <SimpleMDX content={post.content} />
                         <hr className='my-4 border-neutral-300 dark:border-neutral-700' />
                         <Komentar/>

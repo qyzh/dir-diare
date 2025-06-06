@@ -6,6 +6,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { baseUrl } from './sitemap'
 import BackToTop from './components/back2top'
 import { monaspace } from './fonts'
+import ThemeProvider from './components/theme-provider'
 
 export const metadata: Metadata = {
     metadataBase: new URL(baseUrl),
@@ -47,22 +48,25 @@ export default function RootLayout({
 }: {
     children: React.ReactNode
 }) {
-    return (        <html
+    return (
+        <html
             lang="en"
             className={cx(
-                'bg-white dark:bg-neutral-900 [color-scheme:dark] scroll-smooth',
+                'scroll-smooth',
                 montserrat.variable,
                 monaspace.variable
             )}
         >
-      <body className="antialiased tracking-tight">
-          <main className=" max-w-2xl mb-40 flex flex-col mx-4 mt-8 md:mx-auto">
-            {children}
-          </main>
-          <BackToTop />
-          <SpeedInsights />
-          <Analytics />
-      </body>
+            <body className="antialiased tracking-tight bg-white dark:bg-neutral-950 text-black dark:text-neutral-100">
+                <ThemeProvider>
+                    <main className="max-w-2xl mb-40 flex flex-col mx-4 mt-8 md:mx-auto">
+                        {children}
+                    </main>
+                    <BackToTop />
+                    <SpeedInsights />
+                    <Analytics />
+                </ThemeProvider>
+            </body>
         </html>
     )
 }

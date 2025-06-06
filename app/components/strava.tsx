@@ -121,7 +121,7 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
   >
     <div className="group bg-white/5 border border-transparent rounded duration-200 cursor-pointer
       hover:bg-orange-600/10 hover:border-orange-600 relative">
-      <div className="flex flex-col bg-orange-600/10 hover:bg-orange-600 sm:flex-row items-center ">
+      <div className="flex flex-col bg-orange-600/80 hover:bg-orange-600 sm:flex-row items-center ">
         <div className="flex-1 p-2 space-y-2 ">
         {/* <div className='absolute top-0 left-0 bg-white/5 rounded'>
         <Image
@@ -133,14 +133,14 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
         </div> */}
           <div className="flex flex-col">
             <div>
-            <span className="text-xs font-mono bg-orange-600 group-hover:bg-orange-950 px-1 py-0.5"> {formatDate(latestActivity.start_date)}</span>
+            <span className="text-xs font-mono bg-orange-600 group-hover:bg-white px-1 py-0.5"> {formatDate(latestActivity.start_date)}</span>
             </div>
-            <div className="text-neutral-300 text-xl sm:text-3xl font-semibold truncate">
+            <div className="text-white text-xl sm:text-3xl font-semibold truncate">
               {latestActivity.name}
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 text-sm text-neutral-300">
+          <div className="flex flex-wrap gap-4 text-sm text-white">
             <div className="flex items-center gap-1">
               <Image
                 src={stopwatchIcon}
