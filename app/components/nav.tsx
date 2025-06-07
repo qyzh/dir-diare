@@ -135,7 +135,7 @@ export function Navbar() {
                                         `} style={{ width: '80%' }}></div>
                                     </motion.div>
 
-                                    <span className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap rounded-md bg-neutral-900 px-2 py-1 text-xs font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity border border-neutral-700/50 shadow-lg">
+                                    <span className="absolute font-mono bottom-full mb-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap rounded bg-neutral-900 px-2 py-1 text-xs font-medium text-white opacity-0 group-hover:opacity-100 transition-opacity border border-neutral-700/50 shadow-lg">
                                         {name}
                                     </span>
                                 </Link>
