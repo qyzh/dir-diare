@@ -24,8 +24,8 @@ export default function UKTerminal({
         <div className="p-4">
           <h2 className="text-white text-lg mb-3">{title}</h2>
 
-          <div className="text-gray-300 mb-4">
-            <span className="text-gray-500">1</span> {content}
+          <div className="text-gray-500 mb-4 border-t border-neutral-300 dark:border-neutral-700">
+            {content}
           </div>
 
           <div className="text-gray-500 text-xs">{date}</div>

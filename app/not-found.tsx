@@ -1,10 +1,19 @@
+import Breadcrumbs from "./components/breadcrumbs";
+import { Navbar } from "./components/nav";
+import UKTerminal from "./components/ukterminal";
+
+
 export default function NotFound() {
+
+    
     return (
         <section>
-            <h1 className="mb-8 text-2xl font-semibold tracking-tighter">
-                404 - Page Not Found
-            </h1>
-            <p className="mb-4">The page you are looking for does not exist.</p>
+            <Breadcrumbs/>
+            <Navbar/>
+            <UKTerminal 
+                title="404: Page Not Found" 
+                content={`The page does not exist.`} 
+            />
         </section>
     )
 }
