@@ -14,11 +14,12 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
     const currentTitle = post?.metadata?.title || paths[paths.length - 1] || "home";
 
     return (
+        <div>
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="inline-flex truncate overflow-hidden font-mono mb-4 text-neutral-500 items-center bg-black dark:bg-white/5 rounded px-2 py-1.5"
+            className="inline-flex truncate overflow-hidden font-mono mb-4 border text-neutral-500 items-center bg-black dark:bg-neutral-950 dark:border-neutral-700 rounded px-2 py-1.5"
         >
             <Link
                 href="/"
@@ -45,6 +46,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
             ))}
             
         </motion.div>
+        </div>
     );
 }
 
