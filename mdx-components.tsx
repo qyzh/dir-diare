@@ -8,6 +8,9 @@ type ListProps = ComponentPropsWithoutRef<'ul'>;
 type ListItemProps = ComponentPropsWithoutRef<'li'>;
 type AnchorProps = ComponentPropsWithoutRef<'a'>;
 type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
+type MarkProps = ComponentPropsWithoutRef<'mark'> & {
+  color?: 'green' | 'yellow' | 'red';
+};
 type CalloutProps = ComponentPropsWithoutRef<'div'> & {
   type?: 'info' | 'warning' | 'error' | 'success' | 'important';
 };
@@ -194,6 +197,14 @@ const components = {
         {children}
       </button>
     );
+  },
+  mark: ({ color = 'yellow', ...props }: MarkProps) => {
+    const colors = {
+      green: 'bg-teal-200 dark:bg-teal-800/50',
+      yellow: 'bg-yellow-200 dark:bg-yellow-800/50',
+      red: 'bg-red-200 dark:bg-red-800/50'
+    };
+    return <mark className={`${colors[color]} px-1`} {...props} />;
   },
 };
 

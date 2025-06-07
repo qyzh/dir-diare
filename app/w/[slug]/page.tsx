@@ -44,7 +44,7 @@ export default async function Page({
       <p className="text-black/50 dark:text-neutral-500 font-mono my-4">
         {metadata.summary || ''}
       </p>      
-      <div className="max-w-none">
+      <div className="prose max-w-none">
         <Post />
       </div>
       <Comments />
