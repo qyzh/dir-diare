@@ -2,10 +2,11 @@ import React from 'react'
 import { Navbar } from './components/nav'
 import FBRecentPost from './components/post-list'
 import Footer  from './components/footer'
-import FBRecentWork from './components/work-list'
-import Strava from './components/strava'
+ import FBRecentWork from './components/labs-list'
+ import Strava from './components/strava'
 import { DiscordStatus } from './components/discord'
 import {AnimatedAbove, AnimatedBelow, AnimatedRight, AnimatedZoom} from './components/animated-section'
+import UKterminal from './components/ukterminal'
 
 
 export default function Page() {
@@ -14,8 +15,8 @@ export default function Page() {
             <section className="space-y-6">
             <AnimatedAbove delay={1.5}>
             <header>
-            <h1 className="text-2xl font-bold">Wagwan,</h1>
-                    <p className="text-black/50 dark:text-gray-400">
+            <h1 className="text-2xl text-white font-bold">Wagwan,</h1>
+                    <p className="font-mono text-black/50 dark:text-neutral-500">
                         Welcome to my little space on internet, place to share my thoughts and ideas,
                         <span className="transition-all opacity-25 blur-sm hover:opacity-100 hover:blur-[0px]">
                             {' '}w/o to think about the algorithm of social media.
@@ -29,21 +30,20 @@ export default function Page() {
                 </div>
             </AnimatedAbove>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                 <AnimatedZoom delay={2.0}>
                     <div className="space-y-4">
-                        <FBRecentPost />
+                         <FBRecentPost />
                     </div>
                 </AnimatedZoom>
-                <AnimatedRight delay={2.8}>
-                    <div className="box-border border-1 border-neutral-300 dark:border-neutral-700 rounded p-2">
-                        <FBRecentWork />
+                <AnimatedZoom delay={2.0}>
+                    <div className="space-y-4">
+                         <FBRecentWork />
                     </div>
-                </AnimatedRight>
-                </div>
+                </AnimatedZoom>
                 <AnimatedBelow delay={0.5}>
                 <div className="box-border border-1 border-neutral-300 dark:border-neutral-700 rounded p-2 mt-4">
-                    <Strava />
+                     <Strava /> 
                 </div>
                 </AnimatedBelow>
                 <Navbar />

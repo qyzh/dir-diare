@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { formatDate, getBlogPosts } from 'app/blog/utils'
+import { formatDate, getBlogPosts } from 'app/w/utils'
 import { useMemo } from 'react'
 
 interface BlogPost {
@@ -27,7 +27,7 @@ const PostCard = ({ post, isLatest }: PostCardProps) => {
                 <Link
                     key={post.slug}
                     className="group flex w-full transition-colors duration-200"
-                    href={`/blog/${post.slug}`}
+                    href={`/w/${post.slug}`}
                     aria-label={`Read blog post: ${post.metadata.title}`}
                 >
                     <div className="rotate-180 flex items-center justify-center [writing-mode:_vertical-lr]">
@@ -49,7 +49,7 @@ const PostCard = ({ post, isLatest }: PostCardProps) => {
                                     </span>
                                 )}
                             </div>
-                            <div className="text-black/50 dark:text-neutral-600 font-mono line-clamp-1 text-sm ">
+                            <div className="text-black/50 dark:text-neutral-500 font-mono line-clamp-1 text-sm ">
                                 {post.metadata.summary}
                             </div>
                         </div>

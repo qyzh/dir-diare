@@ -80,7 +80,7 @@ body {
   }
   
   .prose :where(a):not(:where([class~="not-prose"] *)) {
-    @apply text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline decoration-2 underline-offset-2 transition-colors;
+    @apply text-black dark:text-neutral-300 hover:text-blue-800 dark:hover:text-neutral-300 underline decoration-2 underline-offset-2 transition-colors;
   }
   
   .prose :where(strong):not(:where([class~="not-prose"] *)) {

@@ -1,17 +1,38 @@
-import { getBlogPosts } from 'app/blog/utils'
+import { promises as fs } from 'fs';
+import path from 'path';
 
-export const baseUrl = 'https://dir-diare.vercel.app/'
+const baseUrl = 'https://dir-diare.vercel.app';
+
+async function getNoteSlugs(dir: string) {
+  const entries = await fs.readdir(dir, {
+    recursive: true,
+    withFileTypes: true
+  });
+  return entries
+    .filter((entry) => entry.isFile() && entry.name === 'page.mdx')
+    .map((entry) => {
+      const relativePath = path.relative(
+        dir,
+        path.join(entry.parentPath, entry.name)
+      );
+      return path.dirname(relativePath);
+    })
+    .map((slug) => slug.replace(/\\/g, '/'));
+}
 
 export default async function sitemap() {
-    let blogs = getBlogPosts().map((post) => ({
-        url: `${baseUrl}/blog/${post.slug}`,
-        lastModified: post.metadata.publishedAt,
-    }))
+  const notesDirectory = path.join(process.cwd(), 'app', 'w');
+  const slugs = await getNoteSlugs(notesDirectory);
 
-    let routes = ['', '/blog', '/work', '/about'].map((route) => ({
-        url: `${baseUrl}${route}`,
-        lastModified: new Date().toISOString().split('T')[0],
-    }))
+  const notes = slugs.map((slug) => ({
+    url: `${baseUrl}/w/${slug}`,
+    lastModified: new Date().toISOString()
+  }));
 
-    return [...routes, ...blogs]
+  const routes = ['', '/work'].map((route) => ({
+    url: `${baseUrl}${route}`,
+    lastModified: new Date().toISOString()
+  }));
+
+  return [...routes, ...notes];
 }

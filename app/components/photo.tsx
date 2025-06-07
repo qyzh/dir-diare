@@ -124,7 +124,7 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
         <div key={photo.id}>
           <Drawer.Root direction='right'>
         <div
-          className="overflow-hidden rounded-lg shadow-lg"
+          className="overflow-hidden rounded shadow-lg"
           ref={photos.length === index + 1 ? lastPhotoElementRef : undefined}
         >
           <Drawer.Trigger className="relative h-64 w-full">

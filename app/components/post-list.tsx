@@ -1,4 +1,4 @@
-import { getBlogPosts } from '../blog/utils'
+import { getBlogPosts } from '../w/utils'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
@@ -36,14 +36,14 @@ const FeaturedBlogPostsList = async () => {
         <Link
           key={post.slug}
           className="group"
-          href={`/blog/${post.slug}`}
+          href={`/w/${post.slug}`}
         >
           <div className='flex mb-4'>
             <div className='flex flex-col w-full place-self-center'>
-              <div className='text-black/60 dark:text-neutral-600 font-semibold group-hover:text-black dark:group-hover:text-neutral-400 transition-all'>
+              <div className='text-black/60 dark:text-white font-semibold group-hover:text-black dark:group-hover:text-neutral-300 transition-all'>
                 {post.metadata.title}
               </div>
-              <div className='text-black/50 dark:text-neutral-700 text-sm group-hover:text-black/60 dark:group-hover:text-neutral-400 truncate overflow-hidden'>
+              <div className='font-mono text-black/50 dark:text-neutral-500 text-sm group-hover:text-black/60 dark:group-hover:text-neutral-300 truncate overflow-hidden'>
                 {post.metadata.summary}
               </div>
             </div>

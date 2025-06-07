@@ -23,8 +23,8 @@ const navItems = {
             />
         ),
     },
-    '/blog': {
-        name: 'blog',
+    '/w': {
+        name: 'writing',
         icon: (
             <Image
             src={writeIcon}
@@ -35,8 +35,8 @@ const navItems = {
         />
         ),
     },
-    '/work': {
-        name: 'work',
+    '/l': {
+        name: 'labs',
         icon: (
             <Image
             src={tubeIcon}
@@ -47,7 +47,7 @@ const navItems = {
         />
         ),
     },
-        '/galery': {
+        '/g': {
         name: 'galery',
         icon: (
             <Image
@@ -90,7 +90,7 @@ export function Navbar() {
                 transition={{
                     duration: 0.5,
                 }}
-                className="relative flex h-16 items-center rounded-2xl bg-black dark:bg-neutral-800/80 backdrop-blur-lg px-4 py-2 border border-neutral-800 dark:border-neutral-700/50"
+                className="relative flex h-16 items-center rounded bg-black dark:bg-neutral-950 backdrop-blur-lg px-4 py-2 border border-neutral-800 dark:border-neutral-700"
                 style={{
                     boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.3)'
                 }}
@@ -105,7 +105,7 @@ export function Navbar() {
                                     key={path}
                                     href={path}
                                     className={`
-                                        transition-all duration-300 rounded-xl p-2
+                                        transition-all duration-300 rounded p-2
                                         flex items-center justify-center
                                         ${isActive
                                             ? 'bg-teal-900 dark:bg-teal-500/20 dark:text-teal-400 scale-110'
