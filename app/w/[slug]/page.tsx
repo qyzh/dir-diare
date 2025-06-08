@@ -38,9 +38,26 @@ export default async function Page({
       <Breadcrumbs/>
       <Navbar />
       <h1 className="text-3xl font-bold ">{metadata.title || slug.replace(/-/g, ' ')}</h1>
-      <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400 mb-4">
+      <div className="flex items-center space-x-2 my-2">
+      <span className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
+          <div className="flex items-center gap-2">
+            <img 
+              src="/images/profil.jpg" 
+              alt="Author avatar" 
+              className="w-5 h-5 rounded-full bg-teal-300"
+            />
+            <a
+            href='/about'
+            className='text-black dark:text-white hover:underline'
+            title="About the author"
+            >qyzh</a>
+          </div>
+        </span>
+      <span className="text-sm font-mono text-neutral-500 dark:text-neutral-400">•</span>
+      <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
         {metadata.publishedAt ? formatDate(metadata.publishedAt) : 'Unknown date'}
       </time>
+      </div>
       <p className="text-black/50 dark:text-neutral-500 font-mono my-4">
         {metadata.summary || ''}
       </p>      
