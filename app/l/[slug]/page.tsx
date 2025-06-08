@@ -7,7 +7,7 @@ import Breadcrumbs from 'app/components/breadcrumbs'
 import Comments from 'app/components/comments'
 import { formatDate } from '../utils'
 import Footer from 'app/components/footer'
-import UKbadgeT from 'app/components/UKbadgeT'
+import { Badge } from 'app/components/ukbadge'
 
 export default async function Page({
     params,
@@ -27,6 +27,20 @@ export default async function Page({
     const capitalizeFirstLetter = (str: string) => {
       return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
     }
+
+    const getCatColor = (category: string): string => {
+      const catLower = category.toLowerCase().trim();
+      switch (catLower) {
+        case 'personal projects':
+          return 'bg-rose-950/80 text-rose-500 border-rose-700 hover:border-rose-600 hover:bg-rose-900 hover:text-rose-400';
+        case 'design graphics':
+          return 'bg-indigo-950/80 text-indigo-500 border-indigo-700 hover:border-indigo-600 hover:bg-indigo-900 hover:text-indigo-400';
+        case 'code projects':
+          return 'bg-emerald-950/80 text-emerald-500 border-emerald-700 hover:border-emerald-600 hover:bg-emerald-900 hover:text-emerald-400';
+        default:
+          return '';
+      }
+    }
     
     frontMatterBlock.split('\n').forEach((line) => {
       const [key, ...valueArr] = line.split(': ')
@@ -42,7 +56,10 @@ export default async function Page({
       <section>
       <Breadcrumbs/>
       <Navbar />
-      <UKbadgeT content={metadata.category} className="bg-rose-800 text-rose-500 border-rose-950 hover:bg-rose-900 hover:text-300" />
+      <Badge
+                    text={metadata.category || 'untag'}
+                    className={getCatColor(metadata.category || 'untag')}
+                />
       <h1 className="text-3xl font-bold ">{metadata.title || slug.replace(/-/g, ' ')}</h1>
       <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400 mb-4">
         {metadata.publishedAt ? formatDate(metadata.publishedAt) : 'Unknown date'}
