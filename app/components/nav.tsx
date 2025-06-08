@@ -8,6 +8,7 @@ import writeIcon from '/public/svg/quill_ink.svg';
 import tubeIcon from '/public/svg/testtube.svg';
 import userIcon from '/public/svg/user.svg';
 import photoIcon from '/public/svg/photo.svg';
+import NotesIcon from '/public/svg/notes.svg';
 import { usePathname } from 'next/navigation';
 
 const navItems = {
@@ -53,6 +54,18 @@ const navItems = {
             <Image
             src={photoIcon}
             alt="Galery"
+            width={24}
+            height={24}
+            className="transition-all duration-300"
+        />
+        ),
+    },
+    '/n': {
+        name: 'Notes',
+        icon: (
+            <Image
+            src={NotesIcon}
+            alt="Nalery"
             width={24}
             height={24}
             className="transition-all duration-300"
