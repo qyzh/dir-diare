@@ -5,7 +5,6 @@ import { AnimatedAbove, AnimatedZoom, AnimatedRight, AnimatedFade } from 'app/co
 import Breadcrumbs from 'app/components/breadcrumbs';
 import Uq from 'app/components/uq';
 import Footer from 'app/components/footer';
-import UKButton from 'app/components/ukbtn';
 
 export const metadata: Metadata = {
     title: 'About',
