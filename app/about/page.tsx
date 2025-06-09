@@ -5,6 +5,7 @@ import { AnimatedAbove, AnimatedZoom, AnimatedRight, AnimatedFade } from 'app/co
 import Breadcrumbs from 'app/components/breadcrumbs';
 import Uq from 'app/components/uq';
 import Footer from 'app/components/footer';
+import UKButton from 'app/components/ukbtn';
 
 export const metadata: Metadata = {
     title: 'About',
@@ -18,7 +19,7 @@ interface Edu {
     place: string;
 }
 
-const About = () => (
+const About: React.FC = () => (
     <AnimatedAbove delay={0.5}>
         <div className="flex flex-col gap-2 p-4 my-4 border-1 border-neutral-300 dark:border-neutral-700 rounded">
             <AnimatedZoom delay={0.8}>
@@ -58,9 +59,9 @@ const eduData: Edu[] = [
     },
 ];
 
-const EduTimelineItem = ({ title, desc, year, place }: Edu) => (
+const EduTimelineItem: React.FC<Edu> = ({ title, desc, year, place }) => (
     <div className="flex flex-col relative before:absolute before:top-[3px] before:w-4 before:h-4 before:rounded-full before:left-[-7px] before:z-[1] before:bg-neutral-300 before:dark:bg-neutral-700 pl-4">
-        <time className="text-xs tracking-wide text-black/50 dark:text-neutral-500 ">{year}</time>
+        <time className="text-xs tracking-wide text-black/50 dark:text-neutral-500">{year}</time>
         <h3 className="text-md tracking-wide">
             <span className='font-semibold pr-1'>{desc}</span>
             <span className='font-mono text-neutral-500 dark:text-neutral-400'>at</span>
@@ -70,7 +71,7 @@ const EduTimelineItem = ({ title, desc, year, place }: Edu) => (
     </div>
 );
 
-const EduTL = () => (
+const EduTL: React.FC = () => (
     <AnimatedZoom delay={0.5}>
         <p className='text-sm text-neutral-500 font-mono mb-2'>
             <span className='text-neutral-400 dark:text-neutral-300 mr-0.5'>dir-diare</span>
@@ -78,35 +79,97 @@ const EduTL = () => (
             <span className='text-neutral-600 dark:text-neutral-300 ml-0.5'>edu</span>
             .md
         </p>
-        <div className="grid gap-4">
-            <div className="relative space-y-6 col-span-9">
-                <div className="relative px-4 col-span-8 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:bg-neutral-400 before:dark:bg-neutral-900">
-                    {eduData.map((edu, index) => (
-                        <AnimatedRight key={edu.title} delay={0.8 + (index * 0.2)}>
-                            <EduTimelineItem {...edu} />
-                        </AnimatedRight>
-                    ))}
-                </div>
+        <div className="relative space-y-6">
+            <div className="relative px-4 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:bg-neutral-400 before:dark:bg-neutral-900">
+                {eduData.map((edu, index) => (
+                    <AnimatedRight key={edu.title} delay={0.8 + (index * 0.2)}>
+                        <EduTimelineItem {...edu} />
+                    </AnimatedRight>
+                ))}
             </div>
         </div>
     </AnimatedZoom>
 );
 
-export default function AboutPage() {
-    return (
-        <section>
-            <AnimatedFade delay={0.2}>
-                <Breadcrumbs />
-            </AnimatedFade>
-            <AnimatedAbove delay={0.2}>
-                <Uq />
-            </AnimatedAbove>
-            <About />
-            <div className="grid grid-cols-1 gap-2">
-                <EduTL />
+const DearDairy: React.FC = () => (
+    <div className="flex flex-col gap-2 p-4 my-4 border-1 border-neutral-300 dark:border-neutral-700 rounded">
+        <AnimatedZoom delay={0.8}>
+            <p className='text-sm text-neutral-500 font-mono'>
+                <span className='text-neutral-400 dark:text-neutral-300 mr-0.5'>dir-diare</span>
+                /
+                <span className='text-neutral-600 dark:text-neutral-300 ml-0.5'>deardairy</span>
+                .md
+            </p>
+            <div className="prose prose-neutral dark:prose-invert">
+                <strong>Why the name dir-diare?</strong>
+                <p>It started with the 
+                    classic 
+                    <i>    
+                    {' '}dear diary {' '}
+                    </i>
+                    idea. 
+                    Sweet, right? But then I thought—nah, too plain. 
+                    Needs more nerd... and maybe a bit more toilet humour.
+                </p>
+                <p>So came <strong>dir-diare</strong>:</p>
+                <ul className="list-disc pl-6">
+                    <li>
+                    <strong>"dir" </strong>is short for {'  '}<i>directory</i>{'  '} in programming—where we dump files. In this case, it's where I dump thoughts, rants, ideas, and brain-farts.
+                    </li>
+                    <li>
+                    <strong>"diare" </strong>(a cheeky twist on "diary") literally means {'  '}<i>diarrhoea</i>{'  '} in Indonesian. Which, fun fact: I actually get if I drink milk. But also, it perfectly captures how my thoughts sometimes rush out in... uncontrollable bursts. 💻💩
+                    </li>
+                </ul>
+                <p>
+                So yeah, this blog is basically my mental dump folder—raw, weird, and sometimes mildly alarming. Read at your own risk, and maybe bring some digital tissues.
+                </p>
             </div>
-            <Navbar />
-            <Footer />
-        </section>
-    );
-}
+        </AnimatedZoom>
+    </div>
+);
+
+const UCanFindMe: React.FC = () => (
+<div className="flex flex-col font-mono gap-2 p-4 my-4 border-1 border-neutral-300 dark:border-neutral-700 rounded">
+            <p className='text-sm text-neutral-500 font-mono'>
+                <span className='text-neutral-400 dark:text-neutral-300 mr-0.5'>dir-diare</span>
+                /
+                <span className='text-neutral-600 dark:text-neutral-300 ml-0.5'>u-can-find-me</span>
+                .md
+            </p>
+            <span>
+            You can find me:
+            </span>
+            <ul>
+                <li>Github:<a href='https://github.com/qyzh' target='_blank'><span className='text-sm font-mono py-0.5 px-1.5 text-neutral-400 hover:bg-neutral-900 hover:border-neutral-800 hover:border '>qyzh</span></a> </li>
+                <li>Discord:<a href='https://discord.com/users/334529486773026817' target='_blank'><span className='text-sm font-mono py-0.5 px-1.5 text-neutral-400 hover:bg-neutral-900 hover:border-neutral-800 hover:border '>UQ#9662</span></a></li>
+                <li>Twitter:<a href='https://x.com/asetdunia' target='_blank'><span className='text-sm font-mono py-0.5 px-1.5 text-neutral-400 hover:bg-neutral-900 hover:border-neutral-800 hover:border '>asetdunia</span></a> </li>
+                <li>LinkedIn:<a href='/' target='_blank'><span className='text-sm font-mono py-0.5 px-1.5 text-neutral-400 hover:bg-neutral-900 hover:border-neutral-800 hover:border '>qyzh</span></a> </li>
+                <li>Instagram:<a href='https://www.instagram.com/syauqashdllh/' target='_blank'><span className='text-sm font-mono py-0.5 px-1.5 text-neutral-400 hover:bg-neutral-900 hover:border-neutral-800 hover:border '>syauqashdllh</span></a> </li>
+            </ul>
+</div>
+);
+
+const AboutPage: React.FC = () => (
+    <section>
+        <AnimatedFade delay={0.2}>
+            <Breadcrumbs />
+        </AnimatedFade>
+        <AnimatedAbove delay={0.2}>
+            <Uq />
+        </AnimatedAbove>
+        <About />
+        <AnimatedFade delay={0.5}>
+            <DearDairy />
+        </AnimatedFade>
+        <div className="grid grid-cols-1 gap-2">
+            <EduTL />
+        </div>
+        <AnimatedFade delay={0.5}>
+            <UCanFindMe />
+        </AnimatedFade>
+        <Navbar />
+        <Footer />
+    </section>
+);
+
+export default AboutPage;
