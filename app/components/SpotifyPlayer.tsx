@@ -22,6 +22,9 @@ export default function SpotifyPlayer() {
     const fetchData = async () => {
       try {
         const response = await fetch('/api/spotify');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         
         if (data.error) {
@@ -30,7 +33,8 @@ export default function SpotifyPlayer() {
           setData(data);
         }
       } catch (err) {
-        setError('Failed to fetch Spotify data');
+        console.error('Spotify fetch error:', err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch Spotify data');
       }
     };
 
@@ -41,7 +45,12 @@ export default function SpotifyPlayer() {
   }, []);
 
   if (error) {
-    return <div className="text-red-500">Error: {error}</div>;
+    return (
+      <div className="text-red-500 p-4 bg-red-100 rounded-lg">
+        <p className="font-bold">Error loading Spotify data:</p>
+        <p>{error}</p>
+      </div>
+    );
   }
 
   if (!data) {
