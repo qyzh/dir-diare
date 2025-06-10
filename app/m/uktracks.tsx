@@ -1,88 +1,64 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+
 interface Track {
-    artists: Array<{
-        id: string;
-        name: string;
-        duration_ms?: number;
-        images: Array<{
-            url: string;
-        }>;
-    }>;
+    name: string;
+    artists: Array<{ name: string }>;
+    duration_ms: number;
 }
 
-const dummyTracks = [
-    {
-        artists: [
-            {
-                id: "2FDTHlrBguDzQkp7PVj16Q",
-                name: "Sprinter",
-                duration_ms: 229133,
-                images: [
-                    {
-                        url: "https://i.scdn.co/image/ab6761610000e5eb7fbe33148fe1ae267ddb2956"
-                    }
-                ]
-            },
-            {
-                id: "3N8Hy6xQnQv1F1XCiyGQqA",
-                name: "Sleeping With Sirens",
-                images: [
-                    {
-                        url: "https://i.scdn.co/image/ab6761610000e5eb7fbe33148fe1ae267ddb2956"
-                    }
-                ]
-            },
-            {
-                id: "3v0QTRruILayLe5VsaYdvk",
-                name: "HAARPER",
-                images: [
-                    {
-                        url: "https://i.scdn.co/image/ab6761610000e5eb60663a5ad295d5cecf0ba8b2"
-                    }
-                ]
-            },
-            {
-                id: "1caBfBEapzw8z2Qz9q0OaQ",
-                name: "Asking Alexandria",
-                images: [
-                    {
-                        url: "https://i.scdn.co/image/ab6761610000e5ebd07f0b3d8b5c9576f15f1fb1"
-                    }
-                ]
-            },
-            {
-                id: "5zn2kC1GFlfjqFpq9ruzCd",
-                name: "Paff",
-                images: [
-                    {
-                        url: "https://i.scdn.co/image/ab6761610000e5eb2600954ae90591cef0fa1c03"
-                    }
-                ]
-            },
-            {
-                id: "46gyXjRIvN1NL1eCB8GBxo",
-                name: "All Time Low",
-                images: [
-                    {
-                        url: "https://i.scdn.co/image/ab6761610000e5ebc42923f098c078d2caace1b7"
-                    }
-                ]
-            }
-        ]
-    }
-];
-
 export default function UKtracks() {
+    const [tracks, setTracks] = useState<Track[]>([]);
+    const [error, setError] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchTracks = async () => {
+            try {
+                const response = await fetch('/api/spotify?type=top-tracks');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                
+                if (data.error) {
+                    setError(data.error);
+                } else {
+                    setTracks(data.items || []);
+                }
+            } catch (err) {
+                console.error('Spotify fetch error:', err);
+                setError(err instanceof Error ? err.message : 'Failed to fetch Spotify data');
+            }
+        };
+
+        fetchTracks();
+    }, []);
+
+    if (error) {
+        return (
+            <div className="text-red-500 p-4 bg-red-100 rounded-lg">
+                <p className="font-bold">Error loading Spotify data:</p>
+                <p>{error}</p>
+            </div>
+        );
+    }
+
+    if (!tracks.length) {
+        return <div>Loading...</div>;
+    }
+
     return (
-        <section className="mb-4">
-            {dummyTracks.map((track, index) => (
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            {tracks.slice(0, 10).map((track, index) => (
                 <div key={index} className="flex p-2 gap-1.5 items-center font-mono border border-neutral-700 dark:bg-neutral-950 rounded hover:bg-neutral-900 transition-colors duration-200">
-                    <div className="flex-1">
-                        <h3 className="text-lg font-semibold">{track.artists[0].name}</h3>
-                        <p className="text-sm text-neutral-400">{track.artists.map(artist => artist.name).join(', ')}</p>
+                    <div className="flex flex-col gap-1.5 flex-1 overflow-hidden">
+                        <div className=" font-semibold truncate">{track.name}</div>
+                        <div className="text-sm text-neutral-400">{track.artists.map(artist => artist.name).join(', ')}</div>
                     </div>
                     <span className="text-sm text-neutral-500">
-                        {track.artists[0].duration_ms ? 
-                            `${Math.floor(track.artists[0].duration_ms / 60000)}:${((track.artists[0].duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}` 
+                        {track.duration_ms ? 
+                            `${Math.floor(track.duration_ms / 60000)}:${((track.duration_ms % 60000) / 1000).toFixed(0).padStart(2, '0')}` 
                             : '0:00'}
                     </span>
                 </div>

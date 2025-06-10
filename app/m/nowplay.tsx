@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 
 interface NowPlayProps {
@@ -8,50 +8,65 @@ interface NowPlayProps {
   children?: React.ReactNode;
 }
 
-// Mock data matching Spotify API response
-const mockSpotifyData = {
-  device: {
-    id: "mock-device-id",
-    is_active: true,
-    is_private_session: false,
-    is_restricted: false,
-    name: "Kitchen speaker",
-    type: "computer",
-    volume_percent: 59,
-    supports_volume: true
-  },
-  repeat_state: "off",
-  shuffle_state: false,
-  is_playing: true,
+interface SpotifyData {
+  is_playing: boolean;
   item: {
+    name: string;
+    artists: Array<{ name: string }>;
     album: {
-      name: "Greatest Hits",
-      images: [
-        {
-          url: "https://i.scdn.co/image/ab67616d00001e02ff9ca10b55ce82ae553c8228",
-          height: 300,
-          width: 300
-        }
-      ],
-      artists: [
-        {
-          name: "Queen"
-        }
-      ]
-    },
-    name: "Bohemian Rhapsody",
-    artists: [
-      {
-        name: "Queen"
-      }
-    ],
-    duration_ms: 354000,
-    progress_ms: 120000
-  }
-};
+      name: string;
+      images: Array<{ url: string }>;
+    };
+  };
+}
 
-const NowPlay: React.FC<NowPlayProps> = ({  }) => {
-  const [nowPlaying, setNowPlaying] = useState(mockSpotifyData);
+const NowPlay: React.FC<NowPlayProps> = ({ }) => {
+  const [nowPlaying, setNowPlaying] = useState<SpotifyData | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/spotify');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        
+        if (data.error) {
+          setError(data.error);
+        } else {
+          setNowPlaying(data);
+        }
+      } catch (err) {
+        console.error('Spotify fetch error:', err);
+        setError(err instanceof Error ? err.message : 'Failed to fetch Spotify data');
+      }
+    };
+
+    fetchData();
+    // Refresh every 30 seconds
+    const interval = setInterval(fetchData, 30000);
+    return () => clearInterval(interval);
+  }, []);
+
+  if (error) {
+    return (
+      <div className="text-red-500 p-4 bg-red-100 rounded-lg">
+        <p className="font-bold">Error loading Spotify data:</p>
+        <p>{error}</p>
+      </div>
+    );
+  }
+
+  if (!nowPlaying) {
+    return <div>Loading...</div>;
+  }
+
+  if (!nowPlaying.is_playing) {
+    return <div>Not currently playing</div>;
+  }
+
   return (
     <div className="now-play-container">      
       <main className="now-play-content">

@@ -44,6 +44,8 @@ async function getAccessToken() {
   }
 }
 
+export { getAccessToken };
+
 export async function getNowPlaying() {
   try {
     const { access_token } = await getAccessToken();
