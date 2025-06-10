@@ -6,7 +6,7 @@ import FBRecentWork from './components/labs-list'
 import Strava from './components/strava'
 import { DiscordStatus } from './components/discord'
 import {AnimatedAbove, AnimatedBelow, AnimatedRight, AnimatedZoom} from './components/animated-section'
-import SpotifyPlayer from './components/SpotifyPlayer'
+
 
 export default function Page() {
     return (
@@ -50,10 +50,6 @@ export default function Page() {
             <AnimatedBelow delay={1.5}>
             <Footer />
             </AnimatedBelow>
-            <div className="max-w-2xl mx-auto">
-                <h1 className="text-2xl font-bold mb-4">My Spotify Status</h1>
-                <SpotifyPlayer />
-            </div>
         </main>
     )
 }
