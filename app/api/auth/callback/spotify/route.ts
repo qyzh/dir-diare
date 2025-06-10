@@ -10,7 +10,11 @@ export async function GET(request: Request) {
 
   const client_id = process.env.SPOTIFY_CLIENT_ID;
   const client_secret = process.env.SPOTIFY_CLIENT_SECRET;
-  const redirect_uri = 'https://dir-diare-git-spotify-qyzhs-projects.vercel.app/api/auth/callback/spotify';
+  const redirect_uri = process.env.SPOTIFY_REDIRECT_URI;
+
+  if (!client_id || !client_secret || !redirect_uri) {
+    return NextResponse.json({ error: 'Missing required environment variables' }, { status: 500 });
+  }
 
   const basic = Buffer.from(`${client_id}:${client_secret}`).toString('base64');
 
