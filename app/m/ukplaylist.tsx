@@ -1,5 +1,6 @@
 'use client';
 
+import UKCallout from 'app/components/ukcallout';
 import { useEffect, useState } from 'react';
 
 interface Playlist {
@@ -44,10 +45,10 @@ export default function PlaylistGrid() {
 
   if (error) {
     return (
-      <div className="text-red-500 p-4 bg-red-100 rounded-lg">
-        <p className="font-bold">Error loading playlists:</p>
-        <p>{error}</p>
-      </div>
+      <UKCallout type='error'>
+        <p className="font-bold">Error loading data <code>playlist</code></p>
+        <p className='font-mono'>{error}</p>
+      </UKCallout>
     );
   }
 
