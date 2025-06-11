@@ -20,17 +20,14 @@
     --font-monaspace: 'Monaspace', monospace;
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
     :root {
         --sh-class: #4c97f8;
         --sh-identifier: white;
         --sh-keyword: #f47067;
         --sh-string: #0fa295;
     }
-    html {
-        color-scheme: dark;
-    }
-} */
+}
 
 html {
     min-width: 360px;
@@ -40,43 +37,43 @@ body {
     text-rendering: optimizeLegibility;
   }
   .prose {
-    @apply max-w-none text-gray-800 dark:text-gray-200 leading-relaxed;
+    @apply max-w-none text-neutral-800 dark:text-neutral-200 leading-relaxed;
   }
   
   .prose :where(h1):not(:where([class~="not-prose"] *)) {
-    @apply mt-10 mb-6 text-4xl font-bold tracking-tight text-gray-900 dark:text-white;
+    @apply mt-10 mb-5 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white;
   }
   
   .prose :where(h2):not(:where([class~="not-prose"] *)) {
-    @apply mt-8 mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white;
+    @apply mt-8 mb-2 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white;
   }
   
   .prose :where(h3):not(:where([class~="not-prose"] *)) {
-    @apply mt-6 mb-3 text-2xl font-bold text-gray-900 dark:text-white;
+    @apply mt-6 mb-1.5 text-2xl font-bold text-neutral-900 dark:text-white;
   }
   
   .prose :where(h4):not(:where([class~="not-prose"] *)) {
-    @apply mt-5 mb-2 text-xl font-bold text-gray-900 dark:text-white;
+    @apply mt-5 mb-1 text-xl font-bold text-neutral-900 dark:text-white;
   }
   
   .prose :where(p):not(:where([class~="not-prose"] *)) {
-    @apply my-5 leading-7 text-gray-800 dark:text-gray-200;
+    @apply my-1.5 leading-7 text-neutral-800 dark:text-neutral-200;
   }
   
   .prose :where(ul):not(:where([class~="not-prose"] *)) {
-    @apply my-6 list-disc pl-8 space-y-2 text-gray-800 dark:text-gray-200;
+    @apply my-6 list-disc pl-8 space-y-2 text-neutral-800 dark:text-neutral-200;
   }
   
   .prose :where(ol):not(:where([class~="not-prose"] *)) {
-    @apply my-6 list-decimal pl-8 space-y-2 text-gray-800 dark:text-gray-200;
+    @apply my-6 list-decimal pl-8 space-y-2 text-neutral-800 dark:text-neutral-200;
   }
   
   .prose :where(li):not(:where([class~="not-prose"] *)) {
-    @apply my-2 leading-7 text-gray-800 dark:text-gray-200;
+    @apply my-2 leading-7 text-neutral-800 dark:text-neutral-200;
   }
   
   .prose :where(blockquote):not(:where([class~="not-prose"] *)) {
-    @apply my-6 border-l-4 border-gray-300 dark:border-gray-600 pl-6 italic text-gray-700 dark:text-gray-300;
+    @apply my-6 border-l-4 border-neutral-300 dark:border-neutral-600 pl-6 italic text-neutral-700 dark:text-neutral-300;
   }
   
   .prose :where(a):not(:where([class~="not-prose"] *)) {
@@ -84,39 +81,39 @@ body {
   }
   
   .prose :where(strong):not(:where([class~="not-prose"] *)) {
-    @apply font-bold text-gray-900 dark:text-white;
+    @apply font-bold text-neutral-900 dark:text-white;
   }
   
   .prose :where(em):not(:where([class~="not-prose"] *)) {
-    @apply italic text-gray-700 dark:text-gray-300;
+    @apply italic text-neutral-700 dark:text-neutral-300;
   }
   
   .prose :where(code):not(:where([class~="not-prose"] *)) {
-    @apply rounded bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 text-sm font-mono text-gray-800 dark:text-gray-200;
+    @apply rounded bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 text-sm font-mono text-neutral-800 dark:text-neutral-200;
   }
   
   .prose :where(pre):not(:where([class~="not-prose"] *)) {
-    @apply my-6 overflow-x-auto rounded-lg bg-gray-100 dark:bg-gray-800 p-4 shadow-sm dark:shadow-gray-900/50;
+    @apply my-6 overflow-x-auto rounded-lg bg-neutral-100 dark:bg-neutral-800 p-4 shadow-sm dark:shadow-neutral-900/50;
   }
   
   .prose :where(pre code):not(:where([class~="not-prose"] *)) {
-    @apply bg-transparent p-0 text-sm font-mono text-gray-800 dark:text-gray-200;
+    @apply bg-transparent p-0 text-sm font-mono text-neutral-800 dark:text-neutral-200;
   }
   
   .prose :where(hr):not(:where([class~="not-prose"] *)) {
-    @apply my-10 border-t border-gray-200 dark:border-gray-700;
+    @apply my-10 border-t border-neutral-200 dark:border-neutral-700;
   }
   
   .prose :where(table):not(:where([class~="not-prose"] *)) {
-    @apply my-6 w-full border-collapse rounded-lg overflow-hidden shadow-sm dark:shadow-gray-900/50;
+    @apply my-6 w-full border-collapse rounded-lg overflow-hidden shadow-sm dark:shadow-neutral-900/50;
   }
   
   .prose :where(th):not(:where([class~="not-prose"] *)) {
-    @apply border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 px-6 py-3 text-left font-bold text-gray-900 dark:text-white;
+    @apply border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-6 py-3 text-left font-bold text-neutral-900 dark:text-white;
   }
   
   .prose :where(td):not(:where([class~="not-prose"] *)) {
-    @apply border border-gray-200 dark:border-gray-700 px-6 py-3 text-gray-700 dark:text-gray-300;
+    @apply border border-neutral-200 dark:border-neutral-700 px-6 py-3 text-neutral-700 dark:text-neutral-300;
   }
   h1,
   h2,
@@ -147,7 +144,7 @@ body {
     font-size: 14px;
     padding: 0.2em 0.4em;
     border-radius: 0.3em;
-    background-color: var(--color-gray-100);
+    background-color: var(--color-neutral-100);
   }
   
   pre code {
@@ -186,7 +183,7 @@ body {
   }
   
   hr {
-    color: var(--color-gray-200);
+    color: var(--color-neutral-200);
   }
   
   /* Remove Safari input shadow on mobile */
@@ -282,7 +279,7 @@ code, pre {
 }
 
 .prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) a::before {
-  @apply content-['#'] absolute -left-5 opacity-0 text-gray-400 dark:text-gray-500 transition-opacity duration-200;
+  @apply content-['#'] absolute -left-5 opacity-0 text-neutral-400 dark:text-neutral-500 transition-opacity duration-200;
 }
 
 .prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)):hover a::before {
@@ -290,5 +287,5 @@ code, pre {
 }
 
 .prose :where(h1):not(:where([class~="not-prose"] *)) {
-  @apply mt-10 mb-6 text-4xl font-bold tracking-tight text-gray-900 dark:text-white;
+  @apply mt-10 mb-6 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white;
 }
