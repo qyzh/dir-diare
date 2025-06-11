@@ -1,7 +1,6 @@
 import {  Navbar } from '../components/nav';
 import { BlogPosts } from 'app/components/posts';
 import Breadcrumbs from 'app/components/breadcrumbs';
-import { AnimatedAbove, AnimatedBelow } from 'app/components/animated-section';
 import Footer from 'app/components/footer';
 import UKDesc from 'app/components/ukDesc';
 
@@ -17,18 +16,10 @@ export default function Page() {
     return (
         <section>
             <Navbar />
-            <AnimatedAbove delay={0.5}>
             <Breadcrumbs />
-            </AnimatedAbove>
-            <AnimatedAbove delay={1.0}>
-                <UKDesc title='w' description={description} />
-            </AnimatedAbove>
-            <AnimatedBelow delay={0.3}>
+            <UKDesc title='w' description={description} />
             <BlogPosts />
-            </AnimatedBelow>
-            <AnimatedBelow delay={1.0}>
             <Footer/>
-            </AnimatedBelow>
         </section>
     )
 }
