@@ -5,8 +5,7 @@ import Footer  from './components/footer'
  import FBRecentWork from './components/labs-list'
  import Strava from './components/strava'
 import { DiscordStatus } from './components/discord'
-import {AnimatedAbove, AnimatedBelow, AnimatedRight, AnimatedZoom} from './components/animated-section'
-import UKterminal from './components/ukterminal'
+
 
 
 export default function Page() {
