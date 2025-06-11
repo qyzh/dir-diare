@@ -48,6 +48,15 @@ export default function UKtracks() {
         <section className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
             {data.items.slice(0, 10).map((track, index) => (
                 <div key={index} className="flex p-2 gap-1.5 items-center font-mono border border-neutral-700 dark:bg-neutral-950 rounded hover:bg-neutral-900 transition-colors duration-200">
+                    {index < 3 && (
+                        <div className={`flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold ${
+                            index === 0 ? 'bg-yellow-500/50 border border-amber-500' : 
+                            index === 1 ? 'bg-gray-400/50 border border-neutral-400' : 
+                            'bg-amber-700/50 border border-amber-700'
+                        }`}>
+                            {index + 1}
+                        </div>
+                    )}
                     <div className="flex flex-col gap-1.5 flex-1 overflow-hidden">
                         <div className="font-semibold truncate">{track.name}</div>
                         <div className="text-sm text-neutral-400">{track.artists.map(artist => artist.name).join(', ')}</div>
