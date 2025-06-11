@@ -80,7 +80,6 @@ export default function UKtracks() {
                         <Drawer.Overlay className="fixed inset-0 bg-black/40" />
                         <Drawer.Content className="bg-white dark:bg-neutral-900 fixed right-0 top-0 bottom-0 w-[310px] outline-none">
                             <div className="p-4 h-full">
-                                <div className="mx-auto w-12 h-1.5 flex-shrink-0 rounded-full bg-neutral-300 dark:bg-neutral-700 mb-8" />
                                 <div className="max-w-md">
 
 
