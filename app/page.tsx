@@ -2,8 +2,8 @@ import React from 'react'
 import { Navbar } from './components/nav'
 import FBRecentPost from './components/post-list'
 import Footer  from './components/footer'
- import FBRecentWork from './components/labs-list'
- import Strava from './components/strava'
+import FBRecentWork from './components/labs-list'
+import Strava from './components/strava'
 import { DiscordStatus } from './components/discord'
 
 
