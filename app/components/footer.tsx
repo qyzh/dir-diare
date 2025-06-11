@@ -1,14 +1,15 @@
 "use client"
 import Link from "next/link"
+import { AnimatedBelow } from "./animated-section"
 
 const Footer = () => {
-    const currentYear = new Date().getFullYear()
 
     return (
+        <AnimatedBelow delay={1.5}>
         <footer className="prose mb-8" role="contentinfo">
             <div className="flex justify-between items-center gap-2 font-mono text-sm text-neutral-500 dark:text-neutral-400">
                 <div>
-                <Link href="/" className="hover:underline">
+                <Link href="/">
                     Dir-diare 
                 </Link>
                 {' '} 
@@ -20,6 +21,7 @@ const Footer = () => {
                 </div>
             </div>
         </footer>
+        </AnimatedBelow>
     )
 }
 
