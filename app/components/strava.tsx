@@ -6,6 +6,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import runningIcon from '/public/svg/running.svg';
 import stopwatchIcon from '/public/svg/stopwatch.svg';
 import lengthIcon from '/public/svg/length.svg';
+import UKCallout from './ukcallout';
 
 interface StravaProps {}
 interface ActivityType {
@@ -54,15 +55,15 @@ const Strava: React.FC<StravaProps> = () => {
 
   if (error) {
     return (
-      <div className="p-4 bg-red-500/10 border border-red-500 rounded-md">
-        <p className="text-red-500">{error}</p>
+      <UKCallout type='error'>
+        <p>{error}</p>
         <button
           onClick={fetchActivities}
           className="mt-2 px-4 py-2 bg-red-500/20 text-red-500 rounded-md hover:bg-red-500/30 transition-colors"
         >
           Retry
         </button>
-      </div>
+      </UKCallout>
     );
   }
 

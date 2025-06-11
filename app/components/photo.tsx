@@ -3,6 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import Image from 'next/image';
 import { Drawer } from 'vaul';
 import Link from 'next/link';
+import UKCallout from './ukcallout';
 
 interface UnsplashPhoto {
   exif: any;
@@ -114,7 +115,14 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
   }, [page, fetchPhotos]);
 
   if (initialLoading) return <div className="flex justify-center p-8">Loading photos...</div>;
-  if (error) return <div className="text-red-500 p-4">Error: {error}</div>;
+  if (error) return (
+    <>
+    <UKCallout type='error'>
+      <p className='font-bold font-mono'>Error loading data <code>Photo</code></p>
+      <p>{error}</p>
+    </UKCallout>
+    </>
+  );
   if (photos.length === 0) return <div className="p-4">No photos found for this user.</div>;
 
   return (
