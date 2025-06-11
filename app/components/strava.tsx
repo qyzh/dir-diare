@@ -134,7 +134,7 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
         </div> */}
           <div className="flex flex-col">
             <div>
-            <span className="text-xs font-mono bg-orange-600 group-hover:bg-white px-1 py-0.5"> {formatDate(latestActivity.start_date)}</span>
+            <span className="text-xs font-mono bg-orange-600 group-hover:bg-neutral-950/50 px-1 py-0.5"> {formatDate(latestActivity.start_date)}</span>
             </div>
             <div className="text-white text-xl sm:text-3xl font-semibold truncate">
               {latestActivity.name}
