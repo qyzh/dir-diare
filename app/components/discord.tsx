@@ -89,19 +89,19 @@ export function DiscordStatus({ userId = process.env.NEXT_PUBLIC_DISCORD_USER_ID
                 <div className="relative">
                     <div className="w-[120px] h-[120px] rounded bg-neutral-800/50 animate-pulse" />
                     <div className="absolute bottom-0 right-0 w-4 h-4 bg-neutral-700 rounded-full border-2 border-zinc-900 animate-pulse" />
-                </div>
-                <div className="flex flex-col">
-                    <div className="flex items-center gap-2">
-                        <div className="h-8 w-36 bg-neutral-800/50 rounded animate-pulse" />
-                        <div className="h-5 w-24 bg-neutral-800/50 rounded-2xl animate-pulse" />
+                </div> 
+                <div className="flex flex-col overflow-hidden">
+                    <div className="flex items-center gap-2 ">
+                        <div className="h-4 w-20 bg-neutral-800/50 rounded animate-pulse" />
+                        <div className="h-4 w-12 bg-neutral-800/50 rounded-2xl animate-pulse" />
                     </div>
                     <div className="h-4 w-28 bg-neutral-800/50 rounded mt-1 animate-pulse" />
                     <div className="mt-3">
-                        <div className="flex items-center gap-1">
-                            <div className="h-8 w-8 bg-neutral-800/50 rounded animate-pulse" />
+                        <div className="flex items-center">
+                            <div className="h-8 w-8 bg-neutral-800/50 mr-2 rounded animate-pulse" />
                             <div className="flex flex-col gap-1">
-                                <div className="h-4 w-32 bg-neutral-800/50 rounded animate-pulse" />
-                                <div className="h-3 w-48 bg-neutral-800/50 rounded animate-pulse" />
+                                <div className="h-4 w-28 bg-neutral-800/50 rounded animate-pulse" />
+                                <div className="h-3 w-28 bg-neutral-800/50 rounded animate-pulse" />
                             </div>
                         </div>
                     </div>
@@ -169,6 +169,7 @@ const Guild_IconUrl = Guild_Id && Guild_Badge ? `https://cdn.discordapp.com/clan
                             <div className="flex items-center gap-1">
                                 {activity.name === "Spotify" ? (
                                     <>
+                                    <a href='/m'>
                                         <img
                                             src={status.spotify?.album_art_url || `https://dcdn.dstn.to/app-icons/${activity.application_id}.png`}
                                             alt="Spotify"
@@ -182,6 +183,7 @@ const Guild_IconUrl = Guild_Id && Guild_Badge ? `https://cdn.discordapp.com/clan
                                                 by {status.spotify?.artist?.replace(/;/g, ', ')}
                                             </span>
                                         </div>
+                                        </a>
                                     </>
                                 ) : (
                                     activity.assets?.large_image && (
