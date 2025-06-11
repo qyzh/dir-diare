@@ -175,8 +175,10 @@ const Guild_IconUrl = Guild_Id && Guild_Badge ? `https://cdn.discordapp.com/clan
                                             className="h-8 w-8 rounded"
                                         />
                                         <div className="flex flex-col ml-2">
-                                            <span className="font-semibold text-green-400">
-                                                Listening to {status.spotify?.song}
+                                            <span className="font-semibold text-green-600 hover:text-green-400 transition-colors">
+                                                <a href="/m">
+                                                {status.spotify?.song}
+                                                </a> 
                                             </span>
                                             <span className="font-mono">
                                                 by {status.spotify?.artist?.replace(/;/g, ', ')}
