@@ -6,6 +6,7 @@ import UKDesc from 'app/components/ukDesc';
 import NowPlay from './nowplay';
 import PlaylistGrid from './ukplaylist';
 import UKtracks from './uktracks';
+import UKpathdir from 'app/components/ukpathdir';
 
 const title = 'Music';
 const description = 'What I listen to, what I like, and what inspires me. A collection of my musical journey.';
@@ -22,9 +23,9 @@ export default async function Notes() {
     <UKDesc title='m' description={description} />
     <main>
         <NowPlay />
-        <p>top 5 tracks</p>
+        <UKpathdir name='top-10-tracks' type='tsx'/>
         <UKtracks />
-        <p>my playlist</p>
+        <UKpathdir name='my-playlist' type='tsx'/>
         <PlaylistGrid />
     </main>
     <Footer/>
