@@ -6,6 +6,7 @@ const PLAYLISTS_ENDPOINT = 'https://api.spotify.com/v1/me/playlists';
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const type = searchParams.get('type');
+  const playlistId = searchParams.get('playlist_id');
 
   try {
     console.log('Checking environment variables...');
@@ -19,6 +20,13 @@ export async function GET(request: Request) {
     } else if (type === 'playlists') {
       const { access_token } = await getAccessToken();
       response = await fetch(PLAYLISTS_ENDPOINT, {
+        headers: {
+          Authorization: `Bearer ${access_token}`,
+        },
+      });
+    } else if (type === 'playlist-tracks' && playlistId) {
+      const { access_token } = await getAccessToken();
+      response = await fetch(`https://api.spotify.com/v1/playlists/${playlistId}/tracks`, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
