@@ -21,7 +21,7 @@ interface Edu {
 
 const About: React.FC = () => (
     <AnimatedAbove delay={0.5}>
-        <div className="flex flex-col gap-2 p-4 border-1 border-neutral-300 dark:border-neutral-700 rounded">
+        <div id="about-me" className="flex flex-col gap-2 p-4 border-1 border-neutral-300 dark:border-neutral-700 rounded">
             <AnimatedZoom delay={0.8}>
                 <p className="prose prose-neutral dark:prose-invert">
                     I am a <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">Communication student</span> who has an interest in <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">interface design</span> & <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">running</span>. My name is{' '}
@@ -67,7 +67,7 @@ const EduTimelineItem: React.FC<Edu> = ({ title, desc, year, place }) => (
 
 const EduTL: React.FC = () => (
     <AnimatedZoom delay={0.5} className="grid grid-cols-1 gap-2">
-        <div className="relative space-y-6">
+        <div id='edu' className="relative space-y-6">
             <div className="relative px-4 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:bg-neutral-400 before:dark:bg-neutral-900">
                 {eduData.map((edu, index) => (
                     <AnimatedRight key={edu.title} delay={0.8 + (index * 0.2)}>
@@ -81,7 +81,7 @@ const EduTL: React.FC = () => (
 
 const DearDairy: React.FC = () => (
         <AnimatedZoom delay={0.8} className="flex flex-col gap-2 p-4 border-1 border-neutral-300 dark:border-neutral-700 rounded">
-            <div className="prose prose-neutral dark:prose-invert">
+            <div id='dear-diary' className="prose prose-neutral dark:prose-invert">
                 <strong>Why the name dir-diare?</strong>
                 <p>It started with the 
                     classic 
@@ -110,7 +110,7 @@ const DearDairy: React.FC = () => (
 
 const UCanFindMe: React.FC = () => (
 <AnimatedBelow delay={1.0} className="flex flex-col font-mono">
-    <div className='pl-4'>
+    <div id='contact' className='pl-4'>
             <p>
             You can find me:
             </p>
@@ -131,7 +131,7 @@ const AboutPage: React.FC = () => (
         <main>
             <Uq />
             <UKpathdir name='about-me' type='md'/>
-            <About />
+            <About/>
             <UKpathdir name='dear-diary' type='md'/>
             <DearDairy />
             <UKpathdir name='edu' type='md'/>

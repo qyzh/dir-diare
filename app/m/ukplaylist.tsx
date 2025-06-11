@@ -77,7 +77,7 @@ export default function PlaylistGrid() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
+    <div id='my-playlist' className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
       {data.items.map((playlist) => (
         <Drawer.Root 
           key={playlist.id} 

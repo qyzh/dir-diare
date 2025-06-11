@@ -11,19 +11,19 @@ const UKpathdir: React.FC<UKpathdirProps> = ({
     type
 }) => {
     return (
-
-        <p className='text-sm text-neutral-500 font-mono mt-4'>
+        <>
+            <p className='text-sm text-neutral-500 font-mono mt-4'>
                 <span className='text-neutral-400 dark:text-neutral-300 mr-0.5'>dir-diare</span>
                 /
                 {name && (
-                <span className='text-neutral-600 dark:text-neutral-300 ml-0.5'><a href=''>{name}</a></span>
+                <span className='text-neutral-600 dark:text-neutral-300 ml-0.5'><a href={`#${name}`}>{name}</a></span>
                 )}
                 .
                 {type && (
                 <span>{type}</span>
                 )}
-        </p>
-
+            </p>
+        </>
     );
 };
 

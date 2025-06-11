@@ -52,7 +52,7 @@ export default function UKtracks() {
     }
 
     return (
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
+        <section id='top-10-tracks' className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-2">
             {data.items.slice(0, 10).map((track, index) => (
                 <Drawer.Root key={index} direction='right'>
                     <Drawer.Trigger asChild>
