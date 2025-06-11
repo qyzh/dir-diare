@@ -27,7 +27,7 @@ export default function UKCallout({
 
   return (
     <div
-      className={`p-4 rounded-lg ${bgColors[type]} ${borderColors[type]} border my-4 ${className}`}
+      className={`p-4 rounded ${bgColors[type]} ${borderColors[type]} border my-4 ${className}`}
     >
       {children}
     </div>
