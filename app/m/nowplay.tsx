@@ -26,7 +26,7 @@ const NowPlay: React.FC = () => {
 
   if (error) {
     return (
-      <div className="flex items-center gap-4 p-4 dark:hover:bg-red-500/10">
+      <div className="flex items-center gap-4 p-4 border border-transparent  dark:hover:bg-red-500/10 dark:hover:border-red-800 transition-colors rounded">
         <div className="relative w-32 h-32">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-rose-900 to-rose-800 shadow-2xl animate-pulse">
             <div className="absolute inset-2 rounded-full bg-gradient-to-br from-rose-800 to-rose-900"></div>
@@ -62,7 +62,7 @@ const NowPlay: React.FC = () => {
 
   if (!nowPlaying?.is_playing) {
     return (
-      <div className="flex items-center gap-4 p-4 dark:hover:bg-gray-500/10">
+      <div className="flex items-center gap-4 p-4 border border-transparent  dark:hover:bg-gray-500/10 dark:hover:border-gray-800 transition-colors rounded">
         <div className="relative w-32 h-32">
           <div className="absolute inset-0 rounded-full bg-gradient-to-br from-neutral-900 to-neutral-800 shadow-2xl animate-spin">
             <div className="absolute inset-2 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-900"></div>
@@ -100,7 +100,7 @@ const NowPlay: React.FC = () => {
     <div className="now-play-container">      
       <main className="now-play-content">
         {nowPlaying.item && (
-          <div className="flex items-center gap-4 p-4 dark:hover:bg-emerald-500/10">
+          <div className="flex items-center border border-transparent gap-4 p-4 dark:hover:bg-emerald-500/10 dark:hover:border-emerald-800 transition-colors rounded">
             <div className="relative w-32 h-32">
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-neutral-900 to-neutral-800 shadow-2xl animate-spin">
                 <div className="absolute inset-2 rounded-full bg-gradient-to-br from-neutral-800 to-neutral-900"></div>
