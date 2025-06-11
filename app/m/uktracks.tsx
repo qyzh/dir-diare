@@ -4,6 +4,7 @@ import UKCallout from 'app/components/ukcallout';
 import { useSpotify } from '../api/spotify/hooks/useSpotify';
 import { LoadingSkeleton } from '../components/ukloadingskel';
 import { Drawer } from 'vaul';
+import { Star } from 'lucide-react';
 
 interface Track {
     name: string;
@@ -57,12 +58,16 @@ export default function UKtracks() {
                     <Drawer.Trigger asChild>
                         <div className="flex p-2 gap-1.5 items-center font-mono border border-neutral-700 dark:bg-neutral-950 rounded hover:bg-neutral-900 transition-colors duration-200 cursor-pointer">
                             {index < 3 && (
-                                <div className={`flex items-center justify-center w-6 h-6 rounded-full text-sm font-bold ${
-                                    index === 0 ? 'bg-yellow-500/50 border border-amber-500' : 
-                                    index === 1 ? 'bg-gray-400/50 border border-neutral-400' : 
+                                <div className={`flex rounded items-center justify-center w-6 h-6 text-sm font-bold ${
+                                    index === 0 ? 'bg-yellow-500/50 border border-amber-700' : 
+                                    index === 1 ? 'bg-gray-400/50 border border-neutral-700' : 
                                     'bg-amber-700/50 border border-amber-700'
                                 }`}>
-                                    {index + 1}
+                                    <Star className={`w-3.5 h-3.5 ${
+                                        index === 0 ? 'fill-yellow-500 text-yellow-500' : 
+                                        index === 1 ? 'fill-gray-500 text-gray-500' : 
+                                        'fill-amber-500 text-amber-500'
+                                    }`} />
                                 </div>
                             )}
                             <div className="flex flex-col gap-1.5 flex-1 overflow-hidden">
