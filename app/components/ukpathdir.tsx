@@ -12,7 +12,7 @@ const UKpathdir: React.FC<UKpathdirProps> = ({
 }) => {
     return (
 
-        <p className='text-sm text-neutral-500 font-mono'>
+        <p className='text-sm text-neutral-500 font-mono mt-4'>
                 <span className='text-neutral-400 dark:text-neutral-300 mr-0.5'>dir-diare</span>
                 /
                 {name && (
