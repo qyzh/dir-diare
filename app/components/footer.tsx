@@ -9,7 +9,7 @@ const Footer = () => {
         <footer className="prose mb-8" role="contentinfo">
             <div className="flex justify-between items-center gap-2 font-mono text-sm text-neutral-500 dark:text-neutral-400">
                 <div>
-                <Link href="/">
+                <Link href="/" className="text-white/80 underline hover:text-emerald-300 transition-colors duration-200">
                     Dir-diare 
                 </Link>
                 {' '} 
