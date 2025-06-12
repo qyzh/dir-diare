@@ -158,7 +158,7 @@ const Guild_IconUrl = Guild_Id && Guild_Badge ? `https://cdn.discordapp.com/clan
         </span>
     )}
                     </div>
-                    <span className="text-sm font-mono italic text-neutral-400">
+                    <span className="text-sm font-mono italic text-neutral-400 group-hover:text-white">
                         @{status.discord_user.username} • he/him
                     </span>
                     <div className="flex items-center gap-1 mt-1">
