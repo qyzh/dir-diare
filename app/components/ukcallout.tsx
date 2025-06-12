@@ -1,4 +1,4 @@
-import { Info, AlertTriangle, XCircle, CheckCircle, AlertCircle } from 'lucide-react';
+import { BadgeAlert, AlertTriangle, XCircle, CheckCircle, Flame } from 'lucide-react';
 
 interface UKCalloutProps {
   type?: 'info' | 'warning' | 'error' | 'success' | 'important';
@@ -12,7 +12,7 @@ export default function UKCallout({
   className = ""
 }: UKCalloutProps) {
   const bgColors = {
-    info: 'bg-blue-50 dark:bg-blue-900/20',
+    info: 'bg-blue-50 dark:bg-sky-900/20',
     warning: 'bg-yellow-50 dark:bg-yellow-900/20',
     error: 'bg-red-50 dark:bg-red-900/20',
     success: 'bg-green-50 dark:bg-green-900/20',
@@ -20,7 +20,7 @@ export default function UKCallout({
   };
 
   const borderColors = {
-    info: 'border-blue-200 dark:border-blue-800',
+    info: 'border-blue-200 dark:border-sky-800',
     warning: 'border-yellow-200 dark:border-yellow-800',
     error: 'border-red-200 dark:border-red-800',
     success: 'border-green-200 dark:border-green-800',
@@ -28,25 +28,25 @@ export default function UKCallout({
   };
 
   const iconColors = {
-    info: 'text-blue-500 dark:text-blue-400',
+    info: 'text-blue-500 dark:text-sky-400',
     warning: 'text-yellow-500 dark:text-yellow-400',
     error: 'text-red-500 dark:text-red-400',
     success: 'text-green-500 dark:text-green-400',
     important: 'text-purple-500 dark:text-purple-400'
   };
   const textColors = {
-    info: 'text-blue-500 dark:text-blue-400',
-    warning: 'text-yellow-500 dark:text-yellow-400',
-    error: 'text-red-500 dark:text-red-400',
-    success: 'text-green-500 dark:text-green-400',
-    important: 'text-purple-500 dark:text-purple-400'
+    info: 'text-blue-500 dark:text-sky-300',
+    warning: 'text-yellow-500 dark:text-yellow-300',
+    error: 'text-red-500 dark:text-red-300',
+    success: 'text-green-500 dark:text-green-300',
+    important: 'text-purple-500 dark:text-purple-300'
   };
   const icons = {
-    info: Info,
+    info: BadgeAlert,
     warning: AlertTriangle,
     error: XCircle,
     success: CheckCircle,
-    important: AlertCircle
+    important: Flame,
   };
 
   const Icon = icons[type];
@@ -61,14 +61,14 @@ export default function UKCallout({
 
   return (
     <div
-      className={`p-4 rounded-lg ${bgColors[type]} ${borderColors[type]} border my-4 ${className}`}
+      className={`rounded ${bgColors[type]} ${borderColors[type]} border my-4 ${className}`}
     >
-      <div className="flex items-center justify-center gap-3">
+      <div className="items-center justify-center gap-3">
+        <div className={`flex items-center ${bgColors[type]} border-b gap-2 mb-2 px-4 py-2 ${textColors[type]}`}>
         <Icon className={`w-5 h-5 flex-shrink-0 ${iconColors[type]}`} />
-        <div className="flex-1 space-y-1">
           <div className={`font-semibold text-sm uppercase tracking-wide ${textColors[type]}`}>{typeLabels[type]}</div>
-          <div className="text-sm leading-relaxed">{children}</div>
         </div>
+          <div className="px-4 text-white text-sm leading-relaxed">{children}</div>
       </div>
     </div>
   );
