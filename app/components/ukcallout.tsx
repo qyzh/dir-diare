@@ -1,3 +1,5 @@
+import { Info, AlertTriangle, XCircle, CheckCircle, AlertCircle } from 'lucide-react';
+
 interface UKCalloutProps {
   type?: 'info' | 'warning' | 'error' | 'success' | 'important';
   children: React.ReactNode;
@@ -25,11 +27,49 @@ export default function UKCallout({
     important: 'border-purple-200 dark:border-purple-800'
   };
 
+  const iconColors = {
+    info: 'text-blue-500 dark:text-blue-400',
+    warning: 'text-yellow-500 dark:text-yellow-400',
+    error: 'text-red-500 dark:text-red-400',
+    success: 'text-green-500 dark:text-green-400',
+    important: 'text-purple-500 dark:text-purple-400'
+  };
+  const textColors = {
+    info: 'text-blue-500 dark:text-blue-400',
+    warning: 'text-yellow-500 dark:text-yellow-400',
+    error: 'text-red-500 dark:text-red-400',
+    success: 'text-green-500 dark:text-green-400',
+    important: 'text-purple-500 dark:text-purple-400'
+  };
+  const icons = {
+    info: Info,
+    warning: AlertTriangle,
+    error: XCircle,
+    success: CheckCircle,
+    important: AlertCircle
+  };
+
+  const Icon = icons[type];
+
+  const typeLabels = {
+    info: 'Info',
+    warning: 'Warning',
+    error: 'Error',
+    success: 'Success',
+    important: 'Important'
+  };
+
   return (
     <div
-      className={`p-4 rounded ${bgColors[type]} ${borderColors[type]} border my-4 ${className}`}
+      className={`p-4 rounded-lg ${bgColors[type]} ${borderColors[type]} border my-4 ${className}`}
     >
-      {children}
+      <div className="flex items-center justify-center gap-3">
+        <Icon className={`w-5 h-5 flex-shrink-0 ${iconColors[type]}`} />
+        <div className="flex-1 space-y-1">
+          <div className={`font-semibold text-sm uppercase tracking-wide ${textColors[type]}`}>{typeLabels[type]}</div>
+          <div className="text-sm leading-relaxed">{children}</div>
+        </div>
+      </div>
     </div>
   );
 }
