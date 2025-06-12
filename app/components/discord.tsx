@@ -169,25 +169,21 @@ const Guild_IconUrl = Guild_Id && Guild_Badge ? `https://cdn.discordapp.com/clan
                         <div className="text-xs text-neutral-400 mt-1">
                             
                                 {activity.name === "Spotify" ? (
-                                    <a href="/m">
-                                        <div className="flex items-center gap-1">
+                                    <div className="flex items-center gap-1">
                                         <img
                                             src={status.spotify?.album_art_url || `https://dcdn.dstn.to/app-icons/${activity.application_id}.png`}
                                             alt="Spotify"
                                             className="h-8 w-8 rounded border border-transparent group-hover:border-green-500 transition-all duration-300"
                                         />
                                         <div className="flex flex-col ml-2 group">
-                                            <span className="font-semibold text-green-600 group-hover:text-green-400 transition-colors">
-                                                <a href="/m">
+                                            <a href="/m" className="font-semibold text-green-600 group-hover:text-green-400 transition-colors">
                                                 {status.spotify?.song}
-                                                </a> 
-                                            </span>
+                                            </a>
                                             <span className="font-mono group-hover:text-neutral-100 transition-colors">
                                                 by {status.spotify?.artist?.replace(/;/g, ', ')}
                                             </span>
                                         </div>
-                                        </div>
-                                    </a>
+                                    </div>
                                 ) : (
                                     activity.assets?.large_image && (
                                         <div className="flex items-center gap-1">
