@@ -1,9 +1,10 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
+import { JetBrains_Mono } from 'next/font/google'
+
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
- import { monaspace } from './fonts'
+import { monaspace } from './fonts'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://dir-diare.vercel.app'),
@@ -19,9 +20,10 @@ export const metadata: Metadata = {
 
 const cx = (...classes) => classes.filter(Boolean).join(' ')
 
-const montserrat = Montserrat({
-    subsets: ['latin'],
-    variable: '--font-montserrat',
+const jetbrains = JetBrains_Mono({ 
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains',
 })
 
 export default function RootLayout({
@@ -34,7 +36,7 @@ export default function RootLayout({
             lang="en"
             className={cx(
                 'scroll-smooth',
-                montserrat.variable,
+                jetbrains.variable,
                 monaspace.variable
             )}
         >

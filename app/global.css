@@ -15,8 +15,8 @@
     --sh-jsxliterals: #6266d1;
     --sh-property: #e25a1c;
     --sh-entity: #e25a1c;
-    font-family: var(--font-montserrat);
-    --font-montserrat: 'Montserrat', sans-serif;
+    font-family: var(--font-jetbrains);
+    --font-jetbrains: 'JetBrains Mono', monospace;
     --font-monaspace: 'Monaspace', monospace;
 }
 
@@ -36,85 +36,6 @@ html {
 body {
     text-rendering: optimizeLegibility;
   }
-  .prose {
-    @apply max-w-none text-neutral-800 dark:text-neutral-200 leading-relaxed;
-  }
-  
-  .prose :where(h1):not(:where([class~="not-prose"] *)) {
-    @apply mt-10 mb-5 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white;
-  }
-  
-  .prose :where(h2):not(:where([class~="not-prose"] *)) {
-    @apply mt-8 mb-2 text-3xl font-bold tracking-tight text-neutral-900 dark:text-white;
-  }
-  
-  .prose :where(h3):not(:where([class~="not-prose"] *)) {
-    @apply mt-6 mb-1.5 text-2xl font-bold text-neutral-900 dark:text-white;
-  }
-  
-  .prose :where(h4):not(:where([class~="not-prose"] *)) {
-    @apply mt-5 mb-1 text-xl font-bold text-neutral-900 dark:text-white;
-  }
-  
-  .prose :where(p):not(:where([class~="not-prose"] *)) {
-    @apply my-1.5 leading-7 text-neutral-800 dark:text-neutral-200;
-  }
-  
-  .prose :where(ul):not(:where([class~="not-prose"] *)) {
-    @apply my-6 list-disc pl-8 space-y-2 text-neutral-800 dark:text-neutral-200;
-  }
-  
-  .prose :where(ol):not(:where([class~="not-prose"] *)) {
-    @apply my-6 list-decimal pl-8 space-y-2 text-neutral-800 dark:text-neutral-200;
-  }
-  
-  .prose :where(li):not(:where([class~="not-prose"] *)) {
-    @apply my-2 leading-7 text-neutral-800 dark:text-neutral-200;
-  }
-  
-  .prose :where(blockquote):not(:where([class~="not-prose"] *)) {
-    @apply my-6 border-l-4 border-neutral-300 dark:border-neutral-600 pl-6 italic text-neutral-700 dark:text-neutral-300;
-  }
-  
-  .prose :where(a):not(:where([class~="not-prose"] *)) {
-    @apply text-black dark:text-neutral-300 hover:text-blue-800 dark:hover:text-neutral-300 underline decoration-2 underline-offset-2 transition-colors;
-  }
-  
-  .prose :where(strong):not(:where([class~="not-prose"] *)) {
-    @apply font-bold text-neutral-900 dark:text-white;
-  }
-  
-  .prose :where(em):not(:where([class~="not-prose"] *)) {
-    @apply italic text-neutral-700 dark:text-neutral-300;
-  }
-  
-  .prose :where(code):not(:where([class~="not-prose"] *)) {
-    @apply rounded bg-neutral-100 dark:bg-neutral-800 px-1.5 py-0.5 text-sm font-mono text-neutral-800 dark:text-neutral-200;
-  }
-  
-  .prose :where(pre):not(:where([class~="not-prose"] *)) {
-    @apply my-6 overflow-x-auto rounded-lg bg-neutral-100 dark:bg-neutral-800 p-4 shadow-sm dark:shadow-neutral-900/50;
-  }
-  
-  .prose :where(pre code):not(:where([class~="not-prose"] *)) {
-    @apply bg-transparent p-0 text-sm font-mono text-neutral-800 dark:text-neutral-200;
-  }
-  
-  .prose :where(hr):not(:where([class~="not-prose"] *)) {
-    @apply my-10 border-t border-neutral-200 dark:border-neutral-700;
-  }
-  
-  .prose :where(table):not(:where([class~="not-prose"] *)) {
-    @apply my-6 w-full border-collapse rounded-lg overflow-hidden shadow-sm dark:shadow-neutral-900/50;
-  }
-  
-  .prose :where(th):not(:where([class~="not-prose"] *)) {
-    @apply border border-neutral-200 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 px-6 py-3 text-left font-bold text-neutral-900 dark:text-white;
-  }
-  
-  .prose :where(td):not(:where([class~="not-prose"] *)) {
-    @apply border border-neutral-200 dark:border-neutral-700 px-6 py-3 text-neutral-700 dark:text-neutral-300;
-  }
   h1,
   h2,
   h3,
@@ -123,8 +44,7 @@ body {
   }
   
   pre {
-    background-color: #16161e;
-    border-radius: 0.5rem;
+    background-color: #222;
     overflow-x: auto;
     padding: 1rem;
     margin: 1.5rem 0;
@@ -215,77 +135,8 @@ body {
 .title {
     text-wrap: balance;
 }
-
-/**
- * Inline footnotes references
- * 1. Increment the counter at each new reference
- * 2. Reset link styles to make it appear like regular text
- */
-[aria-describedby='footnote-label'] {
-    counter-increment: footnotes; /* 1 */
-    text-decoration: none; /* 2 */
-    color: inherit; /* 2 */
-    cursor: default; /* 2 */
-    outline: none; /* 2 */
-}
-
-/**
- * Actual numbered references
- * 1. Display the current state of the counter (e.g. `[1]`)
- * 2. Align text as superscript
- * 3. Make the number smaller (since it's superscript)
- * 4. Slightly offset the number from the text
- * 5. Reset link styles on the number to show it's usable
- */
-[aria-describedby='footnote-label']::after {
-    content: '[' counter(footnotes) ']'; /* 1 */
-    vertical-align: super; /* 2 */
-    font-size: 0.5em; /* 3 */
-    margin-left: 2px; /* 4 */
-    color: inherit; /* 5 */
-    text-decoration: underline; /* 5 */
-    cursor: pointer; /* 5 */
-}
-
-/**
- * Resetting the default focused styles on the number
- */
-[aria-describedby='footnote-label']:focus::after {
-    outline: thin dotted;
-    outline-offset: 2px;
-}
-
-[aria-label='Back to content'] {
-    font-size: 0.8em;
-}
-
-/**
- * Highlight target note
- */
-
 /* addon */
 
 code, pre {
   font-family: var(--font-monaspace);
-}
-
-/* Header anchor styles */
-.prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) {
-  @apply relative;
-}
-
-.prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) a {
-  @apply no-underline;
-}
-
-.prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)) a::before {
-  @apply content-['#'] absolute -left-5 opacity-0 text-neutral-400 dark:text-neutral-500 transition-opacity duration-200;
-}
-
-.prose :where(h1, h2, h3, h4, h5, h6):not(:where([class~="not-prose"] *)):hover a::before {
-  @apply opacity-100;
-}
-
-.prose :where(h1):not(:where([class~="not-prose"] *)) {
-  @apply mt-10 mb-6 text-4xl font-bold tracking-tight text-neutral-900 dark:text-white;
 }
