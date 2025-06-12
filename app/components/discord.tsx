@@ -61,6 +61,7 @@ const BadgeDiscord = () => {
                 key={dc.id}
                 src={`https://cdn.discordapp.com/badge-icons/${dc.icon}.png`}
                 alt={dc.description}
+                title={dc.description}
                 className="w-4 h-4 rounded"
             />
         ))}
@@ -145,13 +146,13 @@ const Guild_IconUrl = Guild_Id && Guild_Badge ? `https://cdn.discordapp.com/clan
                             {status.discord_user.global_name || status.discord_user.username}
                         </span>
     {Guild_IconUrl && tag && (
-        <span className="text-xs font-semibold inline-flex items-center px-1 py-0.5 text-zinc-200 bg-neutral-600 rounded-2xl border border-neutral-500 hover:bg-neutral-700 transition-all">
+        <span className="text-xs font-semibold inline-flex items-center px-1 py-0.5 text-zinc-200 bg-white/20 rounded border border-neutral-500 hover:bg-neutral-700 transition-all">
             <img
                 src={Guild_IconUrl}
                 alt="Guild Icon"
                 width={12}
                 height={12}
-                className="inline-block"
+                className="inline-block mr-1"
             />
             {tag}
         </span>
