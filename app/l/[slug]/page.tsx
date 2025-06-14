@@ -32,11 +32,11 @@ export default async function Page({
       const catLower = category.toLowerCase().trim();
       switch (catLower) {
         case 'personal projects':
-          return 'bg-rose-950/80 text-rose-500 border-rose-700 hover:border-rose-600 hover:bg-rose-900 hover:text-rose-400';
+          return 'bg-rose-950/80 text-rose-500 border-rose-700 hover:border-rose-600 hover:bg-rose-950 hover:text-rose-400';
         case 'design graphics':
-          return 'bg-indigo-950/80 text-indigo-500 border-indigo-700 hover:border-indigo-600 hover:bg-indigo-900 hover:text-indigo-400';
+          return 'bg-indigo-950/80 text-indigo-500 border-indigo-700 hover:border-indigo-600 hover:bg-indigo-950 hover:text-indigo-400';
         case 'code projects':
-          return 'bg-emerald-950/80 text-emerald-500 border-emerald-700 hover:border-emerald-600 hover:bg-emerald-900 hover:text-emerald-400';
+          return 'bg-emerald-950/80 text-emerald-500 border-emerald-700 hover:border-emerald-600 hover:bg-emerald-950 hover:text-emerald-400';
         default:
           return '';
       }
@@ -60,13 +60,32 @@ export default async function Page({
                     text={metadata.category || 'untag'}
                     className={getCatColor(metadata.category || 'untag')}
                 />
-      <h1 className="text-3xl font-bold ">{metadata.title || slug.replace(/-/g, ' ')}</h1>
-      <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400 mb-4">
+      <h1 className="text-3xl font-bold mt-2">{metadata.title || slug.replace(/-/g, ' ')}</h1>
+      <div className="flex items-center space-x-2 my-2">
+      <div className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
+          <div className="flex items-center gap-2">
+            <img 
+              src="/images/profil.jpg" 
+              alt="Author avatar" 
+              className="w-5 h-5 rounded-full bg-teal-300"
+            />
+            <a
+            href='/about'
+            className='text-black dark:text-white hover:underline'
+            title="About the author"
+            >qyzh</a>
+          </div>
+      </div>
+      <span className="text-sm font-mono text-neutral-500 dark:text-neutral-400">•</span>
+      <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
         {metadata.publishedAt ? formatDate(metadata.publishedAt) : 'Unknown date'}
       </time>
+      </div>
+
       <p className="text-black/50 dark:text-neutral-500 font-mono my-4">
         {metadata.summary || ''}
-      </p>      
+      </p>     
+       
       <div className="max-w-none">
         {metadata.image && (
           <img src={metadata.image} alt={metadata.title} className="rounded-lg shadow-md" />
@@ -75,7 +94,7 @@ export default async function Page({
       </div>
       <div className="mt-4 border-y border-neutral-300 dark:border-neutral-700">
           {metadata.tags && (
-            <p className='text-sm py-2 text-black dark:text-white'>Tags {''}: <span className='font-mono text-neutral-300 dark:text-neutral-600'>{metadata.tags.split(',').map(tag => capitalizeFirstLetter(tag.trim())).join(', ')}</span></p>
+            <p className='text-sm py-2 text-black dark:text-white'>Tags {''}: <span className='font-mono text-neutral-300 dark:text-neutral-300 dark:hover:text-neutral-50'>{metadata.tags.split(',').map(tag => capitalizeFirstLetter(tag.trim())).join(', ')}</span></p>
           )}
       </div>
       <Comments />

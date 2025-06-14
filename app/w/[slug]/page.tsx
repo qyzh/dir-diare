@@ -39,7 +39,7 @@ export default async function Page({
       <Navbar />
       <h1 className="text-3xl font-bold ">{metadata.title || slug.replace(/-/g, ' ')}</h1>
       <div className="flex items-center space-x-2 my-2">
-      <span className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
+      <div className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
           <div className="flex items-center gap-2">
             <img 
               src="/images/profil.jpg" 
@@ -52,7 +52,7 @@ export default async function Page({
             title="About the author"
             >qyzh</a>
           </div>
-        </span>
+      </div>
       <span className="text-sm font-mono text-neutral-500 dark:text-neutral-400">•</span>
       <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
         {metadata.publishedAt ? formatDate(metadata.publishedAt) : 'Unknown date'}
