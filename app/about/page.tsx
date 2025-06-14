@@ -21,11 +21,11 @@ interface Edu {
 
 const About: React.FC = () => (
     <AnimatedAbove delay={0.5}>
-        <div id="about-me" className="flex flex-col gap-2 p-4 border-1 border-neutral-300 dark:border-neutral-700 rounded">
+        <div id="about-me">
             <AnimatedZoom delay={0.8}>
-                <p className="prose prose-neutral dark:prose-invert">
-                    I am a <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">Communication student</span> who has an interest in <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">interface design</span> & <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">running</span>. My name is{' '}
-                    <span className="italic border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">Syauqi Ashadullah</span> and am currently living in Bandung, West Java.
+                <p className="dark:text-neutral-300/70">
+                    I am a <span className="italic text-white border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">Communication student</span> who has an interest in <span className="italic text-white border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">interface design</span> & <span className="italic text-white border-b-2 border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">running</span>. My name is{' '}
+                    <span className="italic border-b-2 text-white border-emerald-950 bg-emerald-500/50 hover:bg-emerald-500">Syauqi Ashadullah</span> and am currently living in Bandung, West Java.
                 </p>
             </AnimatedZoom>
         </div>
@@ -80,12 +80,12 @@ const EduTL: React.FC = () => (
 );
 
 const DearDairy: React.FC = () => (
-        <AnimatedZoom delay={0.8} className="flex flex-col gap-2 p-4 border-1 border-neutral-300 dark:border-neutral-700 rounded">
-            <div id='dear-diary' className="prose prose-neutral dark:prose-invert">
+        <AnimatedZoom delay={0.8}>
+            <div id='dear-diary'>
                 <strong>Why the name dir-diare?</strong>
-                <p>It started with the 
+                <p className='dark:text-neutral-300/70'>It started with the 
                     classic 
-                    <i>    
+                    <i className=' text-neutral-500 dark:text-white/90'>    
                     {' '}dear diary {' '}
                     </i>
                     idea. 
@@ -93,15 +93,15 @@ const DearDairy: React.FC = () => (
                     Needs more nerd... and maybe a bit more toilet humour.
                 </p>
                 <p>So came <strong>dir-diare</strong>:</p>
-                <ul className="list-disc pl-6">
+                <ul className="list-disc pl-6 dark:text-neutral-300/70">
                     <li>
-                    <strong className='font-mono'>"dir" </strong>is short for {'  '}<code className='font-mono'>directory</code>{'  '} in programming—where we dump files. In this case, it's where I dump thoughts, rants, ideas, and brain-farts.
+                    <strong className='font-mono dark:text-white'>"dir" </strong>is short for {'  '}<code className='font-mono dark:text-neutral-100'>directory</code>{'  '} in programming—where we dump files. In this case, it's where I dump thoughts, rants, ideas, and brain-farts.
                     </li>
                     <li>
-                    <strong>"diare" </strong>(a cheeky twist on "diary") literally means {'  '}<i>diarrhoea</i>{'  '} in Indonesian. Which, fun fact: I actually get if I drink milk. But also, it perfectly captures how my thoughts sometimes rush out in... uncontrollable bursts. 💻💩
+                    <strong className='dark:text-white'>"diare" </strong>(a cheeky twist on "diary") literally means {'  '}<i>diarrhoea</i>{'  '} in Indonesian. Which, fun fact: I actually get if I drink milk. But also, it perfectly captures how my thoughts sometimes rush out in... uncontrollable bursts. 💻💩
                     </li>
                 </ul>
-                <p>
+                <p className='dark:text-neutral-300/70'>
                 So yeah, this blog is basically my mental dump folder—raw, weird, and sometimes mildly alarming. Read at your own risk, and maybe bring some digital tissues.
                 </p>
             </div>
@@ -109,8 +109,8 @@ const DearDairy: React.FC = () => (
 );
 
 const UCanFindMe: React.FC = () => (
-<AnimatedBelow delay={1.0} className="flex flex-col font-mono">
-    <div id='contact' className='pl-4'>
+<AnimatedBelow delay={1.0} className="flex flex-col text-sm">
+    <div id='contact' className='pl-4 dark:text-neutral-300/70'>
             <p>
             You can find me:
             </p>
