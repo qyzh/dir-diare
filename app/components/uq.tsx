@@ -59,11 +59,13 @@ const InfoSection = () => (
                     variant="dev"
                     disabled={true}
                 />
-                <Badge
-                    icon={<Activity className="h-4 w-4" />}
-                    text="Running Enthusiast"
-                    variant="running"
-                />
+                <a href="/r">
+                    <Badge
+                        icon={<Activity className="h-4 w-4" />}
+                        text="Running Enthusiast"
+                        variant="running"
+                    />
+                </a>
                 <Badge
                     icon={<Gamepad2 className="h-4 w-4" />}
                     text="Gamer"
