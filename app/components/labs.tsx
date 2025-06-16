@@ -66,7 +66,7 @@ const LabCard = ({ post, isLatest }: LabCardProps) => {
               )}
               
               <div className="flex-1 min-w-0">
-                <h2 className="font-bold tracking-tight text-black dark:text-white dark:group-hover:text-neutral-200 transition-colors duration-200">
+                <h2 className="font-bold uppercase tracking-tight text-black dark:text-white dark:group-hover:text-neutral-200 transition-colors duration-200">
                   {post.metadata.title}
                 </h2>
                 <div className="truncate font-mono pr-4 overflow-hidden mt-1 text-sm font-medium text-zinc-400">
