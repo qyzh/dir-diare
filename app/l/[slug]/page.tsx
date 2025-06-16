@@ -4,7 +4,6 @@ import path from 'path'
 
 import { Navbar } from 'app/components/nav'
 import Breadcrumbs from 'app/components/breadcrumbs'
-import Comments from 'app/components/comments'
 import { formatDate } from '../utils'
 import Footer from 'app/components/footer'
 import { Badge } from 'app/components/ukbadge'
@@ -60,7 +59,7 @@ export default async function Page({
                     text={metadata.category || 'untag'}
                     className={getCatColor(metadata.category || 'untag')}
                 />
-      <h1 className="text-3xl font-bold mt-2">{metadata.title || slug.replace(/-/g, ' ')}</h1>
+      <h1 className="text-3xl font-bold mt-2 uppercase">{metadata.title || slug.replace(/-/g, ' ')}</h1>
       <div className="flex items-center space-x-2 my-2">
       <div className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
           <div className="flex items-center gap-2">
@@ -97,7 +96,6 @@ export default async function Page({
             <p className='text-sm py-2 text-black dark:text-white'>Tags {''}: <span className='font-mono text-neutral-300 dark:text-neutral-300 dark:hover:text-neutral-50'>{metadata.tags.split(',').map(tag => capitalizeFirstLetter(tag.trim())).join(', ')}</span></p>
           )}
       </div>
-      <Comments />
       <Footer/>
       </section>
     )
