@@ -4,7 +4,7 @@ import UKCallout from 'app/components/ukcallout';
 import { useSpotify } from '../api/spotify/hooks/useSpotify';
 import { LoadingSkeleton } from '../components/ukloadingskel';
 import { Drawer } from 'vaul';
-import { Star } from 'lucide-react';
+import { PanelRightClose, Star } from 'lucide-react';
 
 interface Track {
     name: string;
@@ -87,7 +87,10 @@ export default function UKtracks() {
                             <div className="p-4 h-full">
                                 <div className="max-w-md">
 
-
+                                    <Drawer.Close className=" text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-100 transition-colors">
+                                        <span className="sr-only">Close</span>
+                                        <PanelRightClose className="w-6 h-6" />
+                                    </Drawer.Close>
                                     <div className="w-full h-full relative rounded-lg overflow-hidden">
                                         <img
                                         src={track.album.images[0]?.url || '/public/images/bg-noise.png'}
