@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { highlight } from 'sugar-high';
 import UKCallout from 'app/components/ukcallout';
 import UKButton from 'app/components/ukbtn';
+import UKTagUser from 'app/components/uktaguser';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -20,6 +21,7 @@ type ButtonProps = ComponentPropsWithoutRef<'button'> & {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
 };
+type TagUserProps = ComponentPropsWithoutRef<'div'>;
 
 const components = {
   h1: (props: HeadingProps) => (
@@ -152,6 +154,11 @@ const components = {
     };
     return <mark className={`${colors[color]} px-1`} {...props} />;
   },
+  TagUser: ({ children, ...props }: TagUserProps) => (
+    <UKTagUser {...props}>
+      {children}
+    </UKTagUser>
+  ),
 };
 
 declare global {
