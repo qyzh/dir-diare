@@ -18,7 +18,13 @@ export default function UKRunning({ ukrace }: UKRunningProps){
                     {item.date && 
                       <span className="text-xs flex items-center text-white/50">
                           <CalendarHeart className="inline w-4 h-4 mr-1" />
-                          <span className="hover:text-white/80 transition-colors">{item.date}</span>
+                          <span className="hover:text-white/80 transition-colors">
+                            {new Date(item.date).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'numeric',
+                              day: 'numeric'
+                            }).replace(/,/g, '.').replace(/\s/g, '.')}
+                          </span>
                       </span>
                     }
                     <Dot className="inline w-4 h-4 text-white/30 mx-0.5" />
