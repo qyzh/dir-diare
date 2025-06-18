@@ -4,7 +4,6 @@ import FBRecentPost from './components/post-list'
 import Footer  from './components/footer'
 import FBRecentWork from './components/labs-list'
 import Strava from './components/ukstrava'
-import { DiscordStatus } from './components/discord'
 
 
 
@@ -21,16 +20,13 @@ export default function Page() {
                         </span>
                     </p>
             </header>
-                <div className="mt-4 p-2 border-neutral-300 dark:border-neutral-700 border-1 rounded">
-                    <DiscordStatus/>
-                </div>
                     <div className="space-y-4">
                          <FBRecentPost />
                     </div>
                     <div className="space-y-4">
                          <FBRecentWork />
                     </div>
-                     <Strava /> 
+                     <Strava />
                 <Navbar />
             </section>
             <Footer />
