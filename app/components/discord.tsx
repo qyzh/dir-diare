@@ -3,7 +3,7 @@
 import { useLanyard } from "react-use-lanyard";
 import type { Activity } from "react-use-lanyard";
 import { useEffect, useState } from "react";
-
+import avatarGithubUrl from "public/images/profil.jpg";
 interface DiscordStatusProps {
     userId?: string;
     className?: string;
@@ -90,7 +90,7 @@ export function DiscordStatus({ userId = process.env.NEXT_PUBLIC_DISCORD_USER_ID
                 <div className="relative">
                     <div className="w-[120px] h-[120px] rounded bg-neutral-800/50 animate-pulse" />
                     <div className="absolute bottom-0 right-0 w-4 h-4 bg-neutral-700 rounded-full border-2 border-zinc-900 animate-pulse" />
-                </div> 
+                </div>
                 <div className="flex flex-col overflow-hidden">
                     <div className="flex items-center gap-2 ">
                         <div className="h-4 w-20 bg-neutral-800/50 rounded animate-pulse" />
@@ -132,11 +132,11 @@ const Guild_IconUrl = Guild_Id && Guild_Badge ? `https://cdn.discordapp.com/clan
             <div className={`flex items-center space-x-3 ${className} relative z-10`}>
                 <div className="relative">
                     <img
-                        src={avatarUrl}
+                        src={avatarGithubUrl.src}
                         alt={`${status.discord_user.username}'s avatar`}
-                        width={120}
-                        height={120}
-                        className="rounded"
+                        width={96}
+                        height={96}
+                        className="rounded w-24 h-24 object-cover"
                     />
                     <div className={`absolute bottom-0 right-0 w-4 h-4 ${statusColor} rounded-full border-2 border-zinc-900`} />
                 </div>
@@ -167,7 +167,7 @@ const Guild_IconUrl = Guild_Id && Guild_Badge ? `https://cdn.discordapp.com/clan
                     </div>
                     {activity && (
                         <div className="text-xs text-neutral-400 mt-1">
-                            
+
                                 {activity.name === "Spotify" ? (
                                     <div className="flex items-center gap-1">
                                         <img
