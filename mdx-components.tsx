@@ -4,6 +4,7 @@ import { highlight } from 'sugar-high';
 import UKCallout from 'app/components/ukcallout';
 import UKButton from 'app/components/ukbtn';
 import UKTagUser from 'app/components/uktaguser';
+import UKImage from 'app/components/ukimage';
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>;
 type ParagraphProps = ComponentPropsWithoutRef<'p'>;
@@ -11,6 +12,7 @@ type ListProps = ComponentPropsWithoutRef<'ul'>;
 type ListItemProps = ComponentPropsWithoutRef<'li'>;
 type AnchorProps = ComponentPropsWithoutRef<'a'>;
 type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>;
+type TagUserProps = ComponentPropsWithoutRef<'div'>;
 type MarkProps = ComponentPropsWithoutRef<'mark'> & {
   color?: 'green' | 'yellow' | 'red';
 };
@@ -21,7 +23,11 @@ type ButtonProps = ComponentPropsWithoutRef<'button'> & {
   variant?: 'primary' | 'secondary' | 'outline';
   size?: 'sm' | 'md' | 'lg';
 };
-type TagUserProps = ComponentPropsWithoutRef<'div'>;
+type ImageProps = ComponentPropsWithoutRef<'img'> & {
+    alt?: string;
+    size?: 'small' | 'medium' | 'large' | 'hero' | 'thumbnail';
+    className?: string;
+};
 
 const components = {
   h1: (props: HeadingProps) => (
@@ -72,9 +78,9 @@ const components = {
     }
     if (href?.startsWith('#')) {
       return (
-        <a 
-          href={href} 
-          className="transition-colors duration-200" 
+        <a
+          href={href}
+          className="transition-colors duration-200"
           {...props}
         >
           {children}
@@ -128,19 +134,19 @@ const components = {
       {children}
     </UKCallout>
   ),
-  Button: ({ 
-    variant = 'primary', 
-    size = 'md', 
-    className = '', 
+  Button: ({
+    variant = 'primary',
+    size = 'md',
+    className = '',
     children,
     onClick,
-    ...props 
+    ...props
   }: ButtonProps) => (
-    <UKButton 
-      variant={variant} 
-      size={size} 
-      className={className} 
-      onClick={onClick ? () => onClick({} as any) : undefined} 
+    <UKButton
+      variant={variant}
+      size={size}
+      className={className}
+      onClick={onClick ? () => onClick({} as any) : undefined}
       {...props}
     >
       {children}
@@ -159,6 +165,8 @@ const components = {
       {children}
     </UKTagUser>
   ),
+  img: ({ src, ...props }: ImageProps) => <UKImage alt={props.alt} size={props.size} className={props.className} src={src!} {...props} />,
+  Image: ({ src, ...props }: ImageProps) => <UKImage alt={props.alt} size={props.size} className={props.className} src={src!} {...props} />
 };
 
 declare global {
