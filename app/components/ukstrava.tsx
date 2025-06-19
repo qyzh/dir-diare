@@ -1,12 +1,9 @@
 "use client";
 
 import Link from 'next/link';
-import Image from 'next/image';
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import runningIcon from '/public/svg/running.svg';
-import stopwatchIcon from '/public/svg/stopwatch.svg';
-import lengthIcon from '/public/svg/length.svg';
 import UKCallout from './ukcallout';
+import { Ruler, Timer} from 'lucide-react';
 
 interface StravaProps {}
 interface ActivityType {
@@ -124,32 +121,22 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
       <div className="bg-white/5 border border-transparent hover:border-orange-600 transition-all duration-200 p-2">
         <div className="space-y-2">
           <div>
-            <span className="text-xs font-mono bg-orange-600 group-hover:bg-neutral-950/50 px-1 py-0.5">
+            <span className="text-xs font-mono bg-orange-600 group-hover:bg-neutral-950/50 group-hover:text-orange-600/70 px-1 py-0.5">
               {formatDate(latestActivity.start_date)}
             </span>
-            <div className="text-white text-xl sm:text-3xl font-semibold truncate">
+            <div className="text-neutral-200/70 group-hover:text-neutral-200 text-xl sm:text-3xl font-semibold truncate">
               {latestActivity.name}
             </div>
           </div>
 
           <div className="flex gap-4 text-sm text-white">
             <div className="flex items-center gap-1">
-              <Image
-                src={stopwatchIcon}
-                alt="Time"
-                width={20}
-                height={20}
-              />
+                <Timer className='text-orange-500' size={20} />
               <span>{formatTime(latestActivity.moving_time * 0.0166667)}</span>
             </div>
 
             <div className="flex items-center gap-1">
-              <Image
-                src={lengthIcon}
-                alt="Distance"
-                width={20}
-                height={20}
-              />
+              <Ruler className='text-orange-500' size={20} />
               <span>{formatDistance(latestActivity.distance)}</span>
             </div>
           </div>
