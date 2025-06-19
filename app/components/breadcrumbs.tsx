@@ -33,7 +33,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
                     /
                     </div>
                     {index === paths.length - 1 ? (
-                        <span className="text-sky-300 px-2 text-sm">{currentTitle}</span>
+                        <div className="text-sky-300 px-1 text-sm">{currentTitle} <span className="animate-pulse text-yellow-400">|</span></div>
                     ) : (
                         <Link
                             href={`/${paths.slice(0, index + 1).join("/")}`}
@@ -42,6 +42,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
                             {path}
                         </Link>
                     )}
+                    
                 </React.Fragment>
             ))}
             
