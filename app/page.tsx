@@ -4,6 +4,7 @@ import FBRecentPost from './components/post-list'
 import Footer  from './components/footer'
 import FBRecentWork from './components/labs-list'
 import Strava from './components/ukstrava'
+import { Dot, DotIcon } from 'lucide-react'
 
 
 
@@ -27,9 +28,57 @@ export default function Page() {
                          <FBRecentWork />
                     </div>
                      <Strava />
+                     <UKpageList />
                 <Navbar />
             </section>
             <Footer />
         </main>
     )
+}
+function UKpageList (){
+    const UKpageLink = [
+        {
+            title: 'w',
+            href: '/w',
+            description: 'My Strava activities in UK',
+        },
+        {
+            title: 'l',
+            href: '/l',
+            description: 'My Strava activities in UK',
+        },
+        {
+            title: 'n',
+            href: '/n',
+            description: 'My Strava activities in UK',
+        },
+        {
+            title: 'r',
+            href: '/r',
+            description: 'My Strava activities in UK',
+        },
+        {
+            title: 'g',
+            href: '/g',
+            description: 'My Strava activities in UK',
+        },
+        {
+            title: 'm',
+            href: '/m',
+            description: 'My Strava activities in UK',
+        }
+    ];
+    return (
+        <div className="flex flex-row justify-center items-center space-x-4 mb-6">
+            <DotIcon className='w-4 h-4 text-neutral-500' />
+            {UKpageLink.map((item) => (
+                <div key={item.href} className="flex items-center space-x-4">
+                    <a href={item.href} className="text-neutral-300 transition-all duration-200 hover:text-white hover:underline">
+                        {item.title}
+                    </a>
+                </div> 
+            ))}
+            <DotIcon className='w-4 h-4 text-neutral-500' />
+        </div>
+    );
 }
