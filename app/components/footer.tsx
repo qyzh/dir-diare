@@ -6,7 +6,7 @@ const Footer = () => {
 
     return (
         <AnimatedBelow delay={1.5}>
-        <footer className="prose mb-8" role="contentinfo">
+        <footer className="prose mt-4" role="contentinfo">
             <div className="flex justify-between items-center gap-2 font-mono text-sm text-neutral-500 dark:text-neutral-400">
                 <div>
                 <Link href="/" className="text-white/80 underline hover:text-emerald-300 transition-colors duration-200">

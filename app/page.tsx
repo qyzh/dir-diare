@@ -11,8 +11,8 @@ import { Dot, DotIcon } from 'lucide-react'
 export default function Page() {
     return (
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
-            <section className="space-y-6">
-            <header>
+            <section>
+            <header className='mb-4'>
             <h1 className="text-2xl text-white/80 hover:text-white font-bold">Wagwan,</h1>
                     <p className="font-mono text-black/50 dark:text-neutral-500">
                         Welcome to my little space on internet, place to share my thoughts and ideas,
@@ -21,13 +21,15 @@ export default function Page() {
                         </span>
                     </p>
             </header>
-                    <div className="space-y-4">
+                    <div className="mb-4">
                          <FBRecentPost />
                     </div>
-                    <div className="space-y-4">
+                    <div className="mb-4">
                          <FBRecentWork />
                     </div>
+                    <div className="mb-4">
                      <Strava />
+                    </div>
                      <UKpageList />
                 <Navbar />
             </section>
@@ -69,10 +71,10 @@ function UKpageList (){
         }
     ];
     return (
-        <div className="flex flex-row justify-center items-center space-x-4 mb-6">
+        <div className="flex flex-row justify-center items-center space-x-4">
             <DotIcon className='w-4 h-4 text-neutral-500' />
             {UKpageLink.map((item) => (
-                <div key={item.href} className="flex items-center space-x-4">
+                <div key={item.href} className="flex items-center">
                     <a href={item.href} className="text-neutral-300 transition-all duration-200 hover:text-white hover:underline">
                         {item.title}
                     </a>
