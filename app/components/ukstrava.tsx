@@ -93,58 +93,66 @@ const Activities: React.FC<ActivitiesProps> = React.memo(({ activities, isLoadin
 
   if (isLoading) {
     return (
-      <div className="animate-pulse">
-        <div className="p-4 bg-white/5 border border-transparent rounded-md">
-          <div className="space-y-2">
-            <div className="h-8 bg-white/10 rounded w-3/4" />
-            <div className="space-y-1">
-              <div className="h-4 bg-white/10 rounded w-1/2" />
-              <div className="h-4 bg-white/10 rounded w-1/3" />
-              <div className="h-4 bg-white/10 rounded w-1/4" />
+      <div className="block transition-transform animate-pulse">
+      <div className="group relative">
+        <div className="bg-white/5 border border-transparent p-2">
+          <div className="space-y-1">
+            <div>
+              <span className="inline-block h-6 w-20 bg-orange-600/40" />
+              <div className="h-6 sm:h-8 bg-neutral-700/30 w-3/4" />
+            </div>
+            <div className="flex gap-4 text-sm">
+              <div className="flex items-center gap-1">
+                <div className="h-5 w-5 bg-orange-500/30 rounded-full" />
+                <span className="h-4 w-12 bg-neutral-700/30 block" />
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="h-5 w-5 bg-orange-500/30 rounded-full" />
+                <span className="h-4 w-12 bg-neutral-700/30 block" />
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
     );
   }
 
   if (!activities.length) return null;
 
   return (
-    <Link
-    href={`https://strava.com/activities/${latestActivity.id}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="block transition-transform"
-  >
-    <div className="group relative">
-      <div className="bg-white/5 border border-transparent hover:border-orange-600 transition-all duration-200 p-2">
-        <div className="space-y-2">
-          <div>
-            <span className="text-xs font-mono bg-orange-600 group-hover:bg-neutral-950/50 group-hover:text-orange-600/70 px-1 py-0.5">
-              {formatDate(latestActivity.start_date)}
-            </span>
-            <div className="text-neutral-200/70 group-hover:text-neutral-200 text-xl sm:text-3xl font-semibold truncate">
-              {latestActivity.name}
-            </div>
-          </div>
-
-          <div className="flex gap-4 text-sm text-white">
-            <div className="flex items-center gap-1">
-                <Timer className='text-orange-500' size={20} />
-              <span>{formatTime(latestActivity.moving_time * 0.0166667)}</span>
-            </div>
-
-            <div className="flex items-center gap-1">
-              <Ruler className='text-orange-500' size={20} />
-              <span>{formatDistance(latestActivity.distance)}</span>
+      <Link
+        href={`https://strava.com/activities/${latestActivity.id}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block transition-transform"
+      >
+        <div className="group relative">
+          <div className="bg-white/5 border border-transparent hover:border-orange-600 transition-all duration-200 p-2">
+            <div className="space-y-2">
+              <div>
+                <span className="text-xs font-mono bg-orange-600 group-hover:bg-neutral-950/50 group-hover:text-orange-600/70 px-1 py-0.5">
+                  {formatDate(latestActivity.start_date)}
+                </span>
+                <div className="text-neutral-200/70 group-hover:text-neutral-200 text-xl sm:text-3xl font-semibold truncate">
+                  {latestActivity.name}
+                </div>
+              </div>
+              <div className="flex gap-4 text-sm text-white">
+                <div className="flex items-center gap-1">
+                  <Timer className='text-orange-500' size={20} />
+                  <span>{formatTime(latestActivity.moving_time * 0.0166667)}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Ruler className='text-orange-500' size={20} />
+                  <span>{formatDistance(latestActivity.distance)}</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </Link>
-  );
+      </Link>
+    );
 });
 
 Activities.displayName = 'Activities';
