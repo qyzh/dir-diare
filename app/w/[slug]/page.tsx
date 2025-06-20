@@ -48,7 +48,7 @@ export default async function Page({
             />
             <a
             href='/about'
-            className='text-black dark:text-white hover:underline'
+            className='text-black dark:text-white hover:text-emerald-300 transition-colors duration-200'
             title="About the author"
             >qyzh</a>
           </div>
