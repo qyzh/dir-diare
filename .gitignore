@@ -38,6 +38,6 @@ yarn-error.log*
 next-env.d.ts
 
 # production
-/api/auth
+/apidev/
 .prettierrc
 /content/dummy.mdx
