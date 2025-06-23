@@ -25,6 +25,7 @@ type ButtonProps = ComponentPropsWithoutRef<'button'> & {
 };
 type ImageProps = ComponentPropsWithoutRef<'img'> & {
     alt?: string;
+    model?: 'blueprint' | 'wsketch' | 'oldsketch';
     size?: 'small' | 'medium' | 'large' | 'hero' | 'thumbnail';
     className?: string;
 };
@@ -165,8 +166,8 @@ const components = {
       {children}
     </UKTagUser>
   ),
-  img: ({ src, ...props }: ImageProps) => <UKImage alt={props.alt} size={props.size} className={props.className} src={src!} {...props} />,
-  Image: ({ src, ...props }: ImageProps) => <UKImage alt={props.alt} size={props.size} className={props.className} src={src!} {...props} />
+  img: ({ src, ...props }: ImageProps) => <UKImage alt={props.alt} model={props.model} size={props.size} className={props.className} src={src!} {...props} />,
+  Image: ({ src, ...props }: ImageProps) => <UKImage alt={props.alt} model={props.model} size={props.size} className={props.className} src={src!} {...props} />
 };
 
 declare global {

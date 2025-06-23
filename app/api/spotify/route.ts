@@ -9,11 +9,6 @@ export async function GET(request: Request) {
   const playlistId = searchParams.get('playlist_id');
 
   try {
-    console.log('Checking environment variables...');
-    console.log('SPOTIFY_CLIENT_ID:', process.env.SPOTIFY_CLIENT_ID ? 'Set' : 'Not set');
-    console.log('SPOTIFY_CLIENT_SECRET:', process.env.SPOTIFY_CLIENT_SECRET ? 'Set' : 'Not set');
-    console.log('SPOTIFY_REFRESH_TOKEN:', process.env.SPOTIFY_REFRESH_TOKEN ? 'Set' : 'Not set');
-
     let response;
     if (type === 'top-tracks') {
       response = await getTopTracks();
