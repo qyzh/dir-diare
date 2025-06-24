@@ -38,14 +38,14 @@ const FeaturedBlogPostsList = async () => {
           className="group"
           href={`/w/${post.slug}`}
         >
-          <div className='flex mb-4'>
+          <div className='flex'>
             <div className='flex flex-col w-full place-self-center'>
-              <div className='text-black/60 dark:text-white font-semibold group-hover:text-black dark:group-hover:text-neutral-300 transition-all'>
+              <h4 className='text-black/60 dark:text-white font-bold tracking-wider group-hover:text-black dark:group-hover:text-neutral-300 transition-all'>
                 {post.metadata.title}
-              </div>
-              <div className='font-mono text-black/50 dark:text-neutral-500 text-sm group-hover:text-black/60 dark:group-hover:text-neutral-300 truncate overflow-hidden'>
+              </h4>
+              <p className=' text-black/50 dark:text-neutral-500 text-sm group-hover:text-black/60 dark:group-hover:text-neutral-300 truncate overflow-hidden'>
                 {post.metadata.summary}
-              </div>
+              </p>
             </div>
           </div>
         </Link>

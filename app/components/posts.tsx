@@ -22,8 +22,8 @@ const PostCard = ({ post, isLatest }: PostCardProps) => {
     const formattedDate = formatDate(post.metadata.publishedAt, true, 'short-month-date')
     
     return (
-        <div className="mb-2">
-            <div key={post.slug} className="opacity-80 group-hover:opacity-40 hover:!opacity-100 transition-all duration-200  group-hover:blur-[1px] hover:!blur-none">
+        <>
+            <div key={post.slug} className="opacity-80 group-hover:opacity-40 hover:!opacity-100 transition-all duration-200 mb-2 group-hover:blur-[1px] hover:!blur-none">
                 <Link
                     key={post.slug}
                     className="group flex w-full transition-colors duration-200"
@@ -37,10 +37,10 @@ const PostCard = ({ post, isLatest }: PostCardProps) => {
                     </div>
                     <div className="flex-1 pl-2 min-w-0">
                         <div className="items-center content-center transition-all duration-200">
-                            <div className="font-bold flex items-center gap-2">
+                            <h4 className="font-bold tracking-wider flex items-center gap-2">
                                 {post.metadata.title}
                                 {isLatest && (
-                                    <span className="relative px-2 py-0.5 text-xs font-semibold bg-green-500 dark:bg-green-500/20 text-green-100 dark:text-green-400 rounded">
+                                    <span className="relative px-2 py-0.5 text-xs font-mono font-semibold bg-green-500 dark:bg-green-500/20 text-green-100 dark:text-green-400 rounded">
                                         <span className="absolute -top-1 -right-1 flex h-2 w-2">
                                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
@@ -48,15 +48,15 @@ const PostCard = ({ post, isLatest }: PostCardProps) => {
                                         New
                                     </span>
                                 )}
-                            </div>
-                            <div className="text-black/50 dark:text-neutral-500 font-mono line-clamp-1 text-sm ">
+                            </h4>
+                            <div className="text-black/50 dark:text-neutral-500 line-clamp-1 text-sm ">
                                 {post.metadata.summary}
                             </div>
                         </div>
                     </div>
                 </Link>
             </div>
-        </div>
+        </>
     )
 }
 

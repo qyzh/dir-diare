@@ -4,7 +4,7 @@ import FBRecentPost from './components/post-list'
 import Footer  from './components/footer'
 import FBRecentWork from './components/labs-list'
 import Strava from './components/ukstrava'
-import { Dot, DotIcon } from 'lucide-react'
+import { DotIcon } from 'lucide-react'
 
 
 

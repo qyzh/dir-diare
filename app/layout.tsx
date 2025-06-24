@@ -1,6 +1,6 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { JetBrains_Mono } from 'next/font/google'
+import { Space_Grotesk, Playfair_Display } from 'next/font/google'
 
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -20,10 +20,16 @@ export const metadata: Metadata = {
 
 const cx = (...classes) => classes.filter(Boolean).join(' ')
 
-const jetbrains = JetBrains_Mono({ 
+const playfair_display = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+  variable: '--font-playfair-display',
+  display: 'swap',
+})
+const space_grotesk = Space_Grotesk({ 
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-jetbrains',
+  variable: '--font-space-grotesk',
 })
 
 export default function RootLayout({
@@ -36,7 +42,8 @@ export default function RootLayout({
             lang="en"
             className={cx(
                 'scroll-smooth',
-                jetbrains.variable,
+                space_grotesk.variable,
+                playfair_display.variable,
                 monaspace.variable
             )}
         >

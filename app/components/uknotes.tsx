@@ -8,10 +8,12 @@ export default async function UKnotes() {
   return (
     <div className="mb-2">
         {uknotes?.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map((item) => (
-          <div key={item.id} className="group mb-4">
-            <p className="text-lg font-semibold italic mb-2 opacity-80 group-hover:opacity-100 ">"{item.notes}"</p>
+          <blockquote key={item.id} className="group mb-4 border-b border-transparent hover:border-amber-200">
+            <p className="text-2xl tracking-wider mb-2 opacity-80 group-hover:opacity-100 ">
+              "{item.notes}"
+            </p>
             <div className='flex justify-between'>
-            <p className="font-mono text-sm text-neutral-600 dark:text-neutral-400 opacity-80 group-hover:opacity-100 ">
+            <p className="text-sm text-neutral-600 dark:text-neutral-400 opacity-80 group-hover:opacity-100 ">
              - <Link href={item.link} className='hover:underline hover:text-neutral' target='_blank'>
               {item.source} 
               </Link>
@@ -27,7 +29,7 @@ export default async function UKnotes() {
               })})
               </time>            
             </div>
-          </div>
+          </blockquote>
         ))}
     </div>
   );

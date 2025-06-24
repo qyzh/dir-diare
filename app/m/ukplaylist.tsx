@@ -100,8 +100,8 @@ export default function PlaylistGrid() {
                 />
               </div> 
               <div className="overflow-hidden flex-1">
-                <h3 className="font-bold text-white truncate">{playlist.name}</h3>
-                <p className="text-neutral-400 text-sm truncate">{playlist.description || 'No description'}</p>
+                <h4 className="font-bold text-white truncate">{playlist.name}</h4>
+                <span className="text-neutral-400 text-sm truncate">{playlist.description || 'No description'}</span>
                 <div className="flex justify-between items-center">
                   <span className="text-neutral-400 text-sm">By {playlist.owner.display_name}</span>
                   <span className="text-neutral-400 text-sm">{playlist.tracks.total} tracks</span>
@@ -160,12 +160,12 @@ export default function PlaylistGrid() {
                             .filter(item => item.track)
                             .map((item, index) => (
                               <div key={index} className="text-sm">
-                                <p className="font-medium text-neutral-900 dark:text-neutral-100 truncate">
+                                <div className="font-medium text-neutral-900 dark:text-neutral-100 truncate">
                                   {item.track?.name || 'Unknown Track'}
-                                </p>
-                                <p className="text-neutral-500 dark:text-neutral-400 truncate">
+                                </div>
+                                <div className="text-neutral-500 dark:text-neutral-400 truncate">
                                   {item.track?.artists?.map(artist => artist.name).join(', ') || 'Unknown Artist'}
-                                </p>
+                                </div>
                               </div>
                             ))}
                         </div>

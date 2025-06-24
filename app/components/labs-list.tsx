@@ -60,11 +60,11 @@ const RecentWork = () => {
             />
           </div>
           <div className="relative w-1/2 p-4 sm:p-6 lg:p-8">
-            <p className="text-xl font-bold text-white sm:text-2xl border-b border-neutral-300 dark:border-neutral-700">
+            <h3 className="text-xl font-bold text-white sm:text-2xl border-b border-neutral-300 dark:border-neutral-700">
               {post.metadata.title}
-            </p>
+            </h3>
             <div className="mt-2">
-              <p className="text-sm pb-2 font-mono text-black/50 dark:text-neutral-500 border-b border-neutral-300 dark:border-neutral-700">
+              <p className="text-sm pb-2 text-black/50 dark:text-neutral-500 border-b border-neutral-300 dark:border-neutral-700">
                 {post.metadata.summary}
               </p>
               <p className="text-xs text-neutral-500 dark:text-neutral-400 mt-2">

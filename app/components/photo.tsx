@@ -13,6 +13,7 @@ interface UnsplashPhoto {
     regular: string;
     small: string;
   };
+  description: string | null;
   alt_description: string;
   user: {
     name: string;
@@ -163,9 +164,9 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
         >
           <div className="h-full w-full grow p-5 flex flex-col rounded border border-neutral-800 dark:border-neutral-700 bg-white/10 dark:bg-neutral-900/30 backdrop-blur-md">
             <div className="max-w-md mx-auto">
-              <Drawer.Title className="font-medium mb-2 text-white dark:text-white">Photo by {photo.user.name}</Drawer.Title>
+              <Drawer.Title className="font-medium mb-2 text-sm text-white dark:text-white">Photo by {photo.user.name}</Drawer.Title>
               <Drawer.Description className="mb-4 text-white dark:text-neutral-400 font-mono">
-                  {photo.alt_description || 'No description available.'}
+                  {photo.description || photo.alt_description || 'No description available.'}
                 </Drawer.Description>
                 <div className="grid grid-cols-2 gap-2 text-sm text-white dark:text-neutral-300">
                   <div className="flex items-center gap-1">
