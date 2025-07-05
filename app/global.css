@@ -65,10 +65,17 @@ blockquote {
   font-family: var(--font-playfair);
 }
 mark {
-  background-color: var(--color-neutral-200);
-  color: var(--color-neutral-900);
+  background-color: var(--sh-string);
+  color: #fefefe;
   padding: 0.2em 0.4em;
-  border-radius: 0.3em;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+}
+blockquote mark {
+  background-color: rgba(229, 229, 229, 0.027);
+  color: #f2f2f2;
+  padding: 0.2em 0.4em;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.5;

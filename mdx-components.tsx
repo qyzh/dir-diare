@@ -126,7 +126,7 @@ const components = {
   ),
   blockquote: (props: BlockquoteProps) => (
     <blockquote
-      className="ml-[0.075em] border-l-3 border-gray-300 pl-4 text-gray-700 dark:border-neutral-600 dark:text-neutral-300"
+      className="ml-2 pl-4 border-l-3 border-white/30 hover:border-white/50 text-white transition-all duration-300"
       {...props}
     />
   ),
