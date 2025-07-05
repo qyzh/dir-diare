@@ -7,6 +7,7 @@ import Breadcrumbs from 'app/components/breadcrumbs'
 import Comments from 'app/components/comments'
 import { formatDate } from '../utils'
 import Footer from 'app/components/footer'
+import Link from 'next/link'
 
 export default async function Page({
     params,
@@ -46,11 +47,11 @@ export default async function Page({
               alt="Author avatar" 
               className="w-5 h-5 rounded-full bg-teal-300"
             />
-            <a
+            <Link
             href='/about'
             className='text-black dark:text-white hover:text-emerald-300 transition-colors duration-200'
             title="About the author"
-            >qyzh</a>
+            >qyzh</Link>
           </div>
       </div>
       <span className="text-sm font-mono text-neutral-500 dark:text-neutral-400">•</span>

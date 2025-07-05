@@ -1,6 +1,7 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { Navbar } from "./components/nav";
+import Link from "next/link";
 
 
 export default function NotFound() {
@@ -35,9 +36,9 @@ function Err0r (){
                 </div>
 
                 <div className="uppercase text-amber-800 hover:text-amber-400">
-                    <a href="/">    
+                    <Link href="/">    
                     ./backdir
-                    </a>
+                    </Link>
                 </div>
             </div>
             <div className="mb-2">

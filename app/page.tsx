@@ -5,6 +5,7 @@ import Footer  from './components/footer'
 import FBRecentWork from './components/labs-list'
 import Strava from './components/ukstrava'
 import { DotIcon } from 'lucide-react'
+import Link from 'next/link'
 
 
 
@@ -75,9 +76,9 @@ function UKpageList (){
             <DotIcon className='w-4 h-4 text-neutral-500' />
             {UKpageLink.map((item) => (
                 <div key={item.href} className="flex items-center">
-                    <a href={item.href} className="text-neutral-300 transition-all duration-200 hover:text-white hover:underline">
+                    <Link href={item.href} className="text-neutral-300 transition-all duration-200 hover:text-white hover:underline">
                         {item.title}
-                    </a>
+                    </Link>
                 </div> 
             ))}
             <DotIcon className='w-4 h-4 text-neutral-500' />
