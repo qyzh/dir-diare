@@ -13,6 +13,10 @@ const Footer = () => {
                     Dir-diare 
                 </Link>
                 {' '} 
+                <a href="https://github.com/qyzh/dir-diare/pull/37" target="_blank" rel="noopener noreferrer">
+                <span className="text-xs py-0.5 px-1.5 bg-neutral-300/10 border border-neutral-300/20 text-neutral-300 hover:bg-fuchsia-300/10 hover:border-fuchsia-300/20 hover:text-fuchsia-300 transition-colors duration-200 rounded">
+                v.3.1</span>
+                </a>
                 </div>
                 <div>
                 <span className="italic">
