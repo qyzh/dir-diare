@@ -28,7 +28,7 @@ const ProfileSection = () => (
     <div className="flex-shrink-0">
         <div className="group border-4 transition ease-out border-neutral-300 dark:border-neutral-700 rounded-full hover:border-indigo-500 dark:hover:border-indigo-500/70 hover:shadow-lg">
             <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full">
-                <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full overflow-clip group-hover:scale-105">
+                <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full grayscale-100 overflow-clip group-hover:grayscale-0 group-hover:scale-105">
                     <a href="https://github.com/qyzh" target="_blank" rel="noopener noreferrer">
                         <ProfileImageLarge />
                     </a>
