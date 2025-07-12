@@ -40,8 +40,8 @@ const LabCard = ({ post, isLatest }: LabCardProps) => {
   return (
     <div
     >
-      <div className="group mb-2 dark:hover:bg-white/5 border border-neutral-300 dark:border-neutral-800 bg-clip-border dark:text-gray-700 dark:hover:border-zinc-700 transition-colors duration-200">
-        <Link href={`/l/${post.slug}`} aria-label={`Link to ${post.metadata.title}`}>
+      <div className="mb-2 dark:hover:bg-white/5 border border-neutral-300 dark:border-neutral-800 bg-clip-border dark:text-gray-700 dark:hover:border-zinc-700 transition-colors duration-200">
+        <Link href={`/l/${post.slug}`} className='group' aria-label={`Link to ${post.metadata.title}`}>
           <div className="overflow-hidden flex flex-row">
             <div className="rotate-180 flex items-center justify-center [writing-mode:_vertical-lr]">
               <time className="text-xs font-bold text-neutral-400 uppercase">
@@ -66,10 +66,10 @@ const LabCard = ({ post, isLatest }: LabCardProps) => {
               )}
               
               <div className="flex-1 min-w-0">
-                <h2 className="font-bold uppercase tracking-tight text-black dark:text-white dark:group-hover:text-neutral-200 transition-colors duration-200">
+                <h2 className="font-bold uppercase tracking-tight text-black dark:text-white/80 dark:group-hover:text-white transition-colors duration-200">
                   {post.metadata.title}
                 </h2>
-                <div className="truncate font-mono pr-4 overflow-hidden mt-1 text-sm font-medium text-zinc-400">
+                <div className="truncate font-mono pr-4 overflow-hidden mt-1 text-sm font-medium text-white/50">
                   {post.metadata.summary}
                 </div>
               </div>

@@ -40,7 +40,7 @@ const FeaturedBlogPostsList = async () => {
         >
           <div className='flex'>
             <div className='flex flex-col w-full place-self-center'>
-              <h4 className='text-black/60 dark:text-white font-bold tracking-wider group-hover:text-black dark:group-hover:text-neutral-300 transition-all'>
+              <h4 className='text-black/60 dark:text-white/80 font-bold tracking-wider group-hover:text-black dark:group-hover:text-white transition-all'>
                 {post.metadata.title}
               </h4>
               <p className=' text-black/50 dark:text-neutral-500 text-sm group-hover:text-black/60 dark:group-hover:text-neutral-300 truncate overflow-hidden'>
