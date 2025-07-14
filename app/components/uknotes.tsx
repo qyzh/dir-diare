@@ -75,7 +75,7 @@ export default function UKnotes({ notes }: UKnotesProps) {
     <div className="space-y-4">
       <div>
         {notes?.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()).map((item) => (
-          <div key={item.id} className="mb-4 hover:border-amber-200 transition-colors">
+          <div key={item.id} className="mb-4 border-b border-transparent hover:border-amber-200 transition-colors">
             <blockquote className="mb-3">
               <p className="text-xl tracking-wider mb-2 text-gray-100">
                 "{item.quote}"
