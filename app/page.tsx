@@ -63,7 +63,7 @@ export default function Page() {
                         </div>
                         {artlist.map((lab) => (
                             <div key={lab.slug} className="ml-6">
-                                <Link className="group" href={`/w/${lab.slug}`}>
+                                <Link className="group" href={`/l/${lab.slug}`}>
                                     <span className="webtree">└──</span>
                                     <span className="webcontent">
                                         {lab.metadata.title}
