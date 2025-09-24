@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 ::selection {
     background-color: #47a3f3;
@@ -38,173 +38,143 @@ body {
     font-family: var(--font-monaspace);
     font-size: 14px;
     line-height: 1.6;
-}
+  }
 
-h1 {
-    @apply text-3xl md:text-4xl;
-}
-h2 {
-    @apply text-2xl md:text-3xl;
-}
-h3 {
-    @apply text-xl md:text-2xl;
-}
-h4 {
-    @apply text-lg;
-}
+  h1 { @apply text-3xl md:text-4xl; }
+  h2 { @apply text-2xl md:text-3xl; }
+  h3 { @apply text-xl md:text-2xl; }
+  h4 { @apply text-lg; }
 
-h1,
-h2,
-h3,
-h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     text-wrap: balance;
     font-family: var(--font-space);
-}
+  }
 
 p {
-    @apply mb-4 text-base;
+  @apply mb-4 text-base ;
 }
 
-ul,
-ol {
-    @apply ml-5 mb-4 list-disc;
+ul, ol {
+  @apply ml-5 mb-4 list-disc ;
 }
 blockquote {
-    @apply mb-4 text-base italic;
-    font-family: var(--font-playfair);
+  @apply mb-4 text-base italic;
+  font-family: var(--font-playfair);
 }
 mark {
-    background-color: var(--sh-string);
-    color: #fefefe;
-    padding: 0.2em 0.4em;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.5;
+  background-color: var(--sh-string);
+  color: #fefefe;
+  padding: 0.2em 0.4em;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
 }
 blockquote mark {
-    background-color: rgba(229, 229, 229, 0.027);
-    color: #f2f2f2;
-    padding: 0.2em 0.4em;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.5;
-    text-wrap: balance;
+  background-color: rgba(229, 229, 229, 0.027);
+  color: #f2f2f2;
+  padding: 0.2em 0.4em;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.5;
+  text-wrap: balance;
 }
-pre {
+  pre {
     background-color: #222;
     overflow-x: auto;
     padding: 1rem;
     margin: 1.5rem 0;
     line-height: 1;
-}
-
-pre::-webkit-scrollbar {
+  }
+  
+  pre::-webkit-scrollbar {
     display: none;
-}
-
-pre {
+  }
+  
+  pre {
     -ms-overflow-style: none;
     scrollbar-width: none;
-}
-
-code {
+  }
+  
+  code {
     font-size: 14px;
     padding: 0.2em 0.4em;
     border-radius: 0.3em;
     background-color: var(--color-neutral-100);
-}
-
-pre code {
+  }
+  
+  pre code {
     background-color: transparent;
     padding: 0;
     border: none;
     font-size: 14px;
     line-height: 1.5;
-}
-
-pre code > span .sh__token--identifier {
+  }
+  
+  pre code > span .sh__token--identifier {
     color: white !important;
-}
-
-code:not(pre code) span {
+  }
+  
+  code:not(pre code) span {
     font-weight: 500;
     color: black !important;
-}
-
-@media (prefers-color-scheme: dark) {
+  }
+  
+  @media (prefers-color-scheme: dark) {
     code {
-        font-family: var(--font-monaspace);
-        font-size: 14px;
-        padding: 0.2em 0.4em;
-        border-radius: 0.3em;
-        background-color: var(--color-zinc-800);
+      font-family: var(--font-monaspace);
+      font-size: 14px;
+      padding: 0.2em 0.4em;
+      border-radius: 0.3em;
+      background-color: var(--color-zinc-800);
     }
-
+  
     code:not(pre code) span {
-        color: var(--color-zinc-100) !important;
+      color: var(--color-zinc-100) !important;
     }
-}
-
-pre code span {
+  }
+  
+  pre code span {
     font-weight: 500;
-}
-
-hr {
+  }
+  
+  hr {
     color: var(--color-neutral-200);
-}
-
-/* Remove Safari input shadow on mobile */
-input[type='text'],
-input[type='email'] {
+  }
+  
+  /* Remove Safari input shadow on mobile */
+  input[type='text'],
+  input[type='email'] {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-}
-
-table {
+  }
+  
+  table {
     display: block;
     max-width: fit-content;
     overflow-x: auto;
     white-space: nowrap;
-}
-
-.transition-element {
+  }
+  
+  .transition-element {
     view-transition-name: lee;
-}
-
-::view-transition-old(lee) {
+  }
+  
+  ::view-transition-old(lee) {
     animation: fade-out 0.8s ease-in-out;
-}
-
-::view-transition-new(lee) {
+  }
+  
+  ::view-transition-new(lee) {
     animation: fade-in-up 0.4s ease-in-out;
-}
+  }
 .title {
     text-wrap: balance;
 }
 /* addon */
-.webroot {
-    @apply text-white/40;
-}
-.webtree {
-    @apply text-white/60 mr-1;
-}
-.webapp {
-    @apply text-white;
-}
-.webmain {
-    @apply text-white/70;
-}
-.websub {
-    @apply text-white/50;
-}
-.webcontent {
-    @apply transition-all text-white/70 font-semibold hover:text-white;
-}
-.webformat {
-    @apply text-white/30;
-}
-code,
-pre {
-    font-family: var(--font-monaspace);
+
+code, pre {
+  font-family: var(--font-monaspace);
 }
