@@ -45,11 +45,11 @@ export default function Page() {
                         </div>
                         {postlist.map((post) => (
                             <div key={post.slug} className="ml-6">
+                                <span className="webtree">└──</span>
                                 <Link
                                     className="group"
                                     href={`/w/${post.slug}`}
                                 >
-                                    <span className="webtree">└──</span>
                                     <span className="webcontent">
                                         {post.metadata.title}
                                     </span>
