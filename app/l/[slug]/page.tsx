@@ -4,9 +4,6 @@ import path from 'path'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import { formatDate } from '../utils'
 import Footer from 'app/components/footer'
-import { Badge } from 'app/components/ukbadge'
-import Link from 'next/link'
-
 export default async function Page({
     params,
 }: {

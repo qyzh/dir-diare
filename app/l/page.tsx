@@ -1,7 +1,6 @@
 import { LabPosts } from 'app/components/labs'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import Footer from 'app/components/footer'
-import UKDesc from 'app/components/ukDesc'
 
 const title = 'Labs'
 const description =

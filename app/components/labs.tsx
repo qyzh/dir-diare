@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { formatDate, getArtPosts } from 'app/l/utils'
+import { getArtPosts } from 'app/l/utils'
 import { useMemo } from 'react'
 
 interface LabPost {
