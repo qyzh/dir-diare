@@ -1,87 +1,98 @@
 import React from 'react'
-import { Navbar } from './components/nav'
-import FBRecentPost from './components/post-list'
-import Footer  from './components/footer'
-import FBRecentWork from './components/labs-list'
+import Footer from './components/footer'
 import Strava from './components/ukstrava'
-import { DotIcon } from 'lucide-react'
+import { getBlogPosts } from './w/utils'
+import { getArtPosts } from './l/utils'
+import { DiscordStatus } from 'app/components/discord'
 import Link from 'next/link'
 
-
+const postlist = getBlogPosts()
+const artlist = getArtPosts()
 
 export default function Page() {
     return (
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
             <section>
-            <header className='mb-4'>
-            <h1 className="text-2xl text-white/80 hover:text-white font-bold">Wagwan,</h1>
-                    <p className="font-mono text-black/50 dark:text-neutral-500">
-                        Welcome to my little space on internet, place to share my thoughts and ideas,
-                        <span className="transition-all opacity-25 blur-sm hover:opacity-100 hover:blur-[0px]">
-                            {' '}w/o to think about the algorithm of social media.
+                <main className="flex flex-col">
+                    <div>
+                        <span className="webroot">web@dirdiare:</span>
+                        <span className="webmain">greeting</span>
+                        <div className="webcontent">
+                            {'>'} Wagwan fam, welcome to my little simple place
+                            on the internet
+                        </div>
+                    </div>
+                    <div>
+                        <span className="webroot">web@dirdiare:</span>
+                        <span className="webmain">cd dir-diare</span>
+                    </div>
+                    <div className="">
+                        <span className="webcontent">
+                            I am a Communication student who has an interest in
+                            interface design &running . My name import Syauqi
+                            Ashadullah and am currently living in Bandung, West
+                            Java.
                         </span>
-                    </p>
-            </header>
-                    <div className="mb-4">
-                         <FBRecentPost />
                     </div>
-                    <div className="mb-4">
-                         <FBRecentWork />
+                    <div>
+                        <span className="webroot">dir-diare</span>
+                        <span className="webapp">/app</span>
                     </div>
-                    <div className="mb-4">
-                     <Strava />
+                    <div className="ml-4 flex flex-col space-y-2 my-2">
+                        <div>
+                            <span className="webtree">└──</span>
+                            <span className="webmain">tulisan/</span>
+                        </div>
+                        {postlist.map((post) => (
+                            <div key={post.slug} className="ml-6">
+                                <Link
+                                    className="group"
+                                    href={`/w/${post.slug}`}
+                                >
+                                    <span className="webtree">└──</span>
+                                    <span className="webcontent">
+                                        {post.metadata.title}
+                                    </span>
+                                </Link>
+                                <span className="webformat">.mdx</span>
+                            </div>
+                        ))}
+                        <div>
+                            <span className="webtree">└──</span>
+                            <span className="webmain">lab/</span>
+                        </div>
+                        {artlist.map((lab) => (
+                            <div key={lab.slug} className="ml-6">
+                                <Link className="group" href={`/w/${lab.slug}`}>
+                                    <span className="webtree">└──</span>
+                                    <span className="webcontent">
+                                        {lab.metadata.title}
+                                    </span>
+                                </Link>
+                                <span className="webformat">.mdx</span>
+                            </div>
+                        ))}
                     </div>
-                     <UKpageList />
-                <Navbar />
+                    <div>
+                        <span className="webroot mr-1">dir-diare</span>
+                        <span className="webapp">/activity</span>
+                        <div className="ml-4 flex flex-col space-y-2 my-2">
+                            <div>
+                                <span className="webtree">└──</span>
+                                <span className="webmain">strava/</span>
+                                <Strava />
+                            </div>
+
+                            <div>
+                                <span className="webtree">└──</span>
+                                <span className="webmain">discord/</span>
+                                <DiscordStatus />
+                            </div>
+                        </div>
+                    </div>
+                </main>
             </section>
             <Footer />
         </main>
     )
-}
-function UKpageList (){
-    const UKpageLink = [
-        {
-            title: 'w',
-            href: '/w',
-            description: 'My Strava activities in UK',
-        },
-        {
-            title: 'l',
-            href: '/l',
-            description: 'My Strava activities in UK',
-        },
-        {
-            title: 'n',
-            href: '/n',
-            description: 'My Strava activities in UK',
-        },
-        {
-            title: 'r',
-            href: '/r',
-            description: 'My Strava activities in UK',
-        },
-        {
-            title: 'g',
-            href: '/g',
-            description: 'My Strava activities in UK',
-        },
-        {
-            title: 'm',
-            href: '/m',
-            description: 'My Strava activities in UK',
-        }
-    ];
-    return (
-        <div className="flex flex-row justify-center items-center space-x-4">
-            <DotIcon className='w-4 h-4 text-neutral-500' />
-            {UKpageLink.map((item) => (
-                <div key={item.href} className="flex items-center">
-                    <Link href={item.href} className="text-neutral-300 transition-all duration-200 hover:text-white hover:underline">
-                        {item.title}
-                    </Link>
-                </div> 
-            ))}
-            <DotIcon className='w-4 h-4 text-neutral-500' />
-        </div>
-    );
 }
