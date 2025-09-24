@@ -18,8 +18,9 @@ export default function Page() {
                         <span className="webroot">web@dirdiare:</span>
                         <span className="webmain">greeting</span>
                         <div className="webcontent">
-                            {'>'} Wagwan fam, welcome to my little simple place
-                            on the internet
+                            {'>'} Welcome to my little space on internet, place
+                            to share my thoughts and ideas, w/o to think about
+                            the algorithm of social media.
                         </div>
                     </div>
                     <div>
@@ -28,10 +29,10 @@ export default function Page() {
                     </div>
                     <div className="">
                         <span className="webcontent">
-                            I am a Communication student who has an interest in
-                            interface design &running . My name import Syauqi
-                            Ashadullah and am currently living in Bandung, West
-                            Java.
+                            {'>'} I am a Communication student who has an
+                            interest in interface design &running . My name
+                            import Syauqi Ashadullah and am currently living in
+                            Bandung, West Java.
                         </span>
                     </div>
                     <div>
