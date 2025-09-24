@@ -54,7 +54,7 @@ export function DiscordStatus() {
                             )}
                             {activity.state && (
                                 <span>
-                                    {activity.details ? ' @ ' : ''}
+                                    {/*  {activity.details ? ' @ ' : ''} */}-
                                     {activity.state}
                                 </span>
                             )}
