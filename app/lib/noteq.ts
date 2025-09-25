@@ -1,5 +1,4 @@
 import clientPromise from './mongodb'
-import { ObjectId } from 'mongodb'
 
 export interface noteQ {
     _id: string
@@ -30,3 +29,4 @@ export async function getNoteQ(): Promise<noteQ[]> {
             }) as noteQ
     )
 }
+

@@ -1,4 +1,4 @@
-import { getPostBySlug, getAllPosts, Post } from 'app/lib/posts'
+import { getPostBySlug, getAllPosts } from 'app/lib/posts'
 import { notFound } from 'next/navigation'
 import { Navbar } from 'app/components/nav'
 import Breadcrumbs from 'app/components/breadcrumbs'

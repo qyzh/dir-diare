@@ -29,31 +29,6 @@ function parseFrontmatter(fileContent: string) {
     return { metadata: metadata as Metadata, content }
 }
 
-function getMDXFiles(dir) {
-    return fs.readdirSync(dir).filter((file) => path.extname(file) === '.mdx')
-}
-
-function readMDXFile(filePath) {
-    let rawContent = fs.readFileSync(filePath, 'utf-8')
-    return parseFrontmatter(rawContent)
-}
-
-function getMDXData(dir) {
-    let mdxFiles = getMDXFiles(dir)
-    return mdxFiles.map((file) => {
-        let { metadata, content } = readMDXFile(path.join(dir, file))
-        let slug = path.basename(file, path.extname(file))
-
-        return {
-            metadata,
-            slug,
-            content,
-        }
-    })
-}
-
-
-
 export function formatDate(date: string, includeRelative = false) {
     let currentDate = new Date()
     if (!date.includes('T')) {

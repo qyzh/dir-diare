@@ -1,52 +1,52 @@
-import Link from 'next/link';
-import { getAllPosts } from 'app/lib/posts';
-import { formatDate } from 'app/w/utils';
+import Link from 'next/link'
+import { getAllPosts } from 'app/lib/posts'
 
 interface BlogPost {
-  _id: string;
-  slug: string;
-  title: string;
-  publishedAt: string;
-  summary?: string;
-  image?: string;
+    _id: string
+    slug: string
+    title: string
+    publishedAt: string
+    summary?: string
+    image?: string
 }
 
 interface PostCardProps {
-  post: BlogPost;
+    post: BlogPost
 }
 
 const PostCard = ({ post }: PostCardProps) => {
-  return (
-    <>
-      <div key={post.slug}>
-        <span className="webtree">└──</span>
-        <Link
-          key={post.slug}
-          className="group text-lg transition-colors duration-200"
-          href={`/w/${post.slug}`}
-          aria-label={`Read blog post: ${post.title}`}
-        >
-          {post.title}
-        </Link>
-      </div>
-    </>
-  );
-};
+    return (
+        <>
+            <div key={post.slug}>
+                <span className="webtree">└──</span>
+                <Link
+                    key={post.slug}
+                    className="group text-lg transition-colors duration-200"
+                    href={`/w/${post.slug}`}
+                    aria-label={`Read blog post: ${post.title}`}
+                >
+                    {post.title}
+                </Link>
+            </div>
+        </>
+    )
+}
 
 export async function BlogPosts() {
-  const allBlogs = await getAllPosts();
+    const allBlogs = await getAllPosts()
 
-  return (
-    <div role="list" aria-label="Blog posts" className="group">
-      <div>
-        <span className="webtree">└──</span>
-        <span className="webmain">tulisan/</span>
-      </div>
-      <div className="ml-6 ">
-        {allBlogs.map((post) => (
-          <PostCard key={post.slug} post={post} />
-        ))}
-      </div>
-    </div>
-  );
+    return (
+        <div role="list" aria-label="Blog posts" className="group">
+            <div>
+                <span className="webtree">└──</span>
+                <span className="webmain">tulisan/</span>
+            </div>
+            <div className="ml-6 ">
+                {allBlogs.map((post) => (
+                    <PostCard key={post.slug} post={post} />
+                ))}
+            </div>
+        </div>
+    )
 }
+

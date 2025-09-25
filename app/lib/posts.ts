@@ -1,5 +1,4 @@
 import clientPromise from './mongodb'
-import { ObjectId } from 'mongodb'
 
 export interface Post {
     _id: string
@@ -100,4 +99,3 @@ export async function updatePost(
 
     return null
 }
-
