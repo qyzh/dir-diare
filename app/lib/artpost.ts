@@ -1,5 +1,5 @@
 import clientPromise from './mongodb'
-import { ObjectId } from 'mongodb'
+/* import { ObjectId } from 'mongodb' */
 
 export interface ArtPost {
     _id: string

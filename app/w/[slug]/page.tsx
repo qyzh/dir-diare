@@ -1,10 +1,8 @@
 import { getPostBySlug, getAllPosts } from 'app/lib/posts'
 import { notFound } from 'next/navigation'
-import { Navbar } from 'app/components/nav'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import Comments from 'app/components/comments'
 import Footer from 'app/components/footer'
-import Link from 'next/link'
 import { formatDate } from '../utils'
 import { Metadata } from 'next'
 import { MDXRemote } from 'next-mdx-remote/rsc'
@@ -62,7 +60,6 @@ export default async function Page({
     return (
         <section className="max-w-4xl mx-auto">
             <Breadcrumbs post={{ metadata: { title: post.title } }} />
-            <Navbar />
             <h1 className="text-3xl font-bold mb-3">
                 {post.title || post.slug.replace(/-/g, ' ')}
             </h1>
