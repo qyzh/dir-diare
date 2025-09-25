@@ -93,7 +93,30 @@ const Activities: React.FC<ActivitiesProps> = React.memo(
         const latestActivity = useMemo(() => activities[0], [activities])
 
         if (isLoading) {
-            return <div></div>
+            return (
+                <div className="block ml-6">
+                    <div>
+                        <span className="webtree">└──</span>
+                        <span className="websub">title/</span>
+                        <span className="webcontent">....</span>
+                    </div>
+                    <div>
+                        <span className="webtree">└──</span>
+                        <span className="websub">date/</span>
+                        <span className="webcontent">...</span>
+                    </div>
+                    <div>
+                        <span className="webtree">└──</span>
+                        <span className="websub">time/</span>
+                        <span className="webcontent">.... </span>
+                    </div>
+                    <div>
+                        <span className="webtree">└──</span>
+                        <span className="websub">distance/</span>
+                        <span className="webcontent">.... </span>
+                    </div>
+                </div>
+            )
         }
 
         if (!activities.length) return null
