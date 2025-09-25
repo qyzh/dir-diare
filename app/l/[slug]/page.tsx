@@ -1,88 +1,100 @@
-import { readdir } from 'fs/promises'
-import fs from 'fs'
-import path from 'path'
+import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
+import { getPost, getartPosts } from 'app/lib/artpost'
+import { formatDate } from 'app/w/utils'
 import Breadcrumbs from 'app/components/breadcrumbs'
-import { formatDate } from '../utils'
 import Footer from 'app/components/footer'
-export default async function Page({
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { useMDXComponents } from '../../../mdx-components'
+
+const components = useMDXComponents()
+export async function generateStaticParams() {
+    const posts = await getartPosts()
+    return posts.map((post) => ({ slug: post.slug }))
+}
+
+export async function generateMetadata({
     params,
-}: {
-    params: Promise<{ slug: string }>
-}) {
-    const { slug } = await params
-    const filePath = path.join(process.cwd(), 'art', `${slug}.mdx`)
-    const fileContent = fs.readFileSync(filePath, 'utf-8')
-
-    // Parse frontmatter
-    const frontmatterRegex = /---\s*([\s\S]*?)\s*---/
-    const match = frontmatterRegex.exec(fileContent)
-    const frontMatterBlock = match?.[1] || ''
-    const metadata: Record<string, string> = {}
-
-    const capitalizeFirstLetter = (str: string) => {
-        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+}): Promise<Metadata | undefined> {
+    const post = await getPost(params.slug)
+    if (!post) {
+        return
     }
 
-    frontMatterBlock.split('\n').forEach((line) => {
-        const [key, ...valueArr] = line.split(': ')
-        if (key && valueArr.length) {
-            const value = valueArr.join(': ').trim()
-            metadata[key.trim()] = value.replace(/^['"](.*)['"]$/, '$1')
-        }
-    })
+    const { title, publishedAt: publishedTime, summary: description } = post
+    const ogImage = `https://kynoci.com/og?title=${title}`
 
-    const { default: Lab } = await import(`../../../art/${slug}.mdx`)
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            type: 'article',
+            publishedTime,
+            url: `https://kynoci.com/l/${post.slug}`,
+            images: [
+                {
+                    url: ogImage,
+                },
+            ],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title,
+            description,
+            images: [ogImage],
+        },
+    }
+}
+
+export default async function ArtPost({ params }) {
+    const post = await getPost(params.slug)
+
+    if (!post) {
+        notFound()
+    }
 
     return (
         <section>
             <Breadcrumbs />
-            <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
-                {metadata.publishedAt
-                    ? formatDate(metadata.publishedAt)
-                    : 'Unknown date'}
-            </time>
-            <h1 className="text-xl font-bold mt-2 uppercase">
-                {metadata.title || slug.replace(/-/g, ' ')}
-            </h1>
-
-            <p className="text-black/50 dark:text-neutral-500 font-mono my-4">
-                {metadata.summary || ''}
-            </p>
-
-            <div className="max-w-none">
-                {metadata.image && (
-                    <img
-                        src={metadata.image}
-                        alt={metadata.title}
-                        className="rounded-lg shadow-md"
-                    />
-                )}
-                <Lab />
-            </div>
-            {metadata.tags && (
-                <p className="text-sm py-2 text-black dark:text-white">
-                    Tags {''}:{' '}
-                    <span className="font-mono text-neutral-300 dark:text-neutral-300 dark:hover:text-neutral-50">
-                        {metadata.tags
-                            .split(',')
-                            .map((tag) => capitalizeFirstLetter(tag.trim()))
-                            .join(', ')}
-                    </span>
+            <script
+                type="application/ld+json"
+                suppressHydrationWarning
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        '@context': 'https://schema.org',
+                        '@type': 'BlogPosting',
+                        headline: post.title,
+                        datePublished: post.publishedAt,
+                        dateModified: post.publishedAt,
+                        description: post.summary,
+                        image: `https://kynoci.com/og?title=${post.title}`,
+                        url: `https://kynoci.com/l/${post.slug}`,
+                        author: {
+                            '@type': 'Person',
+                            name: 'Kynoci',
+                        },
+                    }),
+                }}
+            />
+            <div className="flex justify-between items-center mt-2  text-sm max-w-[650px]">
+                <p className="text-sm text-neutral-600 dark:text-neutral-400">
+                    {formatDate(post.publishedAt)}
                 </p>
-            )}
+            </div>
+            <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+                {post.title}
+            </h1>
+            <img
+                src={`${post.image}`}
+                alt="Post Image"
+                className="w-full h-auto mb-4 rounded-lg"
+            />
+            <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+                <MDXRemote source={post.content} components={components} />
+            </article>
             <Footer />
         </section>
     )
 }
-
-export async function generateStaticParams() {
-    const contentDir = path.join(process.cwd(), 'art')
-    const files = await readdir(contentDir)
-    const mdxFiles = files.filter((file) => file.endsWith('.mdx'))
-
-    return mdxFiles.map((file) => ({
-        slug: file.replace('.mdx', ''),
-    }))
-}
-
-export const dynamicParams = false

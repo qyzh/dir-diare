@@ -1,69 +1,55 @@
 import Link from 'next/link'
-import { getArtPosts } from 'app/l/utils'
-import { useMemo } from 'react'
+import { getartPosts } from 'app/lib/artpost'
 
-interface LabPost {
+interface ArtPost {
+    _id: string
     slug: string
-    metadata: {
-        title: string
-        publishedAt: string
-        summary: string
-        image?: string
-        category?: string
-        languages?: string
-        tags?: string
-    }
+    title: string
+    publishedAt: string
+    summary: string
+    tag: string
+    image?: string
 }
 
-interface LabCardProps {
-    post: LabPost
-    isLatest: boolean
+interface PostCardProps {
+    post: ArtPost
 }
 
-const LabCard = ({ post, isLatest }: LabCardProps) => {
+const PostCard = ({ post }: PostCardProps) => {
     return (
-        <div>
-            <div className="ml-6">
+        <>
+            <div key={post.slug}>
                 <span className="webtree">└──</span>
                 <Link
+                    key={post.slug}
+                    className="group text-lg webcontent"
                     href={`/l/${post.slug}`}
-                    className="webcontent group font-medium"
-                    aria-label={`Link to ${post.metadata.title}`}
+                    aria-label={`Read art post: ${post.title}`}
                 >
-                    {post.metadata.title}
+                    {post.title}
                 </Link>
-                <div className=" ml-8 group-hover:block">
-                    <span className="text-xs webformat">
-                        {'>'} {post.metadata.summary}
-                    </span>
+                <div className="text-sm webformat ml-8">
+                    {'>'} {post.summary}
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 
-export function LabPosts() {
-    const allLabs = getArtPosts()
-
-    const sortedLabs = useMemo(
-        () =>
-            [...allLabs].sort(
-                (a, b) =>
-                    new Date(b.metadata.publishedAt).getTime() -
-                    new Date(a.metadata.publishedAt).getTime()
-            ),
-        [allLabs]
-    )
+export async function ArtPosts() {
+    const allPosts = await getartPosts()
 
     return (
-        <div role="list" aria-label="Lab posts" className="group">
+        <div role="list" aria-label="Art posts" className="group">
             <div>
                 <span className="webtree">└──</span>
-                <span className="webmain">lab/</span>
+                <span className="webmain">Art/</span>
             </div>
-            {sortedLabs.map((post, index) => (
-                <LabCard key={post.slug} post={post} isLatest={index === 0} />
-            ))}
+            <div className="ml-6 ">
+                {allPosts.map((post) => (
+                    <PostCard key={post.slug} post={post} />
+                ))}
+            </div>
         </div>
     )
 }

@@ -1,10 +1,10 @@
-import { LabPosts } from 'app/components/labs'
+import { ArtPosts } from 'app/components/labs'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import Footer from 'app/components/footer'
 
-const title = 'Labs'
+const title = 'Art'
 const description =
-    ' a collection of recent things I’ve crafted, worked on, or just tried for fun.'
+    'a collection of recent things I’ve crafted, worked on, or just tried for fun.'
 export const metadata = {
     title: `${title}`,
     description: `${description}`,
@@ -14,7 +14,7 @@ export default function Page() {
     return (
         <section>
             <Breadcrumbs />
-            <LabPosts />
+            <ArtPosts />
             <Footer />
         </section>
     )

@@ -12,7 +12,6 @@ import { useMDXComponents } from '../../../mdx-components'
 
 const components = useMDXComponents()
 
-// Generate metadata for the page
 export async function generateMetadata({
     params,
 }: {
@@ -54,10 +53,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
     const formattedDate = post.publishedAt
         ? formatDate(post.publishedAt)
         : 'Unknown date'
-
-    // The content could be HTML, MDX, or plain text depending on what's stored in MongoDB
-    // MDXRemote will render it properly as long as it's valid MDX content
-
     return (
         <section className="max-w-4xl mx-auto">
             <Breadcrumbs post={{ metadata: { title: post.title } }} />
@@ -66,25 +61,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 {post.title || post.slug.replace(/-/g, ' ')}
             </h1>
             <div className="flex items-center space-x-2 my-4">
-                <div className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
-                    <div className="flex items-center gap-2">
-                        <img
-                            src="/images/profil.jpg"
-                            alt="Author avatar"
-                            className="w-5 h-5 rounded-full bg-teal-300"
-                        />
-                        <Link
-                            href="/about"
-                            className="text-black dark:text-white hover:text-emerald-300 transition-colors duration-200"
-                            title="About the author"
-                        >
-                            {post.author || 'qyzh'}
-                        </Link>
-                    </div>
-                </div>
-                <span className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
-                    •
-                </span>
                 <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
                     {formattedDate}
                 </time>
@@ -137,7 +113,6 @@ export async function generateStaticParams() {
         .filter(Boolean)
 }
 
-// Set to true if you want to allow new posts to be fetched without rebuilding
 export const dynamicParams = true
 
-export const revalidate = 3600 // Revalidate the data at most every hour
+export const revalidate = 3600
