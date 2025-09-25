@@ -52,9 +52,7 @@ function getMDXData(dir) {
     })
 }
 
-export function getArtPosts() {
-    return getMDXData(path.join(process.cwd(), 'art'))
-}
+
 
 export function formatDate(date: string, includeRelative = false) {
     let currentDate = new Date()

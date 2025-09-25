@@ -18,7 +18,7 @@ async function getDb() {
     return client.db('dirmain')
 }
 
-export async function getPosts(): Promise<Post[]> {
+export async function getAllPosts(): Promise<Post[]> {
     const db = await getDb()
     const posts = await db
         .collection('dirpost')
@@ -31,11 +31,11 @@ export async function getPosts(): Promise<Post[]> {
             ({
                 ...post,
                 _id: post._id.toString(),
-            } as Post)
+            }) as Post
     )
 }
 
-export async function getPost(slug: string): Promise<Post | null> {
+export async function getPostBySlug(slug: string): Promise<Post | null> {
     const db = await getDb()
     const post = await db.collection('dirpost').findOne({ slug })
 
@@ -100,3 +100,4 @@ export async function updatePost(
 
     return null
 }
+

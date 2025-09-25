@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb'
 
 export interface noteQ {
     _id: string
-    date: timestamp
+    date: string
     note: string
     author?: string
     source?: string
@@ -27,6 +27,6 @@ export async function getNoteQ(): Promise<noteQ[]> {
             ({
                 ...post,
                 _id: post._id.toString(),
-            }) as artPost
+            }) as noteQ
     )
 }

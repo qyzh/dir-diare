@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getPosts } from 'app/lib/posts';
+import { getAllPosts } from 'app/lib/posts';
 import { formatDate } from 'app/w/utils';
 
 interface BlogPost {
@@ -7,8 +7,7 @@ interface BlogPost {
   slug: string;
   title: string;
   publishedAt: string;
-  summary: string;
-  tag: string;
+  summary?: string;
   image?: string;
 }
 
@@ -35,7 +34,7 @@ const PostCard = ({ post }: PostCardProps) => {
 };
 
 export async function BlogPosts() {
-  const allBlogs = await getPosts();
+  const allBlogs = await getAllPosts();
 
   return (
     <div role="list" aria-label="Blog posts" className="group">
@@ -51,4 +50,3 @@ export async function BlogPosts() {
     </div>
   );
 }
-

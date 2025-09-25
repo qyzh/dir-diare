@@ -1,13 +1,12 @@
 import Link from 'next/link'
-import { getartPosts } from 'app/lib/artpost'
+import { getAllArtPosts } from 'app/lib/artpost'
 
 interface ArtPost {
     _id: string
     slug: string
     title: string
     publishedAt: string
-    summary: string
-    tag: string
+    summary?: string
     image?: string
 }
 
@@ -37,7 +36,7 @@ const PostCard = ({ post }: PostCardProps) => {
 }
 
 export async function ArtPosts() {
-    const allPosts = await getartPosts()
+    const allPosts = await getAllArtPosts()
 
     return (
         <div role="list" aria-label="Art posts" className="group">
@@ -53,3 +52,4 @@ export async function ArtPosts() {
         </div>
     )
 }
+

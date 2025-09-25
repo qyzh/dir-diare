@@ -1,4 +1,4 @@
-import { getPost, getPosts, Post } from 'app/lib/posts'
+import { getPostBySlug, getAllPosts, Post } from 'app/lib/posts'
 import { notFound } from 'next/navigation'
 import { Navbar } from 'app/components/nav'
 import Breadcrumbs from 'app/components/breadcrumbs'
@@ -15,9 +15,10 @@ const components = useMDXComponents()
 export async function generateMetadata({
     params,
 }: {
-    params: { slug: string }
+    params: Promise<{ slug: string }>
 }): Promise<Metadata> {
-    const post = await getPost(params.slug)
+    const { slug } = await params
+    const post = await getPostBySlug(slug)
 
     if (!post) {
         return {
@@ -43,8 +44,13 @@ export async function generateMetadata({
     }
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-    const post = await getPost(params.slug)
+export default async function Page({
+    params,
+}: {
+    params: Promise<{ slug: string }>
+}) {
+    const { slug } = await params
+    const post = await getPostBySlug(slug)
 
     if (!post) {
         notFound()
@@ -100,7 +106,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
 }
 
 export async function generateStaticParams() {
-    const posts = await getPosts()
+    const posts = await getAllPosts()
 
     return posts
         .map((post) => {

@@ -1,7 +1,7 @@
 import clientPromise from './mongodb'
 import { ObjectId } from 'mongodb'
 
-export interface artPost {
+export interface ArtPost {
     _id: string
     slug: string
     title: string
@@ -11,6 +11,7 @@ export interface artPost {
     updatedAt?: string
     tags?: string[]
     author?: string
+    image?: string
 }
 
 async function getDb() {
@@ -18,7 +19,7 @@ async function getDb() {
     return client.db('dirmain')
 }
 
-export async function getartPosts(): Promise<artPost[]> {
+export async function getAllArtPosts(): Promise<ArtPost[]> {
     const db = await getDb()
     const posts = await db
         .collection('dirart')
@@ -31,11 +32,11 @@ export async function getartPosts(): Promise<artPost[]> {
             ({
                 ...post,
                 _id: post._id.toString(),
-            }) as artPost
+            }) as ArtPost
     )
 }
 
-export async function getPost(slug: string): Promise<artPost | null> {
+export async function getArtPostBySlug(slug: string): Promise<ArtPost | null> {
     const db = await getDb()
     const post = await db.collection('dirart').findOne({ slug })
 
@@ -45,13 +46,15 @@ export async function getPost(slug: string): Promise<artPost | null> {
         return {
             ...post,
             _id: post._id.toString(),
-        } as artPost
+        } as ArtPost
     }
 
     return null
 }
 
-export async function createPost(post: Omit<artPost, '_id'>): Promise<artPost> {
+export async function createArtPost(
+    post: Omit<ArtPost, '_id'>
+): Promise<ArtPost> {
     const db = await getDb()
     const now = new Date().toISOString()
 
@@ -66,13 +69,13 @@ export async function createPost(post: Omit<artPost, '_id'>): Promise<artPost> {
     return {
         ...postToInsert,
         _id: result.insertedId.toString(),
-    } as artPost
+    } as ArtPost
 }
 
-export async function updatePost(
+export async function updateArtPost(
     slug: string,
-    post: Partial<artPost>
-): Promise<artPost | null> {
+    post: Partial<ArtPost>
+): Promise<ArtPost | null> {
     const db = await getDb()
     const now = new Date().toISOString()
 
@@ -95,7 +98,7 @@ export async function updatePost(
         return {
             ...result,
             _id: result._id.toString(),
-        } as artPost
+        } as ArtPost
     }
 
     return null
