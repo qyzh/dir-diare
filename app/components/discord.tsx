@@ -22,7 +22,20 @@ export function DiscordStatus() {
     }, [status])
 
     if (loading || !status?.discord_user) {
-        return <div className="flex items-center space-x-3"></div>
+        return (
+            <div className="ml-6">
+                <div>
+                    <span className="webtree">└──</span>
+                    <span className="websub">username/</span>
+                    <span className="webcontent">...</span>
+                </div>
+                <div>
+                    <span className="webtree">└──</span>
+                    <span className="websub">activity/</span>
+                    <span className="webcontent">...</span>
+                </div>
+            </div>
+        )
     }
 
     const statusColor =
@@ -54,7 +67,7 @@ export function DiscordStatus() {
                             )}
                             {activity.state && (
                                 <span>
-                                    {activity.details ? ' @ ' : ''}
+                                    {/*  {activity.details ? ' @ ' : ''} */}-
                                     {activity.state}
                                 </span>
                             )}

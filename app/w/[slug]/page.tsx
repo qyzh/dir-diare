@@ -1,11 +1,46 @@
-import { readdir } from 'fs/promises'
-import fs from 'fs'
-import path from 'path'
+import { getPostBySlug, getAllPosts } from 'app/lib/posts'
+import { notFound } from 'next/navigation'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import Comments from 'app/components/comments'
-import { formatDate } from '../utils'
 import Footer from 'app/components/footer'
-import Link from 'next/link'
+import { formatDate } from '../utils'
+import { Metadata } from 'next'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import { useMDXComponents } from '../../../mdx-components'
+
+const components = useMDXComponents()
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+    const { slug } = await params
+    const post = await getPostBySlug(slug)
+
+    if (!post) {
+        return {
+            title: 'Post Not Found',
+            description: 'The requested post could not be found',
+        }
+    }
+
+    return {
+        title: post.title,
+        description:
+            post.summary || `Read ${post.title} by ${post.author || 'qyzh'}`,
+        openGraph: {
+            title: post.title,
+            description:
+                post.summary ||
+                `Read ${post.title} by ${post.author || 'qyzh'}`,
+            type: 'article',
+            publishedTime: post.publishedAt,
+            authors: [post.author || 'qyzh'],
+            tags: post.tags,
+        },
+    }
+}
 
 export default async function Page({
     params,
@@ -13,44 +48,54 @@ export default async function Page({
     params: Promise<{ slug: string }>
 }) {
     const { slug } = await params
-    const filePath = path.join(process.cwd(), 'content', `${slug}.mdx`)
-    const fileContent = fs.readFileSync(filePath, 'utf-8')
+    const post = await getPostBySlug(slug)
 
-    // Parse frontmatter
-    const frontmatterRegex = /---\s*([\s\S]*?)\s*---/
-    const match = frontmatterRegex.exec(fileContent)
-    const frontMatterBlock = match?.[1] || ''
-    const metadata: Record<string, string> = {}
+    if (!post) {
+        notFound()
+    }
 
-    frontMatterBlock.split('\n').forEach((line) => {
-        const [key, ...valueArr] = line.split(': ')
-        if (key && valueArr.length) {
-            const value = valueArr.join(': ').trim()
-            metadata[key.trim()] = value.replace(/^['"](.*)['"]$/, '$1')
-        }
-    })
-
-    const { default: Post } = await import(`../../../content/${slug}.mdx`)
-
+    const formattedDate = post.publishedAt
+        ? formatDate(post.publishedAt)
+        : 'Unknown date'
     return (
-        <section>
-            <Breadcrumbs />
-            <h1 className="text-xl font-bold ">
-                {metadata.title || slug.replace(/-/g, ' ')}
+        <section className="max-w-4xl mx-auto">
+            <Breadcrumbs post={{ metadata: { title: post.title } }} />
+            <h1 className="text-3xl font-bold mb-3">
+                {post.title || post.slug.replace(/-/g, ' ')}
             </h1>
-            <div className="flex items-center space-x-2 my-2">
+            <div className="flex items-center space-x-2 my-4">
                 <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
-                    {metadata.publishedAt
-                        ? formatDate(metadata.publishedAt)
-                        : 'Unknown date'}
+                    {formattedDate}
                 </time>
             </div>
-            <p className="text-black/50 dark:text-neutral-500 font-mono my-4">
-                {metadata.summary || ''}
-            </p>
-            <div className="max-w-none">
-                <Post />
-            </div>
+
+            {post.summary && (
+                <p className="text-black/50 dark:text-neutral-500 font-mono my-6 text-lg border-l-4 border-neutral-700 pl-4 italic">
+                    {post.summary}
+                </p>
+            )}
+
+            <article className="max-w-none prose dark:prose-invert prose-lg prose-headings:font-bold prose-headings:text-black dark:prose-headings:text-white/90 prose-p:text-black/80 dark:prose-p:text-neutral-300 prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline my-8">
+                <MDXRemote source={post.content} components={components} />
+            </article>
+
+            {post.tags && post.tags.length > 0 && (
+                <div className="mt-6 border-y border-neutral-300 dark:border-neutral-700 py-3">
+                    <p className="text-sm text-black dark:text-white flex items-center gap-2">
+                        <span className="font-bold">Tags:</span>
+                        <span className="font-mono text-neutral-600 dark:text-neutral-400">
+                            {post.tags
+                                .map(
+                                    (tag) =>
+                                        tag.charAt(0).toUpperCase() +
+                                        tag.slice(1).toLowerCase()
+                                )
+                                .join(', ')}
+                        </span>
+                    </p>
+                </div>
+            )}
+
             <Comments />
             <Footer />
         </section>
@@ -58,14 +103,19 @@ export default async function Page({
 }
 
 export async function generateStaticParams() {
-    const contentDir = path.join(process.cwd(), 'content')
-    const files = await readdir(contentDir)
-    const mdxFiles = files.filter((file) => file.endsWith('.mdx'))
+    const posts = await getAllPosts()
 
-    return mdxFiles.map((file) => ({
-        slug: file.replace('.mdx', ''),
-    }))
+    return posts
+        .map((post) => {
+            if (!post.slug) {
+                console.warn(`Post without slug found: ${post._id}`)
+                return null
+            }
+            return { slug: post.slug }
+        })
+        .filter(Boolean)
 }
 
-export const dynamicParams = false
+export const dynamicParams = true
 
+export const revalidate = 3600

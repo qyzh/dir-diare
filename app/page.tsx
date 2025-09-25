@@ -1,15 +1,15 @@
 import React from 'react'
 import Footer from './components/footer'
 import Strava from './components/ukstrava'
-import { getBlogPosts } from './w/utils'
-import { getArtPosts } from './l/utils'
+import { getAllPosts } from 'app/lib/posts'
+import { getAllArtPosts } from 'app/lib/artpost'
 import { DiscordStatus } from 'app/components/discord'
 import Link from 'next/link'
 
-const postlist = getBlogPosts()
-const artlist = getArtPosts()
+export default async function Page() {
+    const postlist = await getAllPosts()
+    const artlist = await getAllArtPosts()
 
-export default function Page() {
     return (
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
             <section>
@@ -45,14 +45,14 @@ export default function Page() {
                             <span className="webmain">tulisan/</span>
                         </div>
                         {postlist.map((post) => (
-                            <div key={post.slug} className="ml-6">
+                            <div key={post._id} className="ml-6">
                                 <span className="webtree">└──</span>
                                 <Link
                                     className="group"
                                     href={`/w/${post.slug}`}
                                 >
                                     <span className="webcontent">
-                                        {post.metadata.title}
+                                        {post.title}
                                     </span>
                                 </Link>
                                 <span className="webformat">.mdx</span>
@@ -67,7 +67,7 @@ export default function Page() {
                                 <Link className="group" href={`/l/${lab.slug}`}>
                                     <span className="webtree">└──</span>
                                     <span className="webcontent">
-                                        {lab.metadata.title}
+                                        {lab.title}
                                     </span>
                                 </Link>
                                 <span className="webformat">.mdx</span>

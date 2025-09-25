@@ -1,14 +1,12 @@
-import { getBlogPosts } from '../w/utils'
+import { getAllPosts } from 'app/lib/posts'
 import Link from 'next/link'
 import { Suspense } from 'react'
 
 interface Post {
-  slug: string
-  metadata: {
-    title: string
-    publishedAt: string
-    summary: string
-  }
+  slug: string;
+  title: string;
+  publishedAt: string;
+  summary?: string;
 }
 
 const LoadingFallback = () => (
@@ -22,12 +20,12 @@ const LoadingFallback = () => (
 
 const sortPostsByDate = (posts: Post[]) => {
   return posts.sort((a, b) =>
-    new Date(b.metadata.publishedAt).getTime() - new Date(a.metadata.publishedAt).getTime()
+    new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
   )
 }
 
 const FeaturedBlogPostsList = async () => {
-  const featuredPosts = await getBlogPosts()
+  const featuredPosts = await getAllPosts()
   const sortedPosts = sortPostsByDate(featuredPosts).slice(0, 4)
 
   return (
@@ -41,10 +39,10 @@ const FeaturedBlogPostsList = async () => {
           <div className='flex'>
             <div className='flex flex-col w-full place-self-center'>
               <h4 className='text-black/60 dark:text-white/80 font-bold tracking-wider group-hover:text-black dark:group-hover:text-white transition-all'>
-                {post.metadata.title}
+                {post.title}
               </h4>
               <p className=' text-black/50 dark:text-neutral-500 text-sm group-hover:text-black/60 dark:group-hover:text-neutral-300 truncate overflow-hidden'>
-                {post.metadata.summary}
+                {post.summary}
               </p>
             </div>
           </div>

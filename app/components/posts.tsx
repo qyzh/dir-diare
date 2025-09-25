@@ -1,30 +1,20 @@
 import Link from 'next/link'
-import { formatDate, getBlogPosts } from 'app/w/utils'
-import { useMemo } from 'react'
+import { getAllPosts } from 'app/lib/posts'
 
 interface BlogPost {
+    _id: string
     slug: string
-    metadata: {
-        title: string
-        publishedAt: string
-        summary: string
-        tag: string
-        image?: string
-    }
+    title: string
+    publishedAt: string
+    summary?: string
+    image?: string
 }
 
 interface PostCardProps {
     post: BlogPost
-    isLatest: boolean
 }
 
-const PostCard = ({ post, isLatest }: PostCardProps) => {
-    const formattedDate = formatDate(
-        post.metadata.publishedAt,
-        true,
-        'short-month-date'
-    )
-
+const PostCard = ({ post }: PostCardProps) => {
     return (
         <>
             <div key={post.slug}>
@@ -33,26 +23,17 @@ const PostCard = ({ post, isLatest }: PostCardProps) => {
                     key={post.slug}
                     className="group text-lg transition-colors duration-200"
                     href={`/w/${post.slug}`}
-                    aria-label={`Read blog post: ${post.metadata.title}`}
+                    aria-label={`Read blog post: ${post.title}`}
                 >
-                    {post.metadata.title}
+                    {post.title}
                 </Link>
             </div>
         </>
     )
 }
 
-export function BlogPosts() {
-    const allBlogs = getBlogPosts()
-
-    const sortedBlogs = useMemo(() => {
-        return [...allBlogs].sort((a, b) => {
-            return (
-                new Date(b.metadata.publishedAt).getTime() -
-                new Date(a.metadata.publishedAt).getTime()
-            )
-        })
-    }, [allBlogs])
+export async function BlogPosts() {
+    const allBlogs = await getAllPosts()
 
     return (
         <div role="list" aria-label="Blog posts" className="group">
@@ -61,14 +42,11 @@ export function BlogPosts() {
                 <span className="webmain">tulisan/</span>
             </div>
             <div className="ml-6 ">
-                {sortedBlogs.map((post, index) => (
-                    <PostCard
-                        key={post.slug}
-                        post={post}
-                        isLatest={index === 0}
-                    />
+                {allBlogs.map((post) => (
+                    <PostCard key={post.slug} post={post} />
                 ))}
             </div>
         </div>
     )
 }
+
