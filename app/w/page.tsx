@@ -1,3 +1,4 @@
+import { Navbar } from 'app/components/nav'
 import { BlogPosts } from 'app/components/posts'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import Footer from 'app/components/footer'
@@ -12,10 +13,14 @@ export const metadata = {
 
 export default function Page() {
     return (
-        <section>
+        <section className="max-w-4xl mx-auto">
             <Breadcrumbs />
+            <Navbar />
+            <UKDesc title="w" description={description} />
             <BlogPosts />
             <Footer />
         </section>
     )
 }
+
+export const revalidate = 3600 // Revalidate this page every hour
