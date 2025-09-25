@@ -48,7 +48,7 @@ export default function RootLayout({
                 monaspace.variable
             )}
         >
-            <body className="antialiased tracking-tight bg-white dark:bg-neutral-950 text-black dark:text-neutral-100">
+            <body className="antialiased tracking-tight bg-neutral-950 text-neutral-100">
                 <main className="max-w-2xl mb-40 flex flex-col">
                     {children}
                 </main>
