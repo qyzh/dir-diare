@@ -19,9 +19,9 @@ export default async function Notes() {
             <Breadcrumbs />
             <main>
                 <NowPlay />
-                <UKpathdir name="top-10-tracks" type="tsx" />
+                <UKpathdir name="top10tracks" type="tsx" />
                 <UKtracks />
-                <UKpathdir name="my-playlist" type="tsx" />
+                <UKpathdir name="myplaylist" type="tsx" />
                 <PlaylistGrid />
             </main>
             <Footer />
