@@ -1,11 +1,6 @@
 import React from 'react'
 import type { Metadata } from 'next'
-import {
-    AnimatedAbove,
-    AnimatedZoom,
-    AnimatedRight,
-    AnimatedBelow,
-} from 'app/components/animated-section'
+import { AnimatedZoom, AnimatedRight } from 'app/components/animated-section'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import Footer from 'app/components/footer'
 import UKpathdir from 'app/components/ukpathdir'
