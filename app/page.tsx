@@ -1,4 +1,5 @@
 import React from 'react'
+import UkHeaderAscii from './components/ukheaderascii'
 import Footer from './components/footer'
 import Strava from './components/ukstrava'
 import { getAllPosts } from 'app/lib/posts'
@@ -14,6 +15,11 @@ export default async function Page() {
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
             <section>
                 <main className="flex flex-col">
+                    <div>
+                        <span className="webroot">web@dirdiare:</span>
+                        <span className="webmain">verfetch</span>
+                        <UkHeaderAscii />
+                    </div>
                     <div>
                         <span className="webroot">web@dirdiare:</span>
                         <span className="webmain">greeting</span>
