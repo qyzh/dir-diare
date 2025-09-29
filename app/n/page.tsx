@@ -1,28 +1,38 @@
-import Breadcrumbs from 'app/components/breadcrumbs';
-import Footer from 'app/components/footer';
-import { Navbar } from 'app/components/nav';
-import UKDesc from 'app/components/ukDesc';
-import UKnotes from 'app/components/uknotes';
-import { createClient } from '../api/supabase/server';
+import Breadcrumbs from 'app/components/breadcrumbs'
+import Footer from 'app/components/footer'
+import Link from 'next/link'
+import { getNoteQ } from '../lib/noteq'
 
-const title = 'Notes';
-const description = 'Little notes from day to day. Sometimes important, sometimes not. But everything has a place here.';
+const title = 'Notes'
+const description =
+    'Little notes from day to day. Sometimes important, sometimes not. But everything has a place here.'
 export const metadata = {
     title: `${title}`,
     description: `${description}`,
 }
 
 export default async function Notes() {
-  const supabase = await createClient();
-  const { data: notes } = await supabase.from("notes").select();
+    const noteku = await getNoteQ()
 
-  return (
-  <section>
-    <Breadcrumbs/>
-    <Navbar/>
-    <UKDesc title='n' description={description} />
-    <UKnotes notes={notes || []} />
-    <Footer/>
-  </section>
-  );
+    return (
+        <section>
+            <Breadcrumbs />
+            <div>
+                {noteku.map((post) => (
+                    <div key={post._id} className="mb-6">
+                        <h3>{post.note}</h3>
+                        <Link
+                            href={`${post.source}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="underline text-neutral-700 hover:text-neutral-500 transition-all"
+                        >
+                            {post.author}
+                        </Link>
+                    </div>
+                ))}
+            </div>
+            <Footer />
+        </section>
+    )
 }

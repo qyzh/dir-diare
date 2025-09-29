@@ -12,7 +12,7 @@ export default function UKTerminal({
   className = ""
 }: UKTerminalProps) {
   return (
-    <div className={`bg-black/5 border border-neutral-300 dark:border-neutral-700 font-mono text-sm ${className}`}>
+    <div className={`bg-black/5 border border-neutral-300 dark:border-neutral-700 font-mono text-sm md:text-base ${className}`}>
       {/* Terminal header with corner decorations */}
       <div className="relative">
         {/* Top left corner */}

@@ -7,29 +7,30 @@ import { SpeedInsights } from '@vercel/speed-insights/next'
 import { monaspace } from './fonts'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://dir-diare.vercel.app'),
-  alternates: {
-    canonical: '/'
-  },
-  title: {
-    default: 'Dir-diare',
-    template: '%s | Dir-diare'
-  },
-  description: 'My Dir - My little space on internet, place to share my thoughts and ideas'
-};
+    metadataBase: new URL('https://dir-diare.vercel.app'),
+    alternates: {
+        canonical: '/',
+    },
+    title: {
+        default: 'Dir-diare',
+        template: '%s | Dir-diare',
+    },
+    description:
+        'My Dir - My little space on internet, place to share my thoughts and ideas',
+}
 
 const cx = (...classes) => classes.filter(Boolean).join(' ')
 
 const playfair_display = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-playfair-display',
-  display: 'swap',
+    subsets: ['latin'],
+    weight: ['400', '700'],
+    variable: '--font-playfair-display',
+    display: 'swap',
 })
-const space_grotesk = Space_Grotesk({ 
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-space-grotesk',
+const space_grotesk = Space_Grotesk({
+    subsets: ['latin'],
+    display: 'swap',
+    variable: '--font-space-grotesk',
 })
 
 export default function RootLayout({
@@ -47,13 +48,13 @@ export default function RootLayout({
                 monaspace.variable
             )}
         >
-            <body className="antialiased tracking-tight bg-white dark:bg-neutral-950 text-black dark:text-neutral-100">
-                    <main className="max-w-2xl mb-40 flex flex-col mx-4 mt-8 md:mx-auto">
-                        {children}
-                    </main>
-                    {/* <BackToTop /> */}
-                    <SpeedInsights />
-                    <Analytics />
+            <body className="antialiased tracking-tight bg-neutral-950 text-neutral-100">
+                <main className="max-w-2xl mb-40 flex flex-col px-4">
+                    {children}
+                </main>
+                {/* <BackToTop /> */}
+                <SpeedInsights />
+                <Analytics />
             </body>
         </html>
     )

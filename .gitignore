@@ -41,3 +41,4 @@ next-env.d.ts
 /apidev/
 .prettierrc
 /content/dummy.mdx
+app/w/\[slug\]/post-page.tsx

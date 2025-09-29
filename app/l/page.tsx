@@ -1,12 +1,10 @@
-import {  Navbar } from '../components/nav';
-import { LabPosts } from 'app/components/labs';
-import Breadcrumbs from 'app/components/breadcrumbs';
-import Footer from 'app/components/footer';
-import UKDesc from 'app/components/ukDesc';
+import { ArtPosts } from 'app/components/labs'
+import Breadcrumbs from 'app/components/breadcrumbs'
+import Footer from 'app/components/footer'
 
-
-const title = 'Labs';
-const description = ' a collection of recent things I’ve crafted, worked on, or just tried for fun.';
+const title = 'Art'
+const description =
+    'a collection of recent things I’ve crafted, worked on, or just tried for fun.'
 export const metadata = {
     title: `${title}`,
     description: `${description}`,
@@ -15,11 +13,9 @@ export const metadata = {
 export default function Page() {
     return (
         <section>
-            <Navbar />
             <Breadcrumbs />
-                <UKDesc title='l' description={description} />
-            <LabPosts />
-            <Footer/>
+            <ArtPosts />
+            <Footer />
         </section>
     )
 }
