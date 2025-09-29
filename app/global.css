@@ -38,6 +38,7 @@ body {
     font-family: var(--font-monaspace);
     font-size: 14px;
     line-height: 1.6;
+    @apply md:text-base;
 }
 
 h1 {

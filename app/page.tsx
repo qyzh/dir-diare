@@ -14,7 +14,7 @@ export default async function Page() {
     const noteku = await getNoteQ()
 
     return (
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+        <main className="flex-auto min-w-0 mt-6 flex flex-col px-4 md:px-0">
             <section>
                 <main className="flex flex-col">
                     <div>

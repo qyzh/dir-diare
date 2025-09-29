@@ -49,7 +49,7 @@ export default function RootLayout({
             )}
         >
             <body className="antialiased tracking-tight bg-neutral-950 text-neutral-100">
-                <main className="max-w-2xl mb-40 flex flex-col">
+                <main className="max-w-2xl mb-40 flex flex-col px-4">
                     {children}
                 </main>
                 {/* <BackToTop /> */}
