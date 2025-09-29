@@ -166,8 +166,8 @@ const components = {
       {children}
     </UKTagUser>
   ),
-  img: ({ src, ...props }: ImageProps) => <UKImage alt={props.alt} model={props.model} size={props.size} className={props.className} src={src!} {...props} />,
-  Image: ({ src, ...props }: ImageProps) => <UKImage alt={props.alt} model={props.model} size={props.size} className={props.className} src={src!} {...props} />
+  img: ({ src, ...props }: ImageProps) => (typeof src === 'string' ? <UKImage alt={props.alt} model={props.model} size={props.size} className={props.className} src={src} {...props} /> : null),
+  Image: ({ src, ...props }: ImageProps) => (typeof src === 'string' ? <UKImage alt={props.alt} model={props.model} size={props.size} className={props.className} src={src} {...props} /> : null)
 };
 
 declare global {
