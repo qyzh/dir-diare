@@ -1,10 +1,6 @@
 'use client'
-
-import Link from 'next/link'
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import UKCallout from './ukcallout'
-import { Ruler, Timer } from 'lucide-react'
-
 interface StravaProps {}
 interface ActivityType {
     id: number
