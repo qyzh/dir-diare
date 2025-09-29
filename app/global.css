@@ -90,64 +90,64 @@ blockquote mark {
     line-height: 1.5;
     text-wrap: balance;
 }
-pre {
-    background-color: #222;
-    overflow-x: auto;
-    padding: 1rem;
-    margin: 1.5rem 0;
-    line-height: 1;
-}
+/* pre { */
+/*     background-color: #222; */
+/*     overflow-x: auto; */
+/*     padding: 1rem; */
+/*     margin: 1.5rem 0; */
+/*     line-height: 1; */
+/* } */
 
-pre::-webkit-scrollbar {
-    display: none;
-}
+/* pre::-webkit-scrollbar { */
+/*     display: none; */
+/* } */
 
-pre {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-}
+/* pre { */
+/*     -ms-overflow-style: none; */
+/*     scrollbar-width: none; */
+/* } */
 
-code {
-    font-size: 14px;
-    padding: 0.2em 0.4em;
-    border-radius: 0.3em;
-    background-color: var(--color-neutral-100);
-}
+/* code { */
+/*     font-size: 14px; */
+/*     padding: 0.2em 0.4em; */
+/*     border-radius: 0.3em; */
+/*     background-color: var(--color-neutral-100); */
+/* } */
 
-pre code {
-    background-color: transparent;
-    padding: 0;
-    border: none;
-    font-size: 14px;
-    line-height: 1.5;
-}
+/* pre code { */
+/*     background-color: transparent; */
+/*     padding: 0; */
+/*     border: none; */
+/*     font-size: 14px; */
+/*     line-height: 1.5; */
+/* } */
 
-pre code > span .sh__token--identifier {
-    color: white !important;
-}
+/* pre code > span .sh__token--identifier { */
+/*     color: white !important; */
+/* } */
 
-code:not(pre code) span {
-    font-weight: 500;
-    color: black !important;
-}
+/* code:not(pre code) span { */
+/*     font-weight: 500; */
+/*     color: black !important; */
+/* } */
 
-@media (prefers-color-scheme: dark) {
-    code {
-        font-family: var(--font-monaspace);
-        font-size: 14px;
-        padding: 0.2em 0.4em;
-        border-radius: 0.3em;
-        background-color: var(--color-zinc-800);
-    }
+/* @media (prefers-color-scheme: dark) { */
+/*     code { */
+/*         font-family: var(--font-monaspace); */
+/*         font-size: 14px; */
+/*         padding: 0.2em 0.4em; */
+/*         border-radius: 0.3em; */
+/*         background-color: var(--color-zinc-800); */
+/*     } */
 
-    code:not(pre code) span {
-        color: var(--color-zinc-100) !important;
-    }
-}
+/*     code:not(pre code) span { */
+/*         color: var(--color-zinc-100) !important; */
+/*     } */
+/* } */
 
-pre code span {
-    font-weight: 500;
-}
+/* pre code span { */
+/*     font-weight: 500; */
+/* } */
 
 hr {
     color: var(--color-neutral-200);
