@@ -59,7 +59,7 @@ export default function PostRenderer({ post, type }: { post: any; type: 'art' | 
     }
 
     return (
-        <section className="max-w-4xl mx-auto">
+        <section className="max-w-4xl mx-auto px-4">
             <Breadcrumbs post={{ metadata: { title: post.title } }} />
             <h1 className="text-3xl font-bold mb-3">
                 {post.title || post.slug.replace(/-/g, ' ')}

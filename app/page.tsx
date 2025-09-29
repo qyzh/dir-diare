@@ -4,15 +4,17 @@ import Footer from './components/footer'
 import Strava from './components/ukstrava'
 import { getAllPosts } from 'app/lib/posts'
 import { getAllArtPosts } from 'app/lib/artpost'
+import { getNoteQ } from 'app/lib/noteq'
 import { DiscordStatus } from 'app/components/discord'
 import Link from 'next/link'
 
 export default async function Page() {
     const postlist = await getAllPosts()
     const artlist = await getAllArtPosts()
+    const noteku = await getNoteQ()
 
     return (
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-2 md:px-0">
+        <main className="flex-auto min-w-0 mt-6 flex flex-col px-4 md:px-0">
             <section>
                 <main className="flex flex-col">
                     <div>
@@ -62,6 +64,21 @@ export default async function Page() {
                                     </span>
                                 </Link>
                                 <span className="webformat">.mdx</span>
+                            </div>
+                        ))}
+                        <div>
+                            <span className="webtree">└──</span>
+                            <span className="webmain">note/</span>
+                        </div>
+                        {noteku.map((post) => (
+                            <div key={post._id} className="ml-6">
+                                <span className="webtree">└──</span>
+
+                                <span className="webcontent">{post.note}</span>
+                                <span className="webformat">
+                                    {' '}
+                                    - {post.author}
+                                </span>
                             </div>
                         ))}
                         <div>
