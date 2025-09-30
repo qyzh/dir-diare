@@ -7,6 +7,7 @@ interface UKButtonProps {
   children: React.ReactNode;
   onClick?: () => void;
   disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const UKButton: React.FC<UKButtonProps> = ({
@@ -16,6 +17,7 @@ const UKButton: React.FC<UKButtonProps> = ({
   children,
   onClick,
   disabled = false,
+  type = 'button',
   ...props
 }) => {
   const baseStyles = "inline-flex items-center justify-center font-medium border transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50";
@@ -35,6 +37,7 @@ const UKButton: React.FC<UKButtonProps> = ({
   
   return (
     <button
+      type={type}
       className={`${baseStyles} ${variants[variant]} ${sizes[size]} ${className}`}
       onClick={onClick}
       disabled={disabled}

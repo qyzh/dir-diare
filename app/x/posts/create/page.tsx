@@ -11,7 +11,7 @@ export default function CreatePostPage() {
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
     const [author, setAuthor] = useState('')
-    const [status, setPostStatus] = useState('draft')
+    const [postStatus, setPostStatus] = useState('draft')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
@@ -36,7 +36,7 @@ export default function CreatePostPage() {
                     content,
                     summary,
                     author,
-                    status,
+                    status: postStatus,
                 }),
             })
 
@@ -108,7 +108,7 @@ export default function CreatePostPage() {
                     </label>
                     <select
                         id="status"
-                        value={status}
+                        value={postStatus}
                         onChange={(e) => setPostStatus(e.target.value)}
                         className={inputClassName}
                     >
