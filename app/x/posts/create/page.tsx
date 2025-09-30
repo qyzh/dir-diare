@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect, use } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import UKButton from 'app/components/ukbtn'
@@ -65,19 +65,21 @@ export default function CreatePostPage() {
         return (
             <div className="container mx-auto px-4 py-8">
                 <p>You must be signed in to create a post.</p>
-                <UKButton onClick={() => signIn('github')}>Sign in with GitHub</UKButton>
+                <UKButton onClick={() => signIn('github')}>
+                    Sign in with GitHub
+                </UKButton>
             </div>
         )
     }
 
     if (session?.user?.name !== 'uki') {
         return (
-           <div className="container mx-auto px-4 py-8">
-               <p>You are not authorized to create a post.</p>
-               <UKButton onClick={() => signOut()}>Sign out</UKButton>
-           </div>
-       )
-   }
+            <div className="container mx-auto px-4 py-8">
+                <p>You are not authorized to create a post.</p>
+                <UKButton onClick={() => signOut()}>Sign out</UKButton>
+            </div>
+        )
+    }
 
     return (
         <div className="container mx-auto px-4 py-8">

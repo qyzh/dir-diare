@@ -21,6 +21,8 @@ export default function EditPostPage({
     const [updatedAt, setUpdatedAt] = useState('')
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [submissionError, setSubmissionError] = useState<string | null>(null)
     const router = useRouter()
 
     useEffect(() => {
@@ -58,8 +60,8 @@ export default function EditPostPage({
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        setIsLoading(true)
-        setError(null)
+        setIsSubmitting(true)
+        setSubmissionError(null)
 
         try {
             const response = await fetch(`/api/posts/${slug}`, {
@@ -81,11 +83,11 @@ export default function EditPostPage({
 
             router.push('/x')
         } catch (err) {
-            setError(
+            setSubmissionError(
                 err instanceof Error ? err.message : 'An unknown error occurred'
             )
         } finally {
-            setIsLoading(false)
+            setIsSubmitting(false)
         }
     }
 
@@ -260,14 +262,14 @@ export default function EditPostPage({
                         className={readOnlyInputClassName}
                     />
                 </div>
-                {error && <p className="text-red-500">{error}</p>}
+                {submissionError && <p className="text-red-500">{submissionError}</p>}
                 <div>
                     <UKbutton
                         type="submit"
-                        disabled={isLoading}
+                        disabled={isSubmitting}
                         className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
                     >
-                        {isLoading ? 'Updating...' : 'Update Post'}
+                        {isSubmitting ? 'Updating...' : 'Update Post'}
                     </UKbutton>
                 </div>
             </form>
