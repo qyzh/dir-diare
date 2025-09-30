@@ -1,35 +1,68 @@
 'use client'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { Post } from 'app/lib/posts'
 import UKButton from 'app/components/ukbtn'
+import AuthButton from 'app/components/AuthButton'
+
 export default function AdminDashboard() {
+    const { data: session, status } = useSession()
     const [posts, setPosts] = useState<Post[]>([])
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        fetch('/api/posts')
-            .then((res) => res.json())
-            .then((data) => {
-                setPosts(data)
-                setIsLoading(false)
-            })
-            .catch((err) => {
-                setError('Failed to fetch posts')
-                setIsLoading(false)
-            })
-    }, [])
+        if (status === 'authenticated') {
+            fetch('/api/posts')
+                .then((res) => res.json())
+                .then((data) => {
+                    setPosts(data)
+                    setIsLoading(false)
+                })
+                .catch((err) => {
+                    setError('Failed to fetch posts')
+                    setIsLoading(false)
+                })
+        }
+    }, [status])
+
+    if (status === 'loading') {
+        return <div className="container mx-auto px-4 py-8">Loading...</div>
+    }
+
+    if (status === 'unauthenticated') {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
+                <p className="mb-4">Please sign in to view the dashboard.</p>
+                <AuthButton />
+            </div>
+        )
+    }
+
+    if (session?.user?.name !== 'uki') {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
+                <p>You are not authorized to view this page.</p>
+                <AuthButton />
+            </div>
+        )
+    }
 
     return (
         <div className="container mx-auto px-4 py-8">
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-4xl font-bold">Admin Dashboard</h1>
-                <Link href="/x/posts/create">
-                    <UKButton variant="primary" size="md">
-                        Tulisan baru
-                    </UKButton>
-                </Link>
+                <div className="flex items-center gap-4">
+                    <Link href="/x/posts/create">
+                        <UKButton variant="primary" size="md">
+                            Tulisan baru
+                        </UKButton>
+                    </Link>
+                    <AuthButton />
+                </div>
             </div>
 
             <div className="p-4">
@@ -75,4 +108,3 @@ export default function AdminDashboard() {
         </div>
     )
 }
-

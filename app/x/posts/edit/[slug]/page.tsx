@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession, signIn, signOut } from 'next-auth/react'
 import UKbutton from 'app/components/ukbtn'
 
 export default function EditPostPage({
@@ -8,6 +9,7 @@ export default function EditPostPage({
 }: {
     params: Promise<{ slug: string }>
 }) {
+    const { data: session, status: sessionStatus } = useSession()
     const { slug } = use(params)
     const [title, setTitle] = useState('')
     const [tags, setTags] = useState('')
@@ -15,15 +17,14 @@ export default function EditPostPage({
     const [summary, setSummary] = useState('')
     const [publishedAt, setPublishedAt] = useState('')
     const [author, setAuthor] = useState('')
-    const [status, setStatus] = useState('draft')
+    const [status, setPostStatus] = useState('draft')
     const [updatedAt, setUpdatedAt] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
 
     useEffect(() => {
         if (slug) {
-            setIsLoading(true)
             fetch(`/api/posts/${slug}`)
                 .then((res) => {
                     if (!res.ok) {
@@ -43,7 +44,7 @@ export default function EditPostPage({
                         setSummary(data.summary || '')
                         setPublishedAt(data.publishedAt)
                         setAuthor(data.author || '')
-                        setStatus(data.status || 'draft')
+                        setPostStatus(data.status || 'draft')
                         setUpdatedAt(data.updatedAt || '')
                     }
                     setIsLoading(false)
@@ -88,13 +89,31 @@ export default function EditPostPage({
         }
     }
 
-    if (isLoading) return <p>Loading...</p>
-    if (error) return <p className="text-red-500">{error}</p>
-
     const inputClassName =
         'mt-1 px-1 py-1.5 block w-full bg-white/5 border border-neutral-800 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
     const readOnlyInputClassName =
         'mt-1 px-1 py-1.5 block w-full text-neutral-600 bg-black/5 border border-neutral-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
+
+    if (sessionStatus === 'loading' || isLoading) return <p>Loading...</p>
+    if (error) return <p className="text-red-500">{error}</p>
+
+    if (sessionStatus === 'unauthenticated') {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <p>You must be signed in to edit a post.</p>
+                <UKbutton onClick={() => signIn('github')}>Sign in with GitHub</UKbutton>
+            </div>
+        )
+    }
+
+    if (session?.user?.name !== 'uki') {
+        return (
+           <div className="container mx-auto px-4 py-8">
+               <p>You are not authorized to edit this post.</p>
+               <UKbutton onClick={() => signOut()}>Sign out</UKbutton>
+           </div>
+       )
+   }
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -142,7 +161,7 @@ export default function EditPostPage({
                         id="status"
                         value={status}
                         onChange={(e) =>
-                            setStatus(e.target.value as 'draft' | 'published')
+                            setPostStatus(e.target.value as 'draft' | 'published')
                         }
                         className={inputClassName}
                     >

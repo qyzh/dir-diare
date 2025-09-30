@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth/next'
+import { authOptions } from '../auth/[...nextauth]/route'
 import { createPost, getAllPosts } from 'app/lib/posts'
 
 export async function GET(request: NextRequest) {
     try {
-        const posts = await getAllPosts();
-        return NextResponse.json(posts);
+        const posts = await getAllPosts()
+        return NextResponse.json(posts)
     } catch (error) {
-        console.error('Error fetching posts:', error);
+        console.error('Error fetching posts:', error)
         return NextResponse.json(
             {
                 error: 'Failed to fetch posts',
@@ -18,6 +20,12 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+    const session = await getServerSession(authOptions)
+
+    if (session?.user?.name !== 'uki') {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
+    }
+
     try {
         const body = await request.json()
 
@@ -29,7 +37,7 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        const slug = body.slug || body.title.toLowerCase().replace(/\s+/g, '-');
+        const slug = body.slug || body.title.toLowerCase().replace(/\s+/g, '-')
 
         // Create a new post
         const newPost = await createPost({
@@ -39,7 +47,7 @@ export async function POST(request: NextRequest) {
             summary: body.summary || '',
             publishedAt: body.publishedAt || new Date().toISOString(),
             tags: body.tags || [],
-            author: body.author || 'qyzh',
+            author: 'uki',
             status: body.status || 'draft',
         })
 

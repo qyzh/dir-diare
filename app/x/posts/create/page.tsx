@@ -1,15 +1,17 @@
 'use client'
 import { useState, useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession, signIn, signOut } from 'next-auth/react'
 import UKButton from 'app/components/ukbtn'
 
 export default function CreatePostPage() {
+    const { data: session, status } = useSession()
     const [title, setTitle] = useState('')
     const [tags, setTags] = useState('')
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
     const [author, setAuthor] = useState('')
-    const [status, setStatus] = useState('draft')
+    const [status, setPostStatus] = useState('draft')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
@@ -55,6 +57,28 @@ export default function CreatePostPage() {
     const inputClassName =
         'mt-1 px-1 py-1.5 block w-full bg-white/5 border border-neutral-800 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
 
+    if (status === 'loading') {
+        return <div className="container mx-auto px-4 py-8">Loading...</div>
+    }
+
+    if (status === 'unauthenticated') {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <p>You must be signed in to create a post.</p>
+                <UKButton onClick={() => signIn('github')}>Sign in with GitHub</UKButton>
+            </div>
+        )
+    }
+
+    if (session?.user?.name !== 'uki') {
+        return (
+           <div className="container mx-auto px-4 py-8">
+               <p>You are not authorized to create a post.</p>
+               <UKButton onClick={() => signOut()}>Sign out</UKButton>
+           </div>
+       )
+   }
+
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-4xl font-bold mb-8">Create New Post</h1>
@@ -85,7 +109,7 @@ export default function CreatePostPage() {
                     <select
                         id="status"
                         value={status}
-                        onChange={(e) => setStatus(e.target.value)}
+                        onChange={(e) => setPostStatus(e.target.value)}
                         className={inputClassName}
                     >
                         <option value="draft">Draft</option>
