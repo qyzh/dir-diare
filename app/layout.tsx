@@ -5,6 +5,7 @@ import { Space_Grotesk, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { monaspace } from './fonts'
+import Providers from './components/providers'
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://dir-diare.vercel.app'),
@@ -50,7 +51,7 @@ export default function RootLayout({
         >
             <body className="antialiased tracking-tight bg-neutral-950 text-neutral-100">
                 <main className="max-w-2xl mb-40 flex flex-col px-4">
-                    {children}
+                    <Providers>{children}</Providers>
                 </main>
                 {/* <BackToTop /> */}
                 <SpeedInsights />
