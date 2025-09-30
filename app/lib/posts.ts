@@ -10,6 +10,7 @@ export interface Post {
     updatedAt?: string
     tags?: string[]
     author?: string
+    status: 'draft' | 'published'
 }
 
 async function getDb() {
@@ -22,6 +23,23 @@ export async function getAllPosts(): Promise<Post[]> {
     const posts = await db
         .collection('dirpost')
         .find({})
+        .sort({ publishedAt: -1 })
+        .toArray()
+
+    return posts.map(
+        (post) =>
+            ({
+                ...post,
+                _id: post._id.toString(),
+            }) as Post
+    )
+}
+
+export async function getAllPublishedPosts(): Promise<Post[]> {
+    const db = await getDb()
+    const posts = await db
+        .collection('dirpost')
+        .find({ status: 'published' })
         .sort({ publishedAt: -1 })
         .toArray()
 
@@ -58,6 +76,7 @@ export async function createPost(post: Omit<Post, '_id'>): Promise<Post> {
         ...post,
         publishedAt: post.publishedAt || now,
         updatedAt: now,
+        status: post.status || 'draft',
     }
 
     const result = await db.collection('dirpost').insertOne(postToInsert)
