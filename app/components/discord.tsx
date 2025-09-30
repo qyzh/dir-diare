@@ -59,19 +59,28 @@ export function DiscordStatus() {
                 <span className="webtree">└──</span>
                 <span className="websub">activity/</span>
                 <span className="webcontent">
-                    {activity && (
-                        <span>
-                            {activity.name}
-                            {activity.details && (
-                                <span> {activity.details}</span>
-                            )}
-                            {activity.state && (
-                                <span>
-                                    {/*  {activity.details ? ' @ ' : ''} */}-
-                                    {activity.state}
-                                </span>
-                            )}
-                        </span>
+                    {activity ? (
+                        activity.name === 'Spotify' ? (
+                            <span>
+                                Listening to {activity.details} by{' '}
+                                {activity.state}
+                            </span>
+                        ) : (
+                            <span>
+                                {activity.name}
+                                {activity.details && (
+                                    <span> {activity.details}</span>
+                                )}
+                                {activity.state && (
+                                    <span>
+                                        {/*  {activity.details ? ' @ ' : ''} */}-
+                                        {activity.state}
+                                    </span>
+                                )}
+                            </span>
+                        )
+                    ) : (
+                        <span>{status.discord_status}</span>
                     )}
                 </span>
             </div>

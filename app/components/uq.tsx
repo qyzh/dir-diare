@@ -11,7 +11,7 @@ export default function Uq() {
         <motion.div
             initial={{ y: 0, scale: 0 }}
             animate={{ y: 0, scale: 1 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.7, ease: "easeOut" }}
             className="flex flex-col sm:flex-row my-2 sm:my-12 px-4 sm:px-2"
         >
             <div className="space-y-2 sm:space-y-8">
