@@ -37,7 +37,8 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        const slug = body.slug || body.title.toLowerCase().replace(/\s+/g, '-')
+
+        const slug = body.slug || body.title.toLowerCase().replace(/\s+/g, '-');
 
         // Create a new post
         const newPost = await createPost({
