@@ -18,13 +18,13 @@ export default async function Page() {
             <section>
                 <main className="flex flex-col">
                     <div>
-                        <span className="webroot">web@dirdiare:</span>
+                        <span className="webroot">~:</span>
                         <span className="webmain">verfetch</span>
                         <UkHeaderAscii />
                     </div>
                     <div>
-                        <span className="webroot">web@dirdiare:</span>
-                        <span className="webmain">greeting</span>
+                        <span className="webroot">~:</span>
+                        <span className="webmain">cd dir-diare</span>
                         <div className="webcontent">
                             {'>'} Welcome to my little space on internet, place
                             to share my thoughts and ideas, w/o to think about
@@ -33,7 +33,7 @@ export default async function Page() {
                     </div>
                     <div>
                         <span className="webroot">web@dirdiare:</span>
-                        <span className="webmain">cd dir-diare</span>
+                        <span className="webmain">me</span>
                     </div>
                     <div className="">
                         <span className="webcontent">
@@ -44,8 +44,8 @@ export default async function Page() {
                         </span>
                     </div>
                     <div>
-                        <span className="webroot">dir-diare</span>
-                        <span className="webapp">/app</span>
+                        <span className="webroot">web@dirdiare:</span>
+                        <span className="webmain">app</span>
                     </div>
                     <div className="ml-4 flex flex-col space-y-2 my-2">
                         <div>
@@ -98,8 +98,8 @@ export default async function Page() {
                         ))}
                     </div>
                     <div>
-                        <span className="webroot mr-1">dir-diare</span>
-                        <span className="webapp">/activity</span>
+                        <span className="webroot">web@dirdiare:</span>
+                        <span className="webmain">activity</span>{' '}
                         <div className="ml-4 flex flex-col space-y-2 my-2">
                             <div>
                                 <span className="webtree">└──</span>
@@ -120,3 +120,4 @@ export default async function Page() {
         </main>
     )
 }
+

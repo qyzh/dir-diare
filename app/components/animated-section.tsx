@@ -15,9 +15,9 @@ export function AnimatedAbove({ children, delay = 0, className = '' }: AnimatedS
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-                duration: 0.5,
+                duration: 0.7,
                 delay: delay,
-                ease: [0.21, 0.47, 0.32, 0.98]
+                ease: "easeOut"
             }}
             className={className}
         >
@@ -32,9 +32,9 @@ export function AnimatedBelow({ children, delay = 0, className = '' }: AnimatedS
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{
-                duration: 0.5,
+                duration: 0.7,
                 delay: delay,
-                ease: [0.21, 0.47, 0.32, 0.98]
+                ease: "easeOut"
             }}
             className={className}
         >
@@ -49,9 +49,9 @@ export function AnimatedLeft({ children, delay = 0, className = '' }: AnimatedSe
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
-                duration: 0.5,
+                duration: 0.7,
                 delay: delay,
-                ease: [0.21, 0.47, 0.32, 0.98]
+                ease: "easeOut"
             }}
             className={className}
         >
@@ -66,9 +66,9 @@ export function AnimatedRight({ children, delay = 0, className = '' }: AnimatedS
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{
-                duration: 0.5,
+                duration: 0.7,
                 delay: delay,
-                ease: [0.21, 0.47, 0.32, 0.98]
+                ease: "easeOut"
             }}
             className={className}
         >
@@ -83,9 +83,9 @@ export function AnimatedFade({ children, delay = 0, className = '' }: AnimatedSe
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{
-                duration: 0.5,
+                duration: 0.7,
                 delay: delay,
-                ease: [0.21, 0.47, 0.32, 0.98]
+                ease: "easeOut"
             }}
             className={className}
         >
@@ -99,9 +99,9 @@ export function AnimatedZoom({ children, delay = 0, className = '' }: AnimatedSe
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{
-                duration: 0.5,
+                duration: 0.7,
                 delay: delay,
-                ease: [0.21, 0.47, 0.32, 0.98]
+                ease: "easeOut"
             }}
             className={className}
         >

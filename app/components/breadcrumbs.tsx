@@ -19,7 +19,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.7, ease: "easeOut" }}
                 className="inline-flex truncate overflow-hidden font-mono text-neutral-500 items-center px-2 py-1.5"
             >
                 <Link
