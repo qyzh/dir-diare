@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getAllPosts } from 'app/lib/posts'
+import { getAllPublishedPosts } from 'app/lib/posts'
 
 interface BlogPost {
     _id: string
@@ -33,7 +33,7 @@ const PostCard = ({ post }: PostCardProps) => {
 }
 
 export async function BlogPosts() {
-    const allBlogs = await getAllPosts()
+    const allBlogs = await getAllPublishedPosts()
 
     return (
         <div role="list" aria-label="Blog posts" className="group">
