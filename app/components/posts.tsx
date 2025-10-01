@@ -49,7 +49,6 @@ export async function BlogPosts() {
     return (
         <div role="list" aria-label="Blog posts" className="group">
             <div>
-                <span className="webroot">web/dirdiare/app:</span>
                 <span className="webmain">ls -l tulisan</span>
             </div>
             <div>

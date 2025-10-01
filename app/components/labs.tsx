@@ -49,7 +49,6 @@ export async function ArtPosts() {
     return (
         <div role="list" aria-label="Art posts" className="group">
             <div>
-                <span className="webroot">web/dirdiare/app:</span>
                 <span className="webmain">ls -l lab</span>
             </div>
             <div>
