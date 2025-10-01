@@ -79,37 +79,28 @@ const Activities: React.FC<ActivitiesProps> = React.memo(
         }, [])
 
         const formatTime = useCallback((minutes: number) => {
-            return `${minutes.toFixed(1)} min`
+            return `${minutes.toFixed(1)}`
         }, [])
 
         const formatDistance = useCallback((meters: number) => {
-            return `${(meters / 1000).toFixed(1)} km`
+            return `${(meters / 1000).toFixed(1)}`
         }, [])
 
         const latestActivity = useMemo(() => activities[0], [activities])
 
         if (isLoading) {
             return (
-                <div className="block ml-6">
-                    <div>
-                        <span className="webtree">└──</span>
-                        <span className="websub">title/</span>
-                        <span className="webcontent">....</span>
+                <div className="font-mono text-sm p-4 bg-black text-white rounded-md">
+                    <div className="flex items-center">
+                        <span className="text-green-400">$</span>
+                        <span className="ml-2 text-gray-300">
+                            strava --latest-activity
+                        </span>
                     </div>
-                    <div>
-                        <span className="webtree">└──</span>
-                        <span className="websub">date/</span>
-                        <span className="webcontent">...</span>
-                    </div>
-                    <div>
-                        <span className="webtree">└──</span>
-                        <span className="websub">time/</span>
-                        <span className="webcontent">.... </span>
-                    </div>
-                    <div>
-                        <span className="webtree">└──</span>
-                        <span className="websub">distance/</span>
-                        <span className="webcontent">.... </span>
+                    <div className="mt-2">
+                        <p className="text-gray-400">
+                            Fetching latest activity...
+                        </p>
                     </div>
                 </div>
             )
@@ -118,32 +109,30 @@ const Activities: React.FC<ActivitiesProps> = React.memo(
         if (!activities.length) return null
 
         return (
-            <div className="block ml-6">
-                <div>
-                    <span className="webtree">└──</span>
-                    <span className="websub">title/</span>
-                    <span className="webcontent">{latestActivity.name}</span>
-                </div>
-                <div>
-                    <span className="webtree">└──</span>
-                    <span className="websub">date/</span>
-                    <span className="webcontent">
-                        {formatDate(latestActivity.start_date)}
-                    </span>
-                </div>
-                <div>
-                    <span className="webtree">└──</span>
-                    <span className="websub">time/</span>
-                    <span className="webcontent">
-                        {formatTime(latestActivity.moving_time * 0.0166667)}
-                    </span>
-                </div>
-                <div>
-                    <span className="webtree">└──</span>
-                    <span className="websub">distance/</span>
-                    <span className="webcontent">
-                        {formatDistance(latestActivity.distance)}
-                    </span>
+            <div className="font-mono text-sm p-4 text-white ">
+                <div className="">
+                    <div className="grid grid-cols-[100px_1fr] gap-x-4">
+                        <span className="text-neutral-400">Name:</span>
+                        <span className="text-neutral-200">
+                            {latestActivity.name}
+                        </span>
+
+                        <span className="text-neutral-400">Date:</span>
+                        <span className="text-neutral-200">
+                            {formatDate(latestActivity.start_date)}
+                        </span>
+
+                        <span className="text-neutral-400">Duration:</span>
+                        <span className="text-neutral-200">
+                            {formatTime(latestActivity.moving_time * 0.0166667)}{' '}
+                            min
+                        </span>
+
+                        <span className="text-neutral-400">Distance:</span>
+                        <span className="text-neutral-200">
+                            {formatDistance(latestActivity.distance)} km
+                        </span>
+                    </div>
                 </div>
             </div>
         )

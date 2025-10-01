@@ -23,16 +23,17 @@ export function DiscordStatus() {
 
     if (loading || !status?.discord_user) {
         return (
-            <div className="ml-6">
-                <div>
-                    <span className="webtree">└──</span>
-                    <span className="websub">username/</span>
-                    <span className="webcontent">...</span>
+            <div className="font-mono text-sm p-4 text-white rounded-md">
+                <div className="flex items-center">
+                    <span className="text-green-400">$</span>
+                    <span className="ml-2 text-neutral-300">
+                        discord --status
+                    </span>
                 </div>
-                <div>
-                    <span className="webtree">└──</span>
-                    <span className="websub">activity/</span>
-                    <span className="webcontent">...</span>
+                <div className="mt-2">
+                    <p className="text-neutral-400">
+                        Fetching discord status...
+                    </p>
                 </div>
             </div>
         )
@@ -43,22 +44,19 @@ export function DiscordStatus() {
             online: 'text-green-500',
             idle: 'text-yellow-500',
             dnd: 'text-red-500',
-            offline: 'text-gray-500',
+            offline: 'text-neutral-500',
         }[status.discord_status] || 'text-white-500'
 
     return (
-        <div className="ml-6">
-            <div>
-                <span className="webtree">└──</span>
-                <span className="websub">username/</span>
-                <span className={`${statusColor}`}>
+        <div className="font-mono text-sm p-4 text-white">
+            <div className="grid grid-cols-[100px_1fr] gap-x-4">
+                <span className="text-neutral-400">Username:</span>
+                <span className={statusColor}>
                     {status.discord_user.username}
                 </span>
-            </div>
-            <div>
-                <span className="webtree">└──</span>
-                <span className="websub">activity/</span>
-                <span className="webcontent">
+
+                <span className="text-neutral-400">Activity:</span>
+                <span className="text-neutral-200">
                     {activity ? (
                         activity.name === 'Spotify' ? (
                             <span>
@@ -72,10 +70,7 @@ export function DiscordStatus() {
                                     <span> {activity.details}</span>
                                 )}
                                 {activity.state && (
-                                    <span>
-                                        {/*  {activity.details ? ' @ ' : ''} */}-
-                                        {activity.state}
-                                    </span>
+                                    <span> - {activity.state}</span>
                                 )}
                             </span>
                         )

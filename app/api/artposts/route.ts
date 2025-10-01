@@ -21,7 +21,10 @@ export async function POST(request: Request) {
 
     try {
         const body = await request.json()
-        const newArtPost = await createArtPost(body as Omit<ArtPost, '_id'>)
+        const newArtPost = await createArtPost({
+            ...body,
+            author: session.user.name,
+        } as Omit<ArtPost, '_id'>)
         return NextResponse.json(newArtPost, { status: 201 })
     } catch (error) {
         console.error('Failed to create art post:', error)

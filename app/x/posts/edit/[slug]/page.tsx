@@ -3,7 +3,7 @@ import { useState, useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import UKbutton from 'app/components/ukbtn'
-
+import Breadcrumbs from 'app/components/breadcrumbs'
 export default function EditPostPage({
     params,
 }: {
@@ -101,22 +101,25 @@ export default function EditPostPage({
         return (
             <div className="container mx-auto px-4 py-8">
                 <p>You must be signed in to edit a post.</p>
-                <UKbutton onClick={() => signIn('github')}>Sign in with GitHub</UKbutton>
+                <UKbutton onClick={() => signIn('github')}>
+                    Sign in with GitHub
+                </UKbutton>
             </div>
         )
     }
 
     if (session?.user?.name !== 'uki') {
         return (
-           <div className="container mx-auto px-4 py-8">
-               <p>You are not authorized to edit this post.</p>
-               <UKbutton onClick={() => signOut()}>Sign out</UKbutton>
-           </div>
-       )
-   }
+            <div className="container mx-auto px-4 py-8">
+                <p>You are not authorized to edit this post.</p>
+                <UKbutton onClick={() => signOut()}>Sign out</UKbutton>
+            </div>
+        )
+    }
 
     return (
         <div className="container mx-auto px-4 py-8">
+            <Breadcrumbs />
             <h1 className="text-4xl font-bold mb-8">Edit Post</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -161,7 +164,9 @@ export default function EditPostPage({
                         id="status"
                         value={status}
                         onChange={(e) =>
-                            setPostStatus(e.target.value as 'draft' | 'published')
+                            setPostStatus(
+                                e.target.value as 'draft' | 'published'
+                            )
                         }
                         className={inputClassName}
                     >

@@ -2,14 +2,14 @@ import React from 'react'
 import UkHeaderAscii from './components/ukheaderascii'
 import Footer from './components/footer'
 import Strava from './components/ukstrava'
-import { getAllPosts } from 'app/lib/posts'
+import { getAllPublishedPosts } from 'app/lib/posts'
 import { getAllArtPosts } from 'app/lib/artpost'
 import { getNoteQ } from 'app/lib/noteq'
 import { DiscordStatus } from 'app/components/discord'
 import Link from 'next/link'
 
 export default async function Page() {
-    const postlist = await getAllPosts()
+    const postlist = await getAllPublishedPosts()
     const artlist = await getAllArtPosts()
     const noteku = await getNoteQ()
 
@@ -51,14 +51,19 @@ export default async function Page() {
                         <span className="webroot">web/dirdiare/app:</span>
                         <span className="webmain">ls -l</span>
                     </div>
-                    <span className="webcontentroot">drwxr-xr-x UKI about</span>
                     <span className="webcontentroot">
-                        drwxr-xr-x UKI tulisan
+                        drwxr-xr-x UKI <Link href={`/about`}>about</Link>
                     </span>
-                    <span className="webcontentroot">drwxr-xr-x UKI note</span>
-                    <span className="webcontentroot">drwxr-xr-x UKI lab</span>
                     <span className="webcontentroot">
-                        drwxr-xr-x UKI activity
+                        drwxr-xr-x UKI
+                        <Link href={`/w`}> tulisan</Link>
+                    </span>
+                    <span className="webcontentroot">
+                        drwxr-xr-x UKI
+                        <Link href={`/m`}> music</Link>
+                    </span>
+                    <span className="webcontentroot">
+                        drwxr-xr-x UKI <Link href={`/l`}>lab</Link>
                     </span>
                     <div className="flex flex-col space-y-2 my-2">
                         <div>
@@ -155,14 +160,18 @@ export default async function Page() {
                     <div>
                         <span className="webroot">web@dirdiare:</span>
                         <span className="webmain">cd activity</span>{' '}
-                        <div className="ml-4 flex flex-col space-y-2 my-2">
+                        <div className="flex flex-col">
                             <div>
-                                <span className="webmain">ls -l strava</span>
+                                <span className="webmain">
+                                    strava --latest-activity
+                                </span>
                                 <Strava />
                             </div>
 
                             <div>
-                                <span className="webmain">ls -l discord</span>
+                                <span className="webmain">
+                                    discord --latest-activity
+                                </span>
                                 <DiscordStatus />
                             </div>
                         </div>

@@ -35,7 +35,10 @@ export async function PUT(
     const { slug } = params
     try {
         const body = await request.json()
-        const updatedArtPost = await updateArtPost(slug, body as Partial<ArtPost>)
+        const updatedArtPost = await updateArtPost(slug, {
+            ...body,
+            author: session.user?.name,
+        } as Partial<ArtPost>)
 
         if (!updatedArtPost) {
             return new NextResponse('Art Post not found', { status: 404 })

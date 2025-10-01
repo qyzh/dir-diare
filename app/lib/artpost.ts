@@ -94,6 +94,10 @@ export async function updateArtPost(
             { returnDocument: 'after' }
         )
 
+    if (result) {
+        return { ...result, _id: result._id.toString() } as ArtPost
+    }
+
     return null
 }
 
