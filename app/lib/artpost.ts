@@ -94,12 +94,12 @@ export async function updateArtPost(
             { returnDocument: 'after' }
         )
 
-    if (result) {
-        return {
-            ...result,
-            _id: result._id.toString(),
-        } as ArtPost
-    }
-
     return null
 }
+
+export async function deleteArtPost(slug: string): Promise<boolean> {
+    const db = await getDb()
+    const result = await db.collection('dirart').deleteOne({ slug })
+    return result.deletedCount === 1
+}
+
