@@ -202,6 +202,9 @@ table {
 .webcontent {
     @apply transition-all text-white/70 font-semibold hover:text-white;
 }
+.webcontentroot {
+    @apply text-white/70;
+}
 .webformat {
     @apply text-white/30;
 }
