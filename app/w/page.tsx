@@ -1,7 +1,7 @@
 import { BlogPosts } from 'app/components/posts'
 import Breadcrumbs from 'app/components/breadcrumbs'
 import Footer from 'app/components/footer'
-
+import UkCLI from 'app/components/ukcli'
 const title = 'Writing'
 const description = 'is my space to write about anything that comes to mind.'
 export const metadata = {
@@ -13,6 +13,7 @@ export default function Page() {
     return (
         <section>
             <Breadcrumbs />
+            <UkCLI path=" " command="ls -l tulisan" />
             <BlogPosts />
             <Footer />
         </section>
