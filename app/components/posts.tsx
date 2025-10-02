@@ -40,9 +40,6 @@ export async function BlogPosts() {
     return (
         <div role="list" aria-label="Blog posts" className="group">
             <div>
-                <span className="webmain">ls -l tulisan</span>
-            </div>
-            <div>
                 {allBlogs.map((post) => (
                     <PostCard key={post.slug} post={post} />
                 ))}

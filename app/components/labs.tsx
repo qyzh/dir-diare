@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { getAllArtPosts, ArtPost } from 'app/lib/artpost'
-
+import UkCLI from 'app/components/ukcli'
 interface PostCardProps {
     post: ArtPost
 }
@@ -39,9 +39,7 @@ export async function ArtPosts() {
 
     return (
         <div role="list" aria-label="Art posts" className="group">
-            <div>
-                <span className="webmain">ls -l lab</span>
-            </div>
+            <UkCLI path=" " command="ls -l labs" />
             <div>
                 {allPosts.map((post) => (
                     <PostCard key={post.slug} post={post} />

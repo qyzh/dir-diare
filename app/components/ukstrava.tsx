@@ -90,13 +90,7 @@ const Activities: React.FC<ActivitiesProps> = React.memo(
 
         if (isLoading) {
             return (
-                <div className="font-mono text-sm p-4 bg-black text-white rounded-md">
-                    <div className="flex items-center">
-                        <span className="text-green-400">$</span>
-                        <span className="ml-2 text-gray-300">
-                            strava --latest-activity
-                        </span>
-                    </div>
+                <div className="font-mono text-sm p-4 text-white">
                     <div className="mt-2">
                         <p className="text-gray-400">
                             Fetching latest activity...
