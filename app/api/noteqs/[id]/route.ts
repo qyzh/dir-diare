@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from 'app/lib/auth'
 import {
@@ -9,22 +9,27 @@ import {
 } from 'app/lib/noteq'
 
 export async function GET(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
-    const { id } = params
-    const note = await getNoteQById(id)
+    try {
+        const { id } = await params
+        const note = await getNoteQById(id)
 
-    if (!note) {
-        return new NextResponse('Note not found', { status: 404 })
+        if (!note) {
+            return new NextResponse('Note not found', { status: 404 })
+        }
+
+        return NextResponse.json(note)
+    } catch (error) {
+        console.error('Error fetching note:', error)
+        return new NextResponse('Failed to fetch note', { status: 500 })
     }
-
-    return NextResponse.json(note)
 }
 
 export async function PUT(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
     const session = await getServerSession(authOptions)
 
@@ -32,8 +37,8 @@ export async function PUT(
         return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const { id } = params
     try {
+        const { id } = await params
         const body = await request.json()
         const updatedNoteQ = await updateNoteQ(id, body as Partial<noteQ>)
 
@@ -49,8 +54,8 @@ export async function PUT(
 }
 
 export async function DELETE(
-    request: Request,
-    { params }: { params: { id: string } }
+    request: NextRequest,
+    { params }: { params: Promise<{ id: string }> }
 ) {
     const session = await getServerSession(authOptions)
 
@@ -58,8 +63,8 @@ export async function DELETE(
         return new NextResponse('Unauthorized', { status: 401 })
     }
 
-    const { id } = params
     try {
+        const { id } = await params
         const deleted = await deleteNoteQ(id)
 
         if (!deleted) {

@@ -1,14 +1,5 @@
 import Link from 'next/link'
-import { getAllArtPosts } from 'app/lib/artpost'
-
-interface ArtPost {
-    _id: string
-    slug: string
-    title: string
-    publishedAt: string
-    summary?: string
-    image?: string
-}
+import { getAllArtPosts, ArtPost } from 'app/lib/artpost'
 
 interface PostCardProps {
     post: ArtPost

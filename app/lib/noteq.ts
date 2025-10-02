@@ -66,13 +66,20 @@ export async function updateNoteQ(
 
     delete update._id // Remove _id if present as it cannot be updated
 
-    const result = await db
+    const updatedDocument = await db
         .collection('dirnote')
         .findOneAndUpdate(
             { _id: new ObjectId(id) },
             { $set: update },
             { returnDocument: 'after' }
         )
+
+    if (updatedDocument) {
+        return {
+            ...updatedDocument,
+            _id: updatedDocument._id.toString(),
+        } as noteQ
+    }
 
     return null
 }

@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server'
+import { NextResponse, type NextRequest } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from 'app/lib/auth'
 import {
@@ -8,10 +8,7 @@ import {
     ArtPost,
 } from 'app/lib/artpost'
 
-export async function GET(
-    request: Request,
-    { params }: { params: { slug: string } }
-) {
+export async function GET(request: NextRequest, { params }) {
     const { slug } = params
     const post = await getArtPostBySlug(slug)
 
@@ -22,10 +19,7 @@ export async function GET(
     return NextResponse.json(post)
 }
 
-export async function PUT(
-    request: Request,
-    { params }: { params: { slug: string } }
-) {
+export async function PUT(request: NextRequest, { params }) {
     const session = await getServerSession(authOptions)
 
     if (!session || session.user?.name !== 'uki') {
@@ -51,10 +45,7 @@ export async function PUT(
     }
 }
 
-export async function DELETE(
-    request: Request,
-    { params }: { params: { slug: string } }
-) {
+export async function DELETE(request: NextRequest, { params }) {
     const session = await getServerSession(authOptions)
 
     if (!session || session.user?.name !== 'uki') {

@@ -10,7 +10,7 @@ export interface ArtPost {
     publishedAt: string
     updatedAt?: string
     tags?: string[]
-    author?: string
+    author: string
     image?: string
 }
 

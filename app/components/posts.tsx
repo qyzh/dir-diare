@@ -1,17 +1,8 @@
 import Link from 'next/link'
-import { getAllPublishedPosts } from 'app/lib/posts'
-
-interface BlogPost {
-    _id: string
-    slug: string
-    title: string
-    publishedAt: string
-    summary?: string
-    image?: string
-}
+import { getAllPublishedPosts, Post } from 'app/lib/posts'
 
 interface PostCardProps {
-    post: BlogPost
+    post: Post
 }
 
 const PostCard = ({ post }: PostCardProps) => {
