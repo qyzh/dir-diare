@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import { Post } from 'app/lib/posts'
 import UKButton from 'app/components/ukbtn'
 import AuthButton from 'app/components/AuthButton'
+import Breadcrumbs from 'app/components/breadcrumbs'
 
 export default function AdminDashboard() {
     const { data: session, status } = useSession()
@@ -42,10 +43,12 @@ export default function AdminDashboard() {
     }
 
     if (session?.user?.name !== 'uki') {
+        console.log('Current session user name:', session?.user?.name)
+
         return (
             <div className="container mx-auto px-4 py-8">
                 <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
-                <p>You are not authorized to view this page.</p>
+                <p>You are not authorized to view posts admin.</p>
                 <AuthButton />
             </div>
         )
@@ -53,6 +56,7 @@ export default function AdminDashboard() {
 
     return (
         <div className="container mx-auto px-4 py-8">
+            <Breadcrumbs />
             <div className="flex justify-between items-center mb-8">
                 <h1 className="text-4xl font-bold">Admin Dashboard</h1>
                 <div className="flex items-center gap-4">

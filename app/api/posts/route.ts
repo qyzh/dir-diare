@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
     const session = await getServerSession(authOptions)
 
-    if (session?.user?.name !== 'uki') {
+    if (!session || session.user?.name !== 'uki') {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
     }
 

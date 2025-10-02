@@ -2,14 +2,14 @@ import React from 'react'
 import UkHeaderAscii from './components/ukheaderascii'
 import Footer from './components/footer'
 import Strava from './components/ukstrava'
-import { getAllPosts } from 'app/lib/posts'
+import { getAllPublishedPosts } from 'app/lib/posts'
 import { getAllArtPosts } from 'app/lib/artpost'
 import { getNoteQ } from 'app/lib/noteq'
 import { DiscordStatus } from 'app/components/discord'
 import Link from 'next/link'
 
 export default async function Page() {
-    const postlist = await getAllPosts()
+    const postlist = await getAllPublishedPosts()
     const artlist = await getAllArtPosts()
     const noteku = await getNoteQ()
 
@@ -32,7 +32,7 @@ export default async function Page() {
                         </div>
                     </div>
                     <div>
-                        <span className="webroot">web@dirdiare:</span>
+                        <span className="webroot">web/dirdiare:</span>
                         <span className="webmain">me</span>
                     </div>
                     <div className="">
@@ -44,17 +44,52 @@ export default async function Page() {
                         </span>
                     </div>
                     <div>
-                        <span className="webroot">web@dirdiare:</span>
-                        <span className="webmain">app</span>
+                        <span className="webroot">web/dirdiare:</span>
+                        <span className="webmain">cd app</span>
                     </div>
-                    <div className="ml-4 flex flex-col space-y-2 my-2">
+                    <div>
+                        <span className="webroot">web/dirdiare/app:</span>
+                        <span className="webmain">ls -l</span>
+                    </div>
+                    <span className="webcontentroot">
+                        drwxr-xr-x UKI <Link href={`/about`}>about</Link>
+                    </span>
+                    <span className="webcontentroot">
+                        drwxr-xr-x UKI
+                        <Link href={`/w`}> tulisan</Link>
+                    </span>
+                    <span className="webcontentroot">
+                        drwxr-xr-x UKI
+                        <Link href={`/m`}> music</Link>
+                    </span>
+                    <span className="webcontentroot">
+                        drwxr-xr-x UKI <Link href={`/l`}>lab</Link>
+                    </span>
+                    <div className="flex flex-col space-y-2 my-2">
                         <div>
-                            <span className="webtree">└──</span>
-                            <span className="webmain">tulisan/</span>
+                            <span className="webroot">web/dirdiare/app:</span>
+                            <span className="webmain">ls -l tulisan</span>
                         </div>
                         {postlist.map((post) => (
-                            <div key={post._id} className="ml-6">
-                                <span className="webtree">└──</span>
+                            <div
+                                key={post._id}
+                                className="grid grid-cols-[11ch_4ch_11ch_auto] gap-x-1 items-center"
+                            >
+                                <span className="webtree">−rw−r−−r−−</span>
+                                <span className="webtree uppercase">
+                                    {post.author}
+                                </span>
+                                <span className="webtree">
+                                    {new Date(post.publishedAt)
+                                        .toLocaleDateString('en-GB', {
+                                            day: '2-digit',
+                                            month: 'short',
+                                            year: '2-digit',
+                                            timeZone: 'Asia/Jakarta',
+                                        })
+                                        .toUpperCase()}
+                                </span>
+
                                 <Link
                                     className="group"
                                     href={`/w/${post.slug}`}
@@ -63,53 +98,80 @@ export default async function Page() {
                                         {post.title}
                                     </span>
                                 </Link>
-                                <span className="webformat">.mdx</span>
                             </div>
                         ))}
                         <div>
-                            <span className="webtree">└──</span>
-                            <span className="webmain">note/</span>
+                            <div>
+                                <span className="webroot">
+                                    web/dirdiare/app:
+                                </span>
+                                <span className="webmain">ls -l note</span>
+                            </div>{' '}
                         </div>
                         {noteku.map((post) => (
-                            <div key={post._id} className="ml-6">
-                                <span className="webtree">└──</span>
-
-                                <span className="webcontent">{post.note}</span>
-                                <span className="webformat">
-                                    {' '}
-                                    - {post.author}
+                            <div
+                                key={post._id}
+                                className="grid grid-cols-[11ch_8ch_auto] gap-x-1 items-center"
+                            >
+                                <span className="webtree">−rw−r−−r−−</span>
+                                <span className="webtree uppercase">
+                                    {post.author}
+                                </span>
+                                <span className="webcontent truncate min-w-0">
+                                    {post.note}
                                 </span>
                             </div>
                         ))}
                         <div>
-                            <span className="webtree">└──</span>
-                            <span className="webmain">lab/</span>
+                            <div>
+                                <span className="webroot">
+                                    web/dirdiare/app:
+                                </span>
+                                <span className="webmain">ls -l lab</span>
+                            </div>{' '}
                         </div>
                         {artlist.map((lab) => (
-                            <div key={lab.slug} className="ml-6">
+                            <div
+                                key={lab.slug}
+                                className="grid grid-cols-[11ch_4ch_11ch_auto] gap-x-1 items-center"
+                            >
+                                <span className="webtree">−rw−r−−r−−</span>
+                                <span className="webtree uppercase">
+                                    {lab.author}
+                                </span>
+                                <span className="webtree">
+                                    {new Date(lab.publishedAt)
+                                        .toLocaleDateString('en-GB', {
+                                            day: '2-digit',
+                                            month: 'short',
+                                            year: '2-digit',
+                                            timeZone: 'Asia/Jakarta',
+                                        })
+                                        .toUpperCase()}
+                                </span>
                                 <Link className="group" href={`/l/${lab.slug}`}>
-                                    <span className="webtree">└──</span>
                                     <span className="webcontent">
                                         {lab.title}
                                     </span>
                                 </Link>
-                                <span className="webformat">.mdx</span>
                             </div>
                         ))}
                     </div>
                     <div>
                         <span className="webroot">web@dirdiare:</span>
-                        <span className="webmain">activity</span>{' '}
-                        <div className="ml-4 flex flex-col space-y-2 my-2">
+                        <span className="webmain">cd activity</span>{' '}
+                        <div className="flex flex-col">
                             <div>
-                                <span className="webtree">└──</span>
-                                <span className="webmain">strava/</span>
+                                <span className="webmain">
+                                    strava --latest-activity
+                                </span>
                                 <Strava />
                             </div>
 
                             <div>
-                                <span className="webtree">└──</span>
-                                <span className="webmain">discord/</span>
+                                <span className="webmain">
+                                    discord --latest-activity
+                                </span>
                                 <DiscordStatus />
                             </div>
                         </div>
@@ -120,4 +182,3 @@ export default async function Page() {
         </main>
     )
 }
-
