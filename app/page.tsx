@@ -7,7 +7,7 @@ import { getAllArtPosts } from 'app/lib/artpost'
 import { getNoteQ } from 'app/lib/noteq'
 import { DiscordStatus } from 'app/components/discord'
 import Link from 'next/link'
-
+import UkCLI from 'app/components/ukcli'
 export default async function Page() {
     const postlist = await getAllPublishedPosts()
     const artlist = await getAllArtPosts()
@@ -17,24 +17,17 @@ export default async function Page() {
         <main className="flex-auto min-w-0 mt-6 flex flex-col px-4 md:px-0">
             <section>
                 <main className="flex flex-col">
+                    <UkCLI path="~" command="fetchdiare" />
+                    <UkHeaderAscii />
                     <div>
-                        <span className="webroot">~:</span>
-                        <span className="webmain">verfetch</span>
-                        <UkHeaderAscii />
-                    </div>
-                    <div>
-                        <span className="webroot">~:</span>
-                        <span className="webmain">cd dir-diare</span>
+                        <UkCLI path="~" command="cd dirdiare" />
                         <div className="webcontent">
                             {'>'} Welcome to my little space on internet, place
                             to share my thoughts and ideas, w/o to think about
                             the algorithm of social media.
                         </div>
                     </div>
-                    <div>
-                        <span className="webroot">web/dirdiare:</span>
-                        <span className="webmain">me</span>
-                    </div>
+                    <UkCLI path="~/dirdiare:" command="aboutme" />
                     <div className="">
                         <span className="webcontent">
                             {'>'} I am a Communication student who has an
@@ -43,33 +36,28 @@ export default async function Page() {
                             Bandung, West Java.
                         </span>
                     </div>
+                    <UkCLI path="~/dirdiare:" command="cd app" />
+                    <UkCLI path="~/dirdiare/app:" command="ls -l" />
                     <div>
-                        <span className="webroot">web/dirdiare:</span>
-                        <span className="webmain">cd app</span>
-                    </div>
-                    <div>
-                        <span className="webroot">web/dirdiare/app:</span>
-                        <span className="webmain">ls -l</span>
-                    </div>
-                    <span className="webcontentroot">
-                        drwxr-xr-x UKI <Link href={`/about`}>about</Link>
-                    </span>
-                    <span className="webcontentroot">
-                        drwxr-xr-x UKI
-                        <Link href={`/w`}> tulisan</Link>
-                    </span>
-                    <span className="webcontentroot">
-                        drwxr-xr-x UKI
-                        <Link href={`/m`}> music</Link>
-                    </span>
-                    <span className="webcontentroot">
-                        drwxr-xr-x UKI <Link href={`/l`}>lab</Link>
-                    </span>
-                    <div className="flex flex-col space-y-2 my-2">
                         <div>
-                            <span className="webroot">web/dirdiare/app:</span>
-                            <span className="webmain">ls -l tulisan</span>
+                            <span className="webtree">drwxr-xr-x UKI</span>
+                            <Link href={`/about`}>about</Link>
                         </div>
+                        <div>
+                            <span className="webtree">drwxr-xr-x UKI</span>
+                            <Link href={`/w`}>tulisan</Link>
+                        </div>
+                        <div>
+                            <span className="webtree">drwxr-xr-x UKI</span>
+                            <Link href={`/m`}>music</Link>
+                        </div>
+                        <div>
+                            <span className="webtree">drwxr-xr-x UKI</span>
+                            <Link href={`/l`}>lab</Link>
+                        </div>
+                    </div>
+                    <div className="flex flex-col space-y-2 my-2">
+                        <UkCLI path="~/dirdiare/app:" command="ls -l tulisan" />
                         {postlist.map((post) => (
                             <div
                                 key={post._id}
@@ -100,14 +88,7 @@ export default async function Page() {
                                 </Link>
                             </div>
                         ))}
-                        <div>
-                            <div>
-                                <span className="webroot">
-                                    web/dirdiare/app:
-                                </span>
-                                <span className="webmain">ls -l note</span>
-                            </div>{' '}
-                        </div>
+                        <UkCLI path="~/dirdiare/app:" command="ls -l noteku" />
                         {noteku.map((post) => (
                             <div
                                 key={post._id}
@@ -122,14 +103,7 @@ export default async function Page() {
                                 </span>
                             </div>
                         ))}
-                        <div>
-                            <div>
-                                <span className="webroot">
-                                    web/dirdiare/app:
-                                </span>
-                                <span className="webmain">ls -l lab</span>
-                            </div>{' '}
-                        </div>
+                        <UkCLI path="~/dirdiare/app:" command="ls -l lab" />
                         {artlist.map((lab) => (
                             <div
                                 key={lab.slug}
@@ -158,22 +132,22 @@ export default async function Page() {
                         ))}
                     </div>
                     <div>
-                        <span className="webroot">web@dirdiare:</span>
-                        <span className="webmain">cd activity</span>{' '}
+                        <UkCLI path="~/dirdiare/app:" command="cd .." />
+                        <UkCLI path="~/dirdiare:" command="cd activity" />
+                        <UkCLI
+                            path="~/dirdiare/activity:"
+                            command="strava --latest-activity"
+                        />
                         <div className="flex flex-col">
-                            <div>
-                                <span className="webmain">
-                                    strava --latest-activity
-                                </span>
-                                <Strava />
-                            </div>
+                            <Strava />
+                        </div>
 
-                            <div>
-                                <span className="webmain">
-                                    discord --latest-activity
-                                </span>
-                                <DiscordStatus />
-                            </div>
+                        <div>
+                            <UkCLI
+                                path="~/dirdiare/activity:"
+                                command="discord --latest-activity"
+                            />
+                            <DiscordStatus />
                         </div>
                     </div>
                 </main>
