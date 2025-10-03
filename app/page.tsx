@@ -22,18 +22,20 @@ export default async function Page() {
                     <div>
                         <UkCLI path="~" command="cd dirdiare" />
                         <div className="webcontent">
-                            {'>'} Welcome to my little space on internet, place
-                            to share my thoughts and ideas, w/o to think about
-                            the algorithm of social media.
+                            <span className="text-white/40">{'> '}</span>Welcome
+                            to my little space on internet, place to share my
+                            thoughts and ideas, w/o to think about the algorithm
+                            of social media.
                         </div>
                     </div>
                     <UkCLI path="~/dirdiare:" command="aboutme" />
                     <div className="">
                         <span className="webcontent">
-                            {'>'} I am a Communication student who has an
-                            interest in interface design &running . My name
-                            import Syauqi Ashadullah and am currently living in
-                            Bandung, West Java.
+                            <span className="text-white/40">{'> '}</span>I am a
+                            Communication student who has an interest in
+                            interface design &running . My name import Syauqi
+                            Ashadullah and am currently living in Bandung, West
+                            Java.
                         </span>
                     </div>
                     <UkCLI path="~/dirdiare:" command="cd app" />
