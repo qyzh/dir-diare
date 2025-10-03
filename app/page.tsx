@@ -6,8 +6,11 @@ import { getAllPublishedPosts } from 'app/lib/posts'
 import { getAllArtPosts } from 'app/lib/artpost'
 import { getNoteQ } from 'app/lib/noteq'
 import { DiscordStatus } from 'app/components/discord'
+import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
 import UkCLI from 'app/components/ukcli'
+import DecryptedText from 'app/components/ukdecrypted'
+
 export default async function Page() {
     const postlist = await getAllPublishedPosts()
     const artlist = await getAllArtPosts()
@@ -22,20 +25,38 @@ export default async function Page() {
                     <div>
                         <UkCLI path="~" command="cd dirdiare" />
                         <div className="webcontent">
-                            <span className="text-white/40">{'> '}</span>Welcome
-                            to my little space on internet, place to share my
-                            thoughts and ideas, w/o to think about the algorithm
-                            of social media.
+                            <span className="text-white/40">
+                                <ChevronRight className="inline w-4 h-4" />
+                            </span>
+                            Welcome to my little space on internet, place to
+                            share my thoughts and ideas, w/o to think about the
+                            algorithm of social media.
                         </div>
                     </div>
                     <UkCLI path="~/dirdiare:" command="aboutme" />
                     <div className="">
                         <span className="webcontent">
-                            <span className="text-white/40">{'> '}</span>I am a
-                            Communication student who has an interest in
-                            interface design &running . My name import Syauqi
-                            Ashadullah and am currently living in Bandung, West
-                            Java.
+                            <span className="text-white/40">
+                                <ChevronRight className="inline w-4 h-4" />
+                            </span>
+                            I am a
+                            <DecryptedText
+                                text=" Communication student "
+                                speed={100}
+                                maxIterations={20}
+                                characters="communicationstudent"
+                                className="revealed"
+                                parentClassName="all-letters"
+                                encryptedClassName="encrypted"
+                            />
+                            who has an interest in interface design &running .
+                            My name is{' '}
+                            <DecryptedText
+                                text="Syauqi Ashadullah"
+                                characters="sauqihlllah"
+                            />{' '}
+                            and am currently living in{' '}
+                            <DecryptedText text="bandung" />, West Java.
                         </span>
                     </div>
                     <UkCLI path="~/dirdiare:" command="cd app" />
