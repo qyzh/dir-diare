@@ -4,15 +4,16 @@ import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import UKButton from 'app/components/ukbtn'
 import Breadcrumbs from 'app/components/breadcrumbs'
-
-export default function CreatePostPage() {
+export default function CreateArtPostPage() {
     const { data: session, status } = useSession()
     const [title, setTitle] = useState('')
+    const [slug, setSlug] = useState('')
     const [tags, setTags] = useState('')
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
     const [author, setAuthor] = useState('')
-    const [postStatus, setPostStatus] = useState('draft')
+    const [image, setImage] = useState('')
+    const [publishedAt, setPublishedAt] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
@@ -28,24 +29,26 @@ export default function CreatePostPage() {
         setError(null)
 
         try {
-            const response = await fetch('/api/posts', {
+            const response = await fetch('/api/artposts', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     title,
+                    slug,
                     tags: tags.split(',').map((tag) => tag.trim()),
                     content,
                     summary,
                     author,
-                    status: postStatus,
+                    image,
+                    publishedAt: publishedAt || new Date().toISOString(),
                 }),
             })
 
             if (!response.ok) {
-                throw new Error('Failed to create post')
+                throw new Error('Failed to create art post')
             }
 
-            router.push('/x')
+            router.push('/x/artposts')
         } catch (err) {
             setError(
                 err instanceof Error ? err.message : 'An unknown error occurred'
@@ -65,7 +68,7 @@ export default function CreatePostPage() {
     if (status === 'unauthenticated') {
         return (
             <div className="container mx-auto px-4 py-8">
-                <p>You must be signed in to create a post.</p>
+                <p>You must be signed in to create an art post.</p>
                 <UKButton onClick={() => signIn('github')}>
                     Sign in with GitHub
                 </UKButton>
@@ -76,7 +79,7 @@ export default function CreatePostPage() {
     if (session?.user?.name !== 'uki') {
         return (
             <div className="container mx-auto px-4 py-8">
-                <p>You are not authorized to create a post.</p>
+                <p>You are not authorized to create an art post.</p>
                 <UKButton onClick={() => signOut()}>Sign out</UKButton>
             </div>
         )
@@ -85,7 +88,7 @@ export default function CreatePostPage() {
     return (
         <div className="container mx-auto px-4 py-8">
             <Breadcrumbs />
-            <h1 className="text-4xl font-bold mb-8">Create New Post</h1>
+            <h1 className="text-4xl font-bold mb-8">Create New Art Post</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                     <label
@@ -105,20 +108,19 @@ export default function CreatePostPage() {
                 </div>
                 <div>
                     <label
-                        htmlFor="status"
+                        htmlFor="slug"
                         className="block text-sm font-medium text-gray-400"
                     >
-                        Status
+                        Slug
                     </label>
-                    <select
-                        id="status"
-                        value={postStatus}
-                        onChange={(e) => setPostStatus(e.target.value)}
+                    <input
+                        type="text"
+                        id="slug"
+                        value={slug}
+                        onChange={(e) => setSlug(e.target.value)}
                         className={inputClassName}
-                    >
-                        <option value="draft">Draft</option>
-                        <option value="published">Published</option>
-                    </select>
+                        required
+                    />
                 </div>
                 <div>
                     <label
@@ -133,6 +135,37 @@ export default function CreatePostPage() {
                         value={author}
                         onChange={(e) => setAuthor(e.target.value)}
                         className={inputClassName}
+                    />
+                </div>
+                <div>
+                    <label
+                        htmlFor="image"
+                        className="block text-sm font-medium text-gray-400"
+                    >
+                        Image URL
+                    </label>
+                    <input
+                        type="text"
+                        id="image"
+                        value={image}
+                        onChange={(e) => setImage(e.target.value)}
+                        className={inputClassName}
+                    />
+                </div>
+                <div>
+                    <label
+                        htmlFor="publishedAt"
+                        className="block text-sm font-medium text-gray-400"
+                    >
+                        Published At (YYYY-MM-DDTHH:MM:SS.sssZ)
+                    </label>
+                    <input
+                        type="text"
+                        id="publishedAt"
+                        value={publishedAt}
+                        onChange={(e) => setPublishedAt(e.target.value)}
+                        className={inputClassName}
+                        placeholder="e.g., 2023-10-27T10:00:00.000Z"
                     />
                 </div>
                 <div>
@@ -188,7 +221,7 @@ export default function CreatePostPage() {
                         disabled={isLoading}
                         className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
                     >
-                        {isLoading ? 'Creating...' : 'Create Post'}
+                        {isLoading ? 'Creating...' : 'Create Art Post'}
                     </UKButton>
                 </div>
             </form>

@@ -9,7 +9,7 @@ export interface Post {
     publishedAt: string
     updatedAt?: string
     tags?: string[]
-    author?: string
+    author: string
     status: 'draft' | 'published'
 }
 

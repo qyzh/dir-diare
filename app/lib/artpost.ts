@@ -10,7 +10,7 @@ export interface ArtPost {
     publishedAt: string
     updatedAt?: string
     tags?: string[]
-    author?: string
+    author: string
     image?: string
 }
 
@@ -95,11 +95,15 @@ export async function updateArtPost(
         )
 
     if (result) {
-        return {
-            ...result,
-            _id: result._id.toString(),
-        } as ArtPost
+        return { ...result, _id: result._id.toString() } as ArtPost
     }
 
     return null
 }
+
+export async function deleteArtPost(slug: string): Promise<boolean> {
+    const db = await getDb()
+    const result = await db.collection('dirart').deleteOne({ slug })
+    return result.deletedCount === 1
+}
+

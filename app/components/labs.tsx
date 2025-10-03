@@ -1,15 +1,6 @@
 import Link from 'next/link'
-import { getAllArtPosts } from 'app/lib/artpost'
-
-interface ArtPost {
-    _id: string
-    slug: string
-    title: string
-    publishedAt: string
-    summary?: string
-    image?: string
-}
-
+import { getAllArtPosts, ArtPost } from 'app/lib/artpost'
+import UkCLI from 'app/components/ukcli'
 interface PostCardProps {
     post: ArtPost
 }
@@ -18,7 +9,18 @@ const PostCard = ({ post }: PostCardProps) => {
     return (
         <>
             <div key={post.slug}>
-                <span className="webtree">└──</span>
+                <span className="webtree">−rw−r−−r−−</span>{' '}
+                <span className="webtree uppercase">{post.author}</span>
+                <span className="webtree">
+                    {new Date(post.publishedAt)
+                        .toLocaleDateString('en-GB', {
+                            day: '2-digit',
+                            month: 'short',
+                            year: '2-digit',
+                            timeZone: 'Asia/Jakarta',
+                        })
+                        .toUpperCase()}
+                </span>{' '}
                 <Link
                     key={post.slug}
                     className="group text-lg webcontent"
@@ -27,9 +29,6 @@ const PostCard = ({ post }: PostCardProps) => {
                 >
                     {post.title}
                 </Link>
-                <div className="text-sm webformat ml-8">
-                    {'>'} {post.summary}
-                </div>
             </div>
         </>
     )
@@ -40,11 +39,8 @@ export async function ArtPosts() {
 
     return (
         <div role="list" aria-label="Art posts" className="group">
+            <UkCLI path=" " command="ls -l labs" />
             <div>
-                <span className="webtree">└──</span>
-                <span className="webmain">Art/</span>
-            </div>
-            <div className="ml-6 ">
                 {allPosts.map((post) => (
                     <PostCard key={post.slug} post={post} />
                 ))}
@@ -52,4 +48,3 @@ export async function ArtPosts() {
         </div>
     )
 }
-

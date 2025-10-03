@@ -33,7 +33,7 @@ export async function PUT(
 ) {
     const session = await getServerSession(authOptions)
 
-    if (session?.user?.name !== 'uki') {
+    if (!session || session.user?.name !== 'uki') {
         return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
     }
 

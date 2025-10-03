@@ -1,26 +1,18 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import UKButton from 'app/components/ukbtn'
 import Breadcrumbs from 'app/components/breadcrumbs'
-
-export default function CreatePostPage() {
+export default function CreateNoteQPage() {
     const { data: session, status } = useSession()
-    const [title, setTitle] = useState('')
-    const [tags, setTags] = useState('')
-    const [content, setContent] = useState('')
-    const [summary, setSummary] = useState('')
+    const [date, setDate] = useState('')
+    const [note, setNote] = useState('')
     const [author, setAuthor] = useState('')
-    const [postStatus, setPostStatus] = useState('draft')
+    const [source, setSource] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
     const router = useRouter()
-
-    useEffect(() => {
-        const generatedSummary = content.substring(0, 100)
-        setSummary(generatedSummary)
-    }, [content])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -28,24 +20,22 @@ export default function CreatePostPage() {
         setError(null)
 
         try {
-            const response = await fetch('/api/posts', {
+            const response = await fetch('/api/noteqs', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    title,
-                    tags: tags.split(',').map((tag) => tag.trim()),
-                    content,
-                    summary,
+                    date: date || new Date().toISOString(),
+                    note,
                     author,
-                    status: postStatus,
+                    source,
                 }),
             })
 
             if (!response.ok) {
-                throw new Error('Failed to create post')
+                throw new Error('Failed to create note')
             }
 
-            router.push('/x')
+            router.push('/x/noteqs')
         } catch (err) {
             setError(
                 err instanceof Error ? err.message : 'An unknown error occurred'
@@ -65,7 +55,7 @@ export default function CreatePostPage() {
     if (status === 'unauthenticated') {
         return (
             <div className="container mx-auto px-4 py-8">
-                <p>You must be signed in to create a post.</p>
+                <p>You must be signed in to create a note.</p>
                 <UKButton onClick={() => signIn('github')}>
                     Sign in with GitHub
                 </UKButton>
@@ -76,7 +66,7 @@ export default function CreatePostPage() {
     if (session?.user?.name !== 'uki') {
         return (
             <div className="container mx-auto px-4 py-8">
-                <p>You are not authorized to create a post.</p>
+                <p>You are not authorized to create a note.</p>
                 <UKButton onClick={() => signOut()}>Sign out</UKButton>
             </div>
         )
@@ -85,40 +75,39 @@ export default function CreatePostPage() {
     return (
         <div className="container mx-auto px-4 py-8">
             <Breadcrumbs />
-            <h1 className="text-4xl font-bold mb-8">Create New Post</h1>
+            <h1 className="text-4xl font-bold mb-8">Create New Note</h1>
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                     <label
-                        htmlFor="title"
+                        htmlFor="date"
                         className="block text-sm font-medium text-gray-400"
                     >
-                        Title
+                        Date (YYYY-MM-DDTHH:MM:SS.sssZ)
                     </label>
                     <input
                         type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
+                        id="date"
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
                         className={inputClassName}
-                        required
+                        placeholder="e.g., 2023-10-27T10:00:00.000Z"
                     />
                 </div>
                 <div>
                     <label
-                        htmlFor="status"
+                        htmlFor="note"
                         className="block text-sm font-medium text-gray-400"
                     >
-                        Status
+                        Note
                     </label>
-                    <select
-                        id="status"
-                        value={postStatus}
-                        onChange={(e) => setPostStatus(e.target.value)}
+                    <textarea
+                        id="note"
+                        rows={5}
+                        value={note}
+                        onChange={(e) => setNote(e.target.value)}
                         className={inputClassName}
-                    >
-                        <option value="draft">Draft</option>
-                        <option value="published">Published</option>
-                    </select>
+                        required
+                    />
                 </div>
                 <div>
                     <label
@@ -137,47 +126,16 @@ export default function CreatePostPage() {
                 </div>
                 <div>
                     <label
-                        htmlFor="summary"
+                        htmlFor="source"
                         className="block text-sm font-medium text-gray-400"
                     >
-                        Summary
-                    </label>
-                    <textarea
-                        id="summary"
-                        rows={3}
-                        value={summary}
-                        onChange={(e) => setSummary(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="content"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Content (Markdown)
-                    </label>
-                    <textarea
-                        id="content"
-                        rows={10}
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        className={inputClassName}
-                        required
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="tags"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Tags (comma-separated)
+                        Source
                     </label>
                     <input
                         type="text"
-                        id="tags"
-                        value={tags}
-                        onChange={(e) => setTags(e.target.value)}
+                        id="source"
+                        value={source}
+                        onChange={(e) => setSource(e.target.value)}
                         className={inputClassName}
                     />
                 </div>
@@ -188,7 +146,7 @@ export default function CreatePostPage() {
                         disabled={isLoading}
                         className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
                     >
-                        {isLoading ? 'Creating...' : 'Create Post'}
+                        {isLoading ? 'Creating...' : 'Create Note'}
                     </UKButton>
                 </div>
             </form>
