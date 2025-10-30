@@ -5,8 +5,8 @@ import { AUTHORIZED_USER } from './constants'
 
 /**
  * Check if the current user is authorized
- * @returns An object with `authorized` boolean. If false, includes a `response` with 401 status.
- * If true, includes the user's `session`.
+ * @returns {{ authorized: false, response: NextResponse } | { authorized: true, session: Session }}
+ * A discriminated union - when authorized is false, response property is present; when true, session property is present
  */
 export async function checkAuth() {
     const session = await getServerSession(authOptions)
