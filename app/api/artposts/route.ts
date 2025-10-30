@@ -17,7 +17,7 @@ export async function POST(request: Request) {
         const body = await request.json()
         const newArtPost = await createArtPost({
             ...body,
-            author: authResult.session.user?.name,
+            author: authResult.session?.user?.name || 'uki',
         } as Omit<ArtPost, '_id'>)
         return NextResponse.json(newArtPost, { status: 201 })
     } catch (error) {
