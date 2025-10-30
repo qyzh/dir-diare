@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createPost, getAllPosts } from 'app/lib/posts'
 import { checkAuth, createErrorResponse } from 'app/lib/api-helpers'
+import { AUTHORIZED_USER } from 'app/lib/constants'
 
 export async function GET(request: NextRequest) {
     try {
@@ -42,7 +43,7 @@ export async function POST(request: NextRequest) {
             summary: body.summary || '',
             publishedAt: body.publishedAt || new Date().toISOString(),
             tags: body.tags || [],
-            author: 'uki',
+            author: AUTHORIZED_USER,
             status: body.status || 'draft',
         })
 

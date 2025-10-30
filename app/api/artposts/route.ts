@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getAllArtPosts, createArtPost, ArtPost } from 'app/lib/artpost'
 import { checkAuth, createErrorResponse } from 'app/lib/api-helpers'
+import { AUTHORIZED_USER } from 'app/lib/constants'
 
 export async function GET() {
     const posts = await getAllArtPosts()
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
         const body = await request.json()
         const newArtPost = await createArtPost({
             ...body,
-            author: 'uki',
+            author: AUTHORIZED_USER,
         } as Omit<ArtPost, '_id'>)
         return NextResponse.json(newArtPost, { status: 201 })
     } catch (error) {

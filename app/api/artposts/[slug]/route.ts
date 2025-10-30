@@ -10,6 +10,7 @@ import {
     createErrorResponse,
     createNotFoundResponse,
 } from 'app/lib/api-helpers'
+import { AUTHORIZED_USER } from 'app/lib/constants'
 
 export async function GET(request: NextRequest, { params }) {
     const { slug } = params
@@ -33,7 +34,7 @@ export async function PUT(request: NextRequest, { params }) {
         const body = await request.json()
         const updatedArtPost = await updateArtPost(slug, {
             ...body,
-            author: 'uki',
+            author: AUTHORIZED_USER,
         } as Partial<ArtPost>)
 
         if (!updatedArtPost) {

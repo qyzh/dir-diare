@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { authOptions } from './auth'
+import { AUTHORIZED_USER } from './constants'
 
 /**
  * Check if the current user is authorized (must be 'uki')
@@ -9,7 +10,7 @@ import { authOptions } from './auth'
 export async function checkAuth() {
     const session = await getServerSession(authOptions)
 
-    if (!session || session.user?.name !== 'uki') {
+    if (!session || session.user?.name !== AUTHORIZED_USER) {
         return {
             authorized: false,
             response: new NextResponse('Unauthorized', { status: 401 }),
