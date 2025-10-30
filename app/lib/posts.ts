@@ -1,4 +1,9 @@
-import clientPromise from './mongodb'
+import {
+    getAllDocuments,
+    getDocumentByField,
+    createDocument,
+    updateDocumentByField,
+} from './db-helpers'
 
 export interface Post {
     _id: string
@@ -13,108 +18,33 @@ export interface Post {
     status: 'draft' | 'published'
 }
 
-async function getDb() {
-    const client = await clientPromise
-    return client.db('dirmain')
-}
+const COLLECTION_NAME = 'dirpost'
 
 export async function getAllPosts(): Promise<Post[]> {
-    const db = await getDb()
-    const posts = await db
-        .collection('dirpost')
-        .find({})
-        .sort({ publishedAt: -1 })
-        .toArray()
-
-    return posts.map(
-        (post) =>
-            ({
-                ...post,
-                _id: post._id.toString(),
-            }) as Post
-    )
+    return getAllDocuments<Post>(COLLECTION_NAME)
 }
 
 export async function getAllPublishedPosts(): Promise<Post[]> {
-    const db = await getDb()
-    const posts = await db
-        .collection('dirpost')
-        .find({ status: 'published' })
-        .sort({ publishedAt: -1 })
-        .toArray()
-
-    return posts.map(
-        (post) =>
-            ({
-                ...post,
-                _id: post._id.toString(),
-            }) as Post
-    )
+    return getAllDocuments<Post>(COLLECTION_NAME, 'publishedAt', -1, {
+        status: 'published',
+    })
 }
 
 export async function getPostBySlug(slug: string): Promise<Post | null> {
-    const db = await getDb()
-    const post = await db.collection('dirpost').findOne({ slug })
-
-    if (post) {
-        // Process the content if needed based on the stored format
-        // MDXRemote expects content as a string of MDX markup
-        return {
-            ...post,
-            _id: post._id.toString(),
-        } as Post
-    }
-
-    return null
+    return getDocumentByField<Post>(COLLECTION_NAME, 'slug', slug)
 }
 
 export async function createPost(post: Omit<Post, '_id'>): Promise<Post> {
-    const db = await getDb()
-    const now = new Date().toISOString()
-
-    const postToInsert = {
+    const postWithDefaults = {
         ...post,
-        publishedAt: post.publishedAt || now,
-        updatedAt: now,
         status: post.status || 'draft',
     }
-
-    const result = await db.collection('dirpost').insertOne(postToInsert)
-
-    return {
-        ...postToInsert,
-        _id: result.insertedId.toString(),
-    } as Post
+    return createDocument<Post>(COLLECTION_NAME, postWithDefaults, true)
 }
 
 export async function updatePost(
     slug: string,
     post: Partial<Post>
 ): Promise<Post | null> {
-    const db = await getDb()
-    const now = new Date().toISOString()
-
-    const update = {
-        ...post,
-        updatedAt: now,
-    }
-
-    delete update._id // Remove _id if present as it cannot be updated
-
-    const result = await db
-        .collection('dirpost')
-        .findOneAndUpdate(
-            { slug },
-            { $set: update },
-            { returnDocument: 'after' }
-        )
-
-    if (result) {
-        return {
-            ...result,
-            _id: result._id.toString(),
-        } as Post
-    }
-
-    return null
+    return updateDocumentByField<Post>(COLLECTION_NAME, 'slug', slug, post, true)
 }

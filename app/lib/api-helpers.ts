@@ -1,0 +1,48 @@
+import { NextResponse } from 'next/server'
+import { getServerSession } from 'next-auth'
+import { authOptions } from './auth'
+
+/**
+ * Check if the current user is authorized (must be 'uki')
+ * @returns The session if authorized, or a NextResponse with 401/403 status
+ */
+export async function checkAuth() {
+    const session = await getServerSession(authOptions)
+
+    if (!session || session.user?.name !== 'uki') {
+        return {
+            authorized: false,
+            response: new NextResponse('Unauthorized', { status: 401 }),
+        }
+    }
+
+    return { authorized: true, session }
+}
+
+/**
+ * Create a standardized error response
+ */
+export function createErrorResponse(
+    message: string,
+    error?: Error,
+    status: number = 500
+) {
+    console.error(message, error)
+    return new NextResponse(
+        JSON.stringify({
+            error: message,
+            details: error?.message,
+        }),
+        {
+            status,
+            headers: { 'Content-Type': 'application/json' },
+        }
+    )
+}
+
+/**
+ * Create a not found response
+ */
+export function createNotFoundResponse(message: string = 'Not found') {
+    return new NextResponse(message, { status: 404 })
+}
