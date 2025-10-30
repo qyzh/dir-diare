@@ -5,7 +5,8 @@ import { AUTHORIZED_USER } from './constants'
 
 /**
  * Check if the current user is authorized
- * @returns The session if authorized, or a NextResponse with 401 status
+ * @returns An object with `authorized` boolean. If false, includes a `response` with 401 status.
+ * If true, includes the user's `session`.
  */
 export async function checkAuth() {
     const session = await getServerSession(authOptions)
