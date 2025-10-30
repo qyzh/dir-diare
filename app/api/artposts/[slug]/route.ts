@@ -33,7 +33,7 @@ export async function PUT(request: NextRequest, { params }) {
         const body = await request.json()
         const updatedArtPost = await updateArtPost(slug, {
             ...body,
-            author: authResult.session?.user?.name || 'uki',
+            author: 'uki',
         } as Partial<ArtPost>)
 
         if (!updatedArtPost) {
