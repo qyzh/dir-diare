@@ -4,8 +4,8 @@ import { authOptions } from './auth'
 import { AUTHORIZED_USER } from './constants'
 
 /**
- * Check if the current user is authorized (must be 'uki')
- * @returns The session if authorized, or a NextResponse with 401/403 status
+ * Check if the current user is authorized
+ * @returns The session if authorized, or a NextResponse with 401 status
  */
 export async function checkAuth() {
     const session = await getServerSession(authOptions)
