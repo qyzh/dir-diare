@@ -1,29 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from 'app/lib/auth'
 import { createPost, getAllPosts } from 'app/lib/posts'
+import { checkAuth, createErrorResponse } from 'app/lib/api-helpers'
+import { AUTHORIZED_USER } from 'app/lib/constants'
 
 export async function GET(request: NextRequest) {
     try {
         const posts = await getAllPosts()
         return NextResponse.json(posts)
     } catch (error) {
-        console.error('Error fetching posts:', error)
-        return NextResponse.json(
-            {
-                error: 'Failed to fetch posts',
-                details: (error as Error).message,
-            },
-            { status: 500 }
+        return createErrorResponse(
+            'Failed to fetch posts',
+            error as Error,
+            500
         )
     }
 }
 
 export async function POST(request: NextRequest) {
-    const session = await getServerSession(authOptions)
-
-    if (!session || session.user?.name !== 'uki') {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
+    const authResult = await checkAuth()
+    if (!authResult.authorized) {
+        return authResult.response
     }
 
     try {
@@ -37,8 +33,7 @@ export async function POST(request: NextRequest) {
             )
         }
 
-
-        const slug = body.slug || body.title.toLowerCase().replace(/\s+/g, '-');
+        const slug = body.slug || body.title.toLowerCase().replace(/\s+/g, '-')
 
         // Create a new post
         const newPost = await createPost({
@@ -48,7 +43,7 @@ export async function POST(request: NextRequest) {
             summary: body.summary || '',
             publishedAt: body.publishedAt || new Date().toISOString(),
             tags: body.tags || [],
-            author: 'uki',
+            author: AUTHORIZED_USER,
             status: body.status || 'draft',
         })
 
@@ -57,13 +52,10 @@ export async function POST(request: NextRequest) {
             { status: 201 }
         )
     } catch (error) {
-        console.error('Error creating post:', error)
-        return NextResponse.json(
-            {
-                error: 'Failed to create post',
-                details: (error as Error).message,
-            },
-            { status: 500 }
+        return createErrorResponse(
+            'Failed to create post',
+            error as Error,
+            500
         )
     }
 }

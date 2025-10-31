@@ -1,8 +1,10 @@
-
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth/next'
-import { authOptions } from 'app/lib/auth'
 import { getPostBySlug, updatePost } from 'app/lib/posts'
+import {
+    checkAuth,
+    createErrorResponse,
+    createNotFoundResponse,
+} from 'app/lib/api-helpers'
 
 export async function GET(
     request: NextRequest,
@@ -12,18 +14,11 @@ export async function GET(
         const { slug } = await params
         const post = await getPostBySlug(slug)
         if (!post) {
-            return NextResponse.json({ error: 'Post not found' }, { status: 404 })
+            return createNotFoundResponse('Post not found')
         }
         return NextResponse.json(post)
     } catch (error) {
-        console.error('Error fetching post:', error)
-        return NextResponse.json(
-            {
-                error: 'Failed to fetch post',
-                details: (error as Error).message,
-            },
-            { status: 500 }
-        )
+        return createErrorResponse('Failed to fetch post', error as Error, 500)
     }
 }
 
@@ -31,10 +26,9 @@ export async function PUT(
     request: NextRequest,
     { params }: { params: Promise<{ slug: string }> }
 ) {
-    const session = await getServerSession(authOptions)
-
-    if (!session || session.user?.name !== 'uki') {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 403 })
+    const authResult = await checkAuth()
+    if (!authResult.authorized) {
+        return authResult.response
     }
 
     try {
@@ -59,18 +53,11 @@ export async function PUT(
         })
 
         if (!updatedPost) {
-            return NextResponse.json({ error: 'Post not found' }, { status: 404 })
+            return createNotFoundResponse('Post not found')
         }
 
         return NextResponse.json({ success: true, post: updatedPost })
     } catch (error) {
-        console.error('Error updating post:', error)
-        return NextResponse.json(
-            {
-                error: 'Failed to update post',
-                details: (error as Error).message,
-            },
-            { status: 500 }
-        )
+        return createErrorResponse('Failed to update post', error as Error, 500)
     }
 }

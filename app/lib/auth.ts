@@ -1,5 +1,6 @@
 import type { NextAuthOptions } from 'next-auth'
 import GithubProvider from 'next-auth/providers/github'
+import { AUTHORIZED_USER } from './constants'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -11,7 +12,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ user, profile }) {
       // @ts-ignore
-      if (profile?.login === 'uki') {
+      if (profile?.login === AUTHORIZED_USER) {
         return true
       } else {
         return '/unauthorized'

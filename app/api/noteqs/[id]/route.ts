@@ -1,12 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from 'app/lib/auth'
+import { getNoteQById, updateNoteQ, deleteNoteQ, noteQ } from 'app/lib/noteq'
 import {
-    getNoteQById,
-    updateNoteQ,
-    deleteNoteQ,
-    noteQ,
-} from 'app/lib/noteq'
+    checkAuth,
+    createErrorResponse,
+    createNotFoundResponse,
+} from 'app/lib/api-helpers'
 
 export async function GET(
     request: NextRequest,
@@ -17,13 +15,12 @@ export async function GET(
         const note = await getNoteQById(id)
 
         if (!note) {
-            return new NextResponse('Note not found', { status: 404 })
+            return createNotFoundResponse('Note not found')
         }
 
         return NextResponse.json(note)
     } catch (error) {
-        console.error('Error fetching note:', error)
-        return new NextResponse('Failed to fetch note', { status: 500 })
+        return createErrorResponse('Failed to fetch note', error as Error, 500)
     }
 }
 
@@ -31,10 +28,9 @@ export async function PUT(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
-    const session = await getServerSession(authOptions)
-
-    if (!session || session.user?.name !== 'uki') {
-        return new NextResponse('Unauthorized', { status: 401 })
+    const authResult = await checkAuth()
+    if (!authResult.authorized) {
+        return authResult.response
     }
 
     try {
@@ -43,13 +39,12 @@ export async function PUT(
         const updatedNoteQ = await updateNoteQ(id, body as Partial<noteQ>)
 
         if (!updatedNoteQ) {
-            return new NextResponse('Note not found', { status: 404 })
+            return createNotFoundResponse('Note not found')
         }
 
         return NextResponse.json(updatedNoteQ)
     } catch (error) {
-        console.error('Failed to update note:', error)
-        return new NextResponse('Failed to update note', { status: 500 })
+        return createErrorResponse('Failed to update note', error as Error, 500)
     }
 }
 
@@ -57,10 +52,9 @@ export async function DELETE(
     request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
-    const session = await getServerSession(authOptions)
-
-    if (!session || session.user?.name !== 'uki') {
-        return new NextResponse('Unauthorized', { status: 401 })
+    const authResult = await checkAuth()
+    if (!authResult.authorized) {
+        return authResult.response
     }
 
     try {
@@ -68,12 +62,11 @@ export async function DELETE(
         const deleted = await deleteNoteQ(id)
 
         if (!deleted) {
-            return new NextResponse('Note not found', { status: 404 })
+            return createNotFoundResponse('Note not found')
         }
 
         return new NextResponse(null, { status: 204 })
     } catch (error) {
-        console.error('Failed to delete note:', error)
-        return new NextResponse('Failed to delete note', { status: 500 })
+        return createErrorResponse('Failed to delete note', error as Error, 500)
     }
 }

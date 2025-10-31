@@ -1,5 +1,10 @@
-import clientPromise from './mongodb'
-import { ObjectId } from 'mongodb'
+import {
+    getAllDocuments,
+    getDocumentByField,
+    createDocument,
+    updateDocumentByField,
+    deleteDocumentByField,
+} from './db-helpers'
 
 export interface noteQ {
     _id: string
@@ -9,84 +14,28 @@ export interface noteQ {
     source?: string
 }
 
-async function getDb() {
-    const client = await clientPromise
-    return client.db('dirmain')
-}
+const COLLECTION_NAME = 'dirnote'
 
 export async function getNoteQ(): Promise<noteQ[]> {
-    const db = await getDb()
-    const posts = await db
-        .collection('dirnote')
-        .find({})
-        .sort({ _id: -1 })
-        .toArray()
-
-    return posts.map(
-        (post) =>
-            ({
-                ...post,
-                _id: post._id.toString(),
-            }) as noteQ
-    )
+    return getAllDocuments<noteQ>(COLLECTION_NAME, '_id', -1)
 }
 
 export async function createNoteQ(note: Omit<noteQ, '_id'>): Promise<noteQ> {
-    const db = await getDb()
-    const result = await db.collection('dirnote').insertOne(note)
-    return {
-        ...note,
-        _id: result.insertedId.toString(),
-    } as noteQ
+    return createDocument<noteQ>(COLLECTION_NAME, note, false)
 }
 
 export async function getNoteQById(id: string): Promise<noteQ | null> {
-    const db = await getDb()
-    const note = await db.collection('dirnote').findOne({ _id: new ObjectId(id) })
-
-    if (note) {
-        return {
-            ...note,
-            _id: note._id.toString(),
-        } as noteQ
-    }
-
-    return null
+    return getDocumentByField<noteQ>(COLLECTION_NAME, '_id', id)
 }
 
 export async function updateNoteQ(
     id: string,
     note: Partial<noteQ>
 ): Promise<noteQ | null> {
-    const db = await getDb()
-
-    const update = {
-        ...note,
-    }
-
-    delete update._id // Remove _id if present as it cannot be updated
-
-    const updatedDocument = await db
-        .collection('dirnote')
-        .findOneAndUpdate(
-            { _id: new ObjectId(id) },
-            { $set: update },
-            { returnDocument: 'after' }
-        )
-
-    if (updatedDocument) {
-        return {
-            ...updatedDocument,
-            _id: updatedDocument._id.toString(),
-        } as noteQ
-    }
-
-    return null
+    return updateDocumentByField<noteQ>(COLLECTION_NAME, '_id', id, note, false)
 }
 
 export async function deleteNoteQ(id: string): Promise<boolean> {
-    const db = await getDb()
-    const result = await db.collection('dirnote').deleteOne({ _id: new ObjectId(id) })
-    return result.deletedCount === 1
+    return deleteDocumentByField(COLLECTION_NAME, '_id', id)
 }
 
