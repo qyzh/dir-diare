@@ -1,9 +1,4 @@
-import remarkGfm from 'remark-gfm'
 import createMDX from '@next/mdx'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypePrettyCode from 'rehype-pretty-code'
-import remarkFrontmatter from 'remark-frontmatter'
  
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -38,19 +33,15 @@ const nextConfig = {
  
 const withMDX = createMDX({
   // Add markdown plugins here, as desired
+  // In Next.js 16 with Turbopack, plugins need to be specified as strings
+  // and options must be serializable (no functions)
   options: {
-    remarkPlugins: [remarkGfm, remarkFrontmatter],
+    remarkPlugins: ['remark-gfm', 'remark-frontmatter'],
     rehypePlugins: [
-      rehypeSlug,
-      [rehypeAutolinkHeadings, { behavior: 'wrap' }],
-      [rehypePrettyCode, {
+      'rehype-slug',
+      ['rehype-autolink-headings', { behavior: 'wrap' }],
+      ['rehype-pretty-code', {
         theme: 'github-dark',
-        onVisitLine(node) {
-          // Prevent lines from collapsing in `display: grid` mode
-          if (node.children.length === 0) {
-            node.children = [{ type: 'text', value: ' ' }]
-          }
-        },
       }],
     ],
   },
