@@ -1,7 +1,11 @@
 "use client";
 
+import dynamic from 'next/dynamic';
 
-import Giscus from "@giscus/react";
+const Giscus = dynamic(() => import("@giscus/react"), {
+  ssr: false,
+  loading: () => <div className="h-32 animate-pulse bg-neutral-800 rounded" />
+});
 
 export default function Comments() {
 
