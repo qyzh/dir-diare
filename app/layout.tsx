@@ -20,7 +20,7 @@ export const metadata: Metadata = {
         'My Dir - My little space on internet, place to share my thoughts and ideas',
 }
 
-const cx = (...classes) => classes.filter(Boolean).join(' ')
+const cx = (...classes: (string | boolean | undefined | null)[]) => classes.filter(Boolean).join(' ')
 
 const playfair_display = Playfair_Display({
     subsets: ['latin'],

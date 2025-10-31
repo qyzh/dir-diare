@@ -12,25 +12,35 @@ import {
 } from 'app/lib/api-helpers'
 import { AUTHORIZED_USER } from 'app/lib/constants'
 
-export async function GET(request: NextRequest, { params }) {
-    const { slug } = params
-    const post = await getArtPostBySlug(slug)
+export async function GET(
+    request: NextRequest,
+    { params }: { params: Promise<{ slug: string }> }
+) {
+    try {
+        const { slug } = await params
+        const post = await getArtPostBySlug(slug)
 
-    if (!post) {
-        return createNotFoundResponse('Art Post not found')
+        if (!post) {
+            return createNotFoundResponse('Art Post not found')
+        }
+
+        return NextResponse.json(post)
+    } catch (error) {
+        return createErrorResponse('Failed to fetch art post', error as Error, 500)
     }
-
-    return NextResponse.json(post)
 }
 
-export async function PUT(request: NextRequest, { params }) {
+export async function PUT(
+    request: NextRequest,
+    { params }: { params: Promise<{ slug: string }> }
+) {
     const authResult = await checkAuth()
     if (!authResult.authorized) {
         return authResult.response
     }
 
-    const { slug } = params
     try {
+        const { slug } = await params
         const body = await request.json()
         const updatedArtPost = await updateArtPost(slug, {
             ...body,
@@ -51,14 +61,17 @@ export async function PUT(request: NextRequest, { params }) {
     }
 }
 
-export async function DELETE(request: NextRequest, { params }) {
+export async function DELETE(
+    request: NextRequest,
+    { params }: { params: Promise<{ slug: string }> }
+) {
     const authResult = await checkAuth()
     if (!authResult.authorized) {
         return authResult.response
     }
 
-    const { slug } = params
     try {
+        const { slug } = await params
         const deleted = await deleteArtPost(slug)
 
         if (!deleted) {

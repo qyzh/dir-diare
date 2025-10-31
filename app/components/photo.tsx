@@ -7,7 +7,15 @@ import UKCallout from './ukcallout';
 import { Download, Heart, MapPin, MapPinned } from 'lucide-react';
 
 interface UnsplashPhoto {
-  exif: any;
+  exif?: {
+    make?: string;
+    model?: string;
+    name?: string;
+    exposure_time?: string;
+    aperture?: string;
+    focal_length?: string;
+    iso?: number;
+  };
   id: string;
   urls: {
     regular: string;
@@ -81,7 +89,7 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
 
       // Fetch additional details for each photo
       const photosWithDetails = await Promise.all(
-        data.map(async (photo) => {
+        data.map(async (photo: UnsplashPhoto) => {
           const photoDetailsResponse = await fetch(
             `https://api.unsplash.com/photos/${photo.id}?client_id=${apiKey}`
           );
