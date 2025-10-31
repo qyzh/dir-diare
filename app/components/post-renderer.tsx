@@ -4,6 +4,7 @@ import Breadcrumbs from './breadcrumbs'
 import Comments from './comments'
 import Footer from './footer'
 import { formatDate } from 'app/lib/utils'
+import Image from 'next/image'
 
 const components = useMDXComponents()
 
@@ -44,9 +45,11 @@ export default function PostRenderer({ post, type }: { post: any; type: 'art' | 
                     {post.title}
                 </h1>
                 {post.image && (
-                    <img
+                    <Image
                         src={post.image}
                         alt="Post Image"
+                        width={800}
+                        height={600}
                         className="w-full h-auto mb-4 rounded-lg"
                     />
                 )}
