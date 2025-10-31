@@ -9,7 +9,7 @@ export async function GET(request: Request) {
   const playlistId = searchParams.get('playlist_id');
 
   try {
-    let response;
+    let response: Response | { is_playing: boolean };
     if (type === 'top-tracks') {
       response = await getTopTracks();
     } else if (type === 'playlists') {
@@ -30,8 +30,13 @@ export async function GET(request: Request) {
       response = await getNowPlaying();
     }
 
+    // Handle getNowPlaying() returning { is_playing: false }
+    if ('is_playing' in response) {
+      return NextResponse.json(response);
+    }
+
     // Handle empty response (204 No Content)
-    if (!response || (response.status && response.status === 204)) {
+    if (!response || response.status === 204) {
       return NextResponse.json({ is_playing: false });
     }
 

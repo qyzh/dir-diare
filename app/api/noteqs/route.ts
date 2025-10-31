@@ -1,11 +1,6 @@
 import { NextResponse } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from 'app/lib/auth'
-import {
-    getNoteQ,
-    createNoteQ,
-    noteQ,
-} from 'app/lib/noteq'
+import { getNoteQ, createNoteQ, noteQ } from 'app/lib/noteq'
+import { checkAuth, createErrorResponse } from 'app/lib/api-helpers'
 
 export async function GET() {
     const notes = await getNoteQ()
@@ -13,10 +8,9 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-    const session = await getServerSession(authOptions)
-
-    if (!session || session.user?.name !== 'uki') {
-        return new NextResponse('Unauthorized', { status: 401 })
+    const authResult = await checkAuth()
+    if (!authResult.authorized) {
+        return authResult.response
     }
 
     try {
@@ -24,7 +18,6 @@ export async function POST(request: Request) {
         const newNoteQ = await createNoteQ(body as Omit<noteQ, '_id'>)
         return NextResponse.json(newNoteQ, { status: 201 })
     } catch (error) {
-        console.error('Failed to create note:', error)
-        return new NextResponse('Failed to create note', { status: 500 })
+        return createErrorResponse('Failed to create note', error as Error, 500)
     }
 }

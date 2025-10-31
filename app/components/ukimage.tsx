@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface UKImageProps {
     src: string;
@@ -10,7 +11,7 @@ interface UKImageProps {
 
 const UKImage: React.FC<UKImageProps> = ({
     src,
-    alt,
+    alt = '',
     model,
     size = 'large',
     className = '',
@@ -45,9 +46,11 @@ const UKImage: React.FC<UKImageProps> = ({
     };
     return (
         <figure className={`${getSizeClasses(size)} ${getModelClasses(model)} my-6`}>
-            <img
+            <Image
                 src={src}
                 alt={alt}
+                width={800}
+                height={600}
                 className={`${className} w-full h-auto mx-auto rounded`}
             />
             <figcaption className="pt-2 text-center text-sm text-neutral-500">{alt}</figcaption>

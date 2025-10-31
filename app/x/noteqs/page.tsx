@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import UKButton from 'app/components/ukbtn'
+import Breadcrumbs from 'app/components/breadcrumbs'
 
 interface noteQ {
     _id: string
@@ -60,6 +61,7 @@ export default function NoteQsPage() {
 
     return (
         <div className="container mx-auto px-4 py-8">
+            <Breadcrumbs />
             <h1 className="text-4xl font-bold mb-8">Notes Admin</h1>
             <div className="mb-6">
                 <Link href="/x/noteqs/create">

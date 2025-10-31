@@ -1,70 +1,89 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { getServerSession } from 'next-auth'
-import { authOptions } from 'app/lib/auth'
 import {
     getArtPostBySlug,
     updateArtPost,
     deleteArtPost,
     ArtPost,
 } from 'app/lib/artpost'
+import {
+    checkAuth,
+    createErrorResponse,
+    createNotFoundResponse,
+} from 'app/lib/api-helpers'
+import { AUTHORIZED_USER } from 'app/lib/constants'
 
-export async function GET(request: NextRequest, { params }) {
-    const { slug } = params
-    const post = await getArtPostBySlug(slug)
+export async function GET(
+    request: NextRequest,
+    { params }: { params: Promise<{ slug: string }> }
+) {
+    try {
+        const { slug } = await params
+        const post = await getArtPostBySlug(slug)
 
-    if (!post) {
-        return new NextResponse('Art Post not found', { status: 404 })
+        if (!post) {
+            return createNotFoundResponse('Art Post not found')
+        }
+
+        return NextResponse.json(post)
+    } catch (error) {
+        return createErrorResponse('Failed to fetch art post', error as Error, 500)
     }
-
-    return NextResponse.json(post)
 }
 
-export async function PUT(request: NextRequest, { params }) {
-    const session = await getServerSession(authOptions)
-
-    if (!session || session.user?.name !== 'uki') {
-        return new NextResponse('Unauthorized', { status: 401 })
+export async function PUT(
+    request: NextRequest,
+    { params }: { params: Promise<{ slug: string }> }
+) {
+    const authResult = await checkAuth()
+    if (!authResult.authorized) {
+        return authResult.response
     }
 
-    const { slug } = params
     try {
+        const { slug } = await params
         const body = await request.json()
         const updatedArtPost = await updateArtPost(slug, {
             ...body,
-            author: session.user?.name,
+            author: AUTHORIZED_USER,
         } as Partial<ArtPost>)
 
         if (!updatedArtPost) {
-            return new NextResponse('Art Post not found', { status: 404 })
+            return createNotFoundResponse('Art Post not found')
         }
 
         return NextResponse.json(updatedArtPost)
     } catch (error) {
-        console.error('Failed to update art post:', error)
-        return new NextResponse('Failed to update art post', { status: 500 })
+        return createErrorResponse(
+            'Failed to update art post',
+            error as Error,
+            500
+        )
     }
 }
 
-export async function DELETE(request: NextRequest, { params }) {
-    const session = await getServerSession(authOptions)
-
-    if (!session || session.user?.name !== 'uki') {
-        return new NextResponse('Unauthorized', { status: 401 })
+export async function DELETE(
+    request: NextRequest,
+    { params }: { params: Promise<{ slug: string }> }
+) {
+    const authResult = await checkAuth()
+    if (!authResult.authorized) {
+        return authResult.response
     }
 
-    const { slug } = params
     try {
-        // Assuming deleteArtPost function exists in app/lib/artpost.ts
-        // If not, you'll need to implement it.
+        const { slug } = await params
         const deleted = await deleteArtPost(slug)
 
         if (!deleted) {
-            return new NextResponse('Art Post not found', { status: 404 })
+            return createNotFoundResponse('Art Post not found')
         }
 
         return new NextResponse(null, { status: 204 })
     } catch (error) {
-        console.error('Failed to delete art post:', error)
-        return new NextResponse('Failed to delete art post', { status: 500 })
+        return createErrorResponse(
+            'Failed to delete art post',
+            error as Error,
+            500
+        )
     }
 }
