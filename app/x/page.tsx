@@ -6,6 +6,7 @@ import { Post } from 'app/lib/posts'
 import UKButton from 'app/components/ukbtn'
 import AuthButton from 'app/x/components/AuthButton'
 import Breadcrumbs from 'app/components/breadcrumbs'
+import { AUTHORIZED_USER } from 'app/lib/constants'
 
 export default function AdminDashboard() {
     const { data: session, status } = useSession()
@@ -42,7 +43,7 @@ export default function AdminDashboard() {
         )
     }
 
-    if (session?.user?.name !== 'uki') {
+    if (session?.user?.name !== AUTHORIZED_USER) {
         return (
             <div className="container mx-auto px-4 py-8">
                 <h1 className="text-4xl font-bold mb-8">Admin Dashboard</h1>
