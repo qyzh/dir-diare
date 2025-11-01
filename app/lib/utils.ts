@@ -1,12 +1,17 @@
 export function formatDate(
-    date: string, 
+    date: string | Date, 
     includeRelative = false, 
     format: 'short' | 'long' | 'month-date' | 'short-month-date' = 'short'
 ) {
-    if (!date.includes('T')) {
-        date = `${date}T00:00:00`
+    // Convert Date object to string if needed
+    const dateString = typeof date === 'string' ? date : date.toISOString()
+    
+    if (!dateString.includes('T')) {
+        const fullDate = `${dateString}T00:00:00`
+        var targetDate = new Date(fullDate)
+    } else {
+        var targetDate = new Date(dateString)
     }
-    let targetDate = new Date(date)
 
     const formatOptions: Intl.DateTimeFormatOptions = {
         month: format === 'short' || format === 'short-month-date' ? 'short' : 'long',
