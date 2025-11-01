@@ -6,6 +6,7 @@
 }
 
 :root {
+    /* Syntax highlighting colors */
     --sh-class: #2d5e9d;
     --sh-identifier: #354150;
     --sh-sign: #8996a3;
@@ -15,6 +16,8 @@
     --sh-jsxliterals: #6266d1;
     --sh-property: #e25a1c;
     --sh-entity: #e25a1c;
+    
+    /* Font families */
     --font-space: 'Space Grotesk', sans-serif;
     --font-monaspace: 'Monaspace', monospace;
     --font-playfair: 'Playfair Display', serif;
@@ -41,19 +44,7 @@ body {
     @apply md:text-base;
 }
 
-h1 {
-    @apply text-3xl md:text-4xl;
-}
-h2 {
-    @apply text-2xl md:text-3xl;
-}
-h3 {
-    @apply text-xl md:text-2xl;
-}
-h4 {
-    @apply text-lg;
-}
-
+/* Typography */
 h1,
 h2,
 h3,
@@ -62,18 +53,22 @@ h4 {
     font-family: var(--font-space);
 }
 
-p {
-    @apply mb-4 text-base;
-}
+h1 { @apply text-3xl md:text-4xl; }
+h2 { @apply text-2xl md:text-3xl; }
+h3 { @apply text-xl md:text-2xl; }
+h4 { @apply text-lg; }
+p { @apply mb-4 text-base; }
 
 ul,
 ol {
     @apply ml-5 mb-4 list-disc;
 }
+
 blockquote {
     @apply mb-4 text-base italic;
     font-family: var(--font-playfair);
 }
+
 mark {
     background-color: var(--sh-string);
     color: #fefefe;
@@ -82,13 +77,10 @@ mark {
     font-size: 14px;
     line-height: 1.5;
 }
+
 blockquote mark {
     background-color: rgba(229, 229, 229, 0.027);
     color: #f2f2f2;
-    padding: 0.2em 0.4em;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.5;
     text-wrap: balance;
 }
 
@@ -96,11 +88,9 @@ hr {
     color: var(--color-neutral-200);
 }
 
-/* Remove Safari input shadow on mobile */
+/* Form inputs */
 input[type='text'],
 input[type='email'] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
 }
 
@@ -111,6 +101,7 @@ table {
     white-space: nowrap;
 }
 
+/* View transitions */
 .transition-element {
     view-transition-name: lee;
 }
@@ -122,46 +113,40 @@ table {
 ::view-transition-new(lee) {
     animation: fade-in-up 0.4s ease-in-out;
 }
-.title {
-    text-wrap: balance;
-}
-/* addon */
+
+/* Post components */
 .post-title {
     @apply text-white/60 uppercase mt-6 font-bold text-3xl md:text-2xl group-hover:text-white;
 }
+
 .post-summary {
     @apply text-white/50;
 }
+
 .post-date {
     @apply text-white/40 text-sm;
 }
+
 .metadataart {
     @apply text-white/50 w-full bg-black/5 border border-white/10 px-3 py-2;
 }
-.webroot {
-    @apply text-white/40;
+
+/* Web/CLI components */
+.web {
+    &root { @apply text-white/40; }
+    &tree { @apply text-white/60 mr-1; }
+    &app { @apply text-white; }
+    &main,
+    &contentroot { @apply text-white/70; }
+    &sub { @apply text-white/50; }
+    &format { @apply text-white/30; }
+    
+    &content {
+        @apply transition-all text-white/70 font-semibold hover:text-white;
+    }
 }
-.webtree {
-    @apply text-white/60 mr-1;
-}
-.webapp {
-    @apply text-white;
-}
-.webmain {
-    @apply text-white/70;
-}
-.websub {
-    @apply text-white/50;
-}
-.webcontent {
-    @apply transition-all text-white/70 font-semibold hover:text-white;
-}
-.webcontentroot {
-    @apply text-white/70;
-}
-.webformat {
-    @apply text-white/30;
-}
+
+/* Code blocks */
 code,
 pre {
     font-family: var(--font-monaspace);
