@@ -15,12 +15,12 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
         post?.metadata?.title || paths[paths.length - 1] || 'home'
 
     return (
-        <div>
+        <div className="mt-4">
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-                className="inline-flex truncate overflow-hidden font-mono text-neutral-500 items-center px-2 py-1.5"
+                transition={{ duration: 0.7, ease: 'easeOut' }}
+                className="inline-flex truncate overflow-hidden font-mono text-neutral-500 items-center py-1.5"
             >
                 <Link
                     href="/"

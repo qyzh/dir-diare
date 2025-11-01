@@ -127,13 +127,13 @@ table {
 }
 /* addon */
 .post-title {
-    @apply text-white/60 mt-6 font-bold text-3xl md:text-2xl group-hover:text-white;
+    @apply text-white/60 uppercase mt-6 font-bold text-3xl md:text-2xl group-hover:text-white;
 }
 .post-summary {
     @apply text-white/50;
 }
 .post-date {
-    @apply text-white/40 text-sm mb-6;
+    @apply text-white/40 text-sm;
 }
 .webroot {
     @apply text-white/40;

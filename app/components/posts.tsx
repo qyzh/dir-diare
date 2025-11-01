@@ -7,7 +7,7 @@ interface PostCardProps {
 
 const PostCard = ({ post }: PostCardProps) => {
     return (
-        <div className="border-b border-b-neutral-700 last:border-0 ">
+        <div className="border-b border-b-neutral-700 last:border-0 py-4">
             <Link
                 href={`/w/${post.slug}`}
                 key={post.slug}
