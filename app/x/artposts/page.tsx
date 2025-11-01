@@ -55,7 +55,7 @@ export default function ArtPostsPage() {
         )
     }
 
-    if (session?.user?.name !== 'uki') {
+    if (session?.user?.name !== 'qyzh') {
         return (
             <div className="container mx-auto px-4 py-8">
                 <p>You are not authorized to view art posts admin.</p>

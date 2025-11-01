@@ -18,5 +18,20 @@ export const authOptions: NextAuthOptions = {
         return '/unauthorized'
       }
     },
+    async session({ session, token }) {
+      // Add the GitHub login (username) to the session
+      if (session?.user) {
+        session.user.name = token.login as string
+      }
+      return session
+    },
+    async jwt({ token, profile }) {
+      // Store the GitHub login in the token
+      if (profile) {
+        // @ts-ignore
+        token.login = profile.login
+      }
+      return token
+    },
   },
 }
