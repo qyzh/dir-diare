@@ -7,11 +7,17 @@ interface PostCardProps {
 
 const PostCard = ({ post }: PostCardProps) => {
     return (
-        <>
-            <div key={post.slug}>
-                <span className="webtree">−rw−r−−r−−</span>{' '}
-                <span className="webtree uppercase">{post.author}</span>
-                <span className="webtree">
+        <div className="border-b border-b-neutral-700 last:border-0 ">
+            <Link
+                href={`/w/${post.slug}`}
+                key={post.slug}
+                className="group flex flex-col gap-2"
+            >
+                <h2 className="post-title transition-colors duration-200">
+                    {post.title}
+                </h2>
+                <p className="post-summary">{post.summary}</p>
+                <time className="post-date">
                     {new Date(post.publishedAt)
                         .toLocaleDateString('en-GB', {
                             day: '2-digit',
@@ -20,17 +26,9 @@ const PostCard = ({ post }: PostCardProps) => {
                             timeZone: 'Asia/Jakarta',
                         })
                         .toUpperCase()}
-                </span>
-                <Link
-                    key={post.slug}
-                    className="group text-lg transition-colors duration-200"
-                    href={`/w/${post.slug}`}
-                    aria-label={`Read blog post: ${post.title}`}
-                >
-                    {post.title}
-                </Link>
-            </div>
-        </>
+                </time>
+            </Link>
+        </div>
     )
 }
 
@@ -38,7 +36,7 @@ export async function BlogPosts() {
     const allBlogs = await getAllPublishedPosts()
 
     return (
-        <div role="list" aria-label="Blog posts" className="group">
+        <div role="list" aria-label="Blog posts">
             <div>
                 {allBlogs.map((post) => (
                     <PostCard key={post.slug} post={post} />
