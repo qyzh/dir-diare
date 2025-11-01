@@ -8,7 +8,13 @@ import Image from 'next/image'
 
 const components = useMDXComponents()
 
-export default function PostRenderer({ post, type }: { post: any; type: 'art' | 'writing' }) {
+export default function PostRenderer({
+    post,
+    type,
+}: {
+    post: any
+    type: 'art' | 'writing'
+}) {
     const formattedDate = post.publishedAt
         ? formatDate(post.publishedAt)
         : 'Unknown date'
@@ -84,7 +90,7 @@ export default function PostRenderer({ post, type }: { post: any; type: 'art' | 
             </article>
 
             {post.tags && post.tags.length > 0 && (
-                <div className="mt-6 border-y border-neutral-300 dark:border-neutral-700 py-3">
+                <div className="mt-6 border-y border-neutral-300 dark:border-neutral-700 pt-4">
                     <p className="text-sm text-black dark:text-white flex items-center gap-2">
                         <span className="font-bold">Tags:</span>
                         <span className="font-mono text-neutral-600 dark:text-neutral-400">
@@ -105,3 +111,4 @@ export default function PostRenderer({ post, type }: { post: any; type: 'art' | 
         </section>
     )
 }
+
