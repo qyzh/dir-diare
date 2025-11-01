@@ -135,6 +135,9 @@ table {
 .post-date {
     @apply text-white/40 text-sm;
 }
+.metadataart {
+    @apply text-white/50 w-full bg-black/5 border border-white/10 px-3 py-2;
+}
 .webroot {
     @apply text-white/40;
 }
