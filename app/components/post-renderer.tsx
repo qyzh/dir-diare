@@ -31,7 +31,7 @@ export default function PostRenderer({
                             '@type': 'BlogPosting',
                             headline: post.title,
                             datePublished: post.publishedAt,
-                            dateModified: post.publishedAt,
+                            dateModified: post.updatedAt || post.publishedAt,
                             description: post.summary,
                             image: `https://kynoci.com/og?title=${post.title}`,
                             url: `https://kynoci.com/l/${post.slug}`,
@@ -44,10 +44,15 @@ export default function PostRenderer({
                 />
                 <div className="flex justify-between items-center mt-2  text-sm max-w-[650px]">
                     <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        {formatDate(post.publishedAt)}
+                        Published: {formatDate(post.publishedAt)}
+                        {post.updatedAt && post.updatedAt !== post.publishedAt && (
+                            <span className="ml-4">
+                                Updated: {formatDate(post.updatedAt)}
+                            </span>
+                        )}
                     </p>
                 </div>
-                <h1 className="title font-medium text-2xl tracking-tighter max-w-[650px]">
+                <h1 className="post-title tracking-tighter max-w-[650px]">
                     {post.title}
                 </h1>
                 {post.image && (
@@ -70,22 +75,27 @@ export default function PostRenderer({
     return (
         <section className="max-w-4xl mx-auto px-4">
             <Breadcrumbs post={{ metadata: { title: post.title } }} />
-            <h1 className="text-3xl font-bold mb-3">
+            <h1 className="post-title mb-3">
                 {post.title || post.slug.replace(/-/g, ' ')}
             </h1>
-            <div className="flex items-center space-x-2 my-4">
-                <time className="text-sm font-mono text-neutral-500 dark:text-neutral-400">
-                    {formattedDate}
+            <div className="flex items-center space-x-2">
+                <time className="post-date">
+                    Published: {formattedDate}
+                    {post.updatedAt && post.updatedAt !== post.publishedAt && (
+                        <span className="ml-4">
+                            Updated: {formatDate(post.updatedAt)}
+                        </span>
+                    )}
                 </time>
             </div>
 
-            {post.summary && (
-                <p className="text-black/50 dark:text-neutral-500 font-mono my-6 text-lg border-l-4 border-neutral-700 pl-4 italic">
-                    {post.summary}
-                </p>
-            )}
+            {/* {post.summary && ( */}
+            {/*     <p className="text-black/50 dark:text-neutral-500 font-mono my-6 text-lg border-l-4 border-neutral-700 pl-4 italic"> */}
+            {/*         {post.summary} */}
+            {/*     </p> */}
+            {/* )} */}
 
-            <article className="max-w-none prose dark:prose-invert prose-lg prose-headings:font-bold prose-headings:text-black dark:prose-headings:text-white/90 prose-p:text-black/80 dark:prose-p:text-neutral-300 prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline my-8">
+            <article className="max-w-none prose dark:prose-invert prose-lg prose-headings:font-bold prose-headings:text-black dark:prose-headings:text-white/90 prose-p:text-black/80 dark:prose-p:text-neutral-300 prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
                 <MDXRemote source={post.content} components={components} />
             </article>
 
@@ -111,4 +121,3 @@ export default function PostRenderer({
         </section>
     )
 }
-
