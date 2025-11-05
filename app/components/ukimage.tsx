@@ -23,7 +23,7 @@ const UKImage: React.FC<UKImageProps> = ({
             case 'medium':
             return 'w-full h-48 object-cover rounded-md overflow-hidden';
             case 'large':
-            return 'rounded border border-white/10 p-4';
+            return 'rounded border border-neutral-200 dark:border-neutral-700 p-4';
             case 'hero':
             return 'w-[80vw] ml-[calc(-40vw+50%)] ';
             default:

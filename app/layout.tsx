@@ -20,7 +20,8 @@ export const metadata: Metadata = {
         'My Dir - My little space on internet, place to share my thoughts and ideas',
 }
 
-const cx = (...classes: (string | boolean | undefined | null)[]) => classes.filter(Boolean).join(' ')
+const cx = (...classes: (string | boolean | undefined | null)[]) =>
+    classes.filter(Boolean).join(' ')
 
 const playfair_display = Playfair_Display({
     subsets: ['latin'],
@@ -42,6 +43,7 @@ export default function RootLayout({
     return (
         <html
             lang="en"
+            suppressHydrationWarning
             className={cx(
                 'scroll-smooth',
                 space_grotesk.variable,
@@ -49,8 +51,8 @@ export default function RootLayout({
                 monaspace.variable
             )}
         >
-            <body className="antialiased tracking-tight bg-neutral-950 text-neutral-100">
-                <main className="max-w-2xl mb-40 flex flex-col px-4">
+            <body className="antialiased tracking-tight bg-neutral-100 dark:bg-neutral-950 ">
+                <main className="max-w-3xl mb-40 flex flex-col px-4">
                     <Providers>{children}</Providers>
                 </main>
                 {/* <BackToTop /> */}

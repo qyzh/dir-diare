@@ -1,5 +1,39 @@
 @import 'tailwindcss';
 
+@variant dark (&:is(.dark, .dark *));
+
+@theme {
+    /* Font families */
+    --font-family-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --font-family-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+    /* Keyframes */
+    --keyframes-spin-reverse: spin-reverse;
+    --keyframes-spin-slow: spin-slow;
+
+    /* Animations */
+    --animate-spin-reverse: spin-reverse 1s linear infinite;
+    --animate-spin-slow: spin-slow 8s linear infinite;
+}
+
+@keyframes spin-reverse {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes spin-slow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 ::selection {
     background-color: #47a3f3;
     color: #fefefe;
@@ -16,7 +50,7 @@
     --sh-jsxliterals: #6266d1;
     --sh-property: #e25a1c;
     --sh-entity: #e25a1c;
-    
+    --background-color: #ffffff;
     /* Font families */
     --font-space: 'Space Grotesk', sans-serif;
     --font-monaspace: 'Monaspace', monospace;
@@ -29,6 +63,7 @@
         --sh-identifier: white;
         --sh-keyword: #f47067;
         --sh-string: #0fa295;
+        --background-color: red;
     }
 }
 
@@ -53,11 +88,21 @@ h4 {
     font-family: var(--font-space);
 }
 
-h1 { @apply text-3xl md:text-4xl; }
-h2 { @apply text-2xl md:text-3xl; }
-h3 { @apply text-xl md:text-2xl; }
-h4 { @apply text-lg; }
-p { @apply mb-4 text-base; }
+h1 {
+    @apply text-3xl md:text-4xl;
+}
+h2 {
+    @apply text-2xl md:text-3xl;
+}
+h3 {
+    @apply text-xl md:text-2xl;
+}
+h4 {
+    @apply text-lg;
+}
+p {
+    @apply mb-4 text-base;
+}
 
 ul,
 ol {
@@ -116,34 +161,53 @@ table {
 
 /* Post components */
 .post-title {
-    @apply text-white/60 uppercase mt-6 font-bold text-3xl md:text-2xl group-hover:text-white;
+    @apply text-neutral-600 dark:text-neutral-400 uppercase mt-6 font-bold text-3xl md:text-2xl;
+}
+
+.group:hover .post-title {
+    @apply text-neutral-900;
+}
+
+.dark .group:hover .post-title {
+    color: white;
 }
 
 .post-summary {
-    @apply text-white/50;
+    @apply text-neutral-500 dark:text-neutral-400;
 }
 
 .post-date {
-    @apply text-white/40 text-sm;
+    @apply text-neutral-400 dark:text-neutral-500 text-sm;
 }
 
 .metadataart {
-    @apply text-white/50 w-full bg-black/5 border border-white/10 px-3 py-2;
+    @apply text-neutral-500 dark:text-neutral-400 w-full bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 px-3 py-2;
 }
 
 /* Web/CLI components */
-.web {
-    &root { @apply text-white/40; }
-    &tree { @apply text-white/60 mr-1; }
-    &app { @apply text-white; }
-    &main,
-    &contentroot { @apply text-white/70; }
-    &sub { @apply text-white/50; }
-    &format { @apply text-white/30; }
-    
-    &content {
-        @apply transition-all text-white/70 font-semibold hover:text-white;
-    }
+.webroot {
+    @apply text-neutral-600 dark:text-neutral-500;
+}
+
+.webtree {
+    @apply text-neutral-600 dark:text-neutral-400 mr-1;
+}
+
+.webcommand,
+.webcontentroot {
+    @apply text-neutral-800 dark:text-neutral-300;
+}
+
+.websub {
+    @apply text-neutral-500 dark:text-neutral-400;
+}
+
+.webformat {
+    @apply text-neutral-300 dark:text-neutral-600;
+}
+
+.webcontent {
+    @apply transition-all text-neutral-700 dark:text-neutral-300 font-semibold hover:text-neutral-900 dark:hover:text-white;
 }
 
 /* Code blocks */

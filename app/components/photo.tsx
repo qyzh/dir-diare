@@ -127,7 +127,7 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
   if (initialLoading) return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 animate-pulse">
       {[...Array(6)].map((_, i) => (
-        <div key={i} className="overflow-hidden rounded shadow-lg h-64 w-full flex items-center justify-center border border-neutral-800 dark:border-neutral-700 bg-white/10 dark:bg-neutral-900/30 backdrop-blur-md">
+        <div key={i} className="overflow-hidden rounded shadow-lg h-64 w-full flex items-center justify-center border border-neutral-800 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800 dark:bg-neutral-900/30 backdrop-blur-md">
           <div className="w-3/4 h-3/4 bg-neutral-300/40 dark:bg-neutral-900/30 rounded" />
         </div>
       ))}
@@ -170,7 +170,7 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
           // The gap between the edge of the screen and the drawer is 8px in this case.
           style={{ '--initial-transform': 'calc(100% + 8px)' } as React.CSSProperties}
         >
-          <div className="h-full w-full grow p-5 flex flex-col rounded border border-neutral-800 dark:border-neutral-700 bg-white/10 dark:bg-neutral-900/30 backdrop-blur-md">
+          <div className="h-full w-full grow p-5 flex flex-col rounded border border-neutral-800 dark:border-neutral-700 bg-neutral-100 dark:bg-neutral-800 dark:bg-neutral-900/30 backdrop-blur-md">
             <div className="max-w-md mx-auto">
               <Drawer.Title className="font-medium mb-2 text-sm text-white dark:text-white">Photo by {photo.user.name}</Drawer.Title>
               <Drawer.Description className="mb-4 text-white dark:text-neutral-400 font-mono">
@@ -248,7 +248,7 @@ export default function PhotoGallery({ username, limit = 10 }: PhotoGalleryProps
                 )}
             </div>
             <div className="mt-auto flex justify-between items-center pt-4 border-t border-neutral-700">
-            <p className="font-mono text-xs text-white/50">
+            <p className="font-mono text-xs text-neutral-400 dark:text-neutral-400">
               Powered By :{' '}
               <Link href="https://unsplash.com" className='hover:underline hover:text-white transition-all duration-200' target="_blank" rel="noopener noreferrer">
                 Unsplash

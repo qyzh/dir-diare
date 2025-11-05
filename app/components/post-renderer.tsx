@@ -80,7 +80,7 @@ export default function PostRenderer({
     }
 
     return (
-        <section className="max-w-4xl mx-auto">
+        <section>
             <Breadcrumbs post={{ metadata: { title: post.title } }} />
             <h1 className="post-title mb-3">
                 {post.title || post.slug.replace(/-/g, ' ')}

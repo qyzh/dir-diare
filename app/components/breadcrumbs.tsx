@@ -30,11 +30,13 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
                 </Link>
                 {paths.map((path, index) => (
                     <React.Fragment key={path}>
-                        <div className="text-yellow-400 ">/</div>
+                        <div className="text-teal-600 dark:text-yellow-400 ">
+                            /
+                        </div>
                         {index === paths.length - 1 ? (
-                            <div className="text-sky-300 px-1 text-sm">
+                            <div className="text-blue-600 dark:text-sky-300 px-1 text-sm">
                                 {currentTitle}{' '}
-                                <span className="animate-pulse text-yellow-400">
+                                <span className="animate-pulse text-teal-600 dark:text-yellow-400">
                                     |
                                 </span>
                             </div>

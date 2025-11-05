@@ -94,7 +94,7 @@ export default function EditPostPage({
     const inputClassName =
         'mt-1 px-1 py-1.5 block w-full bg-white/5 border border-neutral-800 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
     const readOnlyInputClassName =
-        'mt-1 px-1 py-1.5 block w-full text-neutral-600 bg-black/5 border border-neutral-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
+        'mt-1 px-1 py-1.5 block w-full text-neutral-600 bg-neutral-100 dark:bg-neutral-900 border border-neutral-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
 
     if (sessionStatus === 'loading' || isLoading) return <p>Loading...</p>
     if (error) return <p className="text-red-500">{error}</p>
