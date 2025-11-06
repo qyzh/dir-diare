@@ -6,9 +6,11 @@ interface UkCLIProps {
 const UkCLI = ({ path, command }: UkCLIProps) => {
     return (
         <div>
-            <span className="animate-pulse text-white/80 [text-shadow:0_0_2px_white,0_0_4px_white,0_0_8px_white]">$ </span>
+            <span className="animate-pulse text-neutral-600 dark:text-neutral-200 [text-shadow:0_0_2px_white,0_0_4px_white,0_0_8px_white]">
+                ${' '}
+            </span>
             <span className="webroot mr-0.5">{path}</span>
-            <span className="webmain">{command}</span>
+            <span className="webcommand">{command}</span>
         </div>
     )
 }

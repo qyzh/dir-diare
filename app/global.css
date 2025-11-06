@@ -1,11 +1,46 @@
 @import 'tailwindcss';
 
+@variant dark (&:is(.dark, .dark *));
+
+@theme {
+    /* Font families */
+    --font-family-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+    --font-family-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
+
+    /* Keyframes */
+    --keyframes-spin-reverse: spin-reverse;
+    --keyframes-spin-slow: spin-slow;
+
+    /* Animations */
+    --animate-spin-reverse: spin-reverse 1s linear infinite;
+    --animate-spin-slow: spin-slow 8s linear infinite;
+}
+
+@keyframes spin-reverse {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes spin-slow {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 ::selection {
     background-color: #47a3f3;
     color: #fefefe;
 }
 
 :root {
+    /* Syntax highlighting colors */
     --sh-class: #2d5e9d;
     --sh-identifier: #354150;
     --sh-sign: #8996a3;
@@ -15,6 +50,8 @@
     --sh-jsxliterals: #6266d1;
     --sh-property: #e25a1c;
     --sh-entity: #e25a1c;
+    --background-color: #ffffff;
+    /* Font families */
     --font-space: 'Space Grotesk', sans-serif;
     --font-monaspace: 'Monaspace', monospace;
     --font-playfair: 'Playfair Display', serif;
@@ -26,6 +63,7 @@
         --sh-identifier: white;
         --sh-keyword: #f47067;
         --sh-string: #0fa295;
+        --background-color: red;
     }
 }
 
@@ -41,6 +79,15 @@ body {
     @apply md:text-base;
 }
 
+/* Typography */
+h1,
+h2,
+h3,
+h4 {
+    text-wrap: balance;
+    font-family: var(--font-space);
+}
+
 h1 {
     @apply text-3xl md:text-4xl;
 }
@@ -53,15 +100,6 @@ h3 {
 h4 {
     @apply text-lg;
 }
-
-h1,
-h2,
-h3,
-h4 {
-    text-wrap: balance;
-    font-family: var(--font-space);
-}
-
 p {
     @apply mb-4 text-base;
 }
@@ -70,10 +108,12 @@ ul,
 ol {
     @apply ml-5 mb-4 list-disc;
 }
+
 blockquote {
     @apply mb-4 text-base italic;
     font-family: var(--font-playfair);
 }
+
 mark {
     background-color: var(--sh-string);
     color: #fefefe;
@@ -82,13 +122,10 @@ mark {
     font-size: 14px;
     line-height: 1.5;
 }
+
 blockquote mark {
     background-color: rgba(229, 229, 229, 0.027);
     color: #f2f2f2;
-    padding: 0.2em 0.4em;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 1.5;
     text-wrap: balance;
 }
 
@@ -96,11 +133,9 @@ hr {
     color: var(--color-neutral-200);
 }
 
-/* Remove Safari input shadow on mobile */
+/* Form inputs */
 input[type='text'],
 input[type='email'] {
-    -webkit-appearance: none;
-    -moz-appearance: none;
     appearance: none;
 }
 
@@ -111,6 +146,7 @@ table {
     white-space: nowrap;
 }
 
+/* View transitions */
 .transition-element {
     view-transition-name: lee;
 }
@@ -122,43 +158,59 @@ table {
 ::view-transition-new(lee) {
     animation: fade-in-up 0.4s ease-in-out;
 }
-.title {
-    text-wrap: balance;
-}
-/* addon */
+
+/* Post components */
 .post-title {
-    @apply text-white/60 uppercase mt-6 font-bold text-3xl md:text-2xl group-hover:text-white;
+    @apply text-neutral-600 dark:text-neutral-400 uppercase mt-6 font-bold text-3xl md:text-2xl;
 }
+
+.group:hover .post-title {
+    @apply text-neutral-900;
+}
+
+.dark .group:hover .post-title {
+    color: white;
+}
+
 .post-summary {
-    @apply text-white/50;
+    @apply text-neutral-500 dark:text-neutral-400;
 }
+
 .post-date {
-    @apply text-white/40 text-sm;
+    @apply text-neutral-400 dark:text-neutral-500 text-sm;
 }
+
+.metadataart {
+    @apply text-neutral-500 dark:text-neutral-400 w-full bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 px-3 py-2;
+}
+
+/* Web/CLI components */
 .webroot {
-    @apply text-white/40;
+    @apply text-neutral-600 dark:text-neutral-500;
 }
+
 .webtree {
-    @apply text-white/60 mr-1;
+    @apply text-neutral-600 dark:text-neutral-400 mr-1;
 }
-.webapp {
-    @apply text-white;
-}
-.webmain {
-    @apply text-white/70;
-}
-.websub {
-    @apply text-white/50;
-}
-.webcontent {
-    @apply transition-all text-white/70 font-semibold hover:text-white;
-}
+
+.webcommand,
 .webcontentroot {
-    @apply text-white/70;
+    @apply text-neutral-800 dark:text-neutral-300;
 }
+
+.websub {
+    @apply text-neutral-500 dark:text-neutral-400;
+}
+
 .webformat {
-    @apply text-white/30;
+    @apply text-neutral-300 dark:text-neutral-600;
 }
+
+.webcontent {
+    @apply transition-all text-neutral-700 dark:text-neutral-300 font-semibold hover:text-neutral-900 dark:hover:text-white;
+}
+
+/* Code blocks */
 code,
 pre {
     font-family: var(--font-monaspace);

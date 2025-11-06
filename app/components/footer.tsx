@@ -1,6 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { AnimatedBelow } from './animated-section'
+import ThemeToggle from './theme-toggle'
 
 
 const Footer = () => {
@@ -13,16 +14,17 @@ const Footer = () => {
                     <div>
                         <Link
                             href="/"
-                            className="text-white/80 underline hover:text-emerald-300 transition-colors duration-200"
+                            className="text-neutral-700 dark:text-neutral-200 underline hover:text-emerald-600 dark:hover:text-emerald-300 transition-colors duration-200"
                         >
                             Dir-diare
                         </Link>{' '}
                         
                     </div>
-                    <div>
+                    <div className="flex items-center gap-4">
                         <span className="italic">
                             Catch you in a bit, bruv!
                         </span>
+                        <ThemeToggle />
                     </div>
                 </div>
             </footer>

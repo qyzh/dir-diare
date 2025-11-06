@@ -92,7 +92,7 @@ export default function PlaylistGrid() {
         >
             {data.items.map((playlist) => {
                 const trigger = (
-                    <div className="flex p-2 gap-1.5 items-center font-mono border border-neutral-800 bg-neutral-950 rounded hover:bg-neutral-900 transition-colors duration-200 cursor-pointer">
+                    <div className="flex p-2 gap-1.5 items-center font-mono border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-950 rounded hover:bg-neutral-300 dark:hover:bg-neutral-900 transition-colors duration-200 cursor-pointer">
                         <div className="w-18 h-18 relative rounded overflow-hidden">
                             <img
                                 src={
@@ -104,7 +104,7 @@ export default function PlaylistGrid() {
                             />
                         </div>
                         <div className="overflow-hidden flex-1">
-                            <h4 className="font-bold text-white truncate">
+                            <h4 className="font-bold text-neutral-800 dark:text-white truncate">
                                 {playlist.name}
                             </h4>
                             <span className="text-neutral-400 text-sm truncate">

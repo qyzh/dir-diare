@@ -1,6 +1,7 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { useMDXComponents } from '../../mdx-components'
 import Breadcrumbs from './breadcrumbs'
+import UkCallout from './ukcallout'
 import Comments from './comments'
 import Footer from './footer'
 import { formatDate } from 'app/lib/utils'
@@ -42,30 +43,36 @@ export default function PostRenderer({
                         }),
                     }}
                 />
-                <div className="flex justify-between items-center mt-2  text-sm max-w-[650px]">
-                    <p className="text-sm text-neutral-600 dark:text-neutral-400">
-                        Published: {formatDate(post.publishedAt)}
-                        {post.updatedAt && post.updatedAt !== post.publishedAt && (
-                            <span className="ml-4">
-                                Updated: {formatDate(post.updatedAt)}
-                            </span>
-                        )}
-                    </p>
-                </div>
                 <h1 className="post-title tracking-tighter max-w-[650px]">
                     {post.title}
                 </h1>
+                <div className="flex justify-between items-center mt-2  text-sm max-w-[650px]">
+                    <div className="metadataart items-center">
+                        <span>
+                            Published:{' '}
+                            <time>{formatDate(post.publishedAt)}</time>
+                        </span>
+                    </div>
+                </div>
                 {post.image && (
                     <Image
                         src={post.image}
                         alt="Post Image"
                         width={800}
                         height={600}
-                        className="w-full h-auto mb-4 rounded-lg"
+                        className="w-full h-auto my-4"
                     />
                 )}
                 <article className="prose prose-quoteless prose-neutral dark:prose-invert">
                     <MDXRemote source={post.content} components={components} />
+                    <UkCallout>
+                        {post.updatedAt &&
+                            post.updatedAt !== post.publishedAt && (
+                                <time>
+                                    Updated: {formatDate(post.updatedAt)}
+                                </time>
+                            )}
+                    </UkCallout>
                 </article>
                 <Footer />
             </section>
@@ -73,7 +80,7 @@ export default function PostRenderer({
     }
 
     return (
-        <section className="max-w-4xl mx-auto px-4">
+        <section>
             <Breadcrumbs post={{ metadata: { title: post.title } }} />
             <h1 className="post-title mb-3">
                 {post.title || post.slug.replace(/-/g, ' ')}
@@ -89,30 +96,22 @@ export default function PostRenderer({
                 </time>
             </div>
 
-            {/* {post.summary && ( */}
-            {/*     <p className="text-black/50 dark:text-neutral-500 font-mono my-6 text-lg border-l-4 border-neutral-700 pl-4 italic"> */}
-            {/*         {post.summary} */}
-            {/*     </p> */}
-            {/* )} */}
-
             <article className="max-w-none prose dark:prose-invert prose-lg prose-headings:font-bold prose-headings:text-black dark:prose-headings:text-white/90 prose-p:text-black/80 dark:prose-p:text-neutral-300 prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
                 <MDXRemote source={post.content} components={components} />
             </article>
 
             {post.tags && post.tags.length > 0 && (
-                <div className="mt-6 border-y border-neutral-300 dark:border-neutral-700 pt-4">
-                    <p className="text-sm text-black dark:text-white flex items-center gap-2">
-                        <span className="font-bold">Tags:</span>
-                        <span className="font-mono text-neutral-600 dark:text-neutral-400">
-                            {post.tags
-                                .map(
-                                    (tag: string) =>
-                                        tag.charAt(0).toUpperCase() +
-                                        tag.slice(1).toLowerCase()
-                                )
-                                .join(', ')}
-                        </span>
-                    </p>
+                <div className="metadataart text-sm">
+                    <span className="font-semibold mr-2">Tags:</span>
+                    <span className="font-mono text-neutral-600 dark:text-neutral-400">
+                        {post.tags
+                            .map(
+                                (tag: string) =>
+                                    tag.charAt(0).toUpperCase() +
+                                    tag.slice(1).toLowerCase()
+                            )
+                            .join(', ')}
+                    </span>
                 </div>
             )}
 

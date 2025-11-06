@@ -62,7 +62,7 @@ export default function UKtracks() {
         >
             {data.items.slice(0, 10).map((track, index) => {
                 const trigger = (
-                    <div className="flex p-2 gap-1.5 items-center font-mono border border-neutral-800 bg-neutral-950 rounded hover:bg-neutral-900 transition-colors duration-200 cursor-pointer">
+                    <div className="flex p-2 gap-1.5 items-center font-mono border border-neutral-300 dark:border-neutral-800 bg-neutral-200 dark:bg-neutral-950 rounded hover:bg-neutral-300 dark:hover:bg-neutral-900 transition-colors duration-200 cursor-pointer">
                         {index < 3 && (
                             <div
                                 className={`flex rounded items-center justify-center w-6 h-6 text-sm font-bold ${
@@ -85,7 +85,7 @@ export default function UKtracks() {
                             </div>
                         )}
                         <div className="flex flex-col gap-1.5 flex-1 overflow-hidden">
-                            <div className="font-semibold truncate">
+                            <div className="font-semibold text-neutral-800 dark:text-neutral-100 truncate">
                                 {track.name}
                             </div>
                             <div className="text-sm text-neutral-400">
@@ -154,4 +154,3 @@ export default function UKtracks() {
         </section>
     )
 }
-

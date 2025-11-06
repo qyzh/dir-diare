@@ -17,7 +17,7 @@ export default async function Page() {
     const noteku = await getNoteQ()
 
     return (
-        <main className="flex-auto min-w-0 mt-6 flex flex-col px-4 md:px-0">
+        <main className="flex-auto min-w-0 mt-6 flex flex-col md:px-0">
             <section>
                 <main className="flex flex-col">
                     <UkCLI path="~" command="fetchdiare" />
@@ -25,7 +25,7 @@ export default async function Page() {
                     <div>
                         <UkCLI path="~" command="cd dirdiare" />
                         <div className="webcontent">
-                            <span className="text-white/40">
+                            <span className="text-neutral-400 dark:text-neutral-500">
                                 <ChevronRight className="inline w-4 h-4" />
                             </span>
                             Welcome to my little space on internet, place to
@@ -36,7 +36,7 @@ export default async function Page() {
                     <UkCLI path="~/dirdiare:" command="aboutme" />
                     <div className="">
                         <span className="webcontent">
-                            <span className="text-white/40">
+                            <span className="text-neutral-400 dark:text-neutral-500">
                                 <ChevronRight className="inline w-4 h-4" />
                             </span>
                             I am a

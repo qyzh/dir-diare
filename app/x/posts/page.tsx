@@ -78,7 +78,7 @@ export default function PostsManagePage() {
                     onClick={() => setFilter('all')}
                     className={`px-4 py-2 rounded ${
                         filter === 'all'
-                            ? 'bg-white/10 text-white'
+                            ? 'bg-neutral-100 dark:bg-neutral-800 text-white'
                             : 'bg-white/5 text-neutral-400 hover:text-white'
                     }`}
                 >
@@ -88,7 +88,7 @@ export default function PostsManagePage() {
                     onClick={() => setFilter('published')}
                     className={`px-4 py-2 rounded ${
                         filter === 'published'
-                            ? 'bg-white/10 text-white'
+                            ? 'bg-neutral-100 dark:bg-neutral-800 text-white'
                             : 'bg-white/5 text-neutral-400 hover:text-white'
                     }`}
                 >
@@ -98,7 +98,7 @@ export default function PostsManagePage() {
                     onClick={() => setFilter('draft')}
                     className={`px-4 py-2 rounded ${
                         filter === 'draft'
-                            ? 'bg-white/10 text-white'
+                            ? 'bg-neutral-100 dark:bg-neutral-800 text-white'
                             : 'bg-white/5 text-neutral-400 hover:text-white'
                     }`}
                 >
