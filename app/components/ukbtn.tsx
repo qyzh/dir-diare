@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 interface UKButtonProps {
   variant?: 'primary' | 'secondary' | 'outline' | 'error' ;
   size?: 'sm' | 'md' | 'lg';
   className?: string;
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   type?: 'button' | 'submit' | 'reset';
 }

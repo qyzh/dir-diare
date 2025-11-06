@@ -7,7 +7,7 @@ interface PostCardProps {
 
 const PostCard = ({ post }: PostCardProps) => {
     return (
-        <div className="border-b border-b-neutral-300 dark:border-b-neutral-700 last:border-0 py-4">
+        <div className="border-b border-b-neutral-300 dark:border-b-neutral-700 last:border-0">
             <Link
                 href={`/w/${post.slug}`}
                 key={post.slug}
@@ -17,7 +17,7 @@ const PostCard = ({ post }: PostCardProps) => {
                     {post.title}
                 </h2>
                 <p className="post-summary">{post.summary}</p>
-                <time className="post-date">
+                <time className="post-date pb-4">
                     {new Date(post.publishedAt)
                         .toLocaleDateString('en-GB', {
                             day: '2-digit',
