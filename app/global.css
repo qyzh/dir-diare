@@ -115,14 +115,12 @@ blockquote {
 }
 
 mark {
-    color: var(--text-mark);
     padding: 0.2em 0.4em;
     font-weight: 500;
     line-height: 1.5;
 }
 
 blockquote mark {
-    color: var(--text-mark);
     padding: 0;
     text-wrap: balance;
 }
