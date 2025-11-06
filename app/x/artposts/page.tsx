@@ -78,16 +78,16 @@ export default function ArtPostsPage() {
                 <table className="min-w-full bg-white/5">
                     <thead>
                         <tr>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-gray-300">
+                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
                                 Title
                             </th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-gray-300">
+                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
                                 Slug
                             </th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-gray-300">
+                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
                                 Published At
                             </th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-gray-300">
+                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
                                 Actions
                             </th>
                         </tr>
@@ -95,13 +95,13 @@ export default function ArtPostsPage() {
                     <tbody>
                         {artPosts.map((post) => (
                             <tr key={post._id}>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-gray-400">
+                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
                                     {post.title}
                                 </td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-gray-400">
+                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
                                     {post.slug}
                                 </td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-gray-400">
+                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
                                     {new Date(
                                         post.publishedAt
                                     ).toLocaleDateString()}

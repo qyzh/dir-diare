@@ -8,6 +8,7 @@ import { noteQ } from 'app/lib/noteq'
 import UKButton from 'app/components/ukbtn'
 import AuthButton from 'app/x/components/AuthButton'
 import Breadcrumbs from 'app/components/breadcrumbs'
+import Footer from 'app/components/footer'
 import { AUTHORIZED_USER } from 'app/lib/constants'
 
 export default function AdminDashboard() {
@@ -75,9 +76,11 @@ export default function AdminDashboard() {
             {/* Quick Navigation Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <Link href="/x/posts" className="block">
-                    <div className="p-6 bg-white/5 border border-neutral-800 hover:border-neutral-600 transition-colors rounded-lg">
+                    <div className="p-4 bg-white/5 border border-neutral-400 dark:border-neutral-800 hover:border-neutral-700 dark:hover:border-neutral-600 transition-colors">
                         <h3 className="text-xl font-semibold mb-2">Posts</h3>
-                        <p className="text-neutral-400 text-sm mb-4">Manage blog posts</p>
+                        <p className="text-neutral-400 text-sm mb-4">
+                            Manage blog posts
+                        </p>
                         <UKButton variant="primary" size="sm">
                             Manage Posts
                         </UKButton>
@@ -85,9 +88,11 @@ export default function AdminDashboard() {
                 </Link>
 
                 <Link href="/x/noteqs" className="block">
-                    <div className="p-6 bg-white/5 border border-neutral-800 hover:border-neutral-600 transition-colors rounded-lg">
+                    <div className="p-4 bg-white/5 border border-neutral-400 dark:border-neutral-800 hover:border-neutral-700 dark:hover:border-neutral-600 transition-colors">
                         <h3 className="text-xl font-semibold mb-2">Notes</h3>
-                        <p className="text-neutral-400 text-sm mb-4">Manage noteqs</p>
+                        <p className="text-neutral-400 text-sm mb-4">
+                            Manage noteqs
+                        </p>
                         <UKButton variant="primary" size="sm">
                             Manage Notes
                         </UKButton>
@@ -95,9 +100,11 @@ export default function AdminDashboard() {
                 </Link>
 
                 <Link href="/x/artposts" className="block">
-                    <div className="p-6 bg-white/5 border border-neutral-800 hover:border-neutral-600 transition-colors rounded-lg">
+                    <div className="p-4 bg-white/5 border border-neutral-400 dark:border-neutral-800 hover:border-neutral-700 dark:hover:border-neutral-600 transition-colors">
                         <h3 className="text-xl font-semibold mb-2">Labs</h3>
-                        <p className="text-neutral-400 text-sm mb-4">Manage art posts & labs</p>
+                        <p className="text-neutral-400 text-sm mb-4">
+                            Manage labs
+                        </p>
                         <UKButton variant="primary" size="sm">
                             Manage Labs
                         </UKButton>
@@ -116,7 +123,7 @@ export default function AdminDashboard() {
                         {posts.slice(0, 5).map((post) => (
                             <div
                                 key={post._id}
-                                className="flex justify-between items-center border-l-4 pl-4 border-neutral-700"
+                                className="flex justify-between items-center border-l-4 pl-4 border-neutral-300 dark:border-neutral-700"
                             >
                                 <div>
                                     <h3 className="text-xl font-semibold">
@@ -136,14 +143,17 @@ export default function AdminDashboard() {
                                 </div>
                                 <Link
                                     href={`/x/posts/edit/${post.slug}`}
-                                    className="text-white px-4 py-2 "
+                                    className="text-neutral-700 dark:text-white px-4 py-2 "
                                 >
                                     Edit
                                 </Link>
                             </div>
                         ))}
                         {posts.length > 5 && (
-                            <Link href="/x/posts" className="block text-center text-neutral-400 hover:text-neutral-200 transition-colors">
+                            <Link
+                                href="/x/posts"
+                                className="block text-center text-neutral-400 hover:text-neutral-200 transition-colors"
+                            >
                                 View all posts →
                             </Link>
                         )}
@@ -162,7 +172,7 @@ export default function AdminDashboard() {
                         {artPosts.slice(0, 5).map((artPost) => (
                             <div
                                 key={artPost._id}
-                                className="flex justify-between items-center border-l-4 pl-4 border-neutral-700"
+                                className="flex justify-between items-center border-l-4 pl-4 border-neutral-300 dark:border-neutral-700"
                             >
                                 <div>
                                     <h3 className="text-xl font-semibold">
@@ -177,14 +187,17 @@ export default function AdminDashboard() {
                                 </div>
                                 <Link
                                     href={`/x/artposts/edit/${artPost.slug}`}
-                                    className="text-white px-4 py-2"
+                                    className="text-neutral-700 dark:text-white px-4 py-2"
                                 >
                                     Edit
                                 </Link>
                             </div>
                         ))}
                         {artPosts.length > 5 && (
-                            <Link href="/x/artposts" className="block text-center text-neutral-400 hover:text-neutral-200 transition-colors">
+                            <Link
+                                href="/x/artposts"
+                                className="block text-center text-neutral-400 hover:text-neutral-200 transition-colors"
+                            >
                                 View all labs →
                             </Link>
                         )}
@@ -206,26 +219,31 @@ export default function AdminDashboard() {
                         {notes.slice(0, 5).map((note) => (
                             <div
                                 key={note._id}
-                                className="flex justify-between items-center border-l-4 pl-4 border-neutral-700"
+                                className="flex justify-between items-center border-l-4 pl-4 border-neutral-300 dark:border-neutral-700"
                             >
                                 <div>
                                     <p className="text-lg">
                                         {note.note.substring(0, 100)}...
                                     </p>
                                     <div className="text-neutral-400 text-sm">
-                                        {new Date(note.date).toLocaleDateString()}
+                                        {new Date(
+                                            note.date
+                                        ).toLocaleDateString()}
                                     </div>
                                 </div>
                                 <Link
                                     href={`/x/noteqs/edit/${note._id}`}
-                                    className="text-white px-4 py-2"
+                                    className="text-neutral-700 dark:text-white px-4 py-2"
                                 >
                                     Edit
                                 </Link>
                             </div>
                         ))}
                         {notes.length > 5 && (
-                            <Link href="/x/noteqs" className="block text-center text-neutral-400 hover:text-neutral-200 transition-colors">
+                            <Link
+                                href="/x/noteqs"
+                                className="block text-center text-neutral-400 hover:text-neutral-200 transition-colors"
+                            >
                                 View all notes →
                             </Link>
                         )}
@@ -235,6 +253,7 @@ export default function AdminDashboard() {
                     </div>
                 )}
             </div>
+            <Footer />
         </div>
     )
 }
