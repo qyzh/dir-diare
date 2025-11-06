@@ -55,7 +55,7 @@ const EduTL: React.FC = () => (
         <div id="edu" className="relative space-y-6">
             <div className="relative px-4 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:bg-neutral-900">
                 {eduData.map((edu, index) => (
-                    <div key={edu.title} delay={0.8 + index * 0.2}>
+                    <div key={edu.title}>
                         <EduTimelineItem {...edu} />
                     </div>
                 ))}
