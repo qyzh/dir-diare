@@ -29,7 +29,11 @@ export default function NoteQsPage() {
                 const data = await response.json()
                 setNoteQs(data)
             } catch (err) {
-                setError(err instanceof Error ? err.message : 'An unknown error occurred')
+                setError(
+                    err instanceof Error
+                        ? err.message
+                        : 'An unknown error occurred'
+                )
             } finally {
                 setIsLoading(false)
             }
@@ -45,19 +49,21 @@ export default function NoteQsPage() {
         return (
             <div className="container mx-auto px-4 py-8">
                 <p>You must be signed in to view notes admin.</p>
-                <UKButton onClick={() => signIn('github')}>Sign in with GitHub</UKButton>
+                <UKButton onClick={() => signIn('github')}>
+                    Sign in with GitHub
+                </UKButton>
             </div>
         )
     }
 
     if (session?.user?.name !== 'qyzh') {
         return (
-           <div className="container mx-auto px-4 py-8">
-               <p>You are not authorized to view notes admin.</p>
-               <UKButton onClick={() => signOut()}>Sign out</UKButton>
-           </div>
-       )
-   }
+            <div className="container mx-auto px-4 py-8">
+                <p>You are not authorized to view notes admin.</p>
+                <UKButton onClick={() => signOut()}>Sign out</UKButton>
+            </div>
+        )
+    }
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -73,21 +79,37 @@ export default function NoteQsPage() {
                 <table className="min-w-full bg-white/5">
                     <thead>
                         <tr>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-gray-300">Date</th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-gray-300">Note</th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-gray-300">Author</th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-gray-300">Actions</th>
+                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
+                                Date
+                            </th>
+                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
+                                Note
+                            </th>
+                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
+                                Author
+                            </th>
+                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {noteQs.map((note) => (
                             <tr key={note._id}>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-gray-400">{new Date(note.date).toLocaleDateString()}</td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-gray-400">{note.note.substring(0, 50)}...</td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-gray-400">{note.author}</td>
+                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
+                                    {new Date(note.date).toLocaleDateString()}
+                                </td>
+                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
+                                    {note.note.substring(0, 50)}...
+                                </td>
+                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
+                                    {note.author}
+                                </td>
                                 <td className="py-2 px-4 border-b border-neutral-800 text-sm">
                                     <Link href={`/x/noteqs/edit/${note._id}`}>
-                                        <UKButton className="text-blue-400 hover:text-blue-300">Edit</UKButton>
+                                        <UKButton className="text-blue-400 hover:text-blue-300">
+                                            Edit
+                                        </UKButton>
                                     </Link>
                                 </td>
                             </tr>

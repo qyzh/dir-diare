@@ -76,30 +76,31 @@ export default function PostsManagePage() {
             <div className="flex gap-2 mb-6">
                 <button
                     onClick={() => setFilter('all')}
-                    className={`px-4 py-2 rounded ${
+                    className={`px-4 py-2 ${
                         filter === 'all'
-                            ? 'bg-neutral-100 dark:bg-neutral-800 text-white'
-                            : 'bg-white/5 text-neutral-400 hover:text-white'
+                            ? 'bg-neutral-300 dark:bg-neutral-800 text-neutral-800 dark:text-white'
+                            : 'bg-white/5 text-neutral-700 text-neutral-800 dark:hover:text-white'
                     }`}
                 >
                     All ({posts.length})
                 </button>
                 <button
                     onClick={() => setFilter('published')}
-                    className={`px-4 py-2 rounded ${
+                    className={`px-4 py-2 ${
                         filter === 'published'
-                            ? 'bg-neutral-100 dark:bg-neutral-800 text-white'
-                            : 'bg-white/5 text-neutral-400 hover:text-white'
+                            ? 'bg-emerald-500 dark:bg-emerald-800 text-neutral-200 dark:text-white'
+                            : 'bg-white/5 text-neutral-700 hover:text-emerald-600 dark:hover:text-white'
                     }`}
                 >
-                    Published ({posts.filter((p) => p.status === 'published').length})
+                    Published (
+                    {posts.filter((p) => p.status === 'published').length})
                 </button>
                 <button
                     onClick={() => setFilter('draft')}
-                    className={`px-4 py-2 rounded ${
+                    className={`px-4 py-2 ${
                         filter === 'draft'
-                            ? 'bg-neutral-100 dark:bg-neutral-800 text-white'
-                            : 'bg-white/5 text-neutral-400 hover:text-white'
+                            ? 'bg-rose-500 dark:bg-rose-800 text-neutral-200 dark:text-white'
+                            : 'bg-white/5 text-neutral-700 hover:text-rose-600 dark:hover:text-white'
                     }`}
                 >
                     Drafts ({posts.filter((p) => p.status === 'draft').length})
@@ -107,7 +108,7 @@ export default function PostsManagePage() {
             </div>
 
             {/* Posts List */}
-            <div className="p-4">
+            <div>
                 {isLoading ? (
                     <p>Loading posts...</p>
                 ) : error ? (
@@ -115,10 +116,14 @@ export default function PostsManagePage() {
                 ) : filteredPosts.length === 0 ? (
                     <div className="text-center py-12">
                         <p className="text-neutral-400 mb-4">
-                            {filter === 'all' ? 'No posts yet' : `No ${filter} posts`}
+                            {filter === 'all'
+                                ? 'No posts yet'
+                                : `No ${filter} posts`}
                         </p>
                         <Link href="/x/posts/create">
-                            <UKButton variant="primary">Create Your First Post</UKButton>
+                            <UKButton variant="primary">
+                                Create Your First Post
+                            </UKButton>
                         </Link>
                     </div>
                 ) : (
@@ -126,7 +131,7 @@ export default function PostsManagePage() {
                         {filteredPosts.map((post) => (
                             <div
                                 key={post._id}
-                                className="flex justify-between items-start border border-neutral-800 hover:border-neutral-600 transition-colors rounded-lg p-4"
+                                className="flex justify-between items-start border border-neutral-800 hover:border-neutral-600 transition-colors p-4"
                             >
                                 <div className="flex-1">
                                     <div className="flex items-center gap-3 mb-2">
@@ -150,21 +155,27 @@ export default function PostsManagePage() {
                                     )}
                                     <div className="flex items-center gap-4 text-neutral-500 text-sm">
                                         <span>
-                                            Published: {new Date(post.publishedAt).toLocaleDateString()}
+                                            Published:{' '}
+                                            {new Date(
+                                                post.publishedAt
+                                            ).toLocaleDateString()}
                                         </span>
                                         {post.tags && post.tags.length > 0 && (
                                             <div className="flex gap-2">
-                                                {post.tags.slice(0, 3).map((tag, idx) => (
-                                                    <span
-                                                        key={idx}
-                                                        className="text-xs bg-white/5 px-2 py-0.5 rounded"
-                                                    >
-                                                        {tag}
-                                                    </span>
-                                                ))}
+                                                {post.tags
+                                                    .slice(0, 3)
+                                                    .map((tag, idx) => (
+                                                        <span
+                                                            key={idx}
+                                                            className="text-xs bg-white/5 px-2 py-0.5 rounded"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
                                                 {post.tags.length > 3 && (
                                                     <span className="text-xs">
-                                                        +{post.tags.length - 3} more
+                                                        +{post.tags.length - 3}{' '}
+                                                        more
                                                     </span>
                                                 )}
                                             </div>
@@ -172,7 +183,10 @@ export default function PostsManagePage() {
                                     </div>
                                 </div>
                                 <div className="flex gap-2 ml-4">
-                                    <Link href={`/w/${post.slug}`} target="_blank">
+                                    <Link
+                                        href={`/w/${post.slug}`}
+                                        target="_blank"
+                                    >
                                         <UKButton variant="secondary" size="sm">
                                             View
                                         </UKButton>
