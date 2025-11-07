@@ -74,7 +74,7 @@ html {
 body {
     text-rendering: optimizeLegibility;
     font-family: var(--font-monaspace);
-    font-size: 14px;
+    font-size: 16px; /* Mobile-first: prevents iOS zoom on inputs */
     line-height: 1.6;
     @apply md:text-base;
 }
@@ -101,7 +101,7 @@ h4 {
     @apply text-lg;
 }
 p {
-    @apply mb-4 text-base;
+    @apply mb-4 text-sm md:text-base; /* 14px mobile, 16px desktop */
 }
 
 ul,
