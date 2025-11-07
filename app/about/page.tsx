@@ -8,62 +8,6 @@ export const metadata: Metadata = {
     description: 'Little about me and this blog.',
 }
 
-interface Edu {
-    title: string
-    desc: string
-    year: string
-    place: string
-}
-
-const eduData: Edu[] = [
-    {
-        title: 'Universitas Komputer Indonesia',
-        desc: 'Communication student',
-        year: '2019 - Now',
-        place: 'Bandung, West Java',
-    },
-    {
-        title: 'SMA YPS',
-        desc: 'Senior High School',
-        year: '2015 - 2017',
-        place: 'Sorowako, South Sulawesi',
-    },
-    {
-        title: 'SMP YPS',
-        desc: 'Junior High School',
-        year: '2012 - 2015',
-        place: 'Sorowako, South Sulawesi',
-    },
-]
-
-const EduTimelineItem: React.FC<Edu> = ({ title, desc, year, place }) => (
-    <div className="flex flex-col relative before:absolute before:top-[3px] before:w-4 before:h-4 before:rounded-full before:left-[-7px] before:z-[1] before:bg-neutral-700 pl-4">
-        <time className="text-xs tracking-wide text-neutral-500">{year}</time>
-        <h3 className="text-md tracking-wide">
-            <span className="font-semibold pr-1">{desc}</span>
-            <span className="font-mono text-neutral-800 text-neutral-300/70">
-                at
-            </span>
-            <span className="font-semibold pl-1">{title}</span>
-        </h3>
-        <p className="text-neutral-500 font-mono text-sm">{place}</p>
-    </div>
-)
-
-const EduTL: React.FC = () => (
-    <div className="grid grid-cols-1 gap-2">
-        <div id="edu" className="relative space-y-6">
-            <div className="relative px-4 space-y-8 before:absolute before:top-2 before:bottom-0 before:w-0.5 before:bg-neutral-900">
-                {eduData.map((edu, index) => (
-                    <div key={edu.title}>
-                        <EduTimelineItem {...edu} />
-                    </div>
-                ))}
-            </div>
-        </div>
-    </div>
-)
-
 const DearDairy: React.FC = () => (
     <div id="dear-diary">
         <strong>Why the name dir-diare?</strong>
@@ -116,7 +60,6 @@ const AboutPage: React.FC = () => (
         <Breadcrumbs />
         <main>
             <DearDairy />
-            <EduTL />
         </main>
         <Footer />
     </section>
