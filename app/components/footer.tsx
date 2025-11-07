@@ -3,10 +3,7 @@ import Link from 'next/link'
 import { AnimatedBelow } from './animated-section'
 import ThemeToggle from './theme-toggle'
 
-
 const Footer = () => {
-
-
     return (
         <AnimatedBelow delay={1.5}>
             <footer className="prose mt-4" role="contentinfo">
@@ -18,13 +15,12 @@ const Footer = () => {
                         >
                             Dir-diare
                         </Link>{' '}
-                        
                     </div>
+                    <ThemeToggle />
                     <div className="flex items-center gap-4">
                         <span className="italic">
                             Catch you in a bit, bruv!
                         </span>
-                        <ThemeToggle />
                     </div>
                 </div>
             </footer>
