@@ -1,10 +1,6 @@
 import React from 'react'
 import UkHeaderAscii from './components/ukheaderascii'
 import Footer from './components/footer'
-import Strava from './components/ukstrava'
-import { getAllPublishedPosts } from 'app/lib/posts'
-import { getAllArtPosts } from 'app/lib/artpost'
-import { getNoteQ } from 'app/lib/noteq'
 import { DiscordStatus } from 'app/components/discord'
 import { ChevronRight } from 'lucide-react'
 import Link from 'next/link'
@@ -12,10 +8,6 @@ import UkCLI from 'app/components/ukcli'
 import DecryptedText from 'app/components/ukdecrypted'
 
 export default async function Page() {
-    const postlist = await getAllPublishedPosts()
-    const artlist = await getAllArtPosts()
-    const noteku = await getNoteQ()
-
     return (
         <main className="flex-auto min-w-0 mt-6 flex flex-col md:px-0">
             <section>
@@ -69,6 +61,11 @@ export default async function Page() {
                         <div>
                             <span className="webtree">drwxr-xr-x UKI</span>
                             <Link href={`/w`}>tulisan</Link>
+                        </div>
+
+                        <div>
+                            <span className="webtree">drwxr-xr-x UKI</span>
+                            <Link href={`/n`}>catatan</Link>
                         </div>
                         <div>
                             <span className="webtree">drwxr-xr-x UKI</span>
