@@ -4,12 +4,61 @@ import {
     XCircle,
     CheckCircle,
     Flame,
+    type LucideIcon,
 } from 'lucide-react'
 
+type CalloutType = 'info' | 'warning' | 'error' | 'success' | 'important'
+
 interface UKCalloutProps {
-    type?: 'info' | 'warning' | 'error' | 'success' | 'important'
+    type?: CalloutType
     children: React.ReactNode
     className?: string
+}
+
+interface CalloutConfig {
+    icon: LucideIcon
+    bgColor: string
+    borderColor: string
+    iconColor: string
+    textColor: string
+}
+
+const calloutConfig: Record<CalloutType, CalloutConfig> = {
+    info: {
+        icon: BadgeAlert,
+        bgColor: 'bg-cyan-200 dark:bg-sky-900/20',
+        borderColor: 'border-cyan-400 dark:border-sky-800',
+        iconColor: 'text-blue-500 dark:text-sky-400',
+        textColor: 'text-blue-900 dark:text-sky-300',
+    },
+    warning: {
+        icon: AlertTriangle,
+        bgColor: 'bg-yellow-200 dark:bg-yellow-900/20',
+        borderColor: 'border-yellow-600 dark:border-yellow-800',
+        iconColor: 'text-yellow-900 dark:text-yellow-400',
+        textColor: 'text-yellow-900 dark:text-yellow-300',
+    },
+    error: {
+        icon: XCircle,
+        bgColor: 'bg-rose-900 dark:bg-red-900/20',
+        borderColor: 'border-rose-500 dark:border-red-800',
+        iconColor: 'text-red-500 dark:text-red-400',
+        textColor: 'text-red-300 dark:text-red-300',
+    },
+    success: {
+        icon: CheckCircle,
+        bgColor: 'bg-emerald-900 dark:bg-green-900/20',
+        borderColor: 'border-emerald-600 dark:border-green-800',
+        iconColor: 'text-green-500 dark:text-green-400',
+        textColor: 'text-green-500 dark:text-green-300',
+    },
+    important: {
+        icon: Flame,
+        bgColor: 'bg-fuchsia-900 dark:bg-purple-900/20',
+        borderColor: 'border-fuchsia-500 dark:border-purple-800',
+        iconColor: 'text-purple-500 dark:text-purple-400',
+        textColor: 'text-purple-300 dark:text-purple-300',
+    },
 }
 
 export default function UKCallout({
@@ -17,60 +66,24 @@ export default function UKCallout({
     children,
     className = '',
 }: UKCalloutProps) {
-    const bgColors = {
-        info: 'bg-blue-50 dark:bg-sky-900/20',
-        warning: 'bg-yellow-50 dark:bg-yellow-900/20',
-        error: 'bg-red-50 dark:bg-red-900/20',
-        success: 'bg-green-50 dark:bg-green-900/20',
-        important: 'bg-purple-50 dark:bg-purple-900/20',
-    }
-
-    const borderColors = {
-        info: 'border-blue-200 dark:border-sky-800',
-        warning: 'border-yellow-200 dark:border-yellow-800',
-        error: 'border-red-200 dark:border-red-800',
-        success: 'border-green-200 dark:border-green-800',
-        important: 'border-purple-200 dark:border-purple-800',
-    }
-
-    const iconColors = {
-        info: 'text-blue-500 dark:text-sky-400',
-        warning: 'text-yellow-500 dark:text-yellow-400',
-        error: 'text-red-500 dark:text-red-400',
-        success: 'text-green-500 dark:text-green-400',
-        important: 'text-purple-500 dark:text-purple-400',
-    }
-    const textColors = {
-        info: 'text-blue-500 dark:text-sky-300',
-        warning: 'text-yellow-500 dark:text-yellow-300',
-        error: 'text-red-500 dark:text-red-300',
-        success: 'text-green-500 dark:text-green-300',
-        important: 'text-purple-500 dark:text-purple-300',
-    }
-    const icons = {
-        info: BadgeAlert,
-        warning: AlertTriangle,
-        error: XCircle,
-        success: CheckCircle,
-        important: Flame,
-    }
-
-    const Icon = icons[type]
+    const {
+        icon: Icon,
+        bgColor,
+        borderColor,
+        iconColor,
+        textColor,
+    } = calloutConfig[type]
 
     return (
-        <div
-            className={`${bgColors[type]} ${borderColors[type]} border my-4 ${className}`}
-        >
-            <div className={`flex gap-3`}>
+        <div className={`${bgColor} ${borderColor} border my-4 ${className}`}>
+            <div className="flex gap-3">
                 <div
-                    className={`flex items-center border-r gap-2 mr-2 px-6 py-4 ${textColors[type]}`}
+                    className={`flex items-center border-r gap-2 mr-2 px-6 py-4 ${textColor}`}
                 >
-                    <Icon
-                        className={`w-6 h-6 flex-shrink-0 ${iconColors[type]}`}
-                    />
+                    <Icon className={`w-5 h-5 flex-shrink-0 ${iconColor}`} />
                 </div>
                 <div
-                    className={`flex items-center leading-relaxed ${textColors[type]}`}
+                    className={`flex items-center text-sm leading-relaxed p-2 ${textColor}`}
                 >
                     {children}
                 </div>
