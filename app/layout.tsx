@@ -1,7 +1,6 @@
 import './global.css'
 import type { Metadata } from 'next'
 import { Space_Grotesk, Playfair_Display } from 'next/font/google'
-
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { monaspace } from './fonts'
@@ -55,7 +54,6 @@ export default function RootLayout({
                 <main className="max-w-3xl mb-40 flex flex-col px-4">
                     <Providers>{children}</Providers>
                 </main>
-                {/* <BackToTop /> */}
                 <SpeedInsights />
                 <Analytics />
             </body>
