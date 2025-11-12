@@ -1,10 +1,10 @@
 import React from 'react'
 import UkHeaderAscii from './components/ukheaderascii'
 import Footer from './components/footer'
+import Button from 'app/components/ukbtn'
 import { DiscordStatus } from 'app/components/discord'
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, PenTool, Notebook, TestTubes } from 'lucide-react'
 import Link from 'next/link'
-import UkCLI from 'app/components/ukcli'
 import DecryptedText from 'app/components/ukdecrypted'
 
 export default async function Page() {
@@ -12,10 +12,8 @@ export default async function Page() {
         <main className="flex-auto min-w-0 mt-6 flex flex-col md:px-0">
             <section>
                 <main className="flex flex-col">
-                    <UkCLI path="~" command="fetchdiare" />
                     <UkHeaderAscii />
                     <div>
-                        <UkCLI path="~" command="cd dirdiare" />
                         <div className="webcontent">
                             <span className="text-neutral-400 dark:text-neutral-500">
                                 <ChevronRight className="inline w-4 h-4" />
@@ -25,7 +23,6 @@ export default async function Page() {
                             algorithm of social media.
                         </div>
                     </div>
-                    <UkCLI path="~/dirdiare:" command="aboutme" />
                     <div className="">
                         <span className="webcontent">
                             <span className="text-neutral-400 dark:text-neutral-500">
@@ -51,30 +48,21 @@ export default async function Page() {
                             <DecryptedText text="bandung" />, West Java.
                         </span>
                     </div>
-                    <UkCLI path="~/dirdiare:" command="cd app" />
-                    <UkCLI path="~/dirdiare/app:" command="ls -l" />
-                    <div>
-                        <div>
-                            <span className="webtree">drwxr-xr-x UKI</span>
-                            <Link href={`/about`}>about</Link>
-                        </div>
-                        <div>
-                            <span className="webtree">drwxr-xr-x UKI</span>
-                            <Link href={`/w`}>tulisan</Link>
-                        </div>
-
-                        <div>
-                            <span className="webtree">drwxr-xr-x UKI</span>
-                            <Link href={`/n`}>catatan</Link>
-                        </div>
-                        <div>
-                            <span className="webtree">drwxr-xr-x UKI</span>
-                            <Link href={`/m`}>music</Link>
-                        </div>
-                        <div>
-                            <span className="webtree">drwxr-xr-x UKI</span>
-                            <Link href={`/l`}>lab</Link>
-                        </div>
+                    <div className="flex justify-center items-center mt-2 mb-2 space-x-2">
+                        <Link href={`/w`} className="flex items-center gap-1 font-semibold hover:underline underline-offset-4">
+                            <PenTool className="w-4 h-4" />
+                            <span>Writing</span>
+                        </Link>
+                        <span className="text-neutral-400 dark:text-neutral-500">•</span>
+                        <Link href={`/n`} className="flex items-center gap-1 font-semibold hover:underline underline-offset-4">
+                            <Notebook className="w-4 h-4" />
+                            <span>Notes</span>
+                        </Link>
+                        <span className="text-neutral-400 dark:text-neutral-500">•</span>
+                        <Link href={`/l`} className="flex items-center gap-1 font-semibold hover:underline underline-offset-4">
+                            <TestTubes className="w-4 h-4" />
+                            <span>Lab</span>
+                        </Link>
                     </div>
                 </main>
             </section>
