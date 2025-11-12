@@ -1,6 +1,6 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { Space_Grotesk, Playfair_Display } from 'next/font/google'
+import { Playfair_Display, Roboto, Noto_Serif } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { monaspace } from './fonts'
@@ -22,16 +22,26 @@ export const metadata: Metadata = {
 const cx = (...classes: (string | boolean | undefined | null)[]) =>
     classes.filter(Boolean).join(' ')
 
-const playfair_display = Playfair_Display({
+const playfair = Playfair_Display({
     subsets: ['latin'],
     weight: ['400', '700'],
-    variable: '--font-playfair-display',
+    variable: '--font-playfair',
     display: 'swap',
 })
-const space_grotesk = Space_Grotesk({
+
+const roboto = Roboto({
     subsets: ['latin'],
+    weight: ['400', '500', '700'],
+    variable: '--font-roboto',
     display: 'swap',
-    variable: '--font-space-grotesk',
+})
+
+const notoSerif = Noto_Serif({
+    subsets: ['latin'],
+    weight: ['400'],
+    style: ['normal', 'italic'],
+    variable: '--font-noto-serif',
+    display: 'swap',
 })
 
 export default function RootLayout({
@@ -45,8 +55,9 @@ export default function RootLayout({
             suppressHydrationWarning
             className={cx(
                 'scroll-smooth',
-                space_grotesk.variable,
-                playfair_display.variable,
+                roboto.variable,
+                playfair.variable,
+                notoSerif.variable,
                 monaspace.variable
             )}
         >
