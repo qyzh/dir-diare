@@ -59,43 +59,43 @@ const renderImage = ({
 const components = {
     h1: (props: HeadingProps) => (
         <h1
-            className="text-2xl md:text-3xl font-bold dark:text-white/90 dark:hover:text-white pt-8 mb-4"
+            className="text-3xl md:text-4xl font-bold dark:text-white/90 dark:hover:text-white pt-8 mb-4"
             {...props}
         />
     ),
     h2: (props: HeadingProps) => (
         <h2
-            className="text-xl md:text-2xl text-gray-800 dark:text-white/85 dark:hover:text-white/95 font-medium mt-8 mb-3"
+            className="text-2xl md:text-3xl text-gray-800 dark:text-white/85 dark:hover:text-white/95 font-medium mt-8 mb-3"
             {...props}
         />
     ),
     h3: (props: HeadingProps) => (
         <h3
-            className="text-lg md:text-xl text-gray-800 dark:text-white/85 dark:hover:text-white/90 font-medium mt-8 mb-3"
+            className="text-xl md:text-2xl text-gray-800 dark:text-white/85 dark:hover:text-white/90 font-medium mt-8 mb-3"
             {...props}
         />
     ),
     h4: (props: HeadingProps) => (
         <h4
-            className="text-base md:text-lg font-medium text-neutral-100"
+            className="text-lg md:text-xl font-medium text-neutral-100"
             {...props}
         />
     ),
     p: (props: ParagraphProps) => (
         <p
-            className="text-sm md:text-base text-gray-800 dark:text-neutral-300/70 leading-relaxed my-4"
+            className="text-base md:text-lg text-gray-800 dark:text-neutral-300/70 leading-relaxed my-4"
             {...props}
         />
     ),
     ol: (props: ListProps) => (
         <ol
-            className="text-sm md:text-base text-gray-800 dark:text-neutral-300/70 list-decimal pl-5 space-y-2"
+            className="text-base md:text-lg text-gray-800 dark:text-neutral-300/70 list-decimal pl-5 space-y-2"
             {...props}
         />
     ),
     ul: (props: ListProps) => (
         <ul
-            className="text-sm md:text-base text-gray-800 dark:text-neutral-300/70 list-disc pl-5 space-y-1"
+            className="text-base md:text-lg text-gray-800 dark:text-neutral-300/70 list-disc pl-5 space-y-1"
             {...props}
         />
     ),
