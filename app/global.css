@@ -41,30 +41,32 @@
 
 :root {
     /* Syntax highlighting colors */
-    --sh-class: #2d5e9d;
-    --sh-identifier: #354150;
-    --sh-sign: #8996a3;
-    --sh-string: #007f7a;
-    --sh-keyword: #e02518;
-    --sh-comment: #a19595;
-    --sh-jsxliterals: #6266d1;
-    --sh-property: #e25a1c;
-    --sh-entity: #e25a1c;
-    --background-color: #ffffff;
+    --sh-class: #6c63ff;
+    --sh-identifier: #2b2d42;
+    --sh-sign: #6c757d;
+    --sh-string: #ff8c42;
+    --sh-keyword: #0077b6;
+    --sh-comment: #8d99ae;
+    --sh-jsxliterals: #ff6f91;
+    --sh-property: #00bfa6;
+    --sh-entity: #118ab2;
     /* Font families */
-    --font-space: 'Space Grotesk', sans-serif;
+    --font-roboto: 'Roboto', sans-serif;
     --font-monaspace: 'Monaspace', monospace;
     --font-playfair: 'Playfair Display', serif;
+    --font-noto-serif: 'Noto Serif', serif;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --sh-class: #4c97f8;
-        --sh-identifier: white;
-        --sh-keyword: #f47067;
-        --sh-string: #0fa295;
-        --background-color: red;
-    }
+.dark {
+    --sh-class: #c77dff;
+    --sh-identifier: #e0e1dd;
+    --sh-sign: #9aa4b2;
+    --sh-string: #f4d35e;
+    --sh-keyword: #5bc0be;
+    --sh-comment: #7a869a;
+    --sh-jsxliterals: #ee6c4d;
+    --sh-property: #00c9a7;
+    --sh-entity: #f08a5d;
 }
 
 html {
@@ -73,10 +75,10 @@ html {
 
 body {
     text-rendering: optimizeLegibility;
-    font-family: var(--font-monaspace);
+    font-family: var(--font-roboto);
     font-size: 16px; /* Mobile-first: prevents iOS zoom on inputs */
     line-height: 1.6;
-    @apply md:text-base;
+    @apply md:text-lg; /* 18px on desktop */
 }
 
 /* Typography */
@@ -85,7 +87,7 @@ h2,
 h3,
 h4 {
     text-wrap: balance;
-    font-family: var(--font-space);
+    font-family: var(--font-playfair);
 }
 
 h1 {
@@ -101,7 +103,7 @@ h4 {
     @apply text-lg;
 }
 p {
-    @apply mb-4 text-sm md:text-base; /* 14px mobile, 16px desktop */
+    @apply mb-4 text-base md:text-lg; /* 16px mobile, 18px desktop - matches body */
 }
 
 ul,
@@ -110,8 +112,13 @@ ol {
 }
 
 blockquote {
-    @apply mb-4 text-base italic;
-    font-family: var(--font-playfair);
+    font-family: var(--font-noto-serif);
+    line-height: 1.7;
+}
+
+blockquote cite {
+    @apply block mt-3 text-sm not-italic text-neutral-600 dark:text-neutral-400;
+    font-family: var(--font-roboto);
 }
 
 mark {
@@ -123,6 +130,7 @@ mark {
 blockquote mark {
     padding: 0;
     text-wrap: balance;
+    font-style: italic;
 }
 
 hr {
@@ -157,7 +165,7 @@ table {
 
 /* Post components */
 .post-title {
-    @apply text-neutral-600 dark:text-neutral-400 uppercase mt-6 font-bold text-3xl md:text-2xl;
+    @apply text-neutral-600 dark:text-neutral-400 uppercase mt-6 font-bold text-2xl md:text-3xl;
 }
 
 .group:hover .post-title {
@@ -185,10 +193,6 @@ table {
     @apply text-neutral-600 dark:text-neutral-500;
 }
 
-.webtree {
-    @apply text-neutral-600 dark:text-neutral-400 mr-1;
-}
-
 .webcommand,
 .webcontentroot {
     @apply text-neutral-800 dark:text-neutral-300;
@@ -203,11 +207,42 @@ table {
 }
 
 .webcontent {
-    @apply transition-all text-neutral-700 dark:text-neutral-300 font-semibold hover:text-neutral-900 dark:hover:text-white;
+    @apply transition-all text-neutral-700 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white;
 }
 
 /* Code blocks */
 code,
 pre {
     font-family: var(--font-monaspace);
+}
+
+.token.class-name {
+    color: var(--sh-class);
+}
+.token.function,
+.token.entity {
+    color: var(--sh-entity);
+}
+.token.keyword {
+    color: var(--sh-keyword);
+}
+.token.string,
+.token.template-string {
+    color: var(--sh-string);
+}
+.token.number,
+.token.constant {
+    color: var(--sh-property);
+}
+.token.punctuation,
+.token.operator {
+    color: var(--sh-sign);
+}
+.token.comment {
+    color: var(--sh-comment);
+    font-style: italic;
+}
+.token.jsx-tag,
+.token.tag {
+    color: var(--sh-jsxliterals);
 }
