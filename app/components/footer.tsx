@@ -1,7 +1,6 @@
 'use client'
 import Link from 'next/link'
 import { AnimatedBelow } from './animated-section'
-import ThemeToggle from './theme-toggle'
 
 const Footer = () => {
     return (
@@ -16,7 +15,6 @@ const Footer = () => {
                             Dir-diare
                         </Link>{' '}
                     </div>
-                    <ThemeToggle />
                     <div className="flex items-center gap-4">
                         <span className="italic">
                             Catch you in a bit, bruv!
