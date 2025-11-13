@@ -190,7 +190,7 @@ const components = {
             default:
                 'ml-2 pl-4 border-l-4 border-neutral-400 hover:border-neutral-800 dark:hover:border-neutral-200 transition-all duration-300',
             minimal:
-                'text-center italic font-bold text-neutral-600 dark:text-neutral-400',
+                'text-center italic border-emerald-400 font-bold text-neutral-600 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-all duration-300',
             accent: 'ml-2 pl-6 pr-4 py-3 border-l-4 border-emerald-500 dark:border-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 rounded-r-lg',
             bordered:
                 'p-4 border-2 border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/50 shadow-sm',
