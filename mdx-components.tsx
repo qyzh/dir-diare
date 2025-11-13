@@ -11,8 +11,14 @@ type ParagraphProps = ComponentPropsWithoutRef<'p'>
 type ListProps = ComponentPropsWithoutRef<'ul'>
 type ListItemProps = ComponentPropsWithoutRef<'li'>
 type AnchorProps = ComponentPropsWithoutRef<'a'>
-type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'>
-type TagUserProps = ComponentPropsWithoutRef<'div'>
+type BlockquoteProps = ComponentPropsWithoutRef<'blockquote'> & {
+    model?: 'default' | 'minimal' | 'accent' | 'bordered'
+}
+type TagUserProps = {
+    children: React.ReactNode
+    link?: string
+    className?: string
+}
 type MarkProps = ComponentPropsWithoutRef<'mark'> & {
     color?: 'green' | 'yellow' | 'red'
 }
@@ -53,40 +59,43 @@ const renderImage = ({
 const components = {
     h1: (props: HeadingProps) => (
         <h1
-            className="text-2xl md:text-3xl font-bold dark:text-white/90 dark:hover:text-white pt-8 mb-4"
+            className="text-3xl md:text-4xl font-bold dark:text-white/90 dark:hover:text-white pt-8 mb-4"
             {...props}
         />
     ),
     h2: (props: HeadingProps) => (
         <h2
-            className="text-xl md:text-2xl text-gray-800 dark:text-white/85 dark:hover:text-white/95 font-medium mt-8 mb-3"
+            className="text-2xl md:text-3xl text-gray-800 dark:text-white/85 dark:hover:text-white/95 font-medium mt-8 mb-3"
             {...props}
         />
     ),
     h3: (props: HeadingProps) => (
         <h3
-            className="text-lg md:text-xl text-gray-800 dark:text-white/85 dark:hover:text-white/90 font-medium mt-8 mb-3"
+            className="text-xl md:text-2xl text-gray-800 dark:text-white/85 dark:hover:text-white/90 font-medium mt-8 mb-3"
             {...props}
         />
     ),
     h4: (props: HeadingProps) => (
-        <h4 className="text-base md:text-lg font-medium text-neutral-100" {...props} />
+        <h4
+            className="text-lg md:text-xl font-medium text-neutral-100"
+            {...props}
+        />
     ),
     p: (props: ParagraphProps) => (
         <p
-            className="text-sm md:text-base text-gray-800 dark:text-neutral-300/70 leading-relaxed my-4"
+            className="text-base md:text-lg text-gray-800 dark:text-neutral-300/70 leading-relaxed my-4"
             {...props}
         />
     ),
     ol: (props: ListProps) => (
         <ol
-            className="text-sm md:text-base text-gray-800 dark:text-neutral-300/70 list-decimal pl-5 space-y-2"
+            className="text-base md:text-lg text-gray-800 dark:text-neutral-300/70 list-decimal pl-5 space-y-2"
             {...props}
         />
     ),
     ul: (props: ListProps) => (
         <ul
-            className="text-sm md:text-base text-gray-800 dark:text-neutral-300/70 list-disc pl-5 space-y-1"
+            className="text-base md:text-lg text-gray-800 dark:text-neutral-300/70 list-disc pl-5 space-y-1"
             {...props}
         />
     ),
@@ -139,15 +148,24 @@ const components = {
             [children]
         )
         return (
-            <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />
+            <code
+                className="px-1.5 py-0.5 rounded-md bg-[#FAFAFA] dark:bg-[#0B132B] text-sm font-mono"
+                dangerouslySetInnerHTML={{ __html: codeHTML }}
+                {...props}
+            />
         )
     },
     Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
-        <table>
+        <table className="table-auto text-md border-collapse border border-neutral-200 dark:border-neutral-600 my-4 w-full">
             <thead>
-                <tr className="bg-gray-100 dark:bg-neutral-700 text-gray-800 dark:text-neutral-200">
+                <tr className="">
                     {data.headers.map((header, index) => (
-                        <th key={index}>{header}</th>
+                        <th
+                            className="p-2 border bg-neutral-200 border-neutral-300 dark:bg-neutral-900 dark:border-neutral-800"
+                            key={index}
+                        >
+                            {header}
+                        </th>
                     ))}
                 </tr>
             </thead>
@@ -155,19 +173,30 @@ const components = {
                 {data.rows.map((row, index) => (
                     <tr key={index}>
                         {row.map((cell, cellIndex) => (
-                            <td key={cellIndex}>{cell}</td>
+                            <td
+                                className="p-2 border border-neutral-200  dark:border-neutral-800"
+                                key={cellIndex}
+                            >
+                                {cell}
+                            </td>
                         ))}
                     </tr>
                 ))}
             </tbody>
         </table>
     ),
-    blockquote: (props: BlockquoteProps) => (
-        <blockquote
-            className="ml-2 pl-4 border-l-4 border-neutral-400 hover:border-neutral-800 dark:hover:border-neutral-200 transition-all duration-300"
-            {...props}
-        />
-    ),
+    blockquote: ({ model = 'default', ...props }: BlockquoteProps) => {
+        const models = {
+            default:
+                'ml-2 pl-4 border-l-4 border-neutral-400 hover:border-neutral-800 dark:hover:border-neutral-200 transition-all duration-300',
+            minimal:
+                'text-center italic border-emerald-400 font-bold text-neutral-600 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-all duration-300',
+            accent: 'ml-2 pl-6 pr-4 py-3 border-l-4 border-emerald-500 dark:border-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 rounded-r-lg',
+            bordered:
+                'p-4 border-2 border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/50 shadow-sm',
+        }
+        return <blockquote className={models[model]} {...props} />
+    },
     Callout: ({ type = 'info', children, ...props }: CalloutProps) => (
         <UKCallout type={type} {...props}>
             {children}
@@ -193,9 +222,9 @@ const components = {
     ),
     mark: ({ color = 'yellow', ...props }: MarkProps) => {
         const colors = {
-            green: 'bg-teal-200 dark:bg-teal-800/50',
-            yellow: 'bg-yellow-200 dark:bg-yellow-800/50',
-            red: 'bg-red-200 dark:bg-red-800/50',
+            green: 'bg-teal-200 dark:bg-emerald-400',
+            yellow: 'bg-yellow-200 dark:bg-amber-400',
+            red: 'bg-red-200 dark:bg-rose-400',
         }
         return <mark className={`${colors[color]} px-1`} {...props} />
     },

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import React from 'react'
+import ThemeToggle from './theme-toggle'
 
 interface BreadcrumbsProps {
     post?: { metadata: { title: string } }
@@ -15,7 +16,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
         post?.metadata?.title || paths[paths.length - 1] || 'home'
 
     return (
-        <div className="mt-4">
+        <div className="mt-4 flex items-center justify-between">
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -50,6 +51,13 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ post }) => {
                         )}
                     </React.Fragment>
                 ))}
+            </motion.div>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.7, ease: 'easeOut', delay: 0.3 }}
+            >
+                <ThemeToggle />
             </motion.div>
         </div>
     )

@@ -134,9 +134,9 @@ export default function PlaylistGrid() {
                             }
                         }}
                     >
-                        <div className="h-full flex flex-col">
-                            <div className="max-w-md flex-1 overflow-hidden flex flex-col">
-                                <div className="w-full h-48 relative rounded-lg overflow-hidden mb-4">
+                        <div className="flex-1 flex flex-col overflow-hidden">
+                            <div className="flex flex-col flex-1 overflow-hidden">
+                                <div className="w-full h-48 relative rounded-lg overflow-hidden mb-4 flex-shrink-0">
                                     <Drawer.Title className="font-semibold text-lg text-neutral-100">
                                         {playlist.name}
                                     </Drawer.Title>
@@ -150,7 +150,7 @@ export default function PlaylistGrid() {
                                     />
                                 </div>
 
-                                <div className="mt-2 text-sm text-neutral-400">
+                                <div className="mt-2 text-sm text-neutral-400 flex-shrink-0">
                                     <p className="mb-2">
                                         {playlist.description ||
                                             'No description available.'}
@@ -160,7 +160,7 @@ export default function PlaylistGrid() {
                                     </p>
                                 </div>
 
-                                <div className="mt-6">
+                                <div className="mt-6 flex-shrink-0">
                                     <a
                                         href={`https://open.spotify.com/playlist/${playlist.id}`}
                                         target="_blank"
@@ -176,11 +176,11 @@ export default function PlaylistGrid() {
                                     </a>
                                 </div>
 
-                                <div className="mt-6 flex-1 overflow-hidden">
-                                    <h3 className="font-semibold text-neutral-100 mb-3">
+                                <div className="mt-6 flex-1 min-h-0 flex flex-col">
+                                    <h3 className="font-semibold text-neutral-100 mb-3 flex-shrink-0">
                                         Tracks
                                     </h3>
-                                    <div className="overflow-y-auto h-full pr-2">
+                                    <div className="flex-1 overflow-y-auto pr-2">
                                         {tracksLoading ? (
                                             <div className="space-y-2">
                                                 {[1, 2, 3, 4, 5].map((i) => (

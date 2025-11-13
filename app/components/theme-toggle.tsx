@@ -37,14 +37,14 @@ export default function ThemeToggle() {
         <div className="flex items-center gap-2">
             <button
                 onClick={handleClick}
-                className="inline-flex items-center justify-center rounded-md p-2 bg-neutral-200 dark:bg-neutral-800 hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-colors border border-neutral-300 dark:border-neutral-600"
+                className="inline-flex items-center justify-center rounded-md p-2 bg-neutral-200 dark:bg-neutral-900 hover:bg-neutral-300 dark:hover:bg-neutral-800 transition-colors border border-neutral-300 dark:border-neutral-700"
                 aria-label="Toggle theme"
                 title={`Current: ${theme}`}
             >
                 {theme === 'dark' ? (
-                    <Sun className="w-5 h-5 text-neutral-900 dark:text-neutral-100" />
+                    <Sun className="w-4 h-4 text-neutral-900 dark:text-neutral-100" />
                 ) : (
-                    <Moon className="w-5 h-5 text-neutral-900 dark:text-neutral-100" />
+                    <Moon className="w-4 h-4 text-neutral-900 dark:text-neutral-100" />
                 )}
             </button>
         </div>
