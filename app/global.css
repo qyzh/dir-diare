@@ -112,13 +112,8 @@ ol {
 }
 
 blockquote {
-    @apply mb-6 pl-6 border-l-4 border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/50 py-4 pr-4;
     font-family: var(--font-noto-serif);
-    font-weight: 400;
-    font-style: italic;
-    font-size: 18px; /* body 16px + 2px */
     line-height: 1.7;
-    @apply md:text-xl; /* body 18px + 2px = 20px on desktop */
 }
 
 blockquote cite {
