@@ -1,6 +1,7 @@
 import React from 'react'
 import UkHeaderAscii from './components/ukheaderascii'
 import Footer from './components/footer'
+import Breadcrumbs from 'app/components/breadcrumbs'
 import Button from 'app/components/ukbtn'
 import { DiscordStatus } from 'app/components/discord'
 import { ChevronRight, PenTool, Notebook, TestTubes } from 'lucide-react'
@@ -12,6 +13,7 @@ export default async function Page() {
         <main className="flex-auto min-w-0 mt-6 flex flex-col md:px-0">
             <section>
                 <main className="flex flex-col">
+                    <Breadcrumbs />
                     <UkHeaderAscii />
                     <div>
                         <div className="webcontent">
@@ -49,17 +51,30 @@ export default async function Page() {
                         </span>
                     </div>
                     <div className="flex justify-center items-center mt-2 mb-2 space-x-2">
-                        <Link href={`/w`} className="flex items-center gap-1 font-semibold hover:underline underline-offset-4">
+                        <Link
+                            href={`/w`}
+                            className="flex items-center gap-1 font-semibold text-neutral-600 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 hover:underline underline-offset-4"
+                        >
                             <PenTool className="w-4 h-4" />
                             <span>Writing</span>
                         </Link>
-                        <span className="text-neutral-400 dark:text-neutral-500">•</span>
-                        <Link href={`/n`} className="flex items-center gap-1 font-semibold hover:underline underline-offset-4">
+                        <span className="text-neutral-400 dark:text-neutral-500">
+                            •
+                        </span>
+                        <Link
+                            href={`/n`}
+                            className="flex items-center gap-1 font-semibold text-neutral-600 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 hover:underline underline-offset-4"
+                        >
                             <Notebook className="w-4 h-4" />
                             <span>Notes</span>
                         </Link>
-                        <span className="text-neutral-400 dark:text-neutral-500">•</span>
-                        <Link href={`/l`} className="flex items-center gap-1 font-semibold hover:underline underline-offset-4">
+                        <span className="text-neutral-400 dark:text-neutral-500">
+                            •
+                        </span>
+                        <Link
+                            href={`/l`}
+                            className="flex items-center gap-1 font-semibold text-neutral-600 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 hover:underline underline-offset-4"
+                        >
                             <TestTubes className="w-4 h-4" />
                             <span>Lab</span>
                         </Link>
