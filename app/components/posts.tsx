@@ -13,7 +13,7 @@ const PostCard = ({ post }: PostCardProps) => {
         key={post.slug}
         className="group flex flex-col gap-2"
       >
-        <h2 className="post-title group-hover:opacity-60 transition-all duration-300">
+        <h2 className="post-title group-hover:opacity-60 dark:group-hover:opacity-80 transition-all duration-300">
           {post.title}
         </h2>
         <p className="post-summary">{post.summary}</p>
