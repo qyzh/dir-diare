@@ -21,7 +21,7 @@ export default function CopyUrlButton({ url }: { url: string }) {
       onClick={copyToClipboard}
       className="ml-2 px-2 py-1 "
     >
-      <Link className="w-4 h-4" />
+      <Link className="w-3 h-3" />
       {copied && <span className='text-xs pl-0.5'>Copied!</span>}
     </Button>
   )
