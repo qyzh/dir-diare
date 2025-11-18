@@ -82,7 +82,7 @@ export default function PostRenderer({
   return (
     <section>
       <Breadcrumbs post={{ metadata: { title: post.title } }} />
-      <div className='border-b border-neutral-300 mb-4'>
+      <div className='border-b border-neutral-300 dark:border-neutral-800 mb-4'>
         <h1 className="post-title italic mb-3">
           {post.title || post.slug.replace(/-/g, ' ')}
         </h1>
@@ -102,24 +102,25 @@ export default function PostRenderer({
       <article className="max-w-none prose dark:prose-invert prose-lg prose-headings:font-bold prose-headings:text-black dark:prose-headings:text-white/90 prose-p:text-black/80 dark:prose-p:text-neutral-300 prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
         <MDXRemote source={post.content} components={components} />
       </article>
-
-      {post.tags && post.tags.length > 0 && (
-        <div className="metadataart">
-          <span className="font-semibold mr-2">Tags:</span>
-          <span className="inline-flex flex-wrap gap-2">
-            {post.tags.map((tag: string, index: number) => (
-              <span
-                key={index}
-                className="font-mono text-sm text-neutral-700 dark:text-neutral-400 hover:text-neutral-800 dark:text-neutral-200"
-              >
-                {tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase()}
-              </span>
-            ))}
-          </span>
+      <div className='flex justify-between items-center'>
+        {post.tags && post.tags.length > 0 && (
+          <div className="metadataart">
+            <span className="font-semibold mr-2">Tags:</span>
+            <span className="inline-flex flex-wrap gap-2">
+              {post.tags.map((tag: string, index: number) => (
+                <span
+                  key={index}
+                  className="font-mono text-xs pt-0.5 px-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-900 text-neutral-700 dark:text-neutral-400 hover:text-neutral-800 dark:text-neutral-200"
+                >
+                  {tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase()}
+                </span>
+              ))}
+            </span>
+          </div>
+        )}
+        <div>
+          <CopyUrlButton url={`https://dir.kyxis.my.id/w/${post.slug}`} />
         </div>
-      )}
-      <div className="flex mt-4 justify-center">
-        <CopyUrlButton url={`https://dir.kyxis.my.id/w/${post.slug}`} />
       </div>
       <Comments />
       <Footer />
