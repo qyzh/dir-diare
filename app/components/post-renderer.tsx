@@ -34,11 +34,11 @@ export default function PostRenderer({
                             datePublished: post.publishedAt,
                             dateModified: post.updatedAt || post.publishedAt,
                             description: post.summary,
-                            image: `https://kynoci.com/og?title=${post.title}`,
-                            url: `https://kynoci.com/l/${post.slug}`,
+                            image: `https://dir.kyxis.my.id/og?title=${post.title}`,
+                            url: `https://dir.kyxis.my.id/l/${post.slug}`,
                             author: {
                                 '@type': 'Person',
-                                name: 'Kynoci',
+                                name: 'uki',
                             },
                         }),
                     }}
@@ -105,6 +105,7 @@ export default function PostRenderer({
                     <span className="font-semibold mr-2">Tags:</span>
                     <span className="font-mono text-neutral-600 dark:text-neutral-400">
                         {post.tags
+
                             .map(
                                 (tag: string) =>
                                     tag.charAt(0).toUpperCase() +
