@@ -50,7 +50,7 @@ export default function UKnotes({ initialNotes }: UKnotesProps) {
     if (!notes || notes.length === 0) return <div>No notes found.</div>
 
     return (
-        <div>
+        <div className="mt-6">
             {notes
                 .sort(
                     (a, b) =>

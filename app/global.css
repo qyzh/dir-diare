@@ -1,21 +1,13 @@
 @import 'tailwindcss';
-
 @variant dark (&:is(.dark, .dark *));
-
 @theme {
-    /* Font families */
-    --font-family-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
-    --font-family-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
-
     /* Keyframes */
     --keyframes-spin-reverse: spin-reverse;
     --keyframes-spin-slow: spin-slow;
-
     /* Animations */
     --animate-spin-reverse: spin-reverse 1s linear infinite;
     --animate-spin-slow: spin-slow 8s linear infinite;
 }
-
 @keyframes spin-reverse {
     0% {
         transform: rotate(0deg);
@@ -24,7 +16,6 @@
         transform: rotate(-360deg);
     }
 }
-
 @keyframes spin-slow {
     0% {
         transform: rotate(0deg);
@@ -33,12 +24,10 @@
         transform: rotate(360deg);
     }
 }
-
 ::selection {
     background-color: #47a3f3;
     color: #fefefe;
 }
-
 :root {
     /* Syntax highlighting colors */
     --sh-class: #6c63ff;
@@ -50,11 +39,6 @@
     --sh-jsxliterals: #ff6f91;
     --sh-property: #00bfa6;
     --sh-entity: #118ab2;
-    /* Font families */
-    --font-roboto: 'Roboto', sans-serif;
-    --font-monaspace: 'Monaspace', monospace;
-    --font-playfair: 'Playfair Display', serif;
-    --font-noto-serif: 'Noto Serif', serif;
 }
 
 .dark {
@@ -162,10 +146,18 @@ table {
 ::view-transition-new(lee) {
     animation: fade-in-up 0.4s ease-in-out;
 }
-
+/* Header components */
+.text-fonetik {
+  font-family: var(--font-noto-serif);
+}
+/* Front Desk */
+.front-link {
+  font-family: var(--font-noto-serif);
+  font-weight: semibold;
+}
 /* Post components */
 .post-title {
-    @apply text-neutral-600 dark:text-neutral-400 uppercase mt-6 font-bold text-2xl md:text-3xl;
+    @apply text-neutral-900 dark:text-neutral-100 mt-6 font-bold text-2xl md:text-3xl;
 }
 
 .group:hover .post-title {
@@ -177,6 +169,7 @@ table {
 }
 
 .post-summary {
+    font-family: var(--font-playfair);
     @apply text-neutral-500 dark:text-neutral-400;
 }
 
@@ -185,7 +178,7 @@ table {
 }
 
 .metadataart {
-    @apply text-neutral-500 dark:text-neutral-400 w-full bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 px-3 py-2;
+    @apply text-neutral-500 dark:text-neutral-400;
 }
 
 /* Web/CLI components */
