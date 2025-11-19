@@ -46,7 +46,7 @@ export default function PostRenderer({
         <h1 className="post-title tracking-tighter max-w-[650px]">
           {post.title}
         </h1>
-        <div className="flex justify-between items-center mt-2  text-sm max-w-[650px]">
+        <div className="flex justify-between items-center mt-2 text-sm max-w-[650px] text-neutral-600 dark:text-neutral-300">
           <div className="metadataart items-center">
             <span>
               Created at {' '}
@@ -63,7 +63,7 @@ export default function PostRenderer({
             className="w-full h-auto my-4"
           />
         )}
-        <article className="prose prose-quoteless prose-neutral dark:prose-invert">
+        <article className="prose prose-quoteless prose-neutral dark:prose-invert dark:prose-p:text-white dark:prose-li:text-white dark:prose-strong:text-white dark:prose-em:text-white">
           <MDXRemote source={post.content} components={components} />
           <UkCallout>
             {post.updatedAt &&
@@ -86,9 +86,9 @@ export default function PostRenderer({
         <h1 className="post-title italic mb-3">
           {post.title || post.slug.replace(/-/g, ' ')}
         </h1>
-        <p className='post-summary text-neutral-600'>{post.summary}</p>
+        <p className='post-summary text-neutral-600 dark:text-neutral-300'>{post.summary}</p>
       </div>
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center space-x-2 text-neutral-600 dark:text-neutral-300">
         <time className="post-date">
           {formattedDate}
           {post.updatedAt && post.updatedAt !== post.publishedAt && (
@@ -99,18 +99,18 @@ export default function PostRenderer({
         </time>
       </div>
 
-      <article className="max-w-none prose dark:prose-invert prose-lg prose-headings:font-bold prose-headings:text-black dark:prose-headings:text-white/90 prose-p:text-black/80 dark:prose-p:text-neutral-300 prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
+      <article className="max-w-none prose dark:prose-invert prose-lg prose-headings:font-bold prose-headings:text-black dark:prose-headings:text-white prose-p:text-black/80 dark:prose-p:text-white dark:prose-li:text-white dark:prose-strong:text-white dark:prose-em:text-white prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
         <MDXRemote source={post.content} components={components} />
       </article>
       <div className='flex justify-between items-center'>
         {post.tags && post.tags.length > 0 && (
-          <div className="metadataart">
+          <div className="metadataart text-neutral-600 dark:text-neutral-300">
             <span className="font-semibold mr-2">Tags:</span>
             <span className="inline-flex flex-wrap gap-2">
               {post.tags.map((tag: string, index: number) => (
                 <span
                   key={index}
-                  className="font-mono text-xs pt-0.5 px-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-900 text-neutral-700 dark:text-neutral-400 hover:text-neutral-800 dark:text-neutral-200"
+                  className="font-mono text-xs pt-0.5 px-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-900 text-neutral-700 dark:text-neutral-200 hover:text-neutral-800 dark:hover:text-neutral-100"
                 >
                   {tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase()}
                 </span>
