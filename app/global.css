@@ -59,10 +59,14 @@ html {
 
 body {
     text-rendering: optimizeLegibility;
-    font-family: var(--font-roboto);
+    font-family: var(--font-domine);
     font-size: 16px; /* Mobile-first: prevents iOS zoom on inputs */
     line-height: 1.6;
     @apply md:text-lg; /* 18px on desktop */
+}
+
+.dark body {
+    font-family: var(--font-inter);
 }
 
 /* Typography */
@@ -71,7 +75,14 @@ h2,
 h3,
 h4 {
     text-wrap: balance;
-    font-family: var(--font-playfair);
+    font-family: var(--font-tinos);
+}
+
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4 {
+    font-family: var(--font-bebas-neue);
 }
 
 h1 {
@@ -100,9 +111,17 @@ blockquote {
     line-height: 1.7;
 }
 
+.dark blockquote {
+    font-family: var(--font-inter);
+}
+
 blockquote cite {
     @apply block mt-3 text-sm not-italic text-neutral-600 dark:text-neutral-400;
-    font-family: var(--font-roboto);
+    font-family: var(--font-domine);
+}
+
+.dark blockquote cite {
+    font-family: var(--font-inter);
 }
 
 mark {
@@ -148,16 +167,25 @@ table {
 }
 /* Header components */
 .text-fonetik {
-  font-family: var(--font-noto-serif);
+    font-family: var(--font-noto-serif);
 }
+
+.dark .text-fonetik {
+    font-family: var(--font-inter);
+}
+
 /* Front Desk */
 .front-link {
-  font-family: var(--font-noto-serif);
-  font-weight: semibold;
+    font-family: var(--font-noto-serif);
+    font-weight: semibold;
+}
+
+.dark .front-link {
+    font-family: var(--font-inter);
 }
 /* Post components */
 .post-title {
-    @apply text-neutral-900 dark:text-neutral-100 mt-6 font-bold text-2xl md:text-3xl;
+    @apply text-neutral-900 dark:text-neutral-100 mt-6 font-bold text-4xl md:text-3xl;
 }
 
 .group:hover .post-title {
@@ -169,7 +197,6 @@ table {
 }
 
 .post-summary {
-    font-family: var(--font-playfair);
     @apply text-neutral-500 dark:text-neutral-400;
 }
 
