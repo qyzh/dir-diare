@@ -75,13 +75,15 @@ export default function UKCallout({
     } = calloutConfig[type]
 
     return (
-        <div className={`${bgColor} ${borderColor} border my-4 ${className}`}>
+        <div
+            className={`${bgColor} ${borderColor} rounded-md dark:rounded border-2 dark:border my-4 ${className}`}
+        >
             <div className="flex">
-                <div className={`flex items-center px-6 py-4 `}>
+                <div className={`flex items-center px-4 py-4 `}>
                     <Icon className={`w-6 h-6 shrink-0 ${iconColor}`} />
                 </div>
                 <div
-                    className={`flex items-center text-sm leading-relaxed p-2 ${textColor}`}
+                    className={`flex items-center text-sm leading-relaxed pl-0 pr-4 py-4 ${textColor}`}
                 >
                     {children}
                 </div>
