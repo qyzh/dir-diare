@@ -21,11 +21,11 @@ const UKButton: React.FC<UKButtonProps> = ({
     ...props
 }) => {
     const baseStyles =
-        'inline-flex items-center justify-center font-medium border transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
+        'inline-flex items-center justify-center rounded border transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
 
     const variants = {
         primary:
-            'bg-[#3A4D39] border-[#4F6F52] text-[#ECE3CE] hover:bg-[#739072] dark:border-teal-600 dark:bg-teal-800 dark:hover:bg-teal-600',
+            'bg-[#3A4D39] border-[#4F6F52] text-[#ECE3CE] hover:bg-[#525B44] dark:border-teal-600 dark:bg-teal-800 dark:hover:bg-teal-600',
         secondary:
             'bg-gray-200 border-gray-300 text-gray-700 hover:bg-gray-300 hover:text-gray-500 dark:border-neutral-700 dark:hover:border-neutral-600 dark:bg-white/5 dark:text-neutral-100 dark:hover:bg-neutral-800',
         outline:
