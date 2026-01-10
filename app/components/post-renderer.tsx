@@ -43,7 +43,7 @@ export default function PostRenderer({
             }),
           }}
         />
-        <h1 className="post-title tracking-tighter max-w-[650px]">
+        <h1 className="post-title tracking-tighter dark:tracking-wider max-w-[650px]">
           {post.title}
         </h1>
         <div className="flex justify-between items-center mt-2 text-sm max-w-[650px] text-neutral-600 dark:text-neutral-300">
@@ -83,7 +83,7 @@ export default function PostRenderer({
     <section>
       <Breadcrumbs post={{ metadata: { title: post.title } }} />
       <div className='border-b border-neutral-300 dark:border-neutral-800 mb-4'>
-        <h1 className="post-title italic mb-3">
+        <h1 className="post-title dark:tracking-wider italic  mb-3">
           {post.title || post.slug.replace(/-/g, ' ')}
         </h1>
         <p className='post-summary text-neutral-600 dark:text-neutral-300'>{post.summary}</p>
