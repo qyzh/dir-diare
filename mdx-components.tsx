@@ -29,11 +29,16 @@ type ButtonProps = ComponentPropsWithoutRef<'button'> & {
     variant?: 'primary' | 'secondary' | 'outline'
     size?: 'sm' | 'md' | 'lg'
 }
-type ImageProps = ComponentPropsWithoutRef<'img'> & {
+type ImageProps = {
+    src?: string
     alt?: string
-    model?: 'blueprint' | 'wsketch' | 'oldsketch'
+    model?: 'blueprint' | 'wsketch' | 'oldsketch' | 'blackboard'
     size?: 'small' | 'medium' | 'large' | 'hero' | 'thumbnail'
     className?: string
+    width?: number
+    height?: number
+    priority?: boolean
+    quality?: number
 }
 
 // Helper function to render images - avoids code duplication
@@ -43,7 +48,10 @@ const renderImage = ({
     model,
     size,
     className,
-    ...props
+    width,
+    height,
+    priority,
+    quality,
 }: ImageProps) =>
     typeof src === 'string' ? (
         <UKImage
@@ -52,7 +60,10 @@ const renderImage = ({
             size={size}
             className={className}
             src={src}
-            {...props}
+            width={width}
+            height={height}
+            priority={priority}
+            quality={quality}
         />
     ) : null
 

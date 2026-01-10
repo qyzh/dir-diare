@@ -1,6 +1,6 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { Playfair_Display, Roboto, Noto_Serif } from 'next/font/google'
+import { Tinos, Domine, Noto_Serif, Bebas_Neue, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { monaspace } from './fonts'
@@ -22,25 +22,38 @@ export const metadata: Metadata = {
 const cx = (...classes: (string | boolean | undefined | null)[]) =>
     classes.filter(Boolean).join(' ')
 
-const playfair = Playfair_Display({
+const tinos = Tinos({
     subsets: ['latin'],
     weight: ['400', '700'],
-    variable: '--font-playfair',
+    variable: '--font-tinos',
     display: 'swap',
 })
 
-const roboto = Roboto({
+const domine = Domine({
     subsets: ['latin'],
-    weight: ['400', '500', '700'],
-    variable: '--font-roboto',
+    weight: ['400', '500', '600', '700'],
+    variable: '--font-domine',
     display: 'swap',
 })
 
 const notoSerif = Noto_Serif({
     subsets: ['latin'],
-    weight: ['400'],
-    style: ['normal', 'italic'],
+    weight: ['400', '700'],
     variable: '--font-noto-serif',
+    display: 'swap',
+})
+
+const bebasNeue = Bebas_Neue({
+    subsets: ['latin'],
+    weight: ['400'],
+    variable: '--font-bebas-neue',
+    display: 'swap',
+})
+
+const inter = Inter({
+    subsets: ['latin'],
+    weight: ['400', '500', '600', '700'],
+    variable: '--font-inter',
     display: 'swap',
 })
 
@@ -55,9 +68,11 @@ export default function RootLayout({
             suppressHydrationWarning
             className={cx(
                 'scroll-smooth',
-                roboto.variable,
-                playfair.variable,
+                tinos.variable,
+                domine.variable,
                 notoSerif.variable,
+                bebasNeue.variable,
+                inter.variable,
                 monaspace.variable
             )}
         >

@@ -26,38 +26,38 @@ interface CalloutConfig {
 const calloutConfig: Record<CalloutType, CalloutConfig> = {
     info: {
         icon: BadgeAlert,
-        bgColor: 'bg-cyan-200 dark:bg-sky-900/20',
-        borderColor: 'border-cyan-400 dark:border-sky-800',
-        iconColor: 'text-blue-500 dark:text-sky-400',
-        textColor: 'text-blue-900 dark:text-sky-300',
+        bgColor: 'bg-[#164863] dark:bg-sky-900/20',
+        borderColor: 'border-[#427D9D] dark:border-sky-800',
+        iconColor: 'text-[#427D9D] dark:text-sky-400',
+        textColor: 'text-[#DDF2FD] dark:text-sky-300',
     },
     warning: {
         icon: AlertTriangle,
-        bgColor: 'bg-yellow-200 dark:bg-yellow-900/20',
-        borderColor: 'border-yellow-600 dark:border-yellow-800',
-        iconColor: 'text-yellow-900 dark:text-yellow-400',
-        textColor: 'text-yellow-900 dark:text-yellow-300',
+        bgColor: 'bg-[#FF7D29] dark:bg-yellow-900/20',
+        borderColor: 'border-[#FFBF78] dark:border-yellow-800',
+        iconColor: 'text-[#FFBF78] dark:text-yellow-400',
+        textColor: 'text-[#FEFFD2] dark:text-yellow-300',
     },
     error: {
         icon: XCircle,
-        bgColor: 'bg-rose-900 dark:bg-red-900/20',
-        borderColor: 'border-rose-500 dark:border-red-800',
-        iconColor: 'text-red-500 dark:text-red-400',
-        textColor: 'text-red-300 dark:text-red-300',
+        bgColor: 'bg-[#850E35] dark:bg-red-900/20',
+        borderColor: 'border-[#EE6983] dark:border-red-800',
+        iconColor: 'text-[#EE6983] dark:text-red-400',
+        textColor: 'text-[#FCF5EE] dark:text-red-300',
     },
     success: {
         icon: CheckCircle,
-        bgColor: 'bg-emerald-900 dark:bg-green-900/20',
-        borderColor: 'border-emerald-600 dark:border-green-800',
-        iconColor: 'text-green-500 dark:text-green-400',
-        textColor: 'text-green-500 dark:text-green-300',
+        bgColor: 'bg-[#618264] dark:bg-green-900/20',
+        borderColor: 'border-[#79AC78] dark:border-green-800',
+        iconColor: 'text-[#79AC78] dark:text-green-400',
+        textColor: 'text-[#D0E7D2] dark:text-green-300',
     },
     important: {
         icon: Flame,
-        bgColor: 'bg-fuchsia-900 dark:bg-purple-900/20',
-        borderColor: 'border-fuchsia-500 dark:border-purple-800',
-        iconColor: 'text-purple-500 dark:text-purple-400',
-        textColor: 'text-purple-300 dark:text-purple-300',
+        bgColor: 'bg-[#A294F9] dark:bg-purple-900/20',
+        borderColor: 'border-[#CDC1FF] dark:border-purple-800',
+        iconColor: 'text-purple-800 dark:text-purple-400',
+        textColor: 'text-[#F5EFFF] dark:text-purple-300',
     },
 }
 
@@ -75,15 +75,15 @@ export default function UKCallout({
     } = calloutConfig[type]
 
     return (
-        <div className={`${bgColor} ${borderColor} border my-4 ${className}`}>
-            <div className="flex gap-3">
-                <div
-                    className={`flex items-center border-r gap-2 mr-2 px-6 py-4 ${textColor}`}
-                >
-                    <Icon className={`w-5 h-5 flex-shrink-0 ${iconColor}`} />
+        <div
+            className={`${bgColor} ${borderColor} rounded-md dark:rounded border-2 dark:border my-4 ${className}`}
+        >
+            <div className="flex">
+                <div className={`flex items-center px-4 py-4 `}>
+                    <Icon className={`w-6 h-6 shrink-0 ${iconColor}`} />
                 </div>
                 <div
-                    className={`flex items-center text-sm leading-relaxed p-2 ${textColor}`}
+                    className={`flex items-center text-sm leading-relaxed pl-0 pr-4 py-4 ${textColor}`}
                 >
                     {children}
                 </div>

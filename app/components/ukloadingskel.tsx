@@ -36,15 +36,23 @@ export const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ type }) => {
   }
 
   return (
-    <div className="flex items-center gap-4 p-4">
-      <div className="relative w-32 h-32">
-        <div className="absolute inset-0 rounded-full bg-neutral-800 animate-pulse"></div>
-      </div>
-      <div className="space-y-3">
-        <div className="h-6 w-48 bg-neutral-800 rounded animate-pulse"></div>
-        <div className="h-4 w-32 bg-neutral-800 rounded animate-pulse"></div>
-        <div className="h-4 w-40 bg-neutral-800 rounded animate-pulse"></div>
-      </div>
+    <div className="now-play-container">
+      <main className="now-play-content mt-4">
+        <div className="group flex items-center border border-transparent gap-2 sm:gap-4 p-2 sm:p-4 hover:bg-neutral-900 hover:border-neutral-800 transition-colors rounded">
+          <div className="flex items-center justify-center group-hover:border-r group-hover:border-neutral-800 w-32 h-32">
+            <div className="bg-neutral-800 w-28 h-28 rounded object-cover animate-pulse shadow-lg" />
+          </div>
+
+          <div className="track-details flex-1 min-w-0 space-y-1 font-mono">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="h-5 sm:h-6 w-32 sm:w-48 bg-neutral-800 rounded animate-pulse"></div>
+              <div className="h-5 w-20 bg-neutral-800 rounded animate-pulse"></div>
+            </div>
+            <div className="h-4 sm:h-5 w-24 sm:w-32 bg-neutral-800 rounded animate-pulse"></div>
+            <div className="h-3 sm:h-4 w-32 sm:w-40 bg-neutral-800 rounded animate-pulse"></div>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }; 
