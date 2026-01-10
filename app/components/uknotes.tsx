@@ -59,7 +59,7 @@ export default function UKnotes({ initialNotes }: UKnotesProps) {
                 .map((note) => (
                     <div
                         key={note._id}
-                        className="mb-6 p-4 border border-neutral-300 dark:border-neutral-700"
+                        className="mb-6 p-4 font-serif dark:font-mono border border-neutral-300 dark:border-neutral-700"
                     >
                         <p>{note.note}</p>
                         <div className="mt-2 flex justify-between text-sm text-neutral-400">

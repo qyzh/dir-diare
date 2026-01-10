@@ -24,7 +24,7 @@ const PostCard = ({ post }: PostCardProps) => {
                         />
                     </div>
                 )}
-                <h2 className="post-title transition-colors duration-200">
+                <h2 className="post-title transition-colors dark:tracking-wider duration-200">
                     {post.title}
                 </h2>
                 <p className="post-summary">{post.summary}</p>

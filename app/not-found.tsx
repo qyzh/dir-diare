@@ -1,7 +1,7 @@
 'use client'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-
+import Breadcrumbs from 'app/components/breadcrumbs'
 export default function NotFound() {
     return (
         <section>
@@ -12,8 +12,9 @@ export default function NotFound() {
 function Err0r() {
     const pathname = usePathname()
     return (
-        <div className="flex flex-col h-screen">
-            <div className="mt-20 mb-10 text-2xl items-center uppercase tracking-widest">
+        <div className="flex flex-col mt-6 h-screen">
+      <Breadcrumbs/>
+            <div className="mt-4 mb-10 text-2xl items-center uppercase tracking-widest">
                 Status{' '}
                 <span className="text-2xl text-neutral-400"> Not Found </span>
             </div>
@@ -45,7 +46,7 @@ function Err0r() {
                     </span>
                 </span>
             </div>
-            <p className="text-lg uppercase text-neutral-400">
+            <p className="text-lg uppercase text-neutral-500 dark:text-neutral-400">
                 The page you are looking for either{' '}
                 <span className="border-b-4 hover:text-white hover:border-rose-600 hover:bg-rose-400 transition-all duration-200">
                     does not exist
