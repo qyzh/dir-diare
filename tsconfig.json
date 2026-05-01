@@ -19,6 +19,9 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "incremental": true,
     "plugins": [
       {
@@ -32,7 +35,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/components/ukstrava.tsx",
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [

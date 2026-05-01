@@ -1,10 +1,10 @@
 import React, { ComponentPropsWithoutRef, useMemo } from 'react'
 import Link from 'next/link'
 import { highlight } from 'sugar-high'
-import UKCallout from 'app/components/ukcallout'
-import UKButton from 'app/components/ukbtn'
-import UKTagUser from 'app/components/uktaguser'
-import UKImage from 'app/components/ukimage'
+import UKCallout from '@/components/ui/ukcallout'
+import UKButton from '@/components/ui/ukbtn'
+import UKTagUser from '@/components/ui/uktaguser'
+import UKImage from '@/components/ui/ukimage'
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>
 type ParagraphProps = ComponentPropsWithoutRef<'p'>
