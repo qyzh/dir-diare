@@ -1,6 +1,6 @@
 import './global.css'
 import type { Metadata } from 'next'
-import { Tinos, Domine, Noto_Serif, Bebas_Neue, Inter } from 'next/font/google'
+import { Tinos, Domine, Noto_Serif, Bebas_Neue, Inter, Playfair_Display, Courier_Prime, IM_Fell_English } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { monaspace } from '@/fonts'
@@ -57,6 +57,30 @@ const inter = Inter({
     display: 'swap',
 })
 
+const playfairDisplay = Playfair_Display({
+    subsets: ['latin'],
+    weight: ['400', '500', '700'],
+    style: ['normal', 'italic'],
+    variable: '--font-playfair',
+    display: 'swap',
+})
+
+const courierPrime = Courier_Prime({
+    subsets: ['latin'],
+    weight: ['400', '700'],
+    style: ['normal', 'italic'],
+    variable: '--font-courier-prime',
+    display: 'swap',
+})
+
+const imFellEnglish = IM_Fell_English({
+    subsets: ['latin'],
+    weight: ['400'],
+    style: ['normal', 'italic'],
+    variable: '--font-im-fell',
+    display: 'swap',
+})
+
 export default function RootLayout({
     children,
 }: {
@@ -73,13 +97,14 @@ export default function RootLayout({
                 notoSerif.variable,
                 bebasNeue.variable,
                 inter.variable,
-                monaspace.variable
+                monaspace.variable,
+                playfairDisplay.variable,
+                courierPrime.variable,
+                imFellEnglish.variable
             )}
         >
-            <body className="antialiased tracking-tight bg-neutral-100 dark:bg-neutral-950 ">
-                <main className="max-w-3xl mb-40 flex flex-col px-4">
-                    <Providers>{children}</Providers>
-                </main>
+            <body className="antialiased">
+                <Providers>{children}</Providers>
                 <SpeedInsights />
                 <Analytics />
             </body>

@@ -7,6 +7,8 @@ import Footer from './footer'
 import CopyUrlButton from './copyurl'
 import { formatDate } from '@/lib/utils'
 import Image from 'next/image'
+import ArticleProgress from './article-progress'
+import Link from 'next/link'
 
 const components = useMDXComponents()
 export default function PostRenderer({
@@ -80,50 +82,47 @@ export default function PostRenderer({
   }
 
   return (
-    <section>
-      <Breadcrumbs post={{ metadata: { title: post.title } }} />
-      <div className='border-b border-neutral-300 dark:border-neutral-800 mb-4'>
-        <h1 className="post-title dark:tracking-wider italic  mb-3">
-          {post.title || post.slug.replace(/-/g, ' ')}
-        </h1>
-        <p className='post-summary text-neutral-600 dark:text-neutral-300'>{post.summary}</p>
-      </div>
-      <div className="flex items-center space-x-2 text-neutral-600 dark:text-neutral-300">
-        <time className="post-date">
-          {formattedDate}
-          {post.updatedAt && post.updatedAt !== post.publishedAt && (
-            <span className="ml-4">
-              Updated: {formatDate(post.updatedAt)} WIB
-            </span>
-          )}
-        </time>
-      </div>
-
-      <article className="max-w-none prose dark:prose-invert prose-lg prose-headings:font-bold prose-headings:text-black dark:prose-headings:text-white prose-p:text-black/80 dark:prose-p:text-white dark:prose-li:text-white dark:prose-strong:text-white dark:prose-em:text-white prose-a:text-emerald-600 dark:prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:underline">
-        <MDXRemote source={post.content} components={components} />
-      </article>
-      <div className='flex justify-between items-center'>
-        {post.tags && post.tags.length > 0 && (
-          <div className="metadataart text-neutral-600 dark:text-neutral-300">
-            <span className="font-semibold mr-2">Tags:</span>
-            <span className="inline-flex flex-wrap gap-2">
-              {post.tags.map((tag: string, index: number) => (
-                <span
-                  key={index}
-                  className="font-mono text-xs pt-0.5 px-1 bg-neutral-200 hover:bg-neutral-300 dark:bg-neutral-800 dark:hover:bg-neutral-900 text-neutral-700 dark:text-neutral-200 hover:text-neutral-800 dark:hover:text-neutral-100"
-                >
-                  {tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase()}
-                </span>
-              ))}
-            </span>
+    <>
+      <ArticleProgress />
+      <main className="article-wrap">
+        <header className="article-header">
+          <Link href="/n" className="page-back">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            Journal
+          </Link>
+          <div className="article-meta">
+            <time>{formattedDate}</time>
+            {post.updatedAt && post.updatedAt !== post.publishedAt && (
+              <span>Updated: {formatDate(post.updatedAt)}</span>
+            )}
+            {post.tags && post.tags.map((tag: string) => (
+              <span key={tag}>{tag}</span>
+            ))}
           </div>
-        )}
-        <div>
-          <CopyUrlButton url={`https://dir.kyxis.my.id/w/${post.slug}`} />
+          <h1 className="article-title">
+            {post.title || post.slug.replace(/-/g, ' ')}
+          </h1>
+          {post.summary && (
+            <p className="article-summary">{post.summary}</p>
+          )}
+        </header>
+
+        <article className="article-body drop-cap">
+          <MDXRemote source={post.content} components={components} />
+        </article>
+
+        <div style={{ marginTop: '3rem', paddingTop: '1.5rem', borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <CopyUrlButton url={`https://dir-diare.vercel.app/w/${post.slug}`} />
         </div>
-      </div>
-      <Comments />
-      <Footer />
-    </section>
+
+        <Comments />
+      </main>
+
+      <footer className="dir-footer">
+        <span>dir-diare</span>
+      </footer>
+    </>
   )
 }

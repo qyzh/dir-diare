@@ -12,5 +12,9 @@ export default function AdminLayout({
 }: {
     children: React.ReactNode
 }) {
-    return <>{children}</>
+    return (
+        <div className="max-w-3xl mx-auto px-4 mb-40 bg-neutral-100 dark:bg-neutral-950 min-h-screen">
+            {children}
+        </div>
+    )
 }
