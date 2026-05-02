@@ -1,122 +1,112 @@
 'use client'
-import { useEffect, useState } from 'react'
-import Link from 'next/link'
-import { useSession, signIn, signOut } from 'next-auth/react'
-import UKButton from '@/components/ui/ukbtn'
-import Breadcrumbs from '@/components/breadcrumbs'
 
-interface noteQ {
-    _id: string
-    date: string
-    note: string
-    author?: string
-    source?: string
-}
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+import { noteQ } from '@/lib/noteq'
+import UKButton from '@/components/ui/ukbtn'
+import { AUTHORIZED_USER } from '@/lib/constants'
+import AuthButton from '../_components/AuthButton'
+import AdminShell from '../_components/AdminShell'
+import ContentListPanel from '../_components/ContentListPanel'
+import RowQuickActions from '../_components/RowQuickActions'
+import { useAdminData } from '../_components/useAdminData'
+import { useState } from 'react'
 
 export default function NoteQsPage() {
     const { data: session, status } = useSession()
-    const [noteQs, setNoteQs] = useState<noteQ[]>([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
+    const { data: noteQs, isLoading, error, refresh } =
+        useAdminData<noteQ>('/api/noteqs')
+    const [rowBusy, setRowBusy] = useState<string | null>(null)
+    const [actionError, setActionError] = useState<string | null>(null)
 
-    useEffect(() => {
-        const fetchNoteQs = async () => {
-            try {
-                const response = await fetch('/api/noteqs')
-                if (!response.ok) {
-                    throw new Error('Failed to fetch notes')
-                }
-                const data = await response.json()
-                setNoteQs(data)
-            } catch (err) {
-                setError(
-                    err instanceof Error
-                        ? err.message
-                        : 'An unknown error occurred'
-                )
-            } finally {
-                setIsLoading(false)
+    const deleteNote = async (note: noteQ) => {
+        if (!window.confirm('Delete this note?')) return
+
+        setActionError(null)
+        setRowBusy(note._id)
+        try {
+            const response = await fetch(`/api/noteqs/${note._id}`, {
+                method: 'DELETE',
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to delete note')
             }
-        }
-        fetchNoteQs()
-    }, [])
 
-    if (status === 'loading' || isLoading) {
+            await refresh()
+        } catch (err) {
+            setActionError(
+                err instanceof Error ? err.message : 'An unknown error occurred'
+            )
+        } finally {
+            setRowBusy(null)
+        }
+    }
+
+    if (status === 'loading') {
         return <div className="container mx-auto px-4 py-8">Loading...</div>
     }
 
     if (status === 'unauthenticated') {
         return (
             <div className="container mx-auto px-4 py-8">
-                <p>You must be signed in to view notes admin.</p>
-                <UKButton onClick={() => signIn('github')}>
-                    Sign in with GitHub
-                </UKButton>
+                <h1 className="mb-8 text-4xl font-bold">Manage Notes</h1>
+                <p className="mb-4">Please sign in to manage notes.</p>
+                <AuthButton />
             </div>
         )
     }
 
-    if (session?.user?.name !== 'qyzh') {
+    if (session?.user?.name !== AUTHORIZED_USER) {
         return (
             <div className="container mx-auto px-4 py-8">
-                <p>You are not authorized to view notes admin.</p>
-                <UKButton onClick={() => signOut()}>Sign out</UKButton>
+                <h1 className="mb-8 text-4xl font-bold">Manage Notes</h1>
+                <p>You are not authorized to manage notes.</p>
+                <AuthButton />
             </div>
         )
     }
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Breadcrumbs />
-            <h1 className="text-4xl font-bold mb-8">Notes Admin</h1>
-            <div className="mb-6">
+        <AdminShell
+            title="Manage Notes"
+            actions={
                 <Link href="/x/noteqs/create">
-                    <UKButton>Create New Note</UKButton>
+                    <UKButton variant="primary">Create New Note</UKButton>
                 </Link>
-            </div>
-            {error && <p className="text-red-500 mb-4">Error: {error}</p>}
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white/5">
-                    <thead>
-                        <tr>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
-                                Date
-                            </th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
-                                Note
-                            </th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
-                                Author
-                            </th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {noteQs.map((note) => (
-                            <tr key={note._id}>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
+            }
+        >
+            {actionError && <p className="mb-3 text-sm text-red-500">{actionError}</p>}
+            <ContentListPanel
+                title="Notes"
+                isLoading={isLoading}
+                error={error}
+                isEmpty={noteQs.length === 0}
+                emptyText="No notes yet."
+            >
+                <div className="space-y-3">
+                    {noteQs.map((note) => (
+                        <article
+                            key={note._id}
+                            className="flex flex-col justify-between gap-3 border border-[#2a2520] bg-[#14120f] p-3 lg:flex-row"
+                        >
+                            <div className="min-w-0 flex-1">
+                                <p className="text-sm text-neutral-200">
+                                    {note.note.slice(0, 140)}
+                                </p>
+                                <p className="mt-1 text-xs text-neutral-500">
                                     {new Date(note.date).toLocaleDateString()}
-                                </td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
-                                    {note.note.substring(0, 50)}...
-                                </td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
-                                    {note.author}
-                                </td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm">
-                                    <Link href={`/x/noteqs/edit/${note._id}`}>
-                                        <UKButton className="text-blue-400 hover:text-blue-300">
-                                            Edit
-                                        </UKButton>
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
+                                </p>
+                            </div>
+                            <RowQuickActions
+                                editHref={`/x/noteqs/edit/${note._id}`}
+                                disabled={rowBusy === note._id}
+                                onDelete={async () => deleteNote(note)}
+                            />
+                        </article>
+                    ))}
+                </div>
+            </ContentListPanel>
+        </AdminShell>
     )
 }
