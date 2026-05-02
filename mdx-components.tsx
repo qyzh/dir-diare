@@ -41,30 +41,29 @@ type ImageProps = {
     quality?: number
 }
 
-// Helper function to render images - avoids code duplication
-const renderImage = ({
-    src,
-    alt,
-    model,
-    size,
-    className,
-    width,
-    height,
-    priority,
-    quality,
-}: ImageProps) =>
+// Helper function to render images with an attractive notebook polaroid aesthetic
+const AttractiveImage = ({ src, alt, ...props }: ImageProps) =>
     typeof src === 'string' ? (
-        <UKImage
-            alt={alt}
-            model={model}
-            size={size}
-            className={className}
-            src={src}
-            width={width}
-            height={height}
-            priority={priority}
-            quality={quality}
-        />
+        <figure className="my-10 mx-auto max-w-full group relative z-0">
+            <div className="relative p-3 sm:p-4 bg-[#fdfbf7] dark:bg-[#171410] shadow-[0_2px_10px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] border border-[#e5e0d8] dark:border-[#2a2620] -rotate-1 transition-all duration-500 hover:rotate-0 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)] hover:z-10">
+                {/* Washi tape effect */}
+                <div className="absolute -top-3.5 left-1/2 w-24 h-7 -ml-12 bg-black/5 dark:bg-white/5 backdrop-blur-md border border-white/40 dark:border-white/5 -rotate-2 shadow-sm z-10 opacity-90" />
+                <div className="overflow-hidden border border-[#e5e0d8] dark:border-[#2a2620] bg-[var(--line)] rounded-[2px]">
+                    <img 
+                        src={src} 
+                        alt={alt || ''} 
+                        className="w-full h-auto object-cover filter sepia-[20%] grayscale-[10%] transition-all duration-700 group-hover:sepia-0 group-hover:grayscale-0" 
+                        loading="lazy" 
+                        {...(props as any)}
+                    />
+                </div>
+                {alt && (
+                    <figcaption className="mt-4 mb-1 text-center font-serif text-[0.85rem] text-[var(--text-dim)] italic tracking-wide">
+                        {alt}
+                    </figcaption>
+                )}
+            </div>
+        </figure>
     ) : null
 
 const components = {
@@ -123,36 +122,47 @@ const components = {
             />
         )
     },
-    Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem', margin: '1.5em 0', border: '1px solid var(--line)' }}>
-            <thead>
-                <tr>
-                    {data.headers.map((header, index) => (
-                        <th key={index} style={{ padding: '0.6rem 0.75rem', background: 'var(--bg-card)', color: 'var(--text-mid)', fontWeight: 500, borderBottom: '1px solid var(--line)', textAlign: 'left' }}>
-                            {header}
-                        </th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {data.rows.map((row, index) => (
-                    <tr key={index}>
-                        {row.map((cell, cellIndex) => (
-                            <td key={cellIndex} style={{ padding: '0.6rem 0.75rem', color: 'var(--text-main)', borderBottom: '1px solid var(--line)' }}>
-                                {cell}
-                            </td>
-                        ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+    pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => (
+        <pre style={{ background: 'var(--bg-card)', border: '1px solid var(--line)', borderRadius: '0.5rem', padding: '1rem', overflowX: 'auto', margin: '1.5em 0', fontSize: '0.875rem' }} {...props}>
+            {children}
+        </pre>
+    ),
+    table: ({ children, ...props }: ComponentPropsWithoutRef<'table'>) => (
+        <div style={{ overflowX: 'auto', margin: '1.5em 0' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem', border: '1px solid var(--line)' }} {...props}>
+                {children}
+            </table>
+        </div>
+    ),
+    th: ({ children, ...props }: ComponentPropsWithoutRef<'th'>) => (
+        <th style={{ padding: '0.6rem 0.75rem', background: 'var(--bg-card)', color: 'var(--text-mid)', fontWeight: 500, borderBottom: '1px solid var(--line)', textAlign: 'left' }} {...props}>
+            {children}
+        </th>
+    ),
+    td: ({ children, ...props }: ComponentPropsWithoutRef<'td'>) => (
+        <td style={{ padding: '0.6rem 0.75rem', color: 'var(--text-main)', borderBottom: '1px solid var(--line)' }} {...props}>
+            {children}
+        </td>
+    ),
+    tr: ({ children, ...props }: ComponentPropsWithoutRef<'tr'>) => (
+        <tr style={{ borderBottom: '1px solid var(--line)' }} {...props}>
+            {children}
+        </tr>
     ),
     blockquote: ({ model = 'default', ...props }: BlockquoteProps) => {
+        const baseStyle: React.CSSProperties = {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            textAlign: 'center'
+        }
+        
         const styles: Record<string, React.CSSProperties> = {
-            default: { marginLeft: '0.5rem', paddingLeft: '1rem', borderLeft: '1px solid var(--line)', color: 'var(--text-dim)', fontStyle: 'italic' },
-            minimal: { textAlign: 'center', fontStyle: 'italic', color: 'var(--text-dim)' },
-            accent: { marginLeft: '0.5rem', padding: '0.75rem 1rem 0.75rem 1.5rem', borderLeft: '2px solid var(--text-mid)', background: 'var(--bg-card)', color: 'var(--text-main)' },
-            bordered: { padding: '1rem', border: '1px solid var(--line)', background: 'var(--bg-card)', color: 'var(--text-main)' },
+            default: { ...baseStyle, margin: '1.5rem auto', padding: '1rem', borderLeft: '2px solid var(--line)', borderRight: '2px solid var(--line)', color: 'var(--text-dim)', fontStyle: 'italic' },
+            minimal: { ...baseStyle, margin: '1.5rem auto', fontStyle: 'italic', color: 'var(--text-dim)' },
+            accent: { ...baseStyle, margin: '1.5rem auto', padding: '1.5rem', border: '1px solid var(--line)', borderTop: '2px solid var(--text-mid)', background: 'var(--bg-card)', color: 'var(--text-main)' },
+            bordered: { ...baseStyle, margin: '1.5rem auto', padding: '1.5rem', border: '1px solid var(--line)', background: 'var(--bg-card)', color: 'var(--text-main)', borderRadius: '4px' },
         }
         return <blockquote style={styles[model]} {...props} />
     },
@@ -184,10 +194,8 @@ const components = {
     TagUser: ({ children, ...props }: TagUserProps) => (
         <UKTagUser {...props}>{children}</UKTagUser>
     ),
-    img: ({ src, ...props }: ImageProps) =>
-        typeof src === 'string' ? <UKImage src={src} {...props} /> : null,
-    Image: ({ src, ...props }: ImageProps) =>
-        typeof src === 'string' ? <UKImage src={src} {...props} /> : null,
+    img: AttractiveImage,
+    Image: AttractiveImage,
 }
 
 declare global {

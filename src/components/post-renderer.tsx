@@ -9,6 +9,10 @@ import { formatDate } from '@/lib/utils'
 import Image from 'next/image'
 import ArticleProgress from './article-progress'
 import Link from 'next/link'
+import remarkGfm from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 const components = useMDXComponents()
 export default function PostRenderer({
@@ -66,7 +70,16 @@ export default function PostRenderer({
           />
         )}
         <article className="prose prose-quoteless prose-neutral dark:prose-invert dark:prose-p:text-white dark:prose-li:text-white dark:prose-strong:text-white dark:prose-em:text-white">
-          <MDXRemote source={post.content} components={components} />
+          <MDXRemote
+            source={post.content}
+            components={components}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm, remarkFrontmatter],
+                rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+              },
+            }}
+          />
           <UkCallout>
             {post.updatedAt &&
               post.updatedAt !== post.publishedAt && (
@@ -86,10 +99,8 @@ export default function PostRenderer({
       <ArticleProgress />
       <main className="article-wrap article-wrap--writing">
         <header className="article-header">
-          <Link href="/n" className="page-back">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+          <Link href="/w" className="page-back">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z"/></svg>
             Journal
           </Link>
           <div className="article-meta">
@@ -110,19 +121,27 @@ export default function PostRenderer({
         </header>
 
         <article className="article-body article-body--writing drop-cap">
-          <MDXRemote source={post.content} components={components} />
+          <MDXRemote
+            source={post.content}
+            components={components}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm, remarkFrontmatter],
+                rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+              },
+            }}
+          />
+          <UkCallout>
+            {post.updatedAt &&
+              post.updatedAt !== post.publishedAt && (
+                <time>
+                  Updated: {formatDate(post.updatedAt)}
+                </time>
+              )}
+          </UkCallout>
         </article>
-
-        <div className="article-actions">
-          <CopyUrlButton url={`https://dir-diare.vercel.app/w/${post.slug}`} />
-        </div>
-
-        <Comments />
+        <Footer />
       </main>
-
-      <footer className="dir-footer">
-        <span>dir-diare</span>
-      </footer>
     </>
   )
 }
