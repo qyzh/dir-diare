@@ -94,53 +94,86 @@ export default function PostRenderer({
     )
   }
 
+  const tags: string[] = post.tags ?? []
+
   return (
     <>
       <ArticleProgress />
       <main className="article-wrap article-wrap--writing">
-        <header className="article-header">
-          <Link href="/w" className="page-back">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z"/></svg>
-            Journal
-          </Link>
-          <div className="article-meta">
-            <time>{formattedDate}</time>
-            {post.updatedAt && post.updatedAt !== post.publishedAt && (
-              <span>Updated: {formatDate(post.updatedAt)}</span>
-            )}
-            {post.tags && post.tags.map((tag: string) => (
-              <span key={tag}>{tag}</span>
-            ))}
-          </div>
-          <h1 className="article-title">
-            {post.title || post.slug.replace(/-/g, ' ')}
-          </h1>
-          {post.summary && (
-            <p className="article-summary">{post.summary}</p>
-          )}
-        </header>
+        <div className="journal-article">
 
-        <article className="article-body article-body--writing drop-cap">
-          <MDXRemote
-            source={post.content}
-            components={components}
-            options={{
-              mdxOptions: {
-                remarkPlugins: [remarkGfm, remarkFrontmatter],
-                rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
-              },
-            }}
-          />
-          <UkCallout>
-            {post.updatedAt &&
-              post.updatedAt !== post.publishedAt && (
-                <time>
-                  Updated: {formatDate(post.updatedAt)}
-                </time>
+          {/* Header */}
+          <header className="journal-article-header">
+            <nav className="journal-article-nav">
+              <Link href="/w" className="journal-article-back">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z" /></svg>
+                Journal
+              </Link>
+            </nav>
+
+            <div className="journal-article-meta">
+              <time>{formattedDate}</time>
+              {post.updatedAt && post.updatedAt !== post.publishedAt && (
+                <>
+                  <span className="journal-article-meta-sep" aria-hidden="true" />
+                  <span>Revised {formatDate(post.updatedAt)}</span>
+                </>
               )}
-          </UkCallout>
-        </article>
-        <Footer />
+            </div>
+
+            <h1 className="journal-article-title">
+              {post.title || post.slug.replace(/-/g, ' ')}
+            </h1>
+
+            {post.summary && (
+              <p className="journal-article-summary">{post.summary}</p>
+            )}
+
+            <div className="journal-article-ornament" aria-hidden="true">
+              <span className="journal-article-ornament-glyph">✦ ✦ ✦</span>
+            </div>
+          </header>
+
+          {/* Body */}
+          <div className="journal-article-body-wrap">
+            <article className="journal-article-body">
+              <MDXRemote
+                source={post.content}
+                components={components}
+                options={{
+                  mdxOptions: {
+                    remarkPlugins: [remarkGfm, remarkFrontmatter],
+                    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+                  },
+                }}
+              />
+            </article>
+          </div>
+
+          {/* Footer */}
+          <footer className="journal-article-footer">
+            <div className="journal-article-footer-inner">
+              {tags.length > 0 && (
+                <div className="journal-article-tags">
+                  {tags.map((tag) => (
+                    <span key={tag} className="journal-article-tag">{tag}</span>
+                  ))}
+                </div>
+              )}
+              <div className="journal-article-footer-row">
+                <Link href="/w" className="journal-article-back">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z" /></svg>
+                  Back to Journal
+                </Link>
+                <CopyUrlButton url={`https://dir.kyxis.my.id/w/${post.slug}`} />
+              </div>
+              <p className="journal-article-colophon" style={{ marginTop: '1.5rem' }}>
+                Written by qyzh · {formattedDate}
+              </p>
+            </div>
+          </footer>
+
+        </div>
       </main>
     </>
   )
