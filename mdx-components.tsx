@@ -49,11 +49,11 @@ const AttractiveImage = ({ src, alt, ...props }: ImageProps) =>
                 {/* Washi tape effect */}
                 <div className="absolute -top-3.5 left-1/2 w-24 h-7 -ml-12 bg-black/5 dark:bg-white/5 backdrop-blur-md border border-white/40 dark:border-white/5 -rotate-2 shadow-sm z-10 opacity-90" />
                 <div className="overflow-hidden border border-[#e5e0d8] dark:border-[#2a2620] bg-[var(--line)] rounded-[2px]">
-                    <img 
-                        src={src} 
-                        alt={alt || ''} 
-                        className="w-full h-auto object-cover filter sepia-[20%] grayscale-[10%] transition-all duration-700 group-hover:sepia-0 group-hover:grayscale-0" 
-                        loading="lazy" 
+                    <img
+                        src={src}
+                        alt={alt || ''}
+                        className="w-full h-auto object-cover filter sepia-[20%] grayscale-[10%] transition-all duration-700 group-hover:sepia-0 group-hover:grayscale-0"
+                        loading="lazy"
                         {...(props as any)}
                     />
                 </div>
@@ -154,12 +154,12 @@ const components = {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'center',
-            textAlign: 'center'
+            alignItems: 'left',
+            textAlign: 'left'
         }
-        
+
         const styles: Record<string, React.CSSProperties> = {
-            default: { ...baseStyle, margin: '1.5rem auto', padding: '1rem', borderLeft: '2px solid var(--line)', borderRight: '2px solid var(--line)', color: 'var(--text-dim)', fontStyle: 'italic' },
+            default: { ...baseStyle, margin: '1.5rem auto', padding: '1rem', borderLeft: '2px solid var(--line)', color: 'var(--text-dim)', fontStyle: 'italic' },
             minimal: { ...baseStyle, margin: '1.5rem auto', fontStyle: 'italic', color: 'var(--text-dim)' },
             accent: { ...baseStyle, margin: '1.5rem auto', padding: '1.5rem', border: '1px solid var(--line)', borderTop: '2px solid var(--text-mid)', background: 'var(--bg-card)', color: 'var(--text-main)' },
             bordered: { ...baseStyle, margin: '1.5rem auto', padding: '1.5rem', border: '1px solid var(--line)', background: 'var(--bg-card)', color: 'var(--text-main)', borderRadius: '4px' },
@@ -185,9 +185,9 @@ const components = {
     ),
     mark: ({ color = 'yellow', ...props }: MarkProps) => {
         const colors: Record<string, React.CSSProperties> = {
-            green:  { background: 'rgba(52,211,153,0.2)', color: 'var(--text-bright)', padding: '0 0.25em' },
+            green: { background: 'rgba(52,211,153,0.2)', color: 'var(--text-bright)', padding: '0 0.25em' },
             yellow: { background: 'rgba(251,191,36,0.2)', color: 'var(--text-bright)', padding: '0 0.25em' },
-            red:    { background: 'rgba(248,113,113,0.2)', color: 'var(--text-bright)', padding: '0 0.25em' },
+            red: { background: 'rgba(248,113,113,0.2)', color: 'var(--text-bright)', padding: '0 0.25em' },
         }
         return <mark style={colors[color]} {...props} />
     },

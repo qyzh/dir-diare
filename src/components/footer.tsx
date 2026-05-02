@@ -37,41 +37,6 @@ const Footer = () => {
                         Dir-diare
                     </Link>{' '}
                 </div>
-                <div className="flex items-center gap-4">
-                    {isLoading && (
-                        <span className="italic">
-                            Catch you in a bit, bruv!
-                        </span>
-                    )}
-                    {error && <span>error</span>}
-                    {!isLoading && !error && !nowPlaying?.is_playing && (
-                        <span className="italic">
-                            Catch you in a bit, bruv!
-                        </span>
-                    )}
-                    {!isLoading &&
-                        !error &&
-                        nowPlaying?.is_playing &&
-                        nowPlaying?.item && (
-                            <div>
-                                <span>
-                                    <AudioLines className="text-emerald-600 animate-pulse inline w-4 h-4 mr-1.5" />
-                                </span>
-                                <Link
-                                    href="/m"
-                                    className="text-emerald-700 hover:underline"
-                                >
-                                    <span>{nowPlaying.item.name}</span>
-                                    <span> by </span>
-                                    <span>
-                                        {nowPlaying?.item.artists
-                                            .map((artist) => artist.name)
-                                            .join(', ')}
-                                    </span>
-                                </Link>
-                            </div>
-                        )}
-                </div>
             </motion.div>
         </footer>
     )
