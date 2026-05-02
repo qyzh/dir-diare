@@ -529,6 +529,8 @@ pre {
 #about {
     padding: clamp(3rem, 8vw, 6rem) var(--page-pad);
     border-top: 1px solid var(--line);
+}
+#about > * {
     max-width: 680px;
 }
 .about-title {
@@ -749,6 +751,11 @@ pre {
     padding: var(--page-pad);
     padding-top: calc(var(--page-pad) + 5rem);
 }
+.article-wrap--writing {
+    max-width: 68ch;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    padding-top: calc(var(--page-pad) + 4.5rem);
+}
 .article-header {
     margin-bottom: 3rem;
     padding-bottom: 2rem;
@@ -784,6 +791,22 @@ pre {
     line-height: 1.85;
     color: var(--text-main);
 }
+.article-body--writing {
+    --article-paper: #17130f;
+    --article-ink: #ddd4c9;
+    --article-ink-soft: #b5ab9f;
+    --article-line: #352f27;
+    --article-note: #221c15;
+    color: var(--article-ink);
+    font-size: clamp(1rem, 1.8vw, 1.08rem);
+    line-height: 1.95;
+    letter-spacing: 0.01em;
+}
+.article-wrap--writing .article-meta {
+    border-left: 2px solid var(--article-line);
+    padding-left: 0.75rem;
+    color: var(--article-ink-soft);
+}
 .article-body p { margin-bottom: 1.5em; }
 .article-body h2 {
     font-family: var(--font-serif);
@@ -807,6 +830,16 @@ pre {
     font-style: italic;
     color: var(--text-dim);
 }
+.article-body--writing blockquote {
+    background: linear-gradient(
+        to right,
+        color-mix(in srgb, var(--article-note) 85%, transparent),
+        transparent
+    );
+    border-left: 2px solid var(--article-line);
+    padding: 0.9em 1.2em;
+    color: var(--article-ink-soft);
+}
 .article-body a {
     color: var(--text-main);
     text-decoration: underline;
@@ -814,16 +847,33 @@ pre {
     text-decoration-color: var(--line);
     transition: text-decoration-color 0.2s;
 }
+.article-body--writing a {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+}
 .article-body a:hover {
     text-decoration-color: var(--text-mid);
 }
-.article-body .drop-cap::first-letter {
+.article-body.drop-cap::first-letter {
     font-family: var(--font-serif);
     font-size: 4.2em;
     float: left;
     line-height: 0.8;
     margin: 0.05em 0.1em 0 0;
     color: var(--text-bright);
+}
+.article-body--writing mark {
+    background: color-mix(in srgb, #d7ba6d 18%, transparent);
+    color: var(--article-ink);
+    border-radius: 2px;
+}
+.article-actions {
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* ── Keyframes ── */

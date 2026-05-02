@@ -84,7 +84,7 @@ export default function PostRenderer({
   return (
     <>
       <ArticleProgress />
-      <main className="article-wrap">
+      <main className="article-wrap article-wrap--writing">
         <header className="article-header">
           <Link href="/n" className="page-back">
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -109,11 +109,11 @@ export default function PostRenderer({
           )}
         </header>
 
-        <article className="article-body drop-cap">
+        <article className="article-body article-body--writing drop-cap">
           <MDXRemote source={post.content} components={components} />
         </article>
 
-        <div style={{ marginTop: '3rem', paddingTop: '1.5rem', borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div className="article-actions">
           <CopyUrlButton url={`https://dir-diare.vercel.app/w/${post.slug}`} />
         </div>
 
