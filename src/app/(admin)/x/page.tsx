@@ -7,9 +7,9 @@ import { ArtPost } from '@/lib/artpost'
 import { noteQ } from '@/lib/noteq'
 import UKButton from '@/components/ui/ukbtn'
 import AuthButton from './_components/AuthButton'
-import Breadcrumbs from '@/components/breadcrumbs'
 import Footer from '@/components/footer'
 import { AUTHORIZED_USER } from '@/lib/constants'
+import AdminShell from './_components/AdminShell'
 
 export default function AdminDashboard() {
     const { data: session, status } = useSession()
@@ -64,14 +64,7 @@ export default function AdminDashboard() {
     }
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Breadcrumbs />
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-4xl font-bold">Admin Dashboard</h1>
-                <div className="flex items-center gap-4">
-                    <AuthButton />
-                </div>
-            </div>
+        <AdminShell title="Admin Dashboard">
 
             {/* Quick Navigation Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -254,6 +247,6 @@ export default function AdminDashboard() {
                 )}
             </div>
             <Footer />
-        </div>
+        </AdminShell>
     )
 }
