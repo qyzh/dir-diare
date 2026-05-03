@@ -39,6 +39,7 @@ export default function RowQuickActions({
             {onDelete && (
                 <UKButton
                     size="sm"
+                    variant="error"
                     disabled={disabled}
                     onClick={() => void onDelete()}
                 >
@@ -46,7 +47,7 @@ export default function RowQuickActions({
                 </UKButton>
             )}
             <Link href={editHref}>
-                <UKButton size="sm" variant="secondary">
+                <UKButton size="sm">
                     Edit
                 </UKButton>
             </Link>

@@ -14,24 +14,24 @@ export default function AdminSidebar() {
     const pathname = usePathname()
 
     return (
-        <aside className="w-56 shrink-0 border-r border-[#2a2520] bg-[#0f0e0c] p-4">
-            <p className="mb-4 text-xs tracking-[0.16em] text-[#c4aa7e]">
+        <aside className="w-64 shrink-0 border-r border-[#2a2520] bg-[#0f0e0c] p-6">
+            <p className="mb-6 text-xs uppercase tracking-widest text-[#c4aa7e]">
                 DIR-DIARE /X
             </p>
-            <nav className="space-y-1">
+            <nav className="space-y-2">
                 {NAV_ITEMS.map((item) => {
                     const isActive =
                         pathname === item.href ||
-                        pathname.startsWith(`${item.href}/`)
+                        (item.href !== '/x' && pathname.startsWith(`${item.href}/`))
 
                     return (
                         <Link
                             key={item.href}
                             href={item.href}
-                            className={`block px-2 py-1.5 text-sm transition-colors ${
+                            className={`block px-4 py-2 text-sm transition-colors border ${
                                 isActive
-                                    ? 'bg-[#1e1a14] text-neutral-100'
-                                    : 'text-neutral-400 hover:text-neutral-200'
+                                    ? 'bg-[#1a1713] text-[#c4aa7e] border-[#2a2520]'
+                                    : 'border-transparent text-[#6e6255] hover:bg-[#14120f] hover:text-[#d4c9b4]'
                             }`}
                         >
                             {item.label}

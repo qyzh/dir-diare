@@ -1,10 +1,13 @@
 'use client'
+
 import { useState, useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
+import AdminShell from '../../../_components/AdminShell'
+import MarkdownEditor from '../../../_components/MarkdownEditor'
 import UKButton from '@/components/ui/ukbtn'
-import Breadcrumbs from '@/components/breadcrumbs'
-import MarkdownEditorTabs from '../../../_components/MarkdownEditorTabs'
+import { AUTHORIZED_USER } from '@/lib/constants'
+
 export default function EditArtPostPage({
     params,
 }: {
@@ -71,7 +74,7 @@ export default function EditArtPostPage({
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     title,
-                    slug: currentSlug, // Allow slug to be updated if needed, or keep it as original slug
+                    slug: currentSlug,
                     tags: tags.split(',').map((tag) => tag.trim()),
                     content,
                     summary,
@@ -121,18 +124,18 @@ export default function EditArtPostPage({
         }
     }
 
-    const inputClassName =
-        'mt-1 px-1 py-1.5 block w-full bg-white/5 border border-neutral-800 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-    const readOnlyInputClassName =
-        'mt-1 px-1 py-1.5 block w-full text-neutral-600 bg-neutral-100 dark:bg-neutral-900 border border-neutral-900 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-
-    if (sessionStatus === 'loading' || isFetching) return <p>Loading...</p>
-    if (error) return <p className="text-red-500">{error}</p>
+    if (sessionStatus === 'loading' || isFetching) {
+        return (
+            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#6e6255]">
+                loading...
+            </div>
+        )
+    }
 
     if (sessionStatus === 'unauthenticated') {
         return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You must be signed in to edit an art post.</p>
+            <div className="flex h-screen flex-col items-center justify-center bg-[#14120f] p-8 text-center font-mono">
+                <p className="mb-4 text-[#6e6255]">Please sign in to continue</p>
                 <UKButton onClick={() => signIn('github')}>
                     Sign in with GitHub
                 </UKButton>
@@ -140,172 +143,157 @@ export default function EditArtPostPage({
         )
     }
 
-    if (session?.user?.name !== 'qyzh') {
+    if (session?.user?.name !== AUTHORIZED_USER) {
         return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You are not authorized to edit this art post.</p>
-                <UKButton onClick={() => signOut()}>Sign out</UKButton>
+            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#9e6b5a]">
+                Not authorized.
             </div>
         )
     }
 
+    const inputClassName =
+        'w-full bg-[#1a1713] border border-[#2a2520] text-neutral-100 px-3 py-2 text-sm focus:outline-none focus:border-[#c4aa7e] transition-colors'
+    const readOnlyInputClassName =
+        'w-full bg-[#14120f] border border-[#2a2520] text-neutral-500 px-3 py-2 text-sm cursor-not-allowed'
+    const labelClassName =
+        'block text-xs uppercase tracking-widest text-[#6e6255] mb-1.5'
+
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Breadcrumbs />
-            <h1 className="text-4xl font-bold mb-8">Edit Art Post</h1>
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <label
-                        htmlFor="title"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Title
-                    </label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className={inputClassName}
-                        required
-                    />
+        <AdminShell title={`Edit: ${title}`}>
+            <form onSubmit={handleSubmit} className="max-w-5xl space-y-6">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                    {/* Main Content */}
+                    <div className="space-y-6 lg:col-span-2">
+                        <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className={labelClassName}>
+                                        Title
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        className={inputClassName}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Content (Markdown)
+                                    </label>
+                                    <MarkdownEditor
+                                        value={content}
+                                        onChange={setContent}
+                                        rows={20}
+                                    />
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    {/* Sidebar / Meta */}
+                    <div className="space-y-6">
+                        <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className={labelClassName}>
+                                        Slug
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={currentSlug}
+                                        onChange={(e) =>
+                                            setCurrentSlug(e.target.value)
+                                        }
+                                        className={inputClassName}
+                                        required
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Image URL
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={image}
+                                        onChange={(e) => setImage(e.target.value)}
+                                        className={inputClassName}
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Author
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={author}
+                                        onChange={(e) =>
+                                            setAuthor(e.target.value)
+                                        }
+                                        className={inputClassName}
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Tags
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={tags}
+                                        onChange={(e) => setTags(e.target.value)}
+                                        className={inputClassName}
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Summary
+                                    </label>
+                                    <textarea
+                                        rows={4}
+                                        value={summary}
+                                        onChange={(e) =>
+                                            setSummary(e.target.value)
+                                        }
+                                        className={inputClassName}
+                                    />
+                                </div>
+                                <div className="pt-2 border-t border-[#2a2520]">
+                                    <p className="text-[10px] text-neutral-600 uppercase tracking-tighter">
+                                        Published: {new Date(publishedAt).toLocaleString()}
+                                    </p>
+                                    <p className="text-[10px] text-neutral-600 uppercase tracking-tighter">
+                                        Updated: {new Date(updatedAt).toLocaleString()}
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div className="flex flex-col gap-3">
+                            <UKButton type="submit" disabled={isSubmitting}>
+                                {isSubmitting ? 'Updating...' : 'Update Art Post'}
+                            </UKButton>
+                            <button
+                                type="button"
+                                onClick={handleDelete}
+                                disabled={isSubmitting}
+                                className="text-sm text-[#9e6b5a] hover:text-red-400 transition-colors"
+                            >
+                                Delete Art Post
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => router.push('/x/artposts')}
+                                className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label
-                        htmlFor="slug"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Slug
-                    </label>
-                    <input
-                        type="text"
-                        id="slug"
-                        value={currentSlug}
-                        onChange={(e) => setCurrentSlug(e.target.value)}
-                        className={inputClassName}
-                        required
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="author"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Author
-                    </label>
-                    <input
-                        type="text"
-                        id="author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="image"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Image URL
-                    </label>
-                    <input
-                        type="text"
-                        id="image"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="summary"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Summary
-                    </label>
-                    <textarea
-                        id="summary"
-                        rows={3}
-                        value={summary}
-                        onChange={(e) => setSummary(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Content (Markdown)
-                    </label>
-                    <MarkdownEditorTabs
-                        value={content}
-                        onChange={setContent}
-                        minRows={14}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="tags"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Tags (comma-separated)
-                    </label>
-                    <input
-                        type="text"
-                        id="tags"
-                        value={tags}
-                        onChange={(e) => setTags(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="publishedAt"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Published At
-                    </label>
-                    <input
-                        type="text"
-                        id="publishedAt"
-                        value={new Date(publishedAt).toLocaleString()}
-                        readOnly
-                        className={readOnlyInputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="updatedAt"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Updated At
-                    </label>
-                    <input
-                        type="text"
-                        id="updatedAt"
-                        value={new Date(updatedAt).toLocaleString()}
-                        readOnly
-                        className={readOnlyInputClassName}
-                    />
-                </div>
-                <div className="flex space-x-4">
-                    <UKButton
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-                    >
-                        {isSubmitting ? 'Updating...' : 'Update Art Post'}
-                    </UKButton>
-                    <UKButton
-                        type="button"
-                        onClick={handleDelete}
-                        disabled={isSubmitting}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
-                    >
-                        {isSubmitting ? 'Deleting...' : 'Delete Art Post'}
-                    </UKButton>
-                </div>
+
+                {error && <p className="text-sm text-red-500">{error}</p>}
             </form>
-        </div>
+        </AdminShell>
     )
 }

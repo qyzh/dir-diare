@@ -83,24 +83,22 @@ export default function PostsManagePage() {
     }
 
     if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
-
-    if (status === 'unauthenticated') {
         return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Manage Posts</h1>
-                <p className="mb-4">Please sign in to manage posts.</p>
-                <AuthButton />
+            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#6e6255]">
+                loading...
             </div>
         )
     }
 
-    if (session?.user?.name !== AUTHORIZED_USER) {
+    if (status === 'unauthenticated' || session?.user?.name !== AUTHORIZED_USER) {
         return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Manage Posts</h1>
-                <p>You are not authorized to manage posts.</p>
+            <div className="flex h-screen flex-col items-center justify-center bg-[#14120f] p-8 text-center font-mono">
+                <h1 className="mb-4 text-2xl font-bold text-[#c4aa7e]">Manage Posts</h1>
+                <p className="mb-6 text-[#6e6255]">
+                    {status === 'unauthenticated' 
+                        ? 'Please sign in to manage posts.' 
+                        : 'You are not authorized to manage posts.'}
+                </p>
                 <AuthButton />
             </div>
         )
@@ -120,10 +118,10 @@ export default function PostsManagePage() {
                     <button
                         key={value}
                         onClick={() => setFilter(value)}
-                        className={`px-3 py-1.5 text-sm ${
+                        className={`px-3 py-1.5 text-sm transition-colors ${
                             filter === value
-                                ? 'bg-[#1e1a14] text-neutral-100'
-                                : 'bg-[#151310] text-neutral-400 hover:text-neutral-200'
+                                ? 'bg-[#1e1a14] text-[#c4aa7e] border border-[#2a2520]'
+                                : 'bg-[#151310] text-[#6e6255] border border-transparent hover:text-neutral-200'
                         }`}
                     >
                         {value === 'all'
@@ -155,12 +153,12 @@ export default function PostsManagePage() {
                                     <h3 className="truncate text-lg font-semibold text-neutral-100">
                                         {post.title}
                                     </h3>
-                                    <span className="text-xs text-[#c4aa7e]">
+                                    <span className="text-[10px] uppercase tracking-widest text-[#c4aa7e]">
                                         {post.status}
                                     </span>
                                 </div>
                                 {post.summary && (
-                                    <p className="text-sm text-neutral-400">
+                                    <p className="text-sm text-neutral-400 line-clamp-1">
                                         {post.summary}
                                     </p>
                                 )}

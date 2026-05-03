@@ -1,10 +1,13 @@
 'use client'
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
+import AdminShell from '../../_components/AdminShell'
+import MarkdownEditor from '../../_components/MarkdownEditor'
 import UKButton from '@/components/ui/ukbtn'
-import Breadcrumbs from '@/components/breadcrumbs'
-import MarkdownEditorTabs from '../../_components/MarkdownEditorTabs'
+import { AUTHORIZED_USER } from '@/lib/constants'
+
 export default function CreateArtPostPage() {
     const { data: session, status } = useSession()
     const [title, setTitle] = useState('')
@@ -12,7 +15,7 @@ export default function CreateArtPostPage() {
     const [tags, setTags] = useState('')
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
-    const [author, setAuthor] = useState('')
+    const [author, setAuthor] = useState(AUTHORIZED_USER)
     const [image, setImage] = useState('')
     const [publishedAt, setPublishedAt] = useState('')
     const [isLoading, setIsLoading] = useState(false)
@@ -59,17 +62,18 @@ export default function CreateArtPostPage() {
         }
     }
 
-    const inputClassName =
-        'mt-1 px-1 py-1.5 block w-full bg-white/5 border border-neutral-800 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-
     if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
+        return (
+            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#6e6255]">
+                loading...
+            </div>
+        )
     }
 
     if (status === 'unauthenticated') {
         return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You must be signed in to create an art post.</p>
+            <div className="flex h-screen flex-col items-center justify-center bg-[#14120f] p-8 text-center font-mono">
+                <p className="mb-4 text-[#6e6255]">Please sign in to continue</p>
                 <UKButton onClick={() => signIn('github')}>
                     Sign in with GitHub
                 </UKButton>
@@ -77,151 +81,156 @@ export default function CreateArtPostPage() {
         )
     }
 
-    if (session?.user?.name !== 'qyzh') {
+    if (session?.user?.name !== AUTHORIZED_USER) {
         return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You are not authorized to create an art post.</p>
-                <UKButton onClick={() => signOut()}>Sign out</UKButton>
+            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#9e6b5a]">
+                Not authorized.
             </div>
         )
     }
 
+    const inputClassName =
+        'w-full bg-[#1a1713] border border-[#2a2520] text-neutral-100 px-3 py-2 text-sm focus:outline-none focus:border-[#c4aa7e] transition-colors'
+    const labelClassName =
+        'block text-xs uppercase tracking-widest text-[#6e6255] mb-1.5'
+
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Breadcrumbs />
-            <h1 className="text-4xl font-bold mb-8">Create New Art Post</h1>
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <label
-                        htmlFor="title"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Title
-                    </label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className={inputClassName}
-                        required
-                    />
+        <AdminShell title="Create New Art Post">
+            <form onSubmit={handleSubmit} className="max-w-5xl space-y-6">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                    {/* Main Content */}
+                    <div className="space-y-6 lg:col-span-2">
+                        <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className={labelClassName}>
+                                        Title
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        className={inputClassName}
+                                        required
+                                        placeholder="Art title..."
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Content (Markdown)
+                                    </label>
+                                    <MarkdownEditor
+                                        value={content}
+                                        onChange={setContent}
+                                        rows={20}
+                                        placeholder="Describe the artwork..."
+                                    />
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    {/* Sidebar / Meta */}
+                    <div className="space-y-6">
+                        <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className={labelClassName}>
+                                        Slug
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={slug}
+                                        onChange={(e) => setSlug(e.target.value)}
+                                        className={inputClassName}
+                                        required
+                                        placeholder="art-slug"
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Image URL
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={image}
+                                        onChange={(e) => setImage(e.target.value)}
+                                        className={inputClassName}
+                                        placeholder="/images/art/..."
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Author
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={author}
+                                        onChange={(e) =>
+                                            setAuthor(e.target.value)
+                                        }
+                                        className={inputClassName}
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Tags
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={tags}
+                                        onChange={(e) => setTags(e.target.value)}
+                                        className={inputClassName}
+                                        placeholder="digital, ink..."
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Published At
+                                    </label>
+                                    <input
+                                        type="text"
+                                        value={publishedAt}
+                                        onChange={(e) =>
+                                            setPublishedAt(e.target.value)
+                                        }
+                                        className={inputClassName}
+                                        placeholder="YYYY-MM-DDTHH:MM:SSZ"
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>
+                                        Summary
+                                    </label>
+                                    <textarea
+                                        rows={4}
+                                        value={summary}
+                                        onChange={(e) =>
+                                            setSummary(e.target.value)
+                                        }
+                                        className={inputClassName}
+                                    />
+                                </div>
+                            </div>
+                        </section>
+
+                        <div className="flex flex-col gap-3">
+                            <UKButton type="submit" disabled={isLoading}>
+                                {isLoading ? 'Creating...' : 'Create Art Post'}
+                            </UKButton>
+                            <button
+                                type="button"
+                                onClick={() => router.push('/x/artposts')}
+                                className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label
-                        htmlFor="slug"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Slug
-                    </label>
-                    <input
-                        type="text"
-                        id="slug"
-                        value={slug}
-                        onChange={(e) => setSlug(e.target.value)}
-                        className={inputClassName}
-                        required
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="author"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Author
-                    </label>
-                    <input
-                        type="text"
-                        id="author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="image"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Image URL
-                    </label>
-                    <input
-                        type="text"
-                        id="image"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="publishedAt"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Published At (YYYY-MM-DDTHH:MM:SS.sssZ)
-                    </label>
-                    <input
-                        type="text"
-                        id="publishedAt"
-                        value={publishedAt}
-                        onChange={(e) => setPublishedAt(e.target.value)}
-                        className={inputClassName}
-                        placeholder="e.g., 2023-10-27T10:00:00.000Z"
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="summary"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Summary
-                    </label>
-                    <textarea
-                        id="summary"
-                        rows={3}
-                        value={summary}
-                        onChange={(e) => setSummary(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Content (Markdown)
-                    </label>
-                    <MarkdownEditorTabs
-                        value={content}
-                        onChange={setContent}
-                        minRows={14}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="tags"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Tags (comma-separated)
-                    </label>
-                    <input
-                        type="text"
-                        id="tags"
-                        value={tags}
-                        onChange={(e) => setTags(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                {error && <p className="text-red-500">{error}</p>}
-                <div>
-                    <UKButton
-                        type="submit"
-                        disabled={isLoading}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-                    >
-                        {isLoading ? 'Creating...' : 'Create Art Post'}
-                    </UKButton>
-                </div>
+
+                {error && <p className="text-sm text-red-500">{error}</p>}
             </form>
-        </div>
+        </AdminShell>
     )
 }

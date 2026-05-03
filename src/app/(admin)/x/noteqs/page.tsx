@@ -44,24 +44,22 @@ export default function NoteQsPage() {
     }
 
     if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
-
-    if (status === 'unauthenticated') {
         return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Manage Notes</h1>
-                <p className="mb-4">Please sign in to manage notes.</p>
-                <AuthButton />
+            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#6e6255]">
+                loading...
             </div>
         )
     }
 
-    if (session?.user?.name !== AUTHORIZED_USER) {
+    if (status === 'unauthenticated' || session?.user?.name !== AUTHORIZED_USER) {
         return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Manage Notes</h1>
-                <p>You are not authorized to manage notes.</p>
+            <div className="flex h-screen flex-col items-center justify-center bg-[#14120f] p-8 text-center font-mono">
+                <h1 className="mb-4 text-2xl font-bold text-[#c4aa7e]">Manage Notes</h1>
+                <p className="mb-6 text-[#6e6255]">
+                    {status === 'unauthenticated' 
+                        ? 'Please sign in to manage notes.' 
+                        : 'You are not authorized to manage notes.'}
+                </p>
                 <AuthButton />
             </div>
         )
