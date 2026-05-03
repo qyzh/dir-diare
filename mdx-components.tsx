@@ -1,10 +1,10 @@
 import React, { ComponentPropsWithoutRef, useMemo } from 'react'
 import Link from 'next/link'
 import { highlight } from 'sugar-high'
-import UKCallout from 'app/components/ukcallout'
-import UKButton from 'app/components/ukbtn'
-import UKTagUser from 'app/components/uktaguser'
-import UKImage from 'app/components/ukimage'
+import UKCallout from '@/components/ui/ukcallout'
+import UKButton from '@/components/ui/ukbtn'
+import UKTagUser from '@/components/ui/uktaguser'
+import UKImage from '@/components/ui/ukimage'
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>
 type ParagraphProps = ComponentPropsWithoutRef<'p'>
@@ -41,113 +41,69 @@ type ImageProps = {
     quality?: number
 }
 
-// Helper function to render images - avoids code duplication
-const renderImage = ({
-    src,
-    alt,
-    model,
-    size,
-    className,
-    width,
-    height,
-    priority,
-    quality,
-}: ImageProps) =>
+// Helper function to render images with an attractive notebook polaroid aesthetic
+const AttractiveImage = ({ src, alt, ...props }: ImageProps) =>
     typeof src === 'string' ? (
-        <UKImage
-            alt={alt}
-            model={model}
-            size={size}
-            className={className}
-            src={src}
-            width={width}
-            height={height}
-            priority={priority}
-            quality={quality}
-        />
+        <figure className="my-10 mx-auto max-w-full group relative z-0">
+            <div className="relative p-3 sm:p-4 bg-[#fdfbf7] dark:bg-[#171410] shadow-[0_2px_10px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] border border-[#e5e0d8] dark:border-[#2a2620] -rotate-1 transition-all duration-500 hover:rotate-0 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)] hover:z-10">
+                {/* Washi tape effect */}
+                <div className="absolute -top-3.5 left-1/2 w-24 h-7 -ml-12 bg-black/5 dark:bg-white/5 backdrop-blur-md border border-white/40 dark:border-white/5 -rotate-2 shadow-sm z-10 opacity-90" />
+                <div className="overflow-hidden border border-[#e5e0d8] dark:border-[#2a2620] bg-[var(--line)] rounded-[2px]">
+                    <img
+                        src={src}
+                        alt={alt || ''}
+                        className="w-full h-auto object-cover filter sepia-[20%] grayscale-[10%] transition-all duration-700 group-hover:sepia-0 group-hover:grayscale-0"
+                        loading="lazy"
+                        {...(props as any)}
+                    />
+                </div>
+                {alt && (
+                    <figcaption className="mt-4 mb-1 text-center font-serif text-[0.85rem] text-[var(--text-dim)] italic tracking-wide">
+                        {alt}
+                    </figcaption>
+                )}
+            </div>
+        </figure>
     ) : null
 
 const components = {
     h1: (props: HeadingProps) => (
-        <h1
-            className="text-3xl md:text-4xl font-bold dark:text-white/90 dark:hover:text-white pt-8 mb-4"
-            {...props}
-        />
+        <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', fontWeight: 400, color: 'var(--text-bright)', lineHeight: 1.2, margin: '2.5em 0 0.75em' }} {...props} />
     ),
-    h2: (props: HeadingProps) => (
-        <h2
-            className="text-2xl md:text-3xl text-gray-800 dark:text-white/85 dark:hover:text-white/95 font-medium mt-8 mb-3"
-            {...props}
-        />
-    ),
-    h3: (props: HeadingProps) => (
-        <h3
-            className="text-xl md:text-2xl text-gray-800 dark:text-white/85 dark:hover:text-white/90 font-medium mt-8 mb-3"
-            {...props}
-        />
-    ),
+    h2: (props: HeadingProps) => <h2 {...props} />,
+    h3: (props: HeadingProps) => <h3 {...props} />,
     h4: (props: HeadingProps) => (
-        <h4
-            className="text-lg md:text-xl font-medium text-neutral-100"
-            {...props}
-        />
+        <h4 style={{ fontSize: '1rem', fontWeight: 500, color: 'var(--text-main)', margin: '1.5em 0 0.5em' }} {...props} />
     ),
-    p: (props: ParagraphProps) => (
-        <p
-            className="text-base md:text-lg text-gray-800 dark:text-neutral-300/70 leading-relaxed my-4"
-            {...props}
-        />
-    ),
+    p: (props: ParagraphProps) => <p {...props} />,
     ol: (props: ListProps) => (
-        <ol
-            className="text-base md:text-lg text-gray-800 dark:text-neutral-300/70 list-decimal pl-5 space-y-2"
-            {...props}
-        />
+        <ol style={{ color: 'var(--text-main)', paddingLeft: '1.25rem', marginBottom: '1.5em' }} {...props} />
     ),
     ul: (props: ListProps) => (
-        <ul
-            className="text-base md:text-lg text-gray-800 dark:text-neutral-300/70 list-disc pl-5 space-y-1"
-            {...props}
-        />
+        <ul style={{ color: 'var(--text-main)', paddingLeft: '1.25rem', marginBottom: '1.5em' }} {...props} />
     ),
-    li: (props: ListItemProps) => <li className="pl-1" {...props} />,
+    li: (props: ListItemProps) => (
+        <li style={{ color: 'var(--text-main)', marginBottom: '0.375em' }} {...props} />
+    ),
     em: (props: ComponentPropsWithoutRef<'em'>) => (
-        <em className="font-medium" {...props} />
+        <em style={{ fontFamily: 'var(--font-fell)', fontStyle: 'italic', color: 'var(--text-mid)' }} {...props} />
     ),
     strong: (props: ComponentPropsWithoutRef<'strong'>) => (
-        <strong className="font-medium" {...props} />
+        <strong style={{ color: 'var(--text-bright)', fontWeight: 500 }} {...props} />
     ),
     a: ({ href, children, ...props }: AnchorProps) => {
         if (href?.startsWith('/')) {
             return (
-                <Link
-                    href={href}
-                    className="text-emerald-500 hover:text-emerald-300 transition-colors duration-200"
-                    {...props}
-                >
+                <Link href={href} {...props}>
                     {children}
                 </Link>
             )
         }
         if (href?.startsWith('#')) {
-            return (
-                <a
-                    href={href}
-                    className="transition-colors duration-200"
-                    {...props}
-                >
-                    {children}
-                </a>
-            )
+            return <a href={href} {...props}>{children}</a>
         }
         return (
-            <a
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sky-500 hover:text-sky-300 hover:underline transition-colors duration-200"
-                {...props}
-            >
+            <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
                 {children}
             </a>
         )
@@ -160,53 +116,55 @@ const components = {
         )
         return (
             <code
-                className="px-1.5 py-0.5 rounded-md bg-[#FAFAFA] dark:bg-[#0B132B] text-sm font-mono"
+                style={{ fontFamily: 'var(--font-body)', fontSize: '0.875em', background: 'var(--bg-card)', border: '1px solid var(--line)', padding: '0.1em 0.4em', color: 'var(--text-mid)' }}
                 dangerouslySetInnerHTML={{ __html: codeHTML }}
                 {...props}
             />
         )
     },
-    Table: ({ data }: { data: { headers: string[]; rows: string[][] } }) => (
-        <table className="table-auto text-md border-collapse border border-neutral-200 dark:border-neutral-600 my-4 w-full">
-            <thead>
-                <tr className="">
-                    {data.headers.map((header, index) => (
-                        <th
-                            className="p-2 border bg-neutral-200 border-neutral-300 dark:bg-neutral-900 dark:border-neutral-800"
-                            key={index}
-                        >
-                            {header}
-                        </th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {data.rows.map((row, index) => (
-                    <tr key={index}>
-                        {row.map((cell, cellIndex) => (
-                            <td
-                                className="p-2 border border-neutral-200  dark:border-neutral-800"
-                                key={cellIndex}
-                            >
-                                {cell}
-                            </td>
-                        ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
+    pre: ({ children, ...props }: ComponentPropsWithoutRef<'pre'>) => (
+        <pre style={{ background: 'var(--bg-card)', border: '1px solid var(--line)', borderRadius: '0.5rem', padding: '1rem', overflowX: 'auto', margin: '1.5em 0', fontSize: '0.875rem' }} {...props}>
+            {children}
+        </pre>
+    ),
+    table: ({ children, ...props }: ComponentPropsWithoutRef<'table'>) => (
+        <div style={{ overflowX: 'auto', margin: '1.5em 0' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.875rem', border: '1px solid var(--line)' }} {...props}>
+                {children}
+            </table>
+        </div>
+    ),
+    th: ({ children, ...props }: ComponentPropsWithoutRef<'th'>) => (
+        <th style={{ padding: '0.6rem 0.75rem', background: 'var(--bg-card)', color: 'var(--text-mid)', fontWeight: 500, borderBottom: '1px solid var(--line)', textAlign: 'left' }} {...props}>
+            {children}
+        </th>
+    ),
+    td: ({ children, ...props }: ComponentPropsWithoutRef<'td'>) => (
+        <td style={{ padding: '0.6rem 0.75rem', color: 'var(--text-main)', borderBottom: '1px solid var(--line)' }} {...props}>
+            {children}
+        </td>
+    ),
+    tr: ({ children, ...props }: ComponentPropsWithoutRef<'tr'>) => (
+        <tr style={{ borderBottom: '1px solid var(--line)' }} {...props}>
+            {children}
+        </tr>
     ),
     blockquote: ({ model = 'default', ...props }: BlockquoteProps) => {
-        const models = {
-            default:
-                'ml-2 pl-4 border-l-4 border-neutral-400 hover:border-neutral-800 dark:hover:border-neutral-200 transition-all duration-300',
-            minimal:
-                'text-center italic border-emerald-400 font-bold text-neutral-600 dark:text-neutral-400 hover:text-neutral-700 dark:hover:text-neutral-300 transition-all duration-300',
-            accent: 'ml-2 pl-6 pr-4 py-3 border-l-4 border-emerald-500 dark:border-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 rounded-r-lg',
-            bordered:
-                'p-4 border-2 border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900/50 shadow-sm',
+        const baseStyle: React.CSSProperties = {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'flex-start',
+            textAlign: 'left'
         }
-        return <blockquote className={models[model]} {...props} />
+
+        const styles: Record<string, React.CSSProperties> = {
+            default: { ...baseStyle, margin: '1.5rem auto', padding: '1rem', borderLeft: '2px solid var(--line)', color: 'var(--text-dim)', fontStyle: 'italic' },
+            minimal: { ...baseStyle, margin: '1.5rem auto', fontStyle: 'italic', color: 'var(--text-dim)' },
+            accent: { ...baseStyle, margin: '1.5rem auto', padding: '1.5rem', border: '1px solid var(--line)', borderTop: '2px solid var(--text-mid)', background: 'var(--bg-card)', color: 'var(--text-main)' },
+            bordered: { ...baseStyle, margin: '1.5rem auto', padding: '1.5rem', border: '1px solid var(--line)', background: 'var(--bg-card)', color: 'var(--text-main)', borderRadius: '4px' },
+        }
+        return <blockquote style={styles[model]} {...props} />
     },
     Callout: ({ type = 'info', children, ...props }: CalloutProps) => (
         <UKCallout type={type} {...props}>
@@ -221,31 +179,23 @@ const components = {
         onClick,
         ...props
     }: ButtonProps) => (
-        <UKButton
-            variant={variant}
-            size={size}
-            className={className}
-            onClick={onClick}
-            {...props}
-        >
+        <UKButton variant={variant} size={size} className={className} onClick={onClick} {...props}>
             {children}
         </UKButton>
     ),
     mark: ({ color = 'yellow', ...props }: MarkProps) => {
-        const colors = {
-            green: 'bg-teal-200 dark:bg-emerald-400',
-            yellow: 'bg-yellow-200 dark:bg-amber-400',
-            red: 'bg-red-200 dark:bg-rose-400',
+        const colors: Record<string, React.CSSProperties> = {
+            green: { background: 'rgba(52,211,153,0.2)', color: 'var(--text-bright)', padding: '0 0.25em' },
+            yellow: { background: 'rgba(251,191,36,0.2)', color: 'var(--text-bright)', padding: '0 0.25em' },
+            red: { background: 'rgba(248,113,113,0.2)', color: 'var(--text-bright)', padding: '0 0.25em' },
         }
-        return <mark className={`${colors[color]} px-1`} {...props} />
+        return <mark style={colors[color]} {...props} />
     },
     TagUser: ({ children, ...props }: TagUserProps) => (
         <UKTagUser {...props}>{children}</UKTagUser>
     ),
-    img: ({ src, ...props }: ImageProps) =>
-        typeof src === 'string' ? <UKImage src={src} {...props} /> : null,
-    Image: ({ src, ...props }: ImageProps) =>
-        typeof src === 'string' ? <UKImage src={src} {...props} /> : null,
+    img: AttractiveImage,
+    Image: AttractiveImage,
 }
 
 declare global {
