@@ -1,22 +1,8 @@
 'use client'
 import Link from 'next/link'
-import { useSpotify } from '@/hooks/useSpotify'
 import { motion } from 'framer-motion'
-import { AudioLines } from 'lucide-react'
 
-interface SpotifyData {
-    is_playing: boolean
-    item: {
-        name: string
-        artists: Array<{ name: string }>
-        album: {
-            name: string
-            images: Array<{ url: string }>
-        }
-    }
-}
 const Footer = () => {
-    const { data: nowPlaying, error, isLoading } = useSpotify<SpotifyData>('')
     return (
         <footer className="prose mt-4" role="contentinfo">
             <motion.div
