@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getAllArtPosts } from '@/lib/artpost'
 import type { Metadata } from 'next'
+import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
     title: 'Art',
@@ -65,9 +66,7 @@ export default async function Page() {
                 )}
             </div>
 
-            <footer className="dir-footer">
-                <span>dir-diare</span>
-            </footer>
+            <Footer />
         </main>
     )
 }

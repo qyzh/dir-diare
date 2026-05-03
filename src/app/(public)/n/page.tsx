@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getNoteQ } from '@/lib/noteq'
 import type { Metadata } from 'next'
+import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
     title: 'Notes',
@@ -46,9 +47,7 @@ export default async function Page() {
                 )}
             </div>
 
-            <footer className="dir-footer">
-                <span>dir-diare</span>
-            </footer>
+            <Footer />
         </main>
     )
 }

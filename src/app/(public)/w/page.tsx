@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getAllPublishedPosts } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import type { Metadata } from 'next'
+import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
     title: 'Journal',
@@ -24,7 +25,7 @@ export default async function Page() {
                 <p className="page-subtitle">Notes on building things, reading things, and the slow accumulation of days.</p>
             </div>
 
-            <div style={{ padding: '0 var(--page-pad)' }}>
+            <div style={{ padding: '3rem var(--page-pad)' }}>
                 <div className="journal-grid">
                     {posts.map((post, i) => (
                         <Link
@@ -56,9 +57,7 @@ export default async function Page() {
                 </div>
             </div>
 
-            <footer className="dir-footer">
-                <span>dir-diare</span>
-            </footer>
+            <Footer />
         </main>
     )
 }

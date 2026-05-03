@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
+import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
     title: 'About',
@@ -50,9 +51,7 @@ export default function Page() {
                 </p>
             </div>
 
-            <footer className="dir-footer">
-                <span>dir-diare</span>
-            </footer>
+            <Footer />
         </main>
     )
 }
