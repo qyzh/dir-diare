@@ -2,7 +2,7 @@
 
 Welcome to `dir-diare`, my personal corner of the internet. This project is more than just a blog; it's a digital diary where I document my journey, share my creations, and log my activities. It's a space for my thoughts, my code, my art, and my life.
 
-<img width="1921" height="1046" alt="Screenshot_03-Oct_10-23-57_22979" src="https://github.com/user-attachments/assets/50f090c3-5542-45b2-a83d-a3432e9c169b" />
+<img width="1900" height="936" alt="image" src="https://github.com/user-attachments/assets/a6e05481-05f6-47d6-9aa1-3545a1ed493a" />
 
 
 ## About This Project
