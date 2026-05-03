@@ -500,7 +500,15 @@ pre {
     font-size: 0.75rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    gap: 0.2rem;
+}
+
+.hero-meta-data {
     color: var(--text-muted);
+}
+
+.hero-meta-info {
+    color: var(--text-med);
 }
 
 .cursor {
