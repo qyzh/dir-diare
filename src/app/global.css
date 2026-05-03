@@ -624,7 +624,76 @@ pre {
     margin-bottom: 1rem;
 }
 
-/* ── Footer ── */
+/* ── Site Footer ── */
+.site-footer {
+    border-top: 1px solid var(--line);
+    padding: 2.5rem var(--page-pad);
+}
+
+.site-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+}
+
+.site-footer-brand {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.25s ease, text-shadow 0.25s ease;
+}
+
+.site-footer-brand:hover {
+    color: var(--text-bright);
+    text-shadow: 0 0 24px color-mix(in srgb, var(--text-mid) 30%, transparent);
+}
+
+.site-footer-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.site-footer-nav-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.site-footer-dot {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    user-select: none;
+}
+
+.site-footer-link {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.site-footer-link:hover {
+    color: var(--text-mid);
+}
+
+.site-footer-copy {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+}
+
+/* Legacy .dir-footer — kept for any unmitigated inline uses */
 .dir-footer {
     padding: 2rem var(--page-pad);
     border-top: 1px solid var(--line);
