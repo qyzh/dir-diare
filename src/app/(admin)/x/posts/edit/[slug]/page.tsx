@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import UKbutton from '@/components/ui/ukbtn'
 import Breadcrumbs from '@/components/breadcrumbs'
+import MarkdownEditorTabs from '../../../_components/MarkdownEditorTabs'
 export default function EditPostPage({
     params,
 }: {
@@ -193,18 +194,14 @@ export default function EditPostPage({
                 </div>
                 <div>
                     <label
-                        htmlFor="content"
                         className="block text-sm font-medium text-gray-400"
                     >
                         Content (Markdown)
                     </label>
-                    <textarea
-                        id="content"
-                        rows={10}
+                    <MarkdownEditorTabs
                         value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        className={inputClassName}
-                        required
+                        onChange={setContent}
+                        minRows={14}
                     />
                 </div>
                 <div>

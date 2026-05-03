@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getPostBySlug, updatePost } from '@/lib/posts'
+import { deletePost, getPostBySlug, updatePost } from '@/lib/posts'
 import {
     checkAuth,
     createErrorResponse,
@@ -59,5 +59,28 @@ export async function PUT(
         return NextResponse.json({ success: true, post: updatedPost })
     } catch (error) {
         return createErrorResponse('Failed to update post', error as Error, 500)
+    }
+}
+
+export async function DELETE(
+    request: NextRequest,
+    { params }: { params: Promise<{ slug: string }> }
+) {
+    const authResult = await checkAuth()
+    if (!authResult.authorized) {
+        return authResult.response
+    }
+
+    try {
+        const { slug } = await params
+        const deleted = await deletePost(slug)
+
+        if (!deleted) {
+            return createNotFoundResponse('Post not found')
+        }
+
+        return new NextResponse(null, { status: 204 })
+    } catch (error) {
+        return createErrorResponse('Failed to delete post', error as Error, 500)
     }
 }
