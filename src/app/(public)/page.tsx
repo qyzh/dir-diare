@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getAllPublishedPosts } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
+import Footer from '@/components/footer'
 
 export default async function Page() {
     const posts = await getAllPublishedPosts()
@@ -14,14 +15,23 @@ export default async function Page() {
                 <p className="hero-bio">
                     A personal journal. Notes on building things, reading things,
                     and the slow accumulation of days.
+                    <span className="cursor" />
                 </p>
                 <p className="hero-meta">
-                    est. 2024<span className="cursor" />
+                    <span className='hero-meta-data'>
+
+                        est.
+                    </span>
+                    <span className='hero-meta-info'>
+
+                        2024
+                    </span>
                 </p>
             </section>
 
             {/* Journal */}
             <section id="journal" className="section">
+                <h2 className="page-title">Journal</h2>
                 {recent.length > 0 ? (
                     <div className="journal-grid">
                         {recent.map((post, i) => (
@@ -63,24 +73,9 @@ export default async function Page() {
                     This is a personal space — part journal, part notebook, part
                     archive. Written slowly, published irregularly.
                 </p>
-                <p className="about-text reveal reveal-delay-2">
-                    Built with Next.js, deployed on Vercel, stored in MongoDB.
-                    Typography set in Playfair Display, Courier Prime, and IM Fell
-                    English.
-                </p>
             </section>
 
-            {/* Footer */}
-            <footer className="dir-footer">
-                <span>dir-diare</span>
-                <span>
-                    <Link href="/w">journal</Link>
-                    {' · '}
-                    <Link href="/n">quotes</Link>
-                    {' · '}
-                    <Link href="/l">projects</Link>
-                </span>
-            </footer>
+            <Footer />
         </main>
     )
 }
