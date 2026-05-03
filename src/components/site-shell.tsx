@@ -5,20 +5,18 @@ import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 const NAV_LINKS = [
-    { label: 'Journal', href: '/n' },
-    { label: 'Quotes', href: '/quotes' },
-    { label: 'Projects', href: '/projects' },
+    { label: 'Journal', href: '/w' },
+    { label: 'Quotes', href: '/n' },
+    { label: 'Projects', href: '/l' },
     { label: 'About', href: '/about' },
 ]
 
 const SECTION_LABELS: Record<string, string> = {
-    '/n': 'Journal',
     '/w': 'Journal',
-    '/quotes': 'Quotes',
-    '/projects': 'Projects',
+    '/n': 'Quotes',
+    '/l': 'Projects',
     '/about': 'About',
     '/m': 'Music',
-    '/l': 'Art',
 }
 
 function getSectionLabel(pathname: string): string | null {

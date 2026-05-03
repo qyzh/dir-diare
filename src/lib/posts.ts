@@ -3,6 +3,7 @@ import {
     getDocumentByField,
     createDocument,
     updateDocumentByField,
+    deleteDocumentByField,
 } from './db-helpers'
 
 export interface Post {
@@ -47,4 +48,8 @@ export async function updatePost(
     post: Partial<Post>
 ): Promise<Post | null> {
     return updateDocumentByField<Post>(COLLECTION_NAME, 'slug', slug, post, true)
+}
+
+export async function deletePost(slug: string): Promise<boolean> {
+    return deleteDocumentByField(COLLECTION_NAME, 'slug', slug)
 }

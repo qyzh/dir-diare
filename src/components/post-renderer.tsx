@@ -9,6 +9,10 @@ import { formatDate } from '@/lib/utils'
 import Image from 'next/image'
 import ArticleProgress from './article-progress'
 import Link from 'next/link'
+import remarkGfm from 'remark-gfm'
+import remarkFrontmatter from 'remark-frontmatter'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 const components = useMDXComponents()
 export default function PostRenderer({
@@ -66,7 +70,16 @@ export default function PostRenderer({
           />
         )}
         <article className="prose prose-quoteless prose-neutral dark:prose-invert dark:prose-p:text-white dark:prose-li:text-white dark:prose-strong:text-white dark:prose-em:text-white">
-          <MDXRemote source={post.content} components={components} />
+          <MDXRemote
+            source={post.content}
+            components={components}
+            options={{
+              mdxOptions: {
+                remarkPlugins: [remarkGfm, remarkFrontmatter],
+                rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+              },
+            }}
+          />
           <UkCallout>
             {post.updatedAt &&
               post.updatedAt !== post.publishedAt && (
@@ -81,48 +94,87 @@ export default function PostRenderer({
     )
   }
 
+  const tags: string[] = post.tags ?? []
+
   return (
     <>
       <ArticleProgress />
-      <main className="article-wrap">
-        <header className="article-header">
-          <Link href="/n" className="page-back">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-            Journal
-          </Link>
-          <div className="article-meta">
-            <time>{formattedDate}</time>
-            {post.updatedAt && post.updatedAt !== post.publishedAt && (
-              <span>Updated: {formatDate(post.updatedAt)}</span>
+      <main className="article-wrap article-wrap--writing">
+        <div className="journal-article">
+
+          {/* Header */}
+          <header className="journal-article-header">
+            <nav className="journal-article-nav">
+              <Link href="/w" className="journal-article-back">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z" /></svg>
+                Journal
+              </Link>
+            </nav>
+
+            <div className="journal-article-meta">
+              <time>{formattedDate}</time>
+              {post.updatedAt && post.updatedAt !== post.publishedAt && (
+                <>
+                  <span className="journal-article-meta-sep" aria-hidden="true" />
+                  <span>Revised {formatDate(post.updatedAt)}</span>
+                </>
+              )}
+            </div>
+
+            <h1 className="journal-article-title">
+              {post.title || post.slug.replace(/-/g, ' ')}
+            </h1>
+
+            {post.summary && (
+              <p className="journal-article-summary">{post.summary}</p>
             )}
-            {post.tags && post.tags.map((tag: string) => (
-              <span key={tag}>{tag}</span>
-            ))}
+
+            <div className="journal-article-ornament" aria-hidden="true">
+              <span className="journal-article-ornament-glyph">✦ ✦ ✦</span>
+            </div>
+          </header>
+
+          {/* Body */}
+          <div className="journal-article-body-wrap">
+            <article className="journal-article-body">
+              <MDXRemote
+                source={post.content}
+                components={components}
+                options={{
+                  mdxOptions: {
+                    remarkPlugins: [remarkGfm, remarkFrontmatter],
+                    rehypePlugins: [rehypeSlug, rehypeAutolinkHeadings],
+                  },
+                }}
+              />
+            </article>
           </div>
-          <h1 className="article-title">
-            {post.title || post.slug.replace(/-/g, ' ')}
-          </h1>
-          {post.summary && (
-            <p className="article-summary">{post.summary}</p>
-          )}
-        </header>
 
-        <article className="article-body drop-cap">
-          <MDXRemote source={post.content} components={components} />
-        </article>
+          {/* Footer */}
+          <footer className="journal-article-footer">
+            <div className="journal-article-footer-inner">
+              {tags.length > 0 && (
+                <div className="journal-article-tags">
+                  {tags.map((tag) => (
+                    <span key={tag} className="journal-article-tag">{tag}</span>
+                  ))}
+                </div>
+              )}
+              <div className="journal-article-footer-row">
+                <Link href="/w" className="journal-article-back">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z" /></svg>
+                  Back to Journal
+                </Link>
+                <CopyUrlButton url={`https://dir.kyxis.my.id/w/${post.slug}`} />
+              </div>
+              <p className="journal-article-colophon" style={{ marginTop: '1.5rem' }}>
+                Written by qyzh · {formattedDate}
+              </p>
+            </div>
+          </footer>
 
-        <div style={{ marginTop: '3rem', paddingTop: '1.5rem', borderTop: '1px solid var(--line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <CopyUrlButton url={`https://dir-diare.vercel.app/w/${post.slug}`} />
         </div>
-
-        <Comments />
       </main>
-
-      <footer className="dir-footer">
-        <span>dir-diare</span>
-      </footer>
     </>
   )
 }

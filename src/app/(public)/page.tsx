@@ -75,11 +75,11 @@ export default async function Page() {
             <footer className="dir-footer">
                 <span>dir-diare</span>
                 <span>
-                    <Link href="/n">journal</Link>
+                    <Link href="/w">journal</Link>
                     {' · '}
-                    <Link href="/quotes">quotes</Link>
+                    <Link href="/n">quotes</Link>
                     {' · '}
-                    <Link href="/projects">projects</Link>
+                    <Link href="/l">projects</Link>
                 </span>
             </footer>
         </main>
