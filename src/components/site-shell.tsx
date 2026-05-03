@@ -86,12 +86,6 @@ export default function SiteShell() {
             <header id="topbar">
                 <Link href="/" className="topbar-left">
                     dir-diare
-                    {sectionLabel && (
-                        <>
-                            <span className="topbar-sep">/</span>
-                            <span className="topbar-current">{sectionLabel}</span>
-                        </>
-                    )}
                 </Link>
                 <button
                     id="menu-btn"

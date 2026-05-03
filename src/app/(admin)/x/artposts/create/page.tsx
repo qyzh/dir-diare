@@ -1,228 +1,131 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession, signIn, signOut } from 'next-auth/react'
-import UKButton from '@/components/ui/ukbtn'
-import Breadcrumbs from '@/components/breadcrumbs'
+import { useSession, signIn } from 'next-auth/react'
+import MarkdownEditor from '../../_components/MarkdownEditor'
+
+const inp = {
+    width: '100%', background: '#14120f', color: '#d4c9b4',
+    border: '1px solid #2c2820', padding: '0.5rem 0.75rem',
+    fontFamily: "'Courier Prime', monospace", fontSize: '0.875rem', outline: 'none',
+}
+const lbl = { fontSize: '0.65rem', letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: '#6e6255', display: 'block', marginBottom: '0.35rem' }
+
 export default function CreateArtPostPage() {
     const { data: session, status } = useSession()
+    const router = useRouter()
     const [title, setTitle] = useState('')
     const [slug, setSlug] = useState('')
     const [tags, setTags] = useState('')
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
-    const [author, setAuthor] = useState('')
+    const [author, setAuthor] = useState('qyzh')
     const [image, setImage] = useState('')
     const [publishedAt, setPublishedAt] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
-    const router = useRouter()
 
-    useEffect(() => {
-        const generatedSummary = content.substring(0, 100)
-        setSummary(generatedSummary)
-    }, [content])
+    useEffect(() => { setSummary(content.substring(0, 100)) }, [content])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        setIsLoading(true)
+        setSubmitting(true)
         setError(null)
-
         try {
-            const response = await fetch('/api/artposts', {
+            const res = await fetch('/api/artposts', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    title,
-                    slug,
-                    tags: tags.split(',').map((tag) => tag.trim()),
-                    content,
-                    summary,
-                    author,
-                    image,
-                    publishedAt: publishedAt || new Date().toISOString(),
-                }),
+                body: JSON.stringify({ title, slug, tags: tags.split(',').map((t) => t.trim()).filter(Boolean), content, summary, author, image, publishedAt: publishedAt || new Date().toISOString() }),
             })
-
-            if (!response.ok) {
-                throw new Error('Failed to create art post')
-            }
-
+            if (!res.ok) throw new Error('Failed to create art post')
             router.push('/x/artposts')
         } catch (err) {
-            setError(
-                err instanceof Error ? err.message : 'An unknown error occurred'
-            )
+            setError(err instanceof Error ? err.message : 'Unknown error')
         } finally {
-            setIsLoading(false)
+            setSubmitting(false)
         }
     }
 
-    const inputClassName =
-        'mt-1 px-1 py-1.5 block w-full bg-white/5 border border-neutral-800 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-
-    if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
-
-    if (status === 'unauthenticated') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You must be signed in to create an art post.</p>
-                <UKButton onClick={() => signIn('github')}>
-                    Sign in with GitHub
-                </UKButton>
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== 'qyzh') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You are not authorized to create an art post.</p>
-                <UKButton onClick={() => signOut()}>Sign out</UKButton>
-            </div>
-        )
-    }
+    if (status === 'loading') return <p style={{ color: '#6e6255', fontFamily: 'Courier Prime, monospace' }}>loading...</p>
+    if (status === 'unauthenticated') return (
+        <div style={{ fontFamily: 'Courier Prime, monospace', paddingTop: '3rem', textAlign: 'center' }}>
+            <button onClick={() => signIn('github')} style={{ color: '#c4aa7e', background: 'none', border: '1px solid #2c2820', padding: '0.5rem 1.5rem', cursor: 'pointer' }}>
+                Sign in with GitHub
+            </button>
+        </div>
+    )
+    if (session?.user?.name !== 'qyzh') return <p style={{ color: '#9e6b5a' }}>Not authorized.</p>
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Breadcrumbs />
-            <h1 className="text-4xl font-bold mb-8">Create New Art Post</h1>
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <label
-                        htmlFor="title"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Title
-                    </label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className={inputClassName}
-                        required
-                    />
+        <div style={{ fontFamily: "'Courier Prime', monospace" }}>
+            <div style={{ marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid #2c2820' }}>
+                <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#6e6255' }}>art &amp; labs</p>
+                <h1 style={{ color: '#c4aa7e', fontSize: '1.4rem', marginTop: '0.2rem' }}>New Art Post</h1>
+            </div>
+
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div>
+                        <label style={lbl}>Title</label>
+                        <input style={inp} value={title} onChange={(e) => setTitle(e.target.value)} required />
+                    </div>
+                    <div>
+                        <label style={lbl}>Slug</label>
+                        <input style={inp} value={slug} onChange={(e) => setSlug(e.target.value)} required placeholder="my-art-post" />
+                    </div>
                 </div>
-                <div>
-                    <label
-                        htmlFor="slug"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Slug
-                    </label>
-                    <input
-                        type="text"
-                        id="slug"
-                        value={slug}
-                        onChange={(e) => setSlug(e.target.value)}
-                        className={inputClassName}
-                        required
-                    />
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div>
+                        <label style={lbl}>Author</label>
+                        <input style={inp} value={author} onChange={(e) => setAuthor(e.target.value)} />
+                    </div>
+                    <div>
+                        <label style={lbl}>Tags (comma-separated)</label>
+                        <input style={inp} value={tags} onChange={(e) => setTags(e.target.value)} placeholder="art, digital, ..." />
+                    </div>
                 </div>
-                <div>
-                    <label
-                        htmlFor="author"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Author
-                    </label>
-                    <input
-                        type="text"
-                        id="author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                        className={inputClassName}
-                    />
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div>
+                        <label style={lbl}>Image URL</label>
+                        <input style={inp} value={image} onChange={(e) => setImage(e.target.value)} />
+                    </div>
+                    <div>
+                        <label style={lbl}>Published At (blank = now)</label>
+                        <input style={inp} value={publishedAt} onChange={(e) => setPublishedAt(e.target.value)} placeholder="2024-01-15T10:00:00.000Z" />
+                    </div>
                 </div>
+
                 <div>
-                    <label
-                        htmlFor="image"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Image URL
-                    </label>
-                    <input
-                        type="text"
-                        id="image"
-                        value={image}
-                        onChange={(e) => setImage(e.target.value)}
-                        className={inputClassName}
-                    />
+                    <label style={lbl}>Summary</label>
+                    <textarea style={{ ...inp, resize: 'vertical' }} rows={2} value={summary} onChange={(e) => setSummary(e.target.value)} />
                 </div>
+
                 <div>
-                    <label
-                        htmlFor="publishedAt"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Published At (YYYY-MM-DDTHH:MM:SS.sssZ)
-                    </label>
-                    <input
-                        type="text"
-                        id="publishedAt"
-                        value={publishedAt}
-                        onChange={(e) => setPublishedAt(e.target.value)}
-                        className={inputClassName}
-                        placeholder="e.g., 2023-10-27T10:00:00.000Z"
-                    />
+                    <label style={{ ...lbl, marginBottom: '0.5rem' }}>Content</label>
+                    <MarkdownEditor value={content} onChange={setContent} rows={20} required placeholder="Write your art post in Markdown..." />
                 </div>
-                <div>
-                    <label
-                        htmlFor="summary"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Summary
-                    </label>
-                    <textarea
-                        id="summary"
-                        rows={3}
-                        value={summary}
-                        onChange={(e) => setSummary(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="content"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Content (Markdown)
-                    </label>
-                    <textarea
-                        id="content"
-                        rows={10}
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        className={inputClassName}
-                        required
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="tags"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Tags (comma-separated)
-                    </label>
-                    <input
-                        type="text"
-                        id="tags"
-                        value={tags}
-                        onChange={(e) => setTags(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                {error && <p className="text-red-500">{error}</p>}
-                <div>
-                    <UKButton
-                        type="submit"
-                        disabled={isLoading}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-                    >
-                        {isLoading ? 'Creating...' : 'Create Art Post'}
-                    </UKButton>
+
+                {error && <p style={{ color: '#b88a7a', fontSize: '0.85rem' }}>{error}</p>}
+
+                <div style={{ display: 'flex', gap: '1rem', paddingTop: '0.5rem' }}>
+                    <button type="submit" disabled={submitting} style={{
+                        background: 'rgba(196,170,126,0.12)', color: '#c4aa7e',
+                        border: '1px solid #c4aa7e', padding: '0.5rem 1.5rem',
+                        fontFamily: "'Courier Prime', monospace", fontSize: '0.8rem',
+                        letterSpacing: '0.08em', cursor: submitting ? 'not-allowed' : 'pointer',
+                        opacity: submitting ? 0.6 : 1,
+                    }}>
+                        {submitting ? 'creating...' : 'Create Art Post'}
+                    </button>
+                    <button type="button" onClick={() => router.push('/x/artposts')} style={{
+                        background: 'transparent', color: '#6e6255',
+                        border: '1px solid #2c2820', padding: '0.5rem 1.5rem',
+                        fontFamily: "'Courier Prime', monospace", fontSize: '0.8rem', cursor: 'pointer',
+                    }}>
+                        Cancel
+                    </button>
                 </div>
             </form>
         </div>

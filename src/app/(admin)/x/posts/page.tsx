@@ -1,205 +1,121 @@
 'use client'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useSession, signIn } from 'next-auth/react'
 import { Post } from '@/lib/posts'
-import UKButton from '@/components/ui/ukbtn'
-import AuthButton from '../_components/AuthButton'
-import Breadcrumbs from '@/components/breadcrumbs'
 import { AUTHORIZED_USER } from '@/lib/constants'
 
-export default function PostsManagePage() {
+const badge = (published: boolean) => ({
+    fontSize: '0.6rem', letterSpacing: '0.08em', textTransform: 'uppercase' as const,
+    padding: '0.1rem 0.45rem', flexShrink: 0,
+    background: published ? 'rgba(100,160,100,0.12)' : 'rgba(160,100,80,0.12)',
+    color: published ? '#7ab87a' : '#b88a7a',
+    border: `1px solid ${published ? 'rgba(100,160,100,0.25)' : 'rgba(160,100,80,0.25)'}`,
+})
+
+export default function PostsPage() {
     const { data: session, status } = useSession()
     const [posts, setPosts] = useState<Post[]>([])
-    const [isLoading, setIsLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
+    const [loading, setLoading] = useState(true)
     const [filter, setFilter] = useState<'all' | 'published' | 'draft'>('all')
 
     useEffect(() => {
         if (status === 'authenticated') {
             fetch('/api/posts')
-                .then((res) => res.json())
-                .then((data) => {
-                    setPosts(data)
-                    setIsLoading(false)
-                })
-                .catch((err) => {
-                    setError('Failed to fetch posts')
-                    setIsLoading(false)
-                })
+                .then((r) => r.json())
+                .then((d) => { setPosts(d); setLoading(false) })
+                .catch(() => setLoading(false))
         }
     }, [status])
 
-    if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
+    if (status === 'loading') return <p style={{ color: '#6e6255', fontFamily: 'Courier Prime, monospace' }}>loading...</p>
+    if (status === 'unauthenticated') return (
+        <div style={{ fontFamily: 'Courier Prime, monospace', paddingTop: '3rem', textAlign: 'center' }}>
+            <button onClick={() => signIn('github')} style={{ color: '#c4aa7e', background: 'none', border: '1px solid #2c2820', padding: '0.5rem 1.5rem', cursor: 'pointer' }}>
+                Sign in with GitHub
+            </button>
+        </div>
+    )
+    if (session?.user?.name !== AUTHORIZED_USER) return <p style={{ color: '#9e6b5a' }}>Not authorized.</p>
 
-    if (status === 'unauthenticated') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="text-4xl font-bold mb-8">Manage Posts</h1>
-                <p className="mb-4">Please sign in to manage posts.</p>
-                <AuthButton />
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== AUTHORIZED_USER) {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="text-4xl font-bold mb-8">Manage Posts</h1>
-                <p>You are not authorized to manage posts.</p>
-                <AuthButton />
-            </div>
-        )
-    }
-
-    const filteredPosts = posts.filter((post) => {
-        if (filter === 'all') return true
-        return post.status === filter
-    })
+    const filtered = posts.filter((p) => filter === 'all' || p.status === filter)
+    const publishedCount = posts.filter((p) => p.status === 'published').length
+    const draftCount = posts.filter((p) => p.status === 'draft').length
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Breadcrumbs />
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-4xl font-bold">Manage Posts</h1>
-                <div className="flex items-center gap-4">
-                    <Link href="/x/posts/create">
-                        <UKButton variant="primary">Create New Post</UKButton>
-                    </Link>
-                    <AuthButton />
+        <div style={{ fontFamily: "'Courier Prime', monospace" }}>
+            {/* Header */}
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid #2c2820' }}>
+                <div>
+                    <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#6e6255' }}>journal</p>
+                    <h1 style={{ color: '#c4aa7e', fontSize: '1.4rem', marginTop: '0.2rem' }}>Posts</h1>
                 </div>
+                <Link
+                    href="/x/posts/create"
+                    style={{ fontSize: '0.75rem', letterSpacing: '0.08em', color: '#c4aa7e', border: '1px solid #2c2820', padding: '0.4rem 1rem', textDecoration: 'none' }}
+                >
+                    + New Post
+                </Link>
             </div>
 
-            {/* Filter Tabs */}
-            <div className="flex gap-2 mb-6">
-                <button
-                    onClick={() => setFilter('all')}
-                    className={`px-4 py-2 ${
-                        filter === 'all'
-                            ? 'bg-neutral-300 dark:bg-neutral-800 text-neutral-800 dark:text-white'
-                            : 'bg-white/5 text-neutral-700 text-neutral-800 dark:hover:text-white'
-                    }`}
-                >
-                    All ({posts.length})
-                </button>
-                <button
-                    onClick={() => setFilter('published')}
-                    className={`px-4 py-2 ${
-                        filter === 'published'
-                            ? 'bg-emerald-500 dark:bg-emerald-800 text-neutral-200 dark:text-white'
-                            : 'bg-white/5 text-neutral-700 hover:text-emerald-600 dark:hover:text-white'
-                    }`}
-                >
-                    Published (
-                    {posts.filter((p) => p.status === 'published').length})
-                </button>
-                <button
-                    onClick={() => setFilter('draft')}
-                    className={`px-4 py-2 ${
-                        filter === 'draft'
-                            ? 'bg-rose-500 dark:bg-rose-800 text-neutral-200 dark:text-white'
-                            : 'bg-white/5 text-neutral-700 hover:text-rose-600 dark:hover:text-white'
-                    }`}
-                >
-                    Drafts ({posts.filter((p) => p.status === 'draft').length})
-                </button>
+            {/* Filters */}
+            <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1.5rem' }}>
+                {([['all', posts.length], ['published', publishedCount], ['draft', draftCount]] as const).map(([key, count]) => (
+                    <button
+                        key={key}
+                        onClick={() => setFilter(key)}
+                        style={{
+                            fontSize: '0.7rem', letterSpacing: '0.1em', textTransform: 'uppercase',
+                            padding: '0.3rem 0.9rem', cursor: 'pointer', border: '1px solid',
+                            background: filter === key ? 'rgba(196,170,126,0.1)' : 'transparent',
+                            color: filter === key ? '#c4aa7e' : '#6e6255',
+                            borderColor: filter === key ? '#c4aa7e' : '#2c2820',
+                            transition: 'all 0.15s',
+                        }}
+                    >
+                        {key} ({count})
+                    </button>
+                ))}
             </div>
 
-            {/* Posts List */}
-            <div>
-                {isLoading ? (
-                    <p>Loading posts...</p>
-                ) : error ? (
-                    <p className="text-red-500">{error}</p>
-                ) : filteredPosts.length === 0 ? (
-                    <div className="text-center py-12">
-                        <p className="text-neutral-400 mb-4">
-                            {filter === 'all'
-                                ? 'No posts yet'
-                                : `No ${filter} posts`}
-                        </p>
-                        <Link href="/x/posts/create">
-                            <UKButton variant="primary">
-                                Create Your First Post
-                            </UKButton>
-                        </Link>
+            {/* List */}
+            <div style={{ border: '1px solid #2c2820' }}>
+                {loading ? (
+                    <p style={{ color: '#4a4038', padding: '1.5rem', fontSize: '0.85rem' }}>loading...</p>
+                ) : filtered.length === 0 ? (
+                    <div style={{ padding: '3rem', textAlign: 'center' }}>
+                        <p style={{ color: '#4a4038', marginBottom: '1rem', fontSize: '0.85rem' }}>No posts yet.</p>
+                        <Link href="/x/posts/create" style={{ color: '#c4aa7e', fontSize: '0.8rem' }}>Create first post →</Link>
                     </div>
                 ) : (
-                    <div className="space-y-4">
-                        {filteredPosts.map((post) => (
-                            <div
-                                key={post._id}
-                                className="flex justify-between items-start border border-neutral-800 hover:border-neutral-600 transition-colors p-4"
-                            >
-                                <div className="flex-1">
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <h3 className="text-xl font-semibold">
-                                            {post.title}
-                                        </h3>
-                                        <span
-                                            className={`text-xs font-semibold px-2 py-1 rounded ${
-                                                post.status === 'published'
-                                                    ? 'bg-green-500/10 text-green-500'
-                                                    : 'bg-rose-500/10 text-rose-500'
-                                            }`}
-                                        >
-                                            {post.status}
-                                        </span>
-                                    </div>
-                                    {post.summary && (
-                                        <p className="text-neutral-400 text-sm mb-2">
-                                            {post.summary}
-                                        </p>
-                                    )}
-                                    <div className="flex items-center gap-4 text-neutral-500 text-sm">
-                                        <span>
-                                            Published:{' '}
-                                            {new Date(
-                                                post.publishedAt
-                                            ).toLocaleDateString()}
-                                        </span>
-                                        {post.tags && post.tags.length > 0 && (
-                                            <div className="flex gap-2">
-                                                {post.tags
-                                                    .slice(0, 3)
-                                                    .map((tag, idx) => (
-                                                        <span
-                                                            key={idx}
-                                                            className="text-xs bg-white/5 px-2 py-0.5 rounded"
-                                                        >
-                                                            {tag}
-                                                        </span>
-                                                    ))}
-                                                {post.tags.length > 3 && (
-                                                    <span className="text-xs">
-                                                        +{post.tags.length - 3}{' '}
-                                                        more
-                                                    </span>
-                                                )}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                                <div className="flex gap-2 ml-4">
-                                    <Link
-                                        href={`/w/${post.slug}`}
-                                        target="_blank"
-                                    >
-                                        <UKButton variant="secondary" size="sm">
-                                            View
-                                        </UKButton>
-                                    </Link>
-                                    <Link href={`/x/posts/edit/${post.slug}`}>
-                                        <UKButton variant="primary" size="sm">
-                                            Edit
-                                        </UKButton>
-                                    </Link>
-                                </div>
+                    filtered.map((post, i) => (
+                        <div
+                            key={post._id}
+                            style={{
+                                display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1rem',
+                                borderBottom: i < filtered.length - 1 ? '1px solid #1e1c18' : 'none',
+                            }}
+                        >
+                            <span style={badge(post.status === 'published')}>{post.status}</span>
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                                <p style={{ color: '#d4c9b4', fontSize: '0.9rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                    {post.title}
+                                </p>
+                                {post.tags && post.tags.length > 0 && (
+                                    <p style={{ color: '#4a4038', fontSize: '0.72rem', marginTop: '0.15rem' }}>
+                                        {post.tags.slice(0, 4).join(' · ')}
+                                    </p>
+                                )}
                             </div>
-                        ))}
-                    </div>
+                            <span style={{ color: '#4a4038', fontSize: '0.72rem', flexShrink: 0 }}>
+                                {new Date(post.publishedAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}
+                            </span>
+                            <div style={{ display: 'flex', gap: '0.75rem', flexShrink: 0 }}>
+                                <Link href={`/w/${post.slug}`} target="_blank" style={{ color: '#4a4038', fontSize: '0.75rem', textDecoration: 'none' }}>↗</Link>
+                                <Link href={`/x/posts/edit/${post.slug}`} style={{ color: '#c4aa7e', fontSize: '0.75rem', textDecoration: 'none' }}>edit</Link>
+                            </div>
+                        </div>
+                    ))
                 )}
             </div>
         </div>

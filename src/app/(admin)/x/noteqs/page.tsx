@@ -1,121 +1,73 @@
 'use client'
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { useSession, signIn, signOut } from 'next-auth/react'
-import UKButton from '@/components/ui/ukbtn'
-import Breadcrumbs from '@/components/breadcrumbs'
+import { useEffect, useState } from 'react'
+import { useSession, signIn } from 'next-auth/react'
+import { AUTHORIZED_USER } from '@/lib/constants'
 
-interface noteQ {
-    _id: string
-    date: string
-    note: string
-    author?: string
-    source?: string
-}
+interface noteQ { _id: string; date: string; note: string; author?: string; source?: string }
 
 export default function NoteQsPage() {
     const { data: session, status } = useSession()
-    const [noteQs, setNoteQs] = useState<noteQ[]>([])
-    const [isLoading, setIsLoading] = useState(true)
+    const [notes, setNotes] = useState<noteQ[]>([])
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
     useEffect(() => {
-        const fetchNoteQs = async () => {
-            try {
-                const response = await fetch('/api/noteqs')
-                if (!response.ok) {
-                    throw new Error('Failed to fetch notes')
-                }
-                const data = await response.json()
-                setNoteQs(data)
-            } catch (err) {
-                setError(
-                    err instanceof Error
-                        ? err.message
-                        : 'An unknown error occurred'
-                )
-            } finally {
-                setIsLoading(false)
-            }
-        }
-        fetchNoteQs()
+        fetch('/api/noteqs')
+            .then((r) => r.json())
+            .then((d) => { setNotes(d); setLoading(false) })
+            .catch(() => { setError('Failed to fetch notes'); setLoading(false) })
     }, [])
 
-    if (status === 'loading' || isLoading) {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
-
-    if (status === 'unauthenticated') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You must be signed in to view notes admin.</p>
-                <UKButton onClick={() => signIn('github')}>
-                    Sign in with GitHub
-                </UKButton>
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== 'qyzh') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You are not authorized to view notes admin.</p>
-                <UKButton onClick={() => signOut()}>Sign out</UKButton>
-            </div>
-        )
-    }
+    if (status === 'loading' || loading) return <p style={{ color: '#6e6255', fontFamily: 'Courier Prime, monospace' }}>loading...</p>
+    if (status === 'unauthenticated') return (
+        <div style={{ fontFamily: 'Courier Prime, monospace', paddingTop: '3rem', textAlign: 'center' }}>
+            <button onClick={() => signIn('github')} style={{ color: '#c4aa7e', background: 'none', border: '1px solid #2c2820', padding: '0.5rem 1.5rem', cursor: 'pointer' }}>
+                Sign in with GitHub
+            </button>
+        </div>
+    )
+    if (session?.user?.name !== AUTHORIZED_USER) return <p style={{ color: '#9e6b5a' }}>Not authorized.</p>
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Breadcrumbs />
-            <h1 className="text-4xl font-bold mb-8">Notes Admin</h1>
-            <div className="mb-6">
-                <Link href="/x/noteqs/create">
-                    <UKButton>Create New Note</UKButton>
+        <div style={{ fontFamily: "'Courier Prime', monospace" }}>
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid #2c2820' }}>
+                <div>
+                    <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#6e6255' }}>quotes &amp; notes</p>
+                    <h1 style={{ color: '#c4aa7e', fontSize: '1.4rem', marginTop: '0.2rem' }}>Notes</h1>
+                </div>
+                <Link href="/x/noteqs/create" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', color: '#c4aa7e', border: '1px solid #2c2820', padding: '0.4rem 1rem', textDecoration: 'none' }}>
+                    + New Note
                 </Link>
             </div>
-            {error && <p className="text-red-500 mb-4">Error: {error}</p>}
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-white/5">
-                    <thead>
-                        <tr>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
-                                Date
-                            </th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
-                                Note
-                            </th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
-                                Author
-                            </th>
-                            <th className="py-2 px-4 border-b border-neutral-700 text-left text-sm font-semibold text-neutral-800 dark:text-gray-300">
-                                Actions
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {noteQs.map((note) => (
-                            <tr key={note._id}>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
-                                    {new Date(note.date).toLocaleDateString()}
-                                </td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
-                                    {note.note.substring(0, 50)}...
-                                </td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm text-neutral-700 dark:text-gray-400">
-                                    {note.author}
-                                </td>
-                                <td className="py-2 px-4 border-b border-neutral-800 text-sm">
-                                    <Link href={`/x/noteqs/edit/${note._id}`}>
-                                        <UKButton className="text-blue-400 hover:text-blue-300">
-                                            Edit
-                                        </UKButton>
-                                    </Link>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
+
+            {error && <p style={{ color: '#b88a7a', fontSize: '0.85rem', marginBottom: '1rem' }}>{error}</p>}
+
+            <div style={{ border: '1px solid #2c2820' }}>
+                {notes.length === 0 ? (
+                    <div style={{ padding: '3rem', textAlign: 'center' }}>
+                        <p style={{ color: '#4a4038', fontSize: '0.85rem', marginBottom: '1rem' }}>No notes yet.</p>
+                        <Link href="/x/noteqs/create" style={{ color: '#c4aa7e', fontSize: '0.8rem' }}>Create first note →</Link>
+                    </div>
+                ) : notes.map((note, i) => (
+                    <div
+                        key={note._id}
+                        style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', padding: '0.875rem 1rem', borderBottom: i < notes.length - 1 ? '1px solid #1e1c18' : 'none' }}
+                    >
+                        <span style={{ color: '#4a4038', fontSize: '0.72rem', flexShrink: 0, paddingTop: '0.15rem', minWidth: '5rem' }}>
+                            {new Date(note.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}
+                        </span>
+                        <div style={{ flex: 1, minWidth: 0 }}>
+                            <p style={{ color: '#d4c9b4', fontSize: '0.875rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                                {note.note.substring(0, 100)}
+                            </p>
+                            {note.author && (
+                                <p style={{ color: '#4a4038', fontSize: '0.72rem', marginTop: '0.15rem' }}>— {note.author}{note.source ? `, ${note.source}` : ''}</p>
+                            )}
+                        </div>
+                        <Link href={`/x/noteqs/edit/${note._id}`} style={{ color: '#c4aa7e', fontSize: '0.75rem', textDecoration: 'none', flexShrink: 0 }}>edit</Link>
+                    </div>
+                ))}
             </div>
         </div>
     )
