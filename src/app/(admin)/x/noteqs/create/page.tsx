@@ -1,153 +1,109 @@
 'use client'
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession, signIn, signOut } from 'next-auth/react'
-import UKButton from '@/components/ui/ukbtn'
-import Breadcrumbs from '@/components/breadcrumbs'
+import { useSession, signIn } from 'next-auth/react'
+
+const inp = {
+    width: '100%', background: '#14120f', color: '#d4c9b4',
+    border: '1px solid #2c2820', padding: '0.5rem 0.75rem',
+    fontFamily: "'Courier Prime', monospace", fontSize: '0.875rem', outline: 'none',
+}
+const lbl = { fontSize: '0.65rem', letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: '#6e6255', display: 'block', marginBottom: '0.35rem' }
+
 export default function CreateNoteQPage() {
     const { data: session, status } = useSession()
+    const router = useRouter()
     const [date, setDate] = useState('')
     const [note, setNote] = useState('')
     const [author, setAuthor] = useState('')
     const [source, setSource] = useState('')
-    const [isLoading, setIsLoading] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
     const [error, setError] = useState<string | null>(null)
-    const router = useRouter()
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-        setIsLoading(true)
+        setSubmitting(true)
         setError(null)
-
         try {
-            const response = await fetch('/api/noteqs', {
+            const res = await fetch('/api/noteqs', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    date: date || new Date().toISOString(),
-                    note,
-                    author,
-                    source,
-                }),
+                body: JSON.stringify({ date: date || new Date().toISOString(), note, author, source }),
             })
-
-            if (!response.ok) {
-                throw new Error('Failed to create note')
-            }
-
+            if (!res.ok) throw new Error('Failed to create note')
             router.push('/x/noteqs')
         } catch (err) {
-            setError(
-                err instanceof Error ? err.message : 'An unknown error occurred'
-            )
+            setError(err instanceof Error ? err.message : 'Unknown error')
         } finally {
-            setIsLoading(false)
+            setSubmitting(false)
         }
     }
 
-    const inputClassName =
-        'mt-1 px-1 py-1.5 block w-full bg-white/5 border border-neutral-800 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-
-    if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
-
-    if (status === 'unauthenticated') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You must be signed in to create a note.</p>
-                <UKButton onClick={() => signIn('github')}>
-                    Sign in with GitHub
-                </UKButton>
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== 'qyzh') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You are not authorized to create a note.</p>
-                <UKButton onClick={() => signOut()}>Sign out</UKButton>
-            </div>
-        )
-    }
+    if (status === 'loading') return <p style={{ color: '#6e6255', fontFamily: 'Courier Prime, monospace' }}>loading...</p>
+    if (status === 'unauthenticated') return (
+        <div style={{ fontFamily: 'Courier Prime, monospace', paddingTop: '3rem', textAlign: 'center' }}>
+            <button onClick={() => signIn('github')} style={{ color: '#c4aa7e', background: 'none', border: '1px solid #2c2820', padding: '0.5rem 1.5rem', cursor: 'pointer' }}>
+                Sign in with GitHub
+            </button>
+        </div>
+    )
+    if (session?.user?.name !== 'qyzh') return <p style={{ color: '#9e6b5a' }}>Not authorized.</p>
 
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Breadcrumbs />
-            <h1 className="text-4xl font-bold mb-8">Create New Note</h1>
-            <form onSubmit={handleSubmit} className="space-y-6">
+        <div style={{ fontFamily: "'Courier Prime', monospace" }}>
+            <div style={{ marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid #2c2820' }}>
+                <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#6e6255' }}>quotes &amp; notes</p>
+                <h1 style={{ color: '#c4aa7e', fontSize: '1.4rem', marginTop: '0.2rem' }}>New Note</h1>
+            </div>
+
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                 <div>
-                    <label
-                        htmlFor="date"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Date (YYYY-MM-DDTHH:MM:SS.sssZ)
-                    </label>
-                    <input
-                        type="text"
-                        id="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        className={inputClassName}
-                        placeholder="e.g., 2023-10-27T10:00:00.000Z"
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="note"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Note
-                    </label>
+                    <label style={lbl}>Note</label>
                     <textarea
-                        id="note"
-                        rows={5}
+                        style={{ ...inp, resize: 'vertical' }}
+                        rows={6}
                         value={note}
                         onChange={(e) => setNote(e.target.value)}
-                        className={inputClassName}
                         required
+                        placeholder="Quote or note text..."
                     />
                 </div>
-                <div>
-                    <label
-                        htmlFor="author"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Author
-                    </label>
-                    <input
-                        type="text"
-                        id="author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                        className={inputClassName}
-                    />
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                    <div>
+                        <label style={lbl}>Author</label>
+                        <input style={inp} value={author} onChange={(e) => setAuthor(e.target.value)} placeholder="e.g. Camus" />
+                    </div>
+                    <div>
+                        <label style={lbl}>Source</label>
+                        <input style={inp} value={source} onChange={(e) => setSource(e.target.value)} placeholder="e.g. The Stranger" />
+                    </div>
                 </div>
+
                 <div>
-                    <label
-                        htmlFor="source"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Source
-                    </label>
-                    <input
-                        type="text"
-                        id="source"
-                        value={source}
-                        onChange={(e) => setSource(e.target.value)}
-                        className={inputClassName}
-                    />
+                    <label style={lbl}>Date (leave blank for now)</label>
+                    <input style={inp} value={date} onChange={(e) => setDate(e.target.value)} placeholder="2024-01-15T10:00:00.000Z" />
                 </div>
-                {error && <p className="text-red-500">{error}</p>}
-                <div>
-                    <UKButton
-                        type="submit"
-                        disabled={isLoading}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-                    >
-                        {isLoading ? 'Creating...' : 'Create Note'}
-                    </UKButton>
+
+                {error && <p style={{ color: '#b88a7a', fontSize: '0.85rem' }}>{error}</p>}
+
+                <div style={{ display: 'flex', gap: '1rem', paddingTop: '0.5rem' }}>
+                    <button type="submit" disabled={submitting} style={{
+                        background: 'rgba(196,170,126,0.12)', color: '#c4aa7e',
+                        border: '1px solid #c4aa7e', padding: '0.5rem 1.5rem',
+                        fontFamily: "'Courier Prime', monospace", fontSize: '0.8rem',
+                        letterSpacing: '0.08em', cursor: submitting ? 'not-allowed' : 'pointer',
+                        opacity: submitting ? 0.6 : 1,
+                    }}>
+                        {submitting ? 'creating...' : 'Create Note'}
+                    </button>
+                    <button type="button" onClick={() => router.push('/x/noteqs')} style={{
+                        background: 'transparent', color: '#6e6255',
+                        border: '1px solid #2c2820', padding: '0.5rem 1.5rem',
+                        fontFamily: "'Courier Prime', monospace", fontSize: '0.8rem', cursor: 'pointer',
+                    }}>
+                        Cancel
+                    </button>
                 </div>
             </form>
         </div>
