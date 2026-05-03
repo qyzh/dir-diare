@@ -22,7 +22,6 @@ export default async function Page() {
 
             {/* Journal */}
             <section id="journal" className="section">
-                <p className="section-label reveal">Journal</p>
                 {recent.length > 0 ? (
                     <div className="journal-grid">
                         {recent.map((post, i) => (
