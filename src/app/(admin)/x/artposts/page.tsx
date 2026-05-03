@@ -1,75 +1,113 @@
 'use client'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useSession, signIn } from 'next-auth/react'
-import { AUTHORIZED_USER } from '@/lib/constants'
 
-interface ArtPost { _id: string; slug: string; title: string; summary?: string; publishedAt: string }
+import Link from 'next/link'
+import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { ArtPost } from '@/lib/artpost'
+import UKButton from '@/components/ui/ukbtn'
+import { AUTHORIZED_USER } from '@/lib/constants'
+import AuthButton from '../_components/AuthButton'
+import AdminShell from '../_components/AdminShell'
+import ContentListPanel from '../_components/ContentListPanel'
+import RowQuickActions from '../_components/RowQuickActions'
+import { useAdminData } from '../_components/useAdminData'
 
 export default function ArtPostsPage() {
     const { data: session, status } = useSession()
-    const [artPosts, setArtPosts] = useState<ArtPost[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
+    const { data: artPosts, isLoading, error, refresh } =
+        useAdminData<ArtPost>('/api/artposts')
+    const [rowBusy, setRowBusy] = useState<string | null>(null)
+    const [actionError, setActionError] = useState<string | null>(null)
 
-    useEffect(() => {
-        fetch('/api/artposts')
-            .then((r) => r.json())
-            .then((d) => { setArtPosts(d); setLoading(false) })
-            .catch(() => { setError('Failed to fetch'); setLoading(false) })
-    }, [])
+    const deleteArtPost = async (post: ArtPost) => {
+        if (!window.confirm('Delete this art post?')) return
 
-    if (status === 'loading' || loading) return <p style={{ color: '#6e6255', fontFamily: 'Courier Prime, monospace' }}>loading...</p>
-    if (status === 'unauthenticated') return (
-        <div style={{ fontFamily: 'Courier Prime, monospace', paddingTop: '3rem', textAlign: 'center' }}>
-            <button onClick={() => signIn('github')} style={{ color: '#c4aa7e', background: 'none', border: '1px solid #2c2820', padding: '0.5rem 1.5rem', cursor: 'pointer' }}>
-                Sign in with GitHub
-            </button>
-        </div>
-    )
-    if (session?.user?.name !== AUTHORIZED_USER) return <p style={{ color: '#9e6b5a' }}>Not authorized.</p>
+        setActionError(null)
+        setRowBusy(post._id)
+
+        try {
+            const response = await fetch(`/api/artposts/${post.slug}`, {
+                method: 'DELETE',
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to delete art post')
+            }
+
+            await refresh()
+        } catch (err) {
+            setActionError(
+                err instanceof Error ? err.message : 'An unknown error occurred'
+            )
+        } finally {
+            setRowBusy(null)
+        }
+    }
+
+    if (status === 'loading') {
+        return <div className="container mx-auto px-4 py-8">Loading...</div>
+    }
+
+    if (status === 'unauthenticated') {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="mb-8 text-4xl font-bold">Manage Art</h1>
+                <p className="mb-4">Please sign in to manage art posts.</p>
+                <AuthButton />
+            </div>
+        )
+    }
+
+    if (session?.user?.name !== AUTHORIZED_USER) {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="mb-8 text-4xl font-bold">Manage Art</h1>
+                <p>You are not authorized to manage art posts.</p>
+                <AuthButton />
+            </div>
+        )
+    }
 
     return (
-        <div style={{ fontFamily: "'Courier Prime', monospace" }}>
-            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid #2c2820' }}>
-                <div>
-                    <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#6e6255' }}>art &amp; labs</p>
-                    <h1 style={{ color: '#c4aa7e', fontSize: '1.4rem', marginTop: '0.2rem' }}>Art Posts</h1>
-                </div>
-                <Link href="/x/artposts/create" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', color: '#c4aa7e', border: '1px solid #2c2820', padding: '0.4rem 1rem', textDecoration: 'none' }}>
-                    + New Art Post
+        <AdminShell
+            title="Manage Art"
+            actions={
+                <Link href="/x/artposts/create">
+                    <UKButton variant="primary">Create New Art Post</UKButton>
                 </Link>
-            </div>
-
-            {error && <p style={{ color: '#b88a7a', fontSize: '0.85rem', marginBottom: '1rem' }}>{error}</p>}
-
-            <div style={{ border: '1px solid #2c2820' }}>
-                {artPosts.length === 0 ? (
-                    <div style={{ padding: '3rem', textAlign: 'center' }}>
-                        <p style={{ color: '#4a4038', fontSize: '0.85rem', marginBottom: '1rem' }}>No art posts yet.</p>
-                        <Link href="/x/artposts/create" style={{ color: '#c4aa7e', fontSize: '0.8rem' }}>Create first art post →</Link>
-                    </div>
-                ) : artPosts.map((ap, i) => (
-                    <div
-                        key={ap._id}
-                        style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1rem', borderBottom: i < artPosts.length - 1 ? '1px solid #1e1c18' : 'none' }}
-                    >
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                            <p style={{ color: '#d4c9b4', fontSize: '0.9rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {ap.title}
-                            </p>
-                            <p style={{ color: '#4a4038', fontSize: '0.72rem', marginTop: '0.1rem' }}>{ap.slug}</p>
-                        </div>
-                        <span style={{ color: '#4a4038', fontSize: '0.72rem', flexShrink: 0 }}>
-                            {new Date(ap.publishedAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}
-                        </span>
-                        <div style={{ display: 'flex', gap: '0.75rem', flexShrink: 0 }}>
-                            <Link href={`/l/${ap.slug}`} target="_blank" style={{ color: '#4a4038', fontSize: '0.75rem', textDecoration: 'none' }}>↗</Link>
-                            <Link href={`/x/artposts/edit/${ap.slug}`} style={{ color: '#c4aa7e', fontSize: '0.75rem', textDecoration: 'none' }}>edit</Link>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
+            }
+        >
+            {actionError && <p className="mb-3 text-sm text-red-500">{actionError}</p>}
+            <ContentListPanel
+                title="Art posts"
+                isLoading={isLoading}
+                error={error}
+                isEmpty={artPosts.length === 0}
+                emptyText="No art posts yet."
+            >
+                <div className="space-y-3">
+                    {artPosts.map((post) => (
+                        <article
+                            key={post._id}
+                            className="flex flex-col justify-between gap-3 border border-[#2a2520] bg-[#14120f] p-3 lg:flex-row"
+                        >
+                            <div className="min-w-0 flex-1">
+                                <h3 className="truncate text-lg font-semibold text-neutral-100">
+                                    {post.title}
+                                </h3>
+                                <p className="mt-1 text-xs text-neutral-500">
+                                    {new Date(post.publishedAt).toLocaleDateString()}
+                                </p>
+                            </div>
+                            <RowQuickActions
+                                editHref={`/x/artposts/edit/${post.slug}`}
+                                disabled={rowBusy === post._id}
+                                onDelete={async () => deleteArtPost(post)}
+                            />
+                        </article>
+                    ))}
+                </div>
+            </ContentListPanel>
+        </AdminShell>
     )
 }

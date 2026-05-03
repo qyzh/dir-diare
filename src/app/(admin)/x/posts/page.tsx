@@ -1,123 +1,190 @@
 'use client'
+
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useSession, signIn } from 'next-auth/react'
+import { useMemo, useState } from 'react'
+import { useSession } from 'next-auth/react'
 import { Post } from '@/lib/posts'
+import UKButton from '@/components/ui/ukbtn'
 import { AUTHORIZED_USER } from '@/lib/constants'
+import AuthButton from '../_components/AuthButton'
+import AdminShell from '../_components/AdminShell'
+import ContentListPanel from '../_components/ContentListPanel'
+import RowQuickActions from '../_components/RowQuickActions'
+import { useAdminData } from '../_components/useAdminData'
 
-const badge = (published: boolean) => ({
-    fontSize: '0.6rem', letterSpacing: '0.08em', textTransform: 'uppercase' as const,
-    padding: '0.1rem 0.45rem', flexShrink: 0,
-    background: published ? 'rgba(100,160,100,0.12)' : 'rgba(160,100,80,0.12)',
-    color: published ? '#7ab87a' : '#b88a7a',
-    border: `1px solid ${published ? 'rgba(100,160,100,0.25)' : 'rgba(160,100,80,0.25)'}`,
-})
-
-export default function PostsPage() {
+export default function PostsManagePage() {
     const { data: session, status } = useSession()
-    const [posts, setPosts] = useState<Post[]>([])
-    const [loading, setLoading] = useState(true)
+    const { data: posts, isLoading, error, refresh } =
+        useAdminData<Post>('/api/posts')
     const [filter, setFilter] = useState<'all' | 'published' | 'draft'>('all')
+    const [rowBusy, setRowBusy] = useState<string | null>(null)
+    const [actionError, setActionError] = useState<string | null>(null)
 
-    useEffect(() => {
-        if (status === 'authenticated') {
-            fetch('/api/posts')
-                .then((r) => r.json())
-                .then((d) => { setPosts(d); setLoading(false) })
-                .catch(() => setLoading(false))
+    const filteredPosts = useMemo(() => {
+        if (filter === 'all') return posts
+        return posts.filter((post) => post.status === filter)
+    }, [filter, posts])
+
+    const mutateStatus = async (post: Post, nextStatus: 'draft' | 'published') => {
+        setActionError(null)
+        setRowBusy(post._id)
+
+        try {
+            const response = await fetch(`/api/posts/${post.slug}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: post.title,
+                    content: post.content,
+                    tags: post.tags || [],
+                    summary: post.summary || '',
+                    author: post.author,
+                    status: nextStatus,
+                }),
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to update post status')
+            }
+
+            await refresh()
+        } catch (err) {
+            setActionError(
+                err instanceof Error ? err.message : 'An unknown error occurred'
+            )
+        } finally {
+            setRowBusy(null)
         }
-    }, [status])
+    }
 
-    if (status === 'loading') return <p style={{ color: '#6e6255', fontFamily: 'Courier Prime, monospace' }}>loading...</p>
-    if (status === 'unauthenticated') return (
-        <div style={{ fontFamily: 'Courier Prime, monospace', paddingTop: '3rem', textAlign: 'center' }}>
-            <button onClick={() => signIn('github')} style={{ color: '#c4aa7e', background: 'none', border: '1px solid #2c2820', padding: '0.5rem 1.5rem', cursor: 'pointer' }}>
-                Sign in with GitHub
-            </button>
-        </div>
-    )
-    if (session?.user?.name !== AUTHORIZED_USER) return <p style={{ color: '#9e6b5a' }}>Not authorized.</p>
+    const deletePost = async (post: Post) => {
+        if (!window.confirm('Delete this post?')) return
 
-    const filtered = posts.filter((p) => filter === 'all' || p.status === filter)
-    const publishedCount = posts.filter((p) => p.status === 'published').length
-    const draftCount = posts.filter((p) => p.status === 'draft').length
+        setActionError(null)
+        setRowBusy(post._id)
+
+        try {
+            const response = await fetch(`/api/posts/${post.slug}`, {
+                method: 'DELETE',
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to delete post')
+            }
+
+            await refresh()
+        } catch (err) {
+            setActionError(
+                err instanceof Error ? err.message : 'An unknown error occurred'
+            )
+        } finally {
+            setRowBusy(null)
+        }
+    }
+
+    if (status === 'loading') {
+        return <div className="container mx-auto px-4 py-8">Loading...</div>
+    }
+
+    if (status === 'unauthenticated') {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="mb-8 text-4xl font-bold">Manage Posts</h1>
+                <p className="mb-4">Please sign in to manage posts.</p>
+                <AuthButton />
+            </div>
+        )
+    }
+
+    if (session?.user?.name !== AUTHORIZED_USER) {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="mb-8 text-4xl font-bold">Manage Posts</h1>
+                <p>You are not authorized to manage posts.</p>
+                <AuthButton />
+            </div>
+        )
+    }
 
     return (
-        <div style={{ fontFamily: "'Courier Prime', monospace" }}>
-            {/* Header */}
-            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid #2c2820' }}>
-                <div>
-                    <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#6e6255' }}>journal</p>
-                    <h1 style={{ color: '#c4aa7e', fontSize: '1.4rem', marginTop: '0.2rem' }}>Posts</h1>
-                </div>
-                <Link
-                    href="/x/posts/create"
-                    style={{ fontSize: '0.75rem', letterSpacing: '0.08em', color: '#c4aa7e', border: '1px solid #2c2820', padding: '0.4rem 1rem', textDecoration: 'none' }}
-                >
-                    + New Post
+        <AdminShell
+            title="Manage Posts"
+            actions={
+                <Link href="/x/posts/create">
+                    <UKButton variant="primary">Create New Post</UKButton>
                 </Link>
-            </div>
-
-            {/* Filters */}
-            <div style={{ display: 'flex', gap: '0.25rem', marginBottom: '1.5rem' }}>
-                {([['all', posts.length], ['published', publishedCount], ['draft', draftCount]] as const).map(([key, count]) => (
+            }
+        >
+            <div className="mb-4 flex flex-wrap gap-2">
+                {(['all', 'published', 'draft'] as const).map((value) => (
                     <button
-                        key={key}
-                        onClick={() => setFilter(key)}
-                        style={{
-                            fontSize: '0.7rem', letterSpacing: '0.1em', textTransform: 'uppercase',
-                            padding: '0.3rem 0.9rem', cursor: 'pointer', border: '1px solid',
-                            background: filter === key ? 'rgba(196,170,126,0.1)' : 'transparent',
-                            color: filter === key ? '#c4aa7e' : '#6e6255',
-                            borderColor: filter === key ? '#c4aa7e' : '#2c2820',
-                            transition: 'all 0.15s',
-                        }}
+                        key={value}
+                        onClick={() => setFilter(value)}
+                        className={`px-3 py-1.5 text-sm ${
+                            filter === value
+                                ? 'bg-[#1e1a14] text-neutral-100'
+                                : 'bg-[#151310] text-neutral-400 hover:text-neutral-200'
+                        }`}
                     >
-                        {key} ({count})
+                        {value === 'all'
+                            ? `All (${posts.length})`
+                            : `${value[0].toUpperCase()}${value.slice(1)} (${
+                                  posts.filter((p) => p.status === value).length
+                              })`}
                     </button>
                 ))}
             </div>
 
-            {/* List */}
-            <div style={{ border: '1px solid #2c2820' }}>
-                {loading ? (
-                    <p style={{ color: '#4a4038', padding: '1.5rem', fontSize: '0.85rem' }}>loading...</p>
-                ) : filtered.length === 0 ? (
-                    <div style={{ padding: '3rem', textAlign: 'center' }}>
-                        <p style={{ color: '#4a4038', marginBottom: '1rem', fontSize: '0.85rem' }}>No posts yet.</p>
-                        <Link href="/x/posts/create" style={{ color: '#c4aa7e', fontSize: '0.8rem' }}>Create first post →</Link>
-                    </div>
-                ) : (
-                    filtered.map((post, i) => (
-                        <div
+            {actionError && <p className="mb-3 text-sm text-red-500">{actionError}</p>}
+
+            <ContentListPanel
+                title="Posts"
+                isLoading={isLoading}
+                error={error}
+                isEmpty={filteredPosts.length === 0}
+                emptyText="No posts for this filter."
+            >
+                <div className="space-y-3">
+                    {filteredPosts.map((post) => (
+                        <article
                             key={post._id}
-                            style={{
-                                display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.875rem 1rem',
-                                borderBottom: i < filtered.length - 1 ? '1px solid #1e1c18' : 'none',
-                            }}
+                            className="flex flex-col justify-between gap-3 border border-[#2a2520] bg-[#14120f] p-3 lg:flex-row"
                         >
-                            <span style={badge(post.status === 'published')}>{post.status}</span>
-                            <div style={{ flex: 1, minWidth: 0 }}>
-                                <p style={{ color: '#d4c9b4', fontSize: '0.9rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                    {post.title}
-                                </p>
-                                {post.tags && post.tags.length > 0 && (
-                                    <p style={{ color: '#4a4038', fontSize: '0.72rem', marginTop: '0.15rem' }}>
-                                        {post.tags.slice(0, 4).join(' · ')}
+                            <div className="min-w-0 flex-1">
+                                <div className="mb-2 flex items-center gap-2">
+                                    <h3 className="truncate text-lg font-semibold text-neutral-100">
+                                        {post.title}
+                                    </h3>
+                                    <span className="text-xs text-[#c4aa7e]">
+                                        {post.status}
+                                    </span>
+                                </div>
+                                {post.summary && (
+                                    <p className="text-sm text-neutral-400">
+                                        {post.summary}
                                     </p>
                                 )}
                             </div>
-                            <span style={{ color: '#4a4038', fontSize: '0.72rem', flexShrink: 0 }}>
-                                {new Date(post.publishedAt).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}
-                            </span>
-                            <div style={{ display: 'flex', gap: '0.75rem', flexShrink: 0 }}>
-                                <Link href={`/w/${post.slug}`} target="_blank" style={{ color: '#4a4038', fontSize: '0.75rem', textDecoration: 'none' }}>↗</Link>
-                                <Link href={`/x/posts/edit/${post.slug}`} style={{ color: '#c4aa7e', fontSize: '0.75rem', textDecoration: 'none' }}>edit</Link>
-                            </div>
-                        </div>
-                    ))
-                )}
-            </div>
-        </div>
+
+                            <RowQuickActions
+                                editHref={`/x/posts/edit/${post.slug}`}
+                                disabled={rowBusy === post._id}
+                                onPublish={
+                                    post.status === 'draft'
+                                        ? async () => mutateStatus(post, 'published')
+                                        : undefined
+                                }
+                                onDraft={
+                                    post.status === 'published'
+                                        ? async () => mutateStatus(post, 'draft')
+                                        : undefined
+                                }
+                                onDelete={async () => deletePost(post)}
+                            />
+                        </article>
+                    ))}
+                </div>
+            </ContentListPanel>
+        </AdminShell>
     )
 }

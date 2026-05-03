@@ -154,7 +154,7 @@ const components = {
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
-            alignItems: 'left',
+            alignItems: 'flex-start',
             textAlign: 'left'
         }
 

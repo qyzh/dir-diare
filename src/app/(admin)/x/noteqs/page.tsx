@@ -1,74 +1,112 @@
 'use client'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
-import { useSession, signIn } from 'next-auth/react'
-import { AUTHORIZED_USER } from '@/lib/constants'
 
-interface noteQ { _id: string; date: string; note: string; author?: string; source?: string }
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
+import { noteQ } from '@/lib/noteq'
+import UKButton from '@/components/ui/ukbtn'
+import { AUTHORIZED_USER } from '@/lib/constants'
+import AuthButton from '../_components/AuthButton'
+import AdminShell from '../_components/AdminShell'
+import ContentListPanel from '../_components/ContentListPanel'
+import RowQuickActions from '../_components/RowQuickActions'
+import { useAdminData } from '../_components/useAdminData'
+import { useState } from 'react'
 
 export default function NoteQsPage() {
     const { data: session, status } = useSession()
-    const [notes, setNotes] = useState<noteQ[]>([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState<string | null>(null)
+    const { data: noteQs, isLoading, error, refresh } =
+        useAdminData<noteQ>('/api/noteqs')
+    const [rowBusy, setRowBusy] = useState<string | null>(null)
+    const [actionError, setActionError] = useState<string | null>(null)
 
-    useEffect(() => {
-        fetch('/api/noteqs')
-            .then((r) => r.json())
-            .then((d) => { setNotes(d); setLoading(false) })
-            .catch(() => { setError('Failed to fetch notes'); setLoading(false) })
-    }, [])
+    const deleteNote = async (note: noteQ) => {
+        if (!window.confirm('Delete this note?')) return
 
-    if (status === 'loading' || loading) return <p style={{ color: '#6e6255', fontFamily: 'Courier Prime, monospace' }}>loading...</p>
-    if (status === 'unauthenticated') return (
-        <div style={{ fontFamily: 'Courier Prime, monospace', paddingTop: '3rem', textAlign: 'center' }}>
-            <button onClick={() => signIn('github')} style={{ color: '#c4aa7e', background: 'none', border: '1px solid #2c2820', padding: '0.5rem 1.5rem', cursor: 'pointer' }}>
-                Sign in with GitHub
-            </button>
-        </div>
-    )
-    if (session?.user?.name !== AUTHORIZED_USER) return <p style={{ color: '#9e6b5a' }}>Not authorized.</p>
+        setActionError(null)
+        setRowBusy(note._id)
+        try {
+            const response = await fetch(`/api/noteqs/${note._id}`, {
+                method: 'DELETE',
+            })
+
+            if (!response.ok) {
+                throw new Error('Failed to delete note')
+            }
+
+            await refresh()
+        } catch (err) {
+            setActionError(
+                err instanceof Error ? err.message : 'An unknown error occurred'
+            )
+        } finally {
+            setRowBusy(null)
+        }
+    }
+
+    if (status === 'loading') {
+        return <div className="container mx-auto px-4 py-8">Loading...</div>
+    }
+
+    if (status === 'unauthenticated') {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="mb-8 text-4xl font-bold">Manage Notes</h1>
+                <p className="mb-4">Please sign in to manage notes.</p>
+                <AuthButton />
+            </div>
+        )
+    }
+
+    if (session?.user?.name !== AUTHORIZED_USER) {
+        return (
+            <div className="container mx-auto px-4 py-8">
+                <h1 className="mb-8 text-4xl font-bold">Manage Notes</h1>
+                <p>You are not authorized to manage notes.</p>
+                <AuthButton />
+            </div>
+        )
+    }
 
     return (
-        <div style={{ fontFamily: "'Courier Prime', monospace" }}>
-            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid #2c2820' }}>
-                <div>
-                    <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#6e6255' }}>quotes &amp; notes</p>
-                    <h1 style={{ color: '#c4aa7e', fontSize: '1.4rem', marginTop: '0.2rem' }}>Notes</h1>
-                </div>
-                <Link href="/x/noteqs/create" style={{ fontSize: '0.75rem', letterSpacing: '0.08em', color: '#c4aa7e', border: '1px solid #2c2820', padding: '0.4rem 1rem', textDecoration: 'none' }}>
-                    + New Note
+        <AdminShell
+            title="Manage Notes"
+            actions={
+                <Link href="/x/noteqs/create">
+                    <UKButton variant="primary">Create New Note</UKButton>
                 </Link>
-            </div>
-
-            {error && <p style={{ color: '#b88a7a', fontSize: '0.85rem', marginBottom: '1rem' }}>{error}</p>}
-
-            <div style={{ border: '1px solid #2c2820' }}>
-                {notes.length === 0 ? (
-                    <div style={{ padding: '3rem', textAlign: 'center' }}>
-                        <p style={{ color: '#4a4038', fontSize: '0.85rem', marginBottom: '1rem' }}>No notes yet.</p>
-                        <Link href="/x/noteqs/create" style={{ color: '#c4aa7e', fontSize: '0.8rem' }}>Create first note →</Link>
-                    </div>
-                ) : notes.map((note, i) => (
-                    <div
-                        key={note._id}
-                        style={{ display: 'flex', alignItems: 'flex-start', gap: '1rem', padding: '0.875rem 1rem', borderBottom: i < notes.length - 1 ? '1px solid #1e1c18' : 'none' }}
-                    >
-                        <span style={{ color: '#4a4038', fontSize: '0.72rem', flexShrink: 0, paddingTop: '0.15rem', minWidth: '5rem' }}>
-                            {new Date(note.date).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: '2-digit' })}
-                        </span>
-                        <div style={{ flex: 1, minWidth: 0 }}>
-                            <p style={{ color: '#d4c9b4', fontSize: '0.875rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                                {note.note.substring(0, 100)}
-                            </p>
-                            {note.author && (
-                                <p style={{ color: '#4a4038', fontSize: '0.72rem', marginTop: '0.15rem' }}>— {note.author}{note.source ? `, ${note.source}` : ''}</p>
-                            )}
-                        </div>
-                        <Link href={`/x/noteqs/edit/${note._id}`} style={{ color: '#c4aa7e', fontSize: '0.75rem', textDecoration: 'none', flexShrink: 0 }}>edit</Link>
-                    </div>
-                ))}
-            </div>
-        </div>
+            }
+        >
+            {actionError && <p className="mb-3 text-sm text-red-500">{actionError}</p>}
+            <ContentListPanel
+                title="Notes"
+                isLoading={isLoading}
+                error={error}
+                isEmpty={noteQs.length === 0}
+                emptyText="No notes yet."
+            >
+                <div className="space-y-3">
+                    {noteQs.map((note) => (
+                        <article
+                            key={note._id}
+                            className="flex flex-col justify-between gap-3 border border-[#2a2520] bg-[#14120f] p-3 lg:flex-row"
+                        >
+                            <div className="min-w-0 flex-1">
+                                <p className="text-sm text-neutral-200">
+                                    {note.note.slice(0, 140)}
+                                </p>
+                                <p className="mt-1 text-xs text-neutral-500">
+                                    {new Date(note.date).toLocaleDateString()}
+                                </p>
+                            </div>
+                            <RowQuickActions
+                                editHref={`/x/noteqs/edit/${note._id}`}
+                                disabled={rowBusy === note._id}
+                                onDelete={async () => deleteNote(note)}
+                            />
+                        </article>
+                    ))}
+                </div>
+            </ContentListPanel>
+        </AdminShell>
     )
 }
