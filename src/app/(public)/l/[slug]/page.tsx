@@ -8,6 +8,9 @@ export async function generateStaticParams() {
     return posts.map((post) => ({ slug: post.slug }))
 }
 
+export const dynamicParams = true
+export const revalidate = 3600
+
 export async function generateMetadata({
     params,
 }: {
@@ -63,4 +66,3 @@ export default async function ArtPost({
 
     return <PostRenderer post={post} type="art" />
 }
-

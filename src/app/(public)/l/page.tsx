@@ -8,6 +8,8 @@ export const metadata: Metadata = {
     description: 'A collection of recent things crafted, worked on, or tried for fun.',
 }
 
+export const revalidate = 3600
+
 export default async function Page() {
     const posts = await getAllArtPosts()
     const [featured, ...rest] = posts
