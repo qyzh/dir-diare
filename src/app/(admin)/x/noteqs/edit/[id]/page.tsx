@@ -2,17 +2,15 @@
 
 import { useState, useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession, signIn } from 'next-auth/react'
 import AdminShell from '../../../_components/AdminShell'
 import UKButton from '@/components/ui/ukbtn'
-import { AUTHORIZED_USER } from '@/lib/constants'
+import { inputClassName, labelClassName } from '../../../_components/formStyles'
 
 export default function EditNoteQPage({
     params,
 }: {
     params: Promise<{ id: string }>
 }) {
-    const { data: session, status: sessionStatus } = useSession()
     const { id } = use(params)
     const router = useRouter()
 
@@ -77,108 +75,80 @@ export default function EditNoteQPage({
         }
     }
 
-    if (sessionStatus === 'loading' || loading) {
-        return (
-            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#6e6255]">
-                loading...
-            </div>
-        )
-    }
-
-    if (sessionStatus === 'unauthenticated') {
-        return (
-            <div className="flex h-screen flex-col items-center justify-center bg-[#14120f] p-8 text-center font-mono">
-                <p className="mb-4 text-[#6e6255]">Please sign in to continue</p>
-                <UKButton onClick={() => signIn('github')}>
-                    Sign in with GitHub
-                </UKButton>
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== AUTHORIZED_USER) {
-        return (
-            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#9e6b5a]">
-                Not authorized.
-            </div>
-        )
-    }
-
-    const inputClassName =
-        'w-full bg-[#1a1713] border border-[#2a2520] text-neutral-100 px-3 py-2 text-sm focus:outline-none focus:border-[#c4aa7e] transition-colors'
-    const labelClassName =
-        'block text-xs uppercase tracking-widest text-[#6e6255] mb-1.5'
-
     return (
         <AdminShell title="Edit Note">
-            <form onSubmit={handleSubmit} className="max-w-4xl space-y-6 font-mono">
-                <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
-                    <div className="space-y-6">
-                        <div>
-                            <label className={labelClassName}>Note Content</label>
-                            <textarea
-                                className={inputClassName}
-                                rows={8}
-                                value={note}
-                                onChange={(e) => setNote(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {loading ? (
+                <p className="text-[#6e6255] font-mono">Loading note...</p>
+            ) : (
+                <form onSubmit={handleSubmit} className="max-w-4xl space-y-6">
+                    <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
+                        <div className="space-y-6">
                             <div>
-                                <label className={labelClassName}>Author</label>
-                                <input
+                                <label className={labelClassName}>Note Content</label>
+                                <textarea
                                     className={inputClassName}
-                                    value={author}
-                                    onChange={(e) => setAuthor(e.target.value)}
+                                    rows={8}
+                                    value={note}
+                                    onChange={(e) => setNote(e.target.value)}
+                                    required
                                 />
                             </div>
+
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div>
+                                    <label className={labelClassName}>Author</label>
+                                    <input
+                                        className={inputClassName}
+                                        value={author}
+                                        onChange={(e) => setAuthor(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>Source</label>
+                                    <input
+                                        className={inputClassName}
+                                        value={source}
+                                        onChange={(e) => setSource(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+
                             <div>
-                                <label className={labelClassName}>Source</label>
+                                <label className={labelClassName}>Date</label>
                                 <input
                                     className={inputClassName}
-                                    value={source}
-                                    onChange={(e) => setSource(e.target.value)}
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    required
                                 />
                             </div>
                         </div>
+                    </section>
 
-                        <div>
-                            <label className={labelClassName}>Date</label>
-                            <input
-                                className={inputClassName}
-                                value={date}
-                                onChange={(e) => setDate(e.target.value)}
-                                required
-                            />
-                        </div>
+                    {error && <p className="text-sm text-[#b88a7a] font-mono">{error}</p>}
+
+                    <div className="flex items-center gap-4">
+                        <UKButton type="submit" disabled={submitting}>
+                            {submitting ? 'Saving...' : 'Save Changes'}
+                        </UKButton>
+                        <button
+                            type="button"
+                            onClick={() => router.push('/x/noteqs')}
+                            className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors font-mono"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleDelete}
+                            disabled={submitting}
+                            className="ml-auto text-sm text-[#9e6b5a] hover:text-red-400 transition-colors font-mono"
+                        >
+                            Delete
+                        </button>
                     </div>
-                </section>
-
-                {error && <p className="text-sm text-[#b88a7a]">{error}</p>}
-
-                <div className="flex items-center gap-4">
-                    <UKButton type="submit" disabled={submitting}>
-                        {submitting ? 'Saving...' : 'Save Changes'}
-                    </UKButton>
-                    <button
-                        type="button"
-                        onClick={() => router.push('/x/noteqs')}
-                        className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
-                    >
-                        Cancel
-                    </button>
-                    <button
-                        type="button"
-                        onClick={handleDelete}
-                        disabled={submitting}
-                        className="ml-auto text-sm text-[#9e6b5a] hover:text-red-400 transition-colors"
-                    >
-                        Delete
-                    </button>
-                </div>
-            </form>
+                </form>
+            )}
         </AdminShell>
     )
 }

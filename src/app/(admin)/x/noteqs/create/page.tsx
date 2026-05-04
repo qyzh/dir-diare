@@ -2,13 +2,12 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession, signIn } from 'next-auth/react'
 import AdminShell from '../../_components/AdminShell'
 import UKButton from '@/components/ui/ukbtn'
 import { AUTHORIZED_USER } from '@/lib/constants'
+import { inputClassName, labelClassName } from '../../_components/formStyles'
 
 export default function CreateNoteQPage() {
-    const { data: session, status } = useSession()
     const router = useRouter()
     const [date, setDate] = useState('')
     const [note, setNote] = useState('')
@@ -41,41 +40,9 @@ export default function CreateNoteQPage() {
         }
     }
 
-    if (status === 'loading') {
-        return (
-            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#6e6255]">
-                loading...
-            </div>
-        )
-    }
-
-    if (status === 'unauthenticated') {
-        return (
-            <div className="flex h-screen flex-col items-center justify-center bg-[#14120f] p-8 text-center font-mono">
-                <p className="mb-4 text-[#6e6255]">Please sign in to continue</p>
-                <UKButton onClick={() => signIn('github')}>
-                    Sign in with GitHub
-                </UKButton>
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== AUTHORIZED_USER) {
-        return (
-            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#9e6b5a]">
-                Not authorized.
-            </div>
-        )
-    }
-
-    const inputClassName =
-        'w-full bg-[#1a1713] border border-[#2a2520] text-neutral-100 px-3 py-2 text-sm focus:outline-none focus:border-[#c4aa7e] transition-colors'
-    const labelClassName =
-        'block text-xs uppercase tracking-widest text-[#6e6255] mb-1.5'
-
     return (
         <AdminShell title="New Note">
-            <form onSubmit={handleSubmit} className="max-w-4xl space-y-6 font-mono">
+            <form onSubmit={handleSubmit} className="max-w-4xl space-y-6">
                 <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
                     <div className="space-y-6">
                         <div>
@@ -112,9 +79,7 @@ export default function CreateNoteQPage() {
                         </div>
 
                         <div>
-                            <label className={labelClassName}>
-                                Date (Optional)
-                            </label>
+                            <label className={labelClassName}>Date (Optional)</label>
                             <input
                                 className={inputClassName}
                                 value={date}
@@ -125,7 +90,7 @@ export default function CreateNoteQPage() {
                     </div>
                 </section>
 
-                {error && <p className="text-sm text-[#b88a7a]">{error}</p>}
+                {error && <p className="text-sm text-[#b88a7a] font-mono">{error}</p>}
 
                 <div className="flex items-center gap-4">
                     <UKButton type="submit" disabled={submitting}>
@@ -134,7 +99,7 @@ export default function CreateNoteQPage() {
                     <button
                         type="button"
                         onClick={() => router.push('/x/noteqs')}
-                        className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
+                        className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors font-mono"
                     >
                         Cancel
                     </button>
