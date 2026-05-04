@@ -1,7 +1,6 @@
 'use client'
 
 import { ReactNode } from 'react'
-import Breadcrumbs from '@/components/breadcrumbs'
 import AuthButton from './AuthButton'
 import AdminSidebar from './AdminSidebar'
 
@@ -17,7 +16,6 @@ export default function AdminShell({ title, actions, children }: AdminShellProps
             <div className="mx-auto flex max-w-7xl">
                 <AdminSidebar />
                 <main className="min-w-0 flex-1 p-6 md:p-8 lg:px-12">
-                    <Breadcrumbs />
                     <div className="mb-8 mt-4 flex items-center justify-between gap-4 border-b border-[#2a2520] pb-4">
                         <h1 className="text-2xl text-[#c4aa7e]">{title}</h1>
                         <div className="flex items-center gap-4">

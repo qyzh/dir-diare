@@ -1,6 +1,5 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { useMDXComponents } from '../../mdx-components'
-import CopyUrlButton from './copyurl'
 import { formatDate } from '@/lib/utils'
 import Image from 'next/image'
 import ArticleProgress from './article-progress'
@@ -9,6 +8,7 @@ import remarkGfm from 'remark-gfm'
 import remarkFrontmatter from 'remark-frontmatter'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import Footer from './footer'
 
 const components = useMDXComponents()
 export default function PostRenderer({
@@ -109,27 +109,14 @@ export default function PostRenderer({
             </div>
 
             {/* Footer */}
-            <footer className="journal-article-footer">
-              <div className="journal-article-footer-inner">
-                {tags.length > 0 && (
-                  <div className="journal-article-tags">
-                    {tags.map((tag) => (
-                      <span key={tag} className="journal-article-tag">{tag}</span>
-                    ))}
-                  </div>
-                )}
-                <div className="journal-article-footer-row">
-                  <Link href="/l" className="journal-article-back">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z" /></svg>
-                    Back to Art
-                  </Link>
-                  <CopyUrlButton url={`https://dir.kyxis.my.id/l/${post.slug}`} />
-                </div>
-                <p className="journal-article-colophon" style={{ marginTop: '1.5rem' }}>
-                  Written by qyzh · {formattedDate}
-                </p>
-              </div>
-            </footer>
+            <Footer
+              variant="writing"
+              backHref="/l"
+              backLabel="Back to Art"
+              tags={tags}
+              publishedAt={formattedDate}
+              copyUrl={`https://dir.kyxis.my.id/l/${post.slug}`}
+            />
 
           </div>
         </main>
@@ -192,27 +179,11 @@ export default function PostRenderer({
           </div>
 
           {/* Footer */}
-          <footer className="journal-article-footer">
-            <div className="journal-article-footer-inner">
-              {tags.length > 0 && (
-                <div className="journal-article-tags">
-                  {tags.map((tag) => (
-                    <span key={tag} className="journal-article-tag">{tag}</span>
-                  ))}
-                </div>
-              )}
-              <div className="journal-article-footer-row">
-                <Link href="/w" className="journal-article-back">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z" /></svg>
-                  Back to Journal
-                </Link>
-                <CopyUrlButton url={`https://dir.kyxis.my.id/w/${post.slug}`} />
-              </div>
-              <p className="journal-article-colophon" style={{ marginTop: '1.5rem' }}>
-                Written by qyzh · {formattedDate}
-              </p>
-            </div>
-          </footer>
+          <Footer
+            variant="writing"
+            tags={tags}
+            copyUrl={`https://dir.kyxis.my.id/w/${post.slug}`}
+          />
 
         </div>
       </main>

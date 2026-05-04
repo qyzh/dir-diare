@@ -1,24 +1,33 @@
 import Link from 'next/link'
-
+import CopyUrlButton from './copyurl'
 
 interface FooterProps {
     /** 'default' — full nav footer used on landing / section pages
-     *  'article' — minimal colophon used inside journal articles */
-    variant?: 'default' | 'article'
+     *  'writing' — minimal colophon used inside journal articles */
+    variant?: 'default' | 'writing'
     /** Optional published date string (used in article variant) */
     publishedAt?: string
     /** Optional tags (used in article variant) */
     tags?: string[]
+    /** Back link href (writing variant, default '/w') */
+    backHref?: string
+    /** Back link label (writing variant, default 'back to journal') */
+    backLabel?: string
+    /** If set, renders a CopyUrlButton after the back link */
+    copyUrl?: string
 }
 
 export default function Footer({
     variant = 'default',
     publishedAt,
     tags,
+    backHref = '/w',
+    backLabel = 'back to journal',
+    copyUrl,
 }: FooterProps) {
     const year = new Date().getFullYear()
 
-    if (variant === 'article') {
+    if (variant === 'writing') {
         return (
             <footer className="journal-article-footer" role="contentinfo">
                 <div className="journal-article-footer-inner">
@@ -32,7 +41,7 @@ export default function Footer({
                         </div>
                     )}
                     <div className="journal-article-footer-row">
-                        <Link href="/w" className="journal-article-back">
+                        <Link href={backHref} className="journal-article-back">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="14"
@@ -43,14 +52,15 @@ export default function Footer({
                             >
                                 <path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z" />
                             </svg>
-                            back to journal
+                            {backLabel}
                         </Link>
-                        <span className="journal-article-colophon">
-                            {publishedAt
-                                ? `written ${publishedAt}`
-                                : `dir-diare · ${year}`}
-                        </span>
+                        {copyUrl && <CopyUrlButton url={copyUrl} />}
                     </div>
+                    <span className="journal-article-colophon">
+                        {publishedAt
+                            ? `written ${publishedAt}`
+                            : `dir-diare · ${year}`}
+                    </span>
                 </div>
             </footer>
         )

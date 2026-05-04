@@ -1,7 +1,8 @@
 "use client"
 import { useState } from 'react'
 import Button from './ui/ukbtn'
-import { Link } from 'lucide-react'
+import { Copy } from 'pixelarticons/react'
+
 export default function CopyUrlButton({ url }: { url: string }) {
   const [copied, setCopied] = useState(false)
 
@@ -19,10 +20,10 @@ export default function CopyUrlButton({ url }: { url: string }) {
       variant='primary'
       size='sm'
       onClick={copyToClipboard}
-      className="ml-2 px-2 py-1 "
+      className="ml-2 px-2 py-1"
     >
-      <Link className="w-3 h-3" />
-      {copied && <span className='text-xs pl-0.5'>Copied!</span>}
+      <Copy className="w-4 h-4" />
+      <span className='text-xs pl-0.5'>{copied ? 'Copied!' : ' '}</span>
     </Button>
   )
 }

@@ -16,8 +16,15 @@ export default async function Page() {
         <main>
             <div className="page-header">
                 <Link href="/" className="page-back">
-                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                        <path d="M9 2L4 7l5 5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                    >
+                        <path d="M15 17h-2v-2h-2v-2H9v-2h2V9h2V7h2v10Z" />
                     </svg>
                     dir-diare
                 </Link>
@@ -34,7 +41,8 @@ export default async function Page() {
                             {featured.summary && (
                                 <p className="project-featured-desc">{featured.summary}</p>
                             )}
-                            <span className="project-link">View →</span>
+                            <span className="project-link inline">View <svg xmlns="http://www.w3.org/2000/svg" width="14"
+                                height="14" fill="currentColor" viewBox="0 0 24 24" ><path d="M4 11v2h16v-2zm12 2v2h2v-2zm-2 2v2h2v-2zm-2 2v2h2v-2zm4-6V9h2v2z" /><path d="M14 15V7h2v8zm-2 2V5h2v12z" /></svg></span>
                         </div>
                         {featured.image && (
                             <img
