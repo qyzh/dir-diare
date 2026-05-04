@@ -43,14 +43,14 @@ export default function AdminShell({ title, actions, children }: AdminShellProps
 
     return (
         <div className="min-h-screen bg-[#14120f] text-[#d4c9b4] font-mono selection:bg-[#c4aa7e] selection:text-[#14120f]">
-            <div className="mx-auto flex max-w-7xl">
+            <div className="mx-auto flex max-w-7xl flex-col md:flex-row">
                 <AdminSidebar />
-                <main className="min-w-0 flex-1 p-6 md:p-8 lg:px-12">
-                    <div className="mb-8 mt-4 flex items-center justify-between gap-4 border-b border-[#2a2520] pb-4">
-                        <h1 className="text-2xl text-[#c4aa7e] font-[family-name:var(--font-tinos)]">
+                <main className="min-w-0 flex-1 p-4 md:p-8 lg:px-12">
+                    <div className="mb-6 mt-2 flex flex-wrap items-start justify-between gap-3 border-b border-[#2a2520] pb-4 md:mb-8 md:mt-4 md:items-center">
+                        <h1 className="text-xl text-[#c4aa7e] font-[family-name:var(--font-tinos)] md:text-2xl">
                             {title}
                         </h1>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                             {actions}
                             <AuthButton />
                         </div>
