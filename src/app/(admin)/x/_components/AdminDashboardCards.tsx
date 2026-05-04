@@ -42,7 +42,7 @@ export default function AdminDashboardCards({
                     <p className="text-xs uppercase tracking-widest text-[#6e6255]">
                         {card.label}
                     </p>
-                    <p className="mt-2 text-3xl text-[#c4aa7e]">
+                    <p className="mt-2 text-3xl text-[#c4aa7e] font-[family-name:var(--font-tinos)]">
                         {card.count}
                     </p>
                     <div className="mt-5 flex items-center gap-4 text-xs uppercase tracking-wider">

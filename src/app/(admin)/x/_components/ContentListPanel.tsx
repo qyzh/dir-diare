@@ -22,7 +22,7 @@ export default function ContentListPanel({
     return (
         <section className="border border-[#2a2520] bg-[#1a1713] p-6">
             <div className="mb-6 flex items-center justify-between gap-4">
-                <h2 className="text-xs uppercase tracking-widest text-[#c4aa7e]">{title}</h2>
+                <h2 className="text-xs uppercase tracking-widest text-[#c4aa7e] font-mono">{title}</h2>
                 {actions}
             </div>
 

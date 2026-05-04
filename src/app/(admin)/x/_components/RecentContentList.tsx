@@ -38,7 +38,7 @@ export default function RecentContentList({
                             key={item.id}
                             className="flex items-center justify-between border-b border-[#2a2520] pb-2 last:border-0 last:pb-0"
                         >
-                            <p className="truncate pr-4 text-sm text-[#d4c9b4]">
+                            <p className="truncate pr-4 text-sm text-[#d4c9b4] font-[family-name:var(--font-tinos)]">
                                 {item.label}
                             </p>
                             <Link
