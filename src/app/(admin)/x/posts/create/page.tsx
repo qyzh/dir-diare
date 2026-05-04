@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession, signIn } from 'next-auth/react'
 import AdminShell from '../../_components/AdminShell'
 import MarkdownEditor from '../../_components/MarkdownEditor'
 import UKButton from '@/components/ui/ukbtn'
 import { AUTHORIZED_USER } from '@/lib/constants'
+import { inputClassName, labelClassName } from '../../_components/formStyles'
 
 export default function CreatePostPage() {
-    const { data: session, status } = useSession()
     const [title, setTitle] = useState('')
     const [tags, setTags] = useState('')
     const [content, setContent] = useState('')
@@ -58,50 +57,15 @@ export default function CreatePostPage() {
         }
     }
 
-    if (status === 'loading') {
-        return (
-            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#6e6255]">
-                loading...
-            </div>
-        )
-    }
-
-    if (status === 'unauthenticated') {
-        return (
-            <div className="flex h-screen flex-col items-center justify-center bg-[#14120f] p-8 text-center font-mono">
-                <p className="mb-4 text-[#6e6255]">Please sign in to continue</p>
-                <UKButton onClick={() => signIn('github')}>
-                    Sign in with GitHub
-                </UKButton>
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== AUTHORIZED_USER) {
-        return (
-            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#9e6b5a]">
-                Not authorized.
-            </div>
-        )
-    }
-
-    const inputClassName =
-        'w-full bg-[#1a1713] border border-[#2a2520] text-neutral-100 px-3 py-2 text-sm focus:outline-none focus:border-[#c4aa7e] transition-colors'
-    const labelClassName =
-        'block text-xs uppercase tracking-widest text-[#6e6255] mb-1.5'
-
     return (
         <AdminShell title="Create New Post">
             <form onSubmit={handleSubmit} className="max-w-5xl space-y-6">
                 <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-                    {/* Main Content */}
                     <div className="space-y-6 lg:col-span-2">
                         <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
                             <div className="space-y-4">
                                 <div>
-                                    <label className={labelClassName}>
-                                        Title
-                                    </label>
+                                    <label className={labelClassName}>Title</label>
                                     <input
                                         type="text"
                                         value={title}
@@ -112,9 +76,7 @@ export default function CreatePostPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className={labelClassName}>
-                                        Content (Markdown)
-                                    </label>
+                                    <label className={labelClassName}>Content (Markdown)</label>
                                     <MarkdownEditor
                                         value={content}
                                         onChange={setContent}
@@ -126,44 +88,31 @@ export default function CreatePostPage() {
                         </section>
                     </div>
 
-                    {/* Sidebar / Meta */}
                     <div className="space-y-6">
                         <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
                             <div className="space-y-4">
                                 <div>
-                                    <label className={labelClassName}>
-                                        Status
-                                    </label>
+                                    <label className={labelClassName}>Status</label>
                                     <select
                                         value={postStatus}
-                                        onChange={(e) =>
-                                            setPostStatus(e.target.value)
-                                        }
+                                        onChange={(e) => setPostStatus(e.target.value)}
                                         className={inputClassName}
                                     >
                                         <option value="draft">Draft</option>
-                                        <option value="published">
-                                            Published
-                                        </option>
+                                        <option value="published">Published</option>
                                     </select>
                                 </div>
                                 <div>
-                                    <label className={labelClassName}>
-                                        Author
-                                    </label>
+                                    <label className={labelClassName}>Author</label>
                                     <input
                                         type="text"
                                         value={author}
-                                        onChange={(e) =>
-                                            setAuthor(e.target.value)
-                                        }
+                                        onChange={(e) => setAuthor(e.target.value)}
                                         className={inputClassName}
                                     />
                                 </div>
                                 <div>
-                                    <label className={labelClassName}>
-                                        Tags
-                                    </label>
+                                    <label className={labelClassName}>Tags</label>
                                     <input
                                         type="text"
                                         value={tags}
@@ -173,15 +122,11 @@ export default function CreatePostPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className={labelClassName}>
-                                        Summary
-                                    </label>
+                                    <label className={labelClassName}>Summary</label>
                                     <textarea
                                         rows={4}
                                         value={summary}
-                                        onChange={(e) =>
-                                            setSummary(e.target.value)
-                                        }
+                                        onChange={(e) => setSummary(e.target.value)}
                                         className={inputClassName}
                                         placeholder="Brief summary..."
                                     />
@@ -196,7 +141,7 @@ export default function CreatePostPage() {
                             <button
                                 type="button"
                                 onClick={() => router.push('/x/posts')}
-                                className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
+                                className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors font-mono"
                             >
                                 Cancel
                             </button>
@@ -204,7 +149,7 @@ export default function CreatePostPage() {
                     </div>
                 </div>
 
-                {error && <p className="text-sm text-red-500">{error}</p>}
+                {error && <p className="text-sm text-red-500 font-mono">{error}</p>}
             </form>
         </AdminShell>
     )
