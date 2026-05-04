@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { type ChangeEvent, useRef, useState } from 'react'
 
 interface MarkdownEditorProps {
     value: string
@@ -58,6 +58,78 @@ function renderMarkdownPreview(md: string): string {
 
 export default function MarkdownEditor({ value, onChange, rows = 24, required, placeholder }: MarkdownEditorProps) {
     const [tab, setTab] = useState<'write' | 'preview'>('write')
+    const [isUploadingImage, setIsUploadingImage] = useState(false)
+    const [uploadError, setUploadError] = useState<string | null>(null)
+    const textareaRef = useRef<HTMLTextAreaElement | null>(null)
+    const fileInputRef = useRef<HTMLInputElement | null>(null)
+
+    const insertAtCursor = (snippet: string) => {
+        const textarea = textareaRef.current
+        if (!textarea) {
+            const suffix = value.endsWith('\n') ? '' : '\n'
+            onChange(`${value}${suffix}${snippet}\n`)
+            return
+        }
+
+        const start = textarea.selectionStart
+        const end = textarea.selectionEnd
+        const before = value.slice(0, start)
+        const after = value.slice(end)
+        const nextValue = `${before}${snippet}${after}`
+
+        onChange(nextValue)
+        setTab('write')
+
+        const nextPosition = start + snippet.length
+        requestAnimationFrame(() => {
+            textarea.focus()
+            textarea.setSelectionRange(nextPosition, nextPosition)
+        })
+    }
+
+    const uploadImage = async (file: File) => {
+        if (!file) {
+            return
+        }
+
+        setIsUploadingImage(true)
+        setUploadError(null)
+
+        try {
+            const formData = new FormData()
+            formData.append('file', file)
+
+            const response = await fetch('/api/images', {
+                method: 'POST',
+                body: formData,
+            })
+
+            const payload = await response.json()
+            if (!response.ok) {
+                throw new Error(payload?.error || 'Failed to upload image')
+            }
+
+            const markdownSnippet = `\n\n![${file.name}](${payload.url})\n\n`
+            insertAtCursor(markdownSnippet)
+        } catch (error) {
+            setUploadError(
+                error instanceof Error ? error.message : 'Unknown upload error'
+            )
+        } finally {
+            setIsUploadingImage(false)
+            if (fileInputRef.current) {
+                fileInputRef.current.value = ''
+            }
+        }
+    }
+
+    const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0]
+        if (!selectedFile) {
+            return
+        }
+        uploadImage(selectedFile)
+    }
 
     const tabStyle = (active: boolean) => ({
         padding: '0.4rem 1rem',
@@ -85,6 +157,18 @@ export default function MarkdownEditor({ value, onChange, rows = 24, required, p
                 <button type="button" style={tabStyle(tab === 'preview')} onClick={() => setTab('preview')}>
                     Preview
                 </button>
+                <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={isUploadingImage}
+                    style={{
+                        ...tabStyle(false),
+                        color: '#8a7c6c',
+                        opacity: isUploadingImage ? 0.6 : 1,
+                    }}
+                >
+                    {isUploadingImage ? 'Uploading...' : 'Upload image'}
+                </button>
                 <span
                     className="ml-auto text-xs"
                     style={{ color: '#4a4038', paddingRight: '0.75rem' }}
@@ -92,10 +176,18 @@ export default function MarkdownEditor({ value, onChange, rows = 24, required, p
                     markdown
                 </span>
             </div>
+            <input
+                ref={fileInputRef}
+                type="file"
+                accept="image/jpeg,image/png,image/webp,image/gif"
+                onChange={handleFileChange}
+                className="hidden"
+            />
 
             {/* Write */}
             {tab === 'write' && (
                 <textarea
+                    ref={textareaRef}
                     value={value}
                     onChange={(e) => onChange(e.target.value)}
                     rows={rows}
@@ -115,6 +207,18 @@ export default function MarkdownEditor({ value, onChange, rows = 24, required, p
                         display: 'block',
                     }}
                 />
+            )}
+            {uploadError && (
+                <p
+                    style={{
+                        color: '#c07070',
+                        fontSize: '0.75rem',
+                        margin: '0.75rem 1rem 0',
+                        fontFamily: "'Courier Prime', monospace",
+                    }}
+                >
+                    {uploadError}
+                </p>
             )}
 
             {/* Preview */}

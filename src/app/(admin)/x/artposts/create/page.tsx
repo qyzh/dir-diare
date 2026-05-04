@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { type ChangeEvent, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import AdminShell from '../../_components/AdminShell'
 import MarkdownEditor from '../../_components/MarkdownEditor'
@@ -17,8 +17,11 @@ export default function CreateArtPostPage() {
     const [author, setAuthor] = useState(AUTHORIZED_USER)
     const [image, setImage] = useState('')
     const [publishedAt, setPublishedAt] = useState('')
+    const [isUploadingImage, setIsUploadingImage] = useState(false)
+    const [imageUploadError, setImageUploadError] = useState<string | null>(null)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
+    const imageFileInputRef = useRef<HTMLInputElement | null>(null)
     const router = useRouter()
 
     useEffect(() => {
@@ -59,6 +62,46 @@ export default function CreateArtPostPage() {
         } finally {
             setIsLoading(false)
         }
+    }
+
+    const uploadImage = async (file: File) => {
+        setIsUploadingImage(true)
+        setImageUploadError(null)
+
+        try {
+            const formData = new FormData()
+            formData.append('file', file)
+
+            const response = await fetch('/api/images', {
+                method: 'POST',
+                body: formData,
+            })
+            const payload = await response.json()
+
+            if (!response.ok) {
+                throw new Error(payload?.error || 'Failed to upload image')
+            }
+
+            setImage(payload.url)
+        } catch (err) {
+            setImageUploadError(
+                err instanceof Error ? err.message : 'An unknown error occurred'
+            )
+        } finally {
+            setIsUploadingImage(false)
+            if (imageFileInputRef.current) {
+                imageFileInputRef.current.value = ''
+            }
+        }
+    }
+
+    const handleImageFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = event.target.files?.[0]
+        if (!selectedFile) {
+            return
+        }
+
+        uploadImage(selectedFile)
     }
 
     return (
@@ -115,6 +158,28 @@ export default function CreateArtPostPage() {
                                         className={inputClassName}
                                         placeholder="/images/art/..."
                                     />
+                                    <input
+                                        ref={imageFileInputRef}
+                                        type="file"
+                                        accept="image/jpeg,image/png,image/webp,image/gif"
+                                        onChange={handleImageFileChange}
+                                        className="hidden"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => imageFileInputRef.current?.click()}
+                                        disabled={isUploadingImage}
+                                        className="mt-2 text-xs text-[#8a7c6c] hover:text-[#c4aa7e] transition-colors font-mono disabled:opacity-60"
+                                    >
+                                        {isUploadingImage
+                                            ? 'Uploading image...'
+                                            : 'Upload image to MongoDB'}
+                                    </button>
+                                    {imageUploadError && (
+                                        <p className="mt-2 text-xs text-red-500 font-mono">
+                                            {imageUploadError}
+                                        </p>
+                                    )}
                                 </div>
                                 <div>
                                     <label className={labelClassName}>Author</label>
