@@ -1,18 +1,19 @@
 'use client'
+
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession, signIn, signOut } from 'next-auth/react'
+import AdminShell from '../../_components/AdminShell'
+import MarkdownEditor from '../../_components/MarkdownEditor'
 import UKButton from '@/components/ui/ukbtn'
-import Breadcrumbs from '@/components/breadcrumbs'
-import MarkdownEditorTabs from '../../_components/MarkdownEditorTabs'
+import { AUTHORIZED_USER } from '@/lib/constants'
+import { inputClassName, labelClassName } from '../../_components/formStyles'
 
 export default function CreatePostPage() {
-    const { data: session, status } = useSession()
     const [title, setTitle] = useState('')
     const [tags, setTags] = useState('')
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
-    const [author, setAuthor] = useState('')
+    const [author, setAuthor] = useState(AUTHORIZED_USER)
     const [postStatus, setPostStatus] = useState('draft')
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | null>(null)
@@ -46,7 +47,7 @@ export default function CreatePostPage() {
                 throw new Error('Failed to create post')
             }
 
-            router.push('/x')
+            router.push('/x/posts')
         } catch (err) {
             setError(
                 err instanceof Error ? err.message : 'An unknown error occurred'
@@ -56,139 +57,100 @@ export default function CreatePostPage() {
         }
     }
 
-    const inputClassName =
-        'mt-1 px-1 py-1.5 block w-full bg-white/5 border border-neutral-800 shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm'
-
-    if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
-
-    if (status === 'unauthenticated') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You must be signed in to create a post.</p>
-                <UKButton onClick={() => signIn('github')}>
-                    Sign in with GitHub
-                </UKButton>
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== 'qyzh') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <p>You are not authorized to create a post.</p>
-                <UKButton onClick={() => signOut()}>Sign out</UKButton>
-            </div>
-        )
-    }
-
     return (
-        <div className="container mx-auto px-4 py-8">
-            <Breadcrumbs />
-            <h1 className="text-4xl font-bold mb-8">Create New Post</h1>
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <label
-                        htmlFor="title"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Title
-                    </label>
-                    <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className={inputClassName}
-                        required
-                    />
+        <AdminShell title="Create New Post">
+            <form onSubmit={handleSubmit} className="max-w-5xl space-y-6">
+                <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+                    <div className="space-y-6 lg:col-span-2">
+                        <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className={labelClassName}>Title</label>
+                                    <input
+                                        type="text"
+                                        value={title}
+                                        onChange={(e) => setTitle(e.target.value)}
+                                        className={inputClassName}
+                                        required
+                                        placeholder="Post title..."
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>Content (Markdown)</label>
+                                    <MarkdownEditor
+                                        value={content}
+                                        onChange={setContent}
+                                        rows={20}
+                                        placeholder="Write your story..."
+                                    />
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+
+                    <div className="space-y-6">
+                        <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
+                            <div className="space-y-4">
+                                <div>
+                                    <label className={labelClassName}>Status</label>
+                                    <select
+                                        value={postStatus}
+                                        onChange={(e) => setPostStatus(e.target.value)}
+                                        className={inputClassName}
+                                    >
+                                        <option value="draft">Draft</option>
+                                        <option value="published">Published</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>Author</label>
+                                    <input
+                                        type="text"
+                                        value={author}
+                                        onChange={(e) => setAuthor(e.target.value)}
+                                        className={inputClassName}
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>Tags</label>
+                                    <input
+                                        type="text"
+                                        value={tags}
+                                        onChange={(e) => setTags(e.target.value)}
+                                        className={inputClassName}
+                                        placeholder="tag1, tag2..."
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>Summary</label>
+                                    <textarea
+                                        rows={4}
+                                        value={summary}
+                                        onChange={(e) => setSummary(e.target.value)}
+                                        className={inputClassName}
+                                        placeholder="Brief summary..."
+                                    />
+                                </div>
+                            </div>
+                        </section>
+
+                        <div className="flex flex-col gap-3">
+                            <UKButton type="submit" disabled={isLoading}>
+                                {isLoading ? 'Creating...' : 'Create Post'}
+                            </UKButton>
+                            <button
+                                type="button"
+                                onClick={() => router.push('/x/posts')}
+                                className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors font-mono"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label
-                        htmlFor="status"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Status
-                    </label>
-                    <select
-                        id="status"
-                        value={postStatus}
-                        onChange={(e) => setPostStatus(e.target.value)}
-                        className={inputClassName}
-                    >
-                        <option value="draft">Draft</option>
-                        <option value="published">Published</option>
-                    </select>
-                </div>
-                <div>
-                    <label
-                        htmlFor="author"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Author
-                    </label>
-                    <input
-                        type="text"
-                        id="author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="summary"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Summary
-                    </label>
-                    <textarea
-                        id="summary"
-                        rows={3}
-                        value={summary}
-                        onChange={(e) => setSummary(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                <div>
-                    <label
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Content (Markdown)
-                    </label>
-                    <MarkdownEditorTabs
-                        value={content}
-                        onChange={setContent}
-                        minRows={14}
-                    />
-                </div>
-                <div>
-                    <label
-                        htmlFor="tags"
-                        className="block text-sm font-medium text-gray-400"
-                    >
-                        Tags (comma-separated)
-                    </label>
-                    <input
-                        type="text"
-                        id="tags"
-                        value={tags}
-                        onChange={(e) => setTags(e.target.value)}
-                        className={inputClassName}
-                    />
-                </div>
-                {error && <p className="text-red-500">{error}</p>}
-                <div>
-                    <UKButton
-                        type="submit"
-                        disabled={isLoading}
-                        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
-                    >
-                        {isLoading ? 'Creating...' : 'Create Post'}
-                    </UKButton>
-                </div>
+
+                {error && <p className="text-sm text-red-500 font-mono">{error}</p>}
             </form>
-        </div>
+        </AdminShell>
     )
 }

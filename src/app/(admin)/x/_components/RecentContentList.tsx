@@ -18,32 +18,32 @@ export default function RecentContentList({
     manageHref,
 }: RecentContentListProps) {
     return (
-        <section className="border border-[#2a2520] bg-[#1a1713] p-4">
-            <div className="mb-3 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-neutral-100">{title}</h2>
+        <section className="border border-[#2a2520] bg-[#1a1713] p-5">
+            <div className="mb-4 flex items-center justify-between">
+                <h2 className="text-xs uppercase tracking-widest text-[#c4aa7e]">{title}</h2>
                 <Link
                     href={manageHref}
-                    className="text-xs text-[#c4aa7e] hover:text-[#d8be96]"
+                    className="text-xs text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
                 >
                     Manage all
                 </Link>
             </div>
 
             {items.length === 0 ? (
-                <p className="text-sm text-neutral-500">No items yet.</p>
+                <p className="text-sm text-[#6e6255]">No items yet.</p>
             ) : (
-                <div className="space-y-2">
+                <div className="space-y-3">
                     {items.map((item) => (
                         <div
                             key={item.id}
-                            className="flex items-center justify-between border-b border-[#2a2520] pb-2"
+                            className="flex items-center justify-between border-b border-[#2a2520] pb-2 last:border-0 last:pb-0"
                         >
-                            <p className="truncate pr-4 text-sm text-neutral-300">
+                            <p className="truncate pr-4 text-sm text-[#d4c9b4] font-[family-name:var(--font-tinos)]">
                                 {item.label}
                             </p>
                             <Link
                                 href={item.editHref}
-                                className="shrink-0 text-xs text-neutral-400 hover:text-neutral-200"
+                                className="shrink-0 text-xs text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
                             >
                                 Edit
                             </Link>

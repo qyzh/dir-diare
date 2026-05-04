@@ -1,19 +1,15 @@
 'use client'
 
 import Link from 'next/link'
-import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 import { noteQ } from '@/lib/noteq'
 import UKButton from '@/components/ui/ukbtn'
-import { AUTHORIZED_USER } from '@/lib/constants'
-import AuthButton from '../_components/AuthButton'
 import AdminShell from '../_components/AdminShell'
 import ContentListPanel from '../_components/ContentListPanel'
 import RowQuickActions from '../_components/RowQuickActions'
 import { useAdminData } from '../_components/useAdminData'
-import { useState } from 'react'
 
 export default function NoteQsPage() {
-    const { data: session, status } = useSession()
     const { data: noteQs, isLoading, error, refresh } =
         useAdminData<noteQ>('/api/noteqs')
     const [rowBusy, setRowBusy] = useState<string | null>(null)
@@ -43,30 +39,6 @@ export default function NoteQsPage() {
         }
     }
 
-    if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
-
-    if (status === 'unauthenticated') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Manage Notes</h1>
-                <p className="mb-4">Please sign in to manage notes.</p>
-                <AuthButton />
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== AUTHORIZED_USER) {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Manage Notes</h1>
-                <p>You are not authorized to manage notes.</p>
-                <AuthButton />
-            </div>
-        )
-    }
-
     return (
         <AdminShell
             title="Manage Notes"
@@ -76,7 +48,7 @@ export default function NoteQsPage() {
                 </Link>
             }
         >
-            {actionError && <p className="mb-3 text-sm text-red-500">{actionError}</p>}
+            {actionError && <p className="mb-3 text-sm text-red-500 font-mono">{actionError}</p>}
             <ContentListPanel
                 title="Notes"
                 isLoading={isLoading}
@@ -91,10 +63,10 @@ export default function NoteQsPage() {
                             className="flex flex-col justify-between gap-3 border border-[#2a2520] bg-[#14120f] p-3 lg:flex-row"
                         >
                             <div className="min-w-0 flex-1">
-                                <p className="text-sm text-neutral-200">
+                                <p className="text-sm text-[#d4c9b4] font-[family-name:var(--font-tinos)]">
                                     {note.note.slice(0, 140)}
                                 </p>
-                                <p className="mt-1 text-xs text-neutral-500">
+                                <p className="mt-1 text-xs text-[#6e6255] font-mono">
                                     {new Date(note.date).toLocaleDateString()}
                                 </p>
                             </div>

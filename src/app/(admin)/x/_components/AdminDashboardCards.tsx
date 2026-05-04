@@ -33,28 +33,29 @@ export default function AdminDashboardCards({
     ]
 
     return (
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
             {cards.map((card) => (
                 <section
                     key={card.label}
-                    className="border border-[#2a2520] bg-[#1a1713] p-4"
+                    className="border border-[#2a2520] bg-[#1a1713] p-5 transition-colors hover:border-[#4a4038]"
                 >
-                    <p className="text-xs tracking-[0.12em] text-neutral-500 uppercase">
+                    <p className="text-xs uppercase tracking-widest text-[#6e6255]">
                         {card.label}
                     </p>
-                    <p className="mt-1 text-2xl font-bold text-neutral-100">
+                    <p className="mt-2 text-3xl text-[#c4aa7e] font-[family-name:var(--font-tinos)]">
                         {card.count}
                     </p>
-                    <div className="mt-4 flex items-center gap-3 text-xs">
+                    <div className="mt-5 flex items-center gap-4 text-xs uppercase tracking-wider">
                         <Link
                             href={card.manageHref}
-                            className="text-[#c4aa7e] hover:text-[#d8be96]"
+                            className="text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
                         >
                             Manage
                         </Link>
+                        <span className="text-[#2a2520]">/</span>
                         <Link
                             href={card.createHref}
-                            className="text-neutral-400 hover:text-neutral-200"
+                            className="text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
                         >
                             + New
                         </Link>

@@ -1,17 +1,16 @@
 'use client'
+
 import { useState, useEffect, use } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession, signIn } from 'next-auth/react'
+import AdminShell from '../../../_components/AdminShell'
+import UKButton from '@/components/ui/ukbtn'
+import { inputClassName, labelClassName } from '../../../_components/formStyles'
 
-const inp = {
-    width: '100%', background: '#14120f', color: '#d4c9b4',
-    border: '1px solid #2c2820', padding: '0.5rem 0.75rem',
-    fontFamily: "'Courier Prime', monospace", fontSize: '0.875rem', outline: 'none',
-}
-const lbl = { fontSize: '0.65rem', letterSpacing: '0.12em', textTransform: 'uppercase' as const, color: '#6e6255', display: 'block', marginBottom: '0.35rem' }
-
-export default function EditNoteQPage({ params }: { params: Promise<{ id: string }> }) {
-    const { data: session, status: sessionStatus } = useSession()
+export default function EditNoteQPage({
+    params,
+}: {
+    params: Promise<{ id: string }>
+}) {
     const { id } = use(params)
     const router = useRouter()
 
@@ -26,9 +25,21 @@ export default function EditNoteQPage({ params }: { params: Promise<{ id: string
     useEffect(() => {
         if (id) {
             fetch(`/api/noteqs/${id}`)
-                .then((r) => { if (!r.ok) throw new Error('Failed to fetch'); return r.json() })
-                .then((d) => { setDate(d.date); setNote(d.note); setAuthor(d.author || ''); setSource(d.source || ''); setLoading(false) })
-                .catch((err) => { setError(err.message); setLoading(false) })
+                .then((r) => {
+                    if (!r.ok) throw new Error('Failed to fetch')
+                    return r.json()
+                })
+                .then((d) => {
+                    setDate(d.date)
+                    setNote(d.note)
+                    setAuthor(d.author || '')
+                    setSource(d.source || '')
+                    setLoading(false)
+                })
+                .catch((err) => {
+                    setError(err.message)
+                    setLoading(false)
+                })
         }
     }, [id])
 
@@ -64,74 +75,80 @@ export default function EditNoteQPage({ params }: { params: Promise<{ id: string
         }
     }
 
-    if (sessionStatus === 'loading' || loading) return <p style={{ color: '#6e6255', fontFamily: 'Courier Prime, monospace' }}>loading...</p>
-    if (sessionStatus === 'unauthenticated') return (
-        <div style={{ fontFamily: 'Courier Prime, monospace', paddingTop: '3rem', textAlign: 'center' }}>
-            <button onClick={() => signIn('github')} style={{ color: '#c4aa7e', background: 'none', border: '1px solid #2c2820', padding: '0.5rem 1.5rem', cursor: 'pointer' }}>
-                Sign in with GitHub
-            </button>
-        </div>
-    )
-    if (session?.user?.name !== 'qyzh') return <p style={{ color: '#9e6b5a' }}>Not authorized.</p>
-    if (error && loading) return <p style={{ color: '#9e6b5a' }}>{error}</p>
-
     return (
-        <div style={{ fontFamily: "'Courier Prime', monospace" }}>
-            <div style={{ marginBottom: '2rem', paddingBottom: '1.25rem', borderBottom: '1px solid #2c2820' }}>
-                <p style={{ fontSize: '0.65rem', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#6e6255' }}>quotes &amp; notes</p>
-                <h1 style={{ color: '#c4aa7e', fontSize: '1.4rem', marginTop: '0.2rem' }}>Edit Note</h1>
-            </div>
+        <AdminShell title="Edit Note">
+            {loading ? (
+                <p className="text-[#6e6255] font-mono">Loading note...</p>
+            ) : (
+                <form onSubmit={handleSubmit} className="max-w-4xl space-y-6">
+                    <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
+                        <div className="space-y-6">
+                            <div>
+                                <label className={labelClassName}>Note Content</label>
+                                <textarea
+                                    className={inputClassName}
+                                    rows={8}
+                                    value={note}
+                                    onChange={(e) => setNote(e.target.value)}
+                                    required
+                                />
+                            </div>
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <div>
-                    <label style={lbl}>Note</label>
-                    <textarea style={{ ...inp, resize: 'vertical' }} rows={6} value={note} onChange={(e) => setNote(e.target.value)} required />
-                </div>
+                            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                                <div>
+                                    <label className={labelClassName}>Author</label>
+                                    <input
+                                        className={inputClassName}
+                                        value={author}
+                                        onChange={(e) => setAuthor(e.target.value)}
+                                    />
+                                </div>
+                                <div>
+                                    <label className={labelClassName}>Source</label>
+                                    <input
+                                        className={inputClassName}
+                                        value={source}
+                                        onChange={(e) => setSource(e.target.value)}
+                                    />
+                                </div>
+                            </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-                    <div>
-                        <label style={lbl}>Author</label>
-                        <input style={inp} value={author} onChange={(e) => setAuthor(e.target.value)} />
+                            <div>
+                                <label className={labelClassName}>Date</label>
+                                <input
+                                    className={inputClassName}
+                                    value={date}
+                                    onChange={(e) => setDate(e.target.value)}
+                                    required
+                                />
+                            </div>
+                        </div>
+                    </section>
+
+                    {error && <p className="text-sm text-[#b88a7a] font-mono">{error}</p>}
+
+                    <div className="flex items-center gap-4">
+                        <UKButton type="submit" disabled={submitting}>
+                            {submitting ? 'Saving...' : 'Save Changes'}
+                        </UKButton>
+                        <button
+                            type="button"
+                            onClick={() => router.push('/x/noteqs')}
+                            className="text-sm text-[#6e6255] hover:text-[#c4aa7e] transition-colors font-mono"
+                        >
+                            Cancel
+                        </button>
+                        <button
+                            type="button"
+                            onClick={handleDelete}
+                            disabled={submitting}
+                            className="ml-auto text-sm text-[#9e6b5a] hover:text-red-400 transition-colors font-mono"
+                        >
+                            Delete
+                        </button>
                     </div>
-                    <div>
-                        <label style={lbl}>Source</label>
-                        <input style={inp} value={source} onChange={(e) => setSource(e.target.value)} />
-                    </div>
-                </div>
-
-                <div>
-                    <label style={lbl}>Date</label>
-                    <input style={inp} value={date} onChange={(e) => setDate(e.target.value)} required />
-                </div>
-
-                {error && <p style={{ color: '#b88a7a', fontSize: '0.85rem' }}>{error}</p>}
-
-                <div style={{ display: 'flex', gap: '1rem', paddingTop: '0.5rem' }}>
-                    <button type="submit" disabled={submitting} style={{
-                        background: 'rgba(196,170,126,0.12)', color: '#c4aa7e',
-                        border: '1px solid #c4aa7e', padding: '0.5rem 1.5rem',
-                        fontFamily: "'Courier Prime', monospace", fontSize: '0.8rem',
-                        letterSpacing: '0.08em', cursor: submitting ? 'not-allowed' : 'pointer',
-                        opacity: submitting ? 0.6 : 1,
-                    }}>
-                        {submitting ? 'saving...' : 'Save Changes'}
-                    </button>
-                    <button type="button" onClick={() => router.push('/x/noteqs')} style={{
-                        background: 'transparent', color: '#6e6255',
-                        border: '1px solid #2c2820', padding: '0.5rem 1.5rem',
-                        fontFamily: "'Courier Prime', monospace", fontSize: '0.8rem', cursor: 'pointer',
-                    }}>
-                        Cancel
-                    </button>
-                    <button type="button" onClick={handleDelete} disabled={submitting} style={{
-                        background: 'transparent', color: '#9e6b5a',
-                        border: '1px solid rgba(158,107,90,0.3)', padding: '0.5rem 1.5rem',
-                        fontFamily: "'Courier Prime', monospace", fontSize: '0.8rem', cursor: 'pointer', marginLeft: 'auto',
-                    }}>
-                        Delete
-                    </button>
-                </div>
-            </form>
-        </div>
+                </form>
+            )}
+        </AdminShell>
     )
 }

@@ -1,51 +1,23 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
 import { Post } from '@/lib/posts'
 import { ArtPost } from '@/lib/artpost'
 import { noteQ } from '@/lib/noteq'
-import AuthButton from './_components/AuthButton'
-import { AUTHORIZED_USER } from '@/lib/constants'
 import AdminShell from './_components/AdminShell'
 import AdminDashboardCards from './_components/AdminDashboardCards'
 import RecentContentList from './_components/RecentContentList'
 import { useAdminData } from './_components/useAdminData'
 
 export default function AdminDashboard() {
-    const { data: session, status } = useSession()
     const posts = useAdminData<Post>('/api/posts')
     const artPosts = useAdminData<ArtPost>('/api/artposts')
     const notes = useAdminData<noteQ>('/api/noteqs')
-
-    if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
-
-    if (status === 'unauthenticated') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Admin Dashboard</h1>
-                <p className="mb-4">Please sign in to view the dashboard.</p>
-                <AuthButton />
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== AUTHORIZED_USER) {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Admin Dashboard</h1>
-                <p>You are not authorized to view admin pages.</p>
-                <AuthButton />
-            </div>
-        )
-    }
 
     if (posts.error || artPosts.error || notes.error) {
         const message = posts.error || artPosts.error || notes.error
         return (
             <AdminShell title="Admin Dashboard">
-                <p className="text-red-500">{message}</p>
+                <p className="text-red-500 font-mono">{message}</p>
             </AdminShell>
         )
     }
@@ -71,35 +43,35 @@ export default function AdminDashboard() {
     const isLoading = posts.isLoading || artPosts.isLoading || notes.isLoading
 
     return (
-        <AdminShell title="Admin Dashboard">
+        <AdminShell title="Dashboard">
             {isLoading ? (
-                <p className="text-neutral-400">Loading dashboard...</p>
+                <p className="text-[#6e6255] font-mono">Synchronizing data...</p>
             ) : (
-                <>
+                <div className="space-y-8">
                     <AdminDashboardCards
                         postsCount={posts.data.length}
                         notesCount={notes.data.length}
                         artCount={artPosts.data.length}
                     />
 
-                    <div className="mt-6 grid gap-4 lg:grid-cols-3">
+                    <div className="grid gap-6 lg:grid-cols-3">
                         <RecentContentList
-                            title="Recent posts"
+                            title="Recent Posts"
                             items={recentPosts}
                             manageHref="/x/posts"
                         />
                         <RecentContentList
-                            title="Recent notes"
+                            title="Recent Notes"
                             items={recentNotes}
                             manageHref="/x/noteqs"
                         />
                         <RecentContentList
-                            title="Recent art"
+                            title="Recent Art"
                             items={recentArt}
                             manageHref="/x/artposts"
                         />
                     </div>
-                </>
+                </div>
             )}
         </AdminShell>
     )

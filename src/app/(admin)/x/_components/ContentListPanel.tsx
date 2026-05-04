@@ -20,18 +20,18 @@ export default function ContentListPanel({
     children,
 }: ContentListPanelProps) {
     return (
-        <section className="border border-[#2a2520] bg-[#1a1713] p-4">
-            <div className="mb-4 flex items-center justify-between gap-3">
-                <h2 className="text-xl font-semibold text-neutral-100">{title}</h2>
+        <section className="border border-[#2a2520] bg-[#1a1713] p-6">
+            <div className="mb-6 flex items-center justify-between gap-4">
+                <h2 className="text-xs uppercase tracking-widest text-[#c4aa7e] font-mono">{title}</h2>
                 {actions}
             </div>
 
             {isLoading ? (
-                <p className="text-sm text-neutral-400">Loading...</p>
+                <p className="text-sm text-[#6e6255]">Loading...</p>
             ) : error ? (
                 <p className="text-sm text-red-500">{error}</p>
             ) : isEmpty ? (
-                <p className="text-sm text-neutral-500">{emptyText}</p>
+                <p className="text-sm text-[#6e6255]">{emptyText}</p>
             ) : (
                 children
             )}

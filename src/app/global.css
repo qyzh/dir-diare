@@ -1177,17 +1177,6 @@ pre {
     font-size: inherit;
 }
 
-.journal-article-body blockquote::before {
-    content: '\201C';
-    position: absolute;
-    top: -0.2em;
-    left: 0.5em;
-    font-size: 3em;
-    color: var(--article-line);
-    font-family: var(--font-serif);
-    line-height: 1;
-    pointer-events: none;
-}
 
 .journal-article-body a {
     color: var(--article-ink);

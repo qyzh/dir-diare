@@ -21,22 +21,23 @@ const UKButton: React.FC<UKButtonProps> = ({
     ...props
 }) => {
     const baseStyles =
-        'inline-flex items-center justify-center rounded border transition-colors hover:cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50'
+        'inline-flex items-center justify-center border transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#c4aa7e] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--bg)] disabled:pointer-events-none disabled:opacity-40 active:scale-[0.98] font-mono tracking-widest uppercase'
 
     const variants = {
         primary:
-            'bg-[#3A4D39] border-[#4F6F52] text-[#ECE3CE] hover:bg-[#525B44] dark:border-teal-600 dark:bg-teal-800 dark:hover:bg-teal-600',
+            'bg-[#c4aa7e] border-[#b09565] text-[#14120f] hover:bg-[#b09565]',
         secondary:
-            'bg-gray-200 border-gray-300 text-gray-700 hover:bg-gray-300 hover:text-gray-500 dark:border-neutral-700 dark:hover:border-neutral-600 dark:bg-white/5 dark:text-neutral-100 dark:hover:bg-neutral-800',
+            'bg-[var(--bg-card)] border-[var(--line)] text-[var(--text-main)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-bright)]',
         outline:
-            'border border-gray-300 text-gray-500 bg-transparent hover:bg-gray-100 hover:text-gray-700 dark:border-neutral-700 dark:hover:bg-neutral-800 dark:hover:text-neutral-300',
-        error: 'bg-rose-500 text-rose-200 border-rose-600 hover:bg-rose-700 dark:border-rose-600  dark:bg-rose-800 dark:text-rose-300 dark:hover:border-rose-700 dark:hover:bg-rose-950',
+            'bg-transparent border-[var(--line)] text-[var(--text-dim)] hover:border-[var(--text-muted)] hover:text-[var(--text-main)]',
+        error:
+            'bg-[#2c1010] border-[#5c2020] text-[#c97070] hover:bg-[#3a1515] hover:border-[#7a2828]',
     }
 
     const sizes = {
-        sm: 'h-8 px-3 text-sm',
-        md: 'h-10 px-4',
-        lg: 'h-12 px-6 text-lg',
+        sm: 'h-7 px-3 text-[0.65rem]',
+        md: 'h-9 px-4 text-xs',
+        lg: 'h-11 px-6 text-sm',
     }
 
     return (

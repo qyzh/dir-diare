@@ -2,18 +2,14 @@
 
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { Post } from '@/lib/posts'
 import UKButton from '@/components/ui/ukbtn'
-import { AUTHORIZED_USER } from '@/lib/constants'
-import AuthButton from '../_components/AuthButton'
 import AdminShell from '../_components/AdminShell'
 import ContentListPanel from '../_components/ContentListPanel'
 import RowQuickActions from '../_components/RowQuickActions'
 import { useAdminData } from '../_components/useAdminData'
 
 export default function PostsManagePage() {
-    const { data: session, status } = useSession()
     const { data: posts, isLoading, error, refresh } =
         useAdminData<Post>('/api/posts')
     const [filter, setFilter] = useState<'all' | 'published' | 'draft'>('all')
@@ -82,30 +78,6 @@ export default function PostsManagePage() {
         }
     }
 
-    if (status === 'loading') {
-        return <div className="container mx-auto px-4 py-8">Loading...</div>
-    }
-
-    if (status === 'unauthenticated') {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Manage Posts</h1>
-                <p className="mb-4">Please sign in to manage posts.</p>
-                <AuthButton />
-            </div>
-        )
-    }
-
-    if (session?.user?.name !== AUTHORIZED_USER) {
-        return (
-            <div className="container mx-auto px-4 py-8">
-                <h1 className="mb-8 text-4xl font-bold">Manage Posts</h1>
-                <p>You are not authorized to manage posts.</p>
-                <AuthButton />
-            </div>
-        )
-    }
-
     return (
         <AdminShell
             title="Manage Posts"
@@ -120,10 +92,10 @@ export default function PostsManagePage() {
                     <button
                         key={value}
                         onClick={() => setFilter(value)}
-                        className={`px-3 py-1.5 text-sm ${
+                        className={`px-3 py-1.5 text-sm font-mono transition-colors ${
                             filter === value
-                                ? 'bg-[#1e1a14] text-neutral-100'
-                                : 'bg-[#151310] text-neutral-400 hover:text-neutral-200'
+                                ? 'bg-[#1e1a14] text-[#c4aa7e] border border-[#2a2520]'
+                                : 'bg-[#151310] text-[#6e6255] border border-transparent hover:text-[#d4c9b4]'
                         }`}
                     >
                         {value === 'all'
@@ -135,7 +107,7 @@ export default function PostsManagePage() {
                 ))}
             </div>
 
-            {actionError && <p className="mb-3 text-sm text-red-500">{actionError}</p>}
+            {actionError && <p className="mb-3 text-sm text-red-500 font-mono">{actionError}</p>}
 
             <ContentListPanel
                 title="Posts"
@@ -152,15 +124,15 @@ export default function PostsManagePage() {
                         >
                             <div className="min-w-0 flex-1">
                                 <div className="mb-2 flex items-center gap-2">
-                                    <h3 className="truncate text-lg font-semibold text-neutral-100">
+                                    <h3 className="truncate text-lg text-[#d4c9b4] font-[family-name:var(--font-tinos)]">
                                         {post.title}
                                     </h3>
-                                    <span className="text-xs text-[#c4aa7e]">
+                                    <span className="text-[10px] uppercase tracking-widest text-[#c4aa7e] font-mono">
                                         {post.status}
                                     </span>
                                 </div>
                                 {post.summary && (
-                                    <p className="text-sm text-neutral-400">
+                                    <p className="text-sm text-[#6e6255] font-mono line-clamp-1">
                                         {post.summary}
                                     </p>
                                 )}
