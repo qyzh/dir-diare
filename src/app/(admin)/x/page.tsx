@@ -1,43 +1,17 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
 import { Post } from '@/lib/posts'
 import { ArtPost } from '@/lib/artpost'
 import { noteQ } from '@/lib/noteq'
-import AuthButton from './_components/AuthButton'
-import { AUTHORIZED_USER } from '@/lib/constants'
 import AdminShell from './_components/AdminShell'
 import AdminDashboardCards from './_components/AdminDashboardCards'
 import RecentContentList from './_components/RecentContentList'
 import { useAdminData } from './_components/useAdminData'
 
 export default function AdminDashboard() {
-    const { data: session, status } = useSession()
     const posts = useAdminData<Post>('/api/posts')
     const artPosts = useAdminData<ArtPost>('/api/artposts')
     const notes = useAdminData<noteQ>('/api/noteqs')
-
-    if (status === 'loading') {
-        return (
-            <div className="flex h-screen items-center justify-center bg-[#14120f] font-mono text-[#6e6255]">
-                loading dashboard...
-            </div>
-        )
-    }
-
-    if (status === 'unauthenticated' || session?.user?.name !== AUTHORIZED_USER) {
-        return (
-            <div className="flex h-screen flex-col items-center justify-center bg-[#14120f] p-8 text-center font-mono">
-                <h1 className="mb-4 text-2xl font-bold text-[#c4aa7e]">Admin</h1>
-                <p className="mb-6 text-[#6e6255]">
-                    {status === 'unauthenticated' 
-                        ? 'Please sign in to access the dashboard.' 
-                        : 'You are not authorized to view this page.'}
-                </p>
-                <AuthButton />
-            </div>
-        )
-    }
 
     if (posts.error || artPosts.error || notes.error) {
         const message = posts.error || artPosts.error || notes.error
