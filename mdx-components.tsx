@@ -41,6 +41,44 @@ type ImageProps = {
     quality?: number
 }
 
+function normalizeImageSrc(src: string): string {
+    const trimmed = src.trim()
+    if (!trimmed) {
+        return trimmed
+    }
+
+    if (trimmed.startsWith('api/images/')) {
+        return `/${trimmed}`
+    }
+
+    if (trimmed.startsWith('images/')) {
+        return `/${trimmed}`
+    }
+
+    const canBeLocalUpload =
+        trimmed.startsWith('/api/images/') ||
+        trimmed.includes('/api/images/')
+
+    if (!canBeLocalUpload) {
+        return trimmed
+    }
+
+    try {
+        const parsed = new URL(trimmed)
+        const isLocalhost =
+            parsed.hostname === 'localhost' ||
+            parsed.hostname === '127.0.0.1'
+
+        if (isLocalhost && parsed.pathname.startsWith('/api/images/')) {
+            return `${parsed.pathname}${parsed.search}${parsed.hash}`
+        }
+    } catch {
+        // Keep original src when URL parsing fails (likely already a relative path)
+    }
+
+    return trimmed
+}
+
 // Helper function to render images with an attractive notebook polaroid aesthetic
 const AttractiveImage = ({ src, alt, ...props }: ImageProps) =>
     typeof src === 'string' ? (
@@ -50,7 +88,7 @@ const AttractiveImage = ({ src, alt, ...props }: ImageProps) =>
                 <div className="absolute -top-3.5 left-1/2 w-24 h-7 -ml-12 bg-black/5 dark:bg-white/5 backdrop-blur-md border border-white/40 dark:border-white/5 -rotate-2 shadow-sm z-10 opacity-90" />
                 <div className="overflow-hidden border border-[#e5e0d8] dark:border-[#2a2620] bg-[var(--line)] rounded-[2px]">
                     <img
-                        src={src}
+                        src={normalizeImageSrc(src)}
                         alt={alt || ''}
                         className="w-full h-auto object-cover filter sepia-[20%] grayscale-[10%] transition-all duration-700 group-hover:sepia-0 group-hover:grayscale-0"
                         loading="lazy"
