@@ -108,13 +108,10 @@ const components = {
     h1: (props: HeadingProps) => (
         <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.75rem', fontWeight: 400, color: 'var(--text-bright)', lineHeight: 1.2, margin: '2.5em 0 0.75em' }} {...props} />
     ),
-    h2: (props: HeadingProps) => <h2 style={{ fontFamily: 'var(--font-fell)', fontStyle: 'italic', fontWeight: 500 }} {...props} />,
-    h3: (props: HeadingProps) => <h3 style={{ fontFamily: 'var(--font-fell)', fontStyle: 'italic', fontWeight: 500 }} {...props} />,
+    h2: (props: HeadingProps) => <h2 {...props} />,
+    h3: (props: HeadingProps) => <h3 {...props} />,
     h4: (props: HeadingProps) => (
-        <h4 style={{ fontFamily: 'var(--font-fell)', fontStyle: 'italic', fontSize: '1rem', fontWeight: 500, color: 'var(--text-main)', margin: '1.5em 0 0.5em' }} {...props} />
-    ),
-    h5: (props: HeadingProps) => (
-        <h5 style={{ fontFamily: 'var(--font-fell)', fontStyle: 'italic', fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-main)', margin: '1.5em 0 0.5em' }} {...props} />
+        <h4 style={{ fontSize: '1rem', fontWeight: 500, color: 'var(--text-main)', margin: '1.5em 0 0.5em' }} {...props} />
     ),
     p: (props: ParagraphProps) => <p {...props} />,
     ol: (props: ListProps) => (
