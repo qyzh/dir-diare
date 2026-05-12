@@ -6,61 +6,155 @@ interface AdminDashboardCardsProps {
     artCount: number
 }
 
+const CARD_META = [
+    {
+        key: 'posts' as const,
+        label: 'Posts',
+        accentColor: '#c4aa7e',
+        manageHref: '/x/posts',
+        createHref: '/x/posts/create',
+    },
+    {
+        key: 'notes' as const,
+        label: 'Notes',
+        accentColor: '#8a9e7e',
+        manageHref: '/x/noteqs',
+        createHref: '/x/noteqs/create',
+    },
+    {
+        key: 'art' as const,
+        label: 'Art',
+        accentColor: '#9e7e8a',
+        manageHref: '/x/artposts',
+        createHref: '/x/artposts/create',
+    },
+]
+
 export default function AdminDashboardCards({
     postsCount,
     notesCount,
     artCount,
 }: AdminDashboardCardsProps) {
-    const cards = [
-        {
-            label: 'Posts',
-            count: postsCount,
-            manageHref: '/x/posts',
-            createHref: '/x/posts/create',
-        },
-        {
-            label: 'Notes',
-            count: notesCount,
-            manageHref: '/x/noteqs',
-            createHref: '/x/noteqs/create',
-        },
-        {
-            label: 'Art',
-            count: artCount,
-            manageHref: '/x/artposts',
-            createHref: '/x/artposts/create',
-        },
-    ]
+    const counts: Record<string, number> = {
+        posts: postsCount,
+        notes: notesCount,
+        art: artCount,
+    }
 
     return (
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-            {cards.map((card) => (
-                <section
-                    key={card.label}
-                    className="border border-[#2a2520] bg-[#1a1713] p-5 transition-colors hover:border-[#4a4038]"
+        <div
+            style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gap: '1px',
+                background: '#1e1b17',
+                border: '1px solid #1e1b17',
+            }}
+        >
+            {CARD_META.map((card) => (
+                <div
+                    key={card.key}
+                    style={{
+                        background: '#14120f',
+                        padding: '24px 20px 20px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '16px',
+                        borderTop: `3px solid ${card.accentColor}`,
+                        position: 'relative',
+                        overflow: 'hidden',
+                    }}
                 >
-                    <p className="text-xs uppercase tracking-widest text-[#6e6255]">
-                        {card.label}
-                    </p>
-                    <p className="mt-2 text-3xl text-[#c4aa7e] font-[family-name:var(--font-tinos)]">
-                        {card.count}
-                    </p>
-                    <div className="mt-5 flex items-center gap-4 text-xs uppercase tracking-wider">
+                    {/* Faint watermark number */}
+                    <span
+                        aria-hidden
+                        style={{
+                            position: 'absolute',
+                            right: '-8px',
+                            top: '-4px',
+                            fontSize: '72px',
+                            fontFamily: 'var(--font-tinos)',
+                            color: '#1a1713',
+                            lineHeight: 1,
+                            pointerEvents: 'none',
+                            userSelect: 'none',
+                        }}
+                    >
+                        {counts[card.key]}
+                    </span>
+
+                    <div>
+                        <p
+                            style={{
+                                fontSize: '9px',
+                                letterSpacing: '0.2em',
+                                textTransform: 'uppercase',
+                                color: '#4a4038',
+                                fontFamily: 'monospace',
+                                marginBottom: '8px',
+                            }}
+                        >
+                            {card.label}
+                        </p>
+                        <p
+                            style={{
+                                fontSize: '40px',
+                                color: card.accentColor,
+                                fontFamily: 'var(--font-tinos)',
+                                lineHeight: 1,
+                            }}
+                        >
+                            {counts[card.key]}
+                        </p>
+                    </div>
+
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0',
+                            marginTop: 'auto',
+                        }}
+                    >
                         <Link
                             href={card.manageHref}
-                            className="text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
+                            style={{
+                                flex: 1,
+                                fontSize: '10px',
+                                letterSpacing: '0.12em',
+                                textTransform: 'uppercase',
+                                fontFamily: 'monospace',
+                                color: '#6e6255',
+                                textDecoration: 'none',
+                                padding: '7px 0',
+                                borderTop: '1px solid #1e1b17',
+                                transition: 'color 0.15s',
+                            }}
+                            onMouseEnter={(e) => (e.currentTarget.style.color = '#d4c9b4')}
+                            onMouseLeave={(e) => (e.currentTarget.style.color = '#6e6255')}
                         >
                             Manage
                         </Link>
-                        <span className="text-[#2a2520]">/</span>
                         <Link
                             href={card.createHref}
-                            className="text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
+                            style={{
+                                fontSize: '10px',
+                                letterSpacing: '0.12em',
+                                textTransform: 'uppercase',
+                                fontFamily: 'monospace',
+                                color: card.accentColor,
+                                textDecoration: 'none',
+                                padding: '7px 0 7px 16px',
+                                borderTop: '1px solid #1e1b17',
+                                transition: 'opacity 0.15s',
+                            }}
+                            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
+                            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
                         >
                             + New
                         </Link>
                     </div>
-                </section>
+                </div>
             ))}
         </div>
     )
