@@ -79,28 +79,23 @@ function normalizeImageSrc(src: string): string {
     return trimmed
 }
 
-// Helper function to render images with an attractive notebook polaroid aesthetic
 const AttractiveImage = ({ src, alt, ...props }: ImageProps) =>
     typeof src === 'string' ? (
-        <figure className="my-10 mx-auto max-w-full group relative z-0">
-            <div className="relative p-3 sm:p-4 bg-[#fdfbf7] dark:bg-[#171410] shadow-[0_2px_10px_rgba(0,0,0,0.05)] dark:shadow-[0_8px_30px_rgba(0,0,0,0.6)] border border-[#e5e0d8] dark:border-[#2a2620] -rotate-1 transition-all duration-500 hover:rotate-0 hover:scale-[1.02] hover:shadow-[0_10px_25px_rgba(0,0,0,0.08)] dark:hover:shadow-[0_12px_40px_rgba(0,0,0,0.8)] hover:z-10">
-                {/* Washi tape effect */}
-                <div className="absolute -top-3.5 left-1/2 w-24 h-7 -ml-12 bg-black/5 dark:bg-white/5 backdrop-blur-md border border-white/40 dark:border-white/5 -rotate-2 shadow-sm z-10 opacity-90" />
-                <div className="overflow-hidden border border-[#e5e0d8] dark:border-[#2a2620] bg-[var(--line)] rounded-[2px]">
-                    <img
-                        src={normalizeImageSrc(src)}
-                        alt={alt || ''}
-                        className="w-full h-auto object-cover filter sepia-[20%] grayscale-[10%] transition-all duration-700 group-hover:sepia-0 group-hover:grayscale-0"
-                        loading="lazy"
-                        {...(props as any)}
-                    />
-                </div>
-                {alt && (
-                    <figcaption className="mt-4 mb-1 text-center font-serif text-[0.85rem] text-[var(--text-dim)] italic tracking-wide">
-                        {alt}
-                    </figcaption>
-                )}
+        <figure className="my-8 mx-auto max-w-full">
+            <div className="border border-[var(--line)] p-2 rounded-md">
+                <img
+                    src={normalizeImageSrc(src)}
+                    alt={alt || ''}
+                    className="w-full h-auto object-cover rounded-sm"
+                    loading="lazy"
+                    {...(props as any)}
+                />
             </div>
+            {alt && (
+                <figcaption className="mt-2 text-center text-sm text-[var(--text-dim)] italic">
+                    {alt}
+                </figcaption>
+            )}
         </figure>
     ) : null
 
@@ -116,7 +111,12 @@ const components = {
     h5: (props: HeadingProps) => (
         <h5 style={{ fontFamily: 'var(--font-fell)', fontStyle: 'italic', fontSize: '0.875rem', fontWeight: 500, color: 'var(--text-main)', margin: '1.5em 0 0.5em' }} {...props} />
     ),
-    p: (props: ParagraphProps) => <p {...props} />,
+    p: ({ children, ...props }: ParagraphProps) => {
+        const hasBlock = React.Children.toArray(children).some(
+            (child) => React.isValidElement(child) && (child.type === AttractiveImage || child.type === 'figure' || child.type === 'div')
+        );
+        return hasBlock ? <div {...props}>{children}</div> : <p {...props}>{children}</p>;
+    },
     ol: (props: ListProps) => (
         <ol style={{ color: 'var(--text-main)', paddingLeft: '1.25rem', marginBottom: '1.5em' }} {...props} />
     ),
