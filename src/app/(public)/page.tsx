@@ -11,18 +11,20 @@ export default async function Page() {
         <main>
             {/* Hero */}
             <section id="hero">
-                <h1 className="hero-name">dir-diare</h1>
+                <h1 className="hero-name">
+                    <span style={{ color: 'var(--text-bright)' }}>dir-</span><span style={{ color: 'var(--text-muted)' }}>diare</span>
+                </h1>
                 <p className="hero-bio">
                     A personal journal. Notes on building things, reading things,
                     and the slow accumulation of days.
                     <span className="cursor" />
                 </p>
                 <p className="hero-meta">
-                    <span className='hero-meta-data'>
+                    <span style={{ color: 'var(--text-dim)' }}>
 
                         est.
                     </span>
-                    <span className='hero-meta-info'>
+                    <span style={{ color: 'var(--text-bright)' }}>
 
                         2024
                     </span>
@@ -31,7 +33,7 @@ export default async function Page() {
 
             {/* Journal */}
             <section id="journal" className="section">
-                <h2 className="page-title">Journal</h2>
+                <h2 className="page-title pb-12">Journal</h2>
                 {recent.length > 0 ? (
                     <div className="journal-grid">
                         {recent.map((post, i) => (
