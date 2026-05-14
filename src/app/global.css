@@ -1393,6 +1393,33 @@ pre {
     font-size: inherit;
 }
 
+/* ── Journal Related Posts ── */
+.journal-related {
+    padding: clamp(2rem, 5vw, 3rem) var(--page-pad);
+    border-top: 1px solid var(--article-line);
+    max-width: 66ch;
+    margin: 0 auto;
+}
+
+.journal-related-heading {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--article-ink-muted);
+    margin-bottom: 1.5rem;
+}
+
+.journal-related-grid {
+    display: grid;
+    gap: 1px;
+    background: var(--article-line);
+    border: 1px solid var(--article-line);
+}
+
+.journal-related-grid .journal-card {
+    background: var(--article-bg, var(--bg));
+}
+
 /* ── Journal Article Footer ── */
 .journal-article-footer {
     padding: clamp(2rem, 5vw, 3rem) var(--page-pad);
