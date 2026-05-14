@@ -53,33 +53,49 @@ export default async function Page() {
 
             <div className="art-list">
                 {posts.length > 0 ? (
-                    posts.map((post, i) => (
-                        <Link
-                            key={post._id}
-                            href={`/l/${post.slug}`}
-                            className={`art-item reveal ${delayClass[i % delayClass.length]} ${i === 0 ? 'art-item--featured' : ''}`}
-                        >
-                            {post.image && (
-                                <div className="art-item-image-wrap">
-                                    <img
-                                        src={post.image}
-                                        alt={post.title}
-                                        className="art-item-image"
-                                    />
+                    posts.map((post, i) => {
+                        const date = new Date(post.publishedAt);
+                        const formattedDate = date.toLocaleDateString('en-US', {
+                            month: 'long',
+                            day: 'numeric',
+                            year: 'numeric'
+                        });
+
+                        return (
+                            <Link
+                                key={post._id}
+                                href={`/l/${post.slug}`}
+                                className={`art-card reveal ${delayClass[i % delayClass.length]}`}
+                            >
+                                <div className="art-card-bg">
+                                    {post.image ? (
+                                        <img src={post.image} alt={post.title} className="art-card-image" />
+                                    ) : (
+                                        <div className="art-card-image-placeholder"></div>
+                                    )}
                                 </div>
-                            )}
-                            <div className="art-item-body">
-                                <span className="art-item-index">
-                                    No.{String(i + 1).padStart(2, '0')}
-                                </span>
-                                <h2 className="art-item-title">{post.title}</h2>
-                                {post.summary && (
-                                    <p className="art-item-summary">{post.summary}</p>
-                                )}
-                                <span className="art-item-arrow">View &rarr;</span>
-                            </div>
-                        </Link>
-                    ))
+                                <div className="art-card-top">
+                                    <div className="art-card-logo">
+                                        {post.author}
+                                    </div>
+                                    <div className="art-card-date">
+                                        {formattedDate}
+                                    </div>
+                                </div>
+                                <div className="art-card-glass">
+                                    <div className="art-card-content">
+                                        <h2 className="art-card-title">{post.title}</h2>
+                                        {post.summary && (
+                                            <p className="art-card-summary">{post.summary}</p>
+                                        )}
+                                    </div>
+                                    <div className="art-card-action">
+                                        <span className="art-card-btn">Learn more</span>
+                                    </div>
+                                </div>
+                            </Link>
+                        )
+                    })
                 ) : (
                     <p className="art-list-empty">No art posts yet.</p>
                 )}
