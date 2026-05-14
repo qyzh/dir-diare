@@ -1,4 +1,4 @@
-import { getPostBySlug, getAllPosts } from '@/lib/posts'
+import { getPostBySlug, getAllPosts, getRelatedPosts } from '@/lib/posts'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import PostRenderer from '@/components/post-renderer'
@@ -47,7 +47,9 @@ export default async function Page({
         notFound()
     }
 
-    return <PostRenderer post={post} type="writing" />
+    const relatedPosts = await getRelatedPosts(post.tags, post.slug)
+
+    return <PostRenderer post={post} type="writing" relatedPosts={relatedPosts} />
 }
 
 export async function generateStaticParams() {

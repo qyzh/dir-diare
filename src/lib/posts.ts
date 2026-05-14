@@ -4,6 +4,8 @@ import {
     createDocument,
     updateDocumentByField,
     deleteDocumentByField,
+    getDb,
+    documentToObject,
 } from './db-helpers'
 
 export interface Post {
@@ -52,4 +54,23 @@ export async function updatePost(
 
 export async function deletePost(slug: string): Promise<boolean> {
     return deleteDocumentByField(COLLECTION_NAME, 'slug', slug)
+}
+
+export async function getRelatedPosts(
+    tags: string[] | undefined,
+    currentSlug: string
+): Promise<Post[]> {
+    if (!tags || tags.length === 0) return []
+    const db = await getDb()
+    const docs = await db
+        .collection(COLLECTION_NAME)
+        .find({
+            tags: { $in: tags },
+            slug: { $ne: currentSlug },
+            status: 'published',
+        })
+        .sort({ publishedAt: -1 })
+        .limit(3)
+        .toArray()
+    return docs.map((doc) => documentToObject<Post>(doc))
 }
