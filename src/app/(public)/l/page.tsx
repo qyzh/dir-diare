@@ -12,8 +12,7 @@ export const revalidate = 3600
 
 export default async function Page() {
     const posts = await getAllArtPosts()
-
-    const delayClass = ['', 'reveal-delay-1', 'reveal-delay-2', 'reveal-delay-3', 'reveal-delay-4']
+    const [featured, ...rest] = posts
 
     return (
         <main>
@@ -32,23 +31,7 @@ export default async function Page() {
                     dir-diare
                 </Link>
                 <h1 className="page-title">Art</h1>
-                <p className="page-subtitle">
-                    Things crafted, worked on, or tried for fun.
-                    {posts.length > 0 && (
-                        <span
-                            style={{
-                                marginLeft: '1rem',
-                                fontSize: '0.65rem',
-                                letterSpacing: '0.15em',
-                                textTransform: 'uppercase',
-                                color: 'var(--text-muted)',
-                                fontFamily: 'var(--font-body)',
-                            }}
-                        >
-                            {posts.length} {posts.length === 1 ? 'piece' : 'pieces'}
-                        </span>
-                    )}
-                </p>
+                <p className="page-subtitle">Things crafted, worked on, or tried for fun.</p>
             </div>
 
             <div className="art-list">
