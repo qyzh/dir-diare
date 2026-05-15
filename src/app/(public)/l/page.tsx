@@ -13,6 +13,7 @@ export const revalidate = 3600
 export default async function Page() {
     const posts = await getAllArtPosts()
     const [featured, ...rest] = posts
+    const delayClass = ['', 'reveal-delay-1', 'reveal-delay-2', 'reveal-delay-3', 'reveal-delay-4']
 
     return (
         <main>
