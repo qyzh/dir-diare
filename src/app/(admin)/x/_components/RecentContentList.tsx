@@ -44,6 +44,7 @@ export default function RecentContentList({
                             </p>
                             <Link
                                 href={item.editHref}
+                                aria-label={`Edit ${item.label}`}
                                 className="shrink-0 text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
                             >
                                 <Pencil size={14} />
