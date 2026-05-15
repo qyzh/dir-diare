@@ -6,6 +6,7 @@ import AdminShell from '../../../_components/AdminShell'
 import MarkdownEditor from '../../../_components/MarkdownEditor'
 import UKButton from '@/components/ui/ukbtn'
 import { inputClassName, readOnlyInputClassName, labelClassName } from '../../../_components/formStyles'
+import TagPicker from '../../../_components/TagPicker'
 
 export default function EditPostPage({
     params,
@@ -14,7 +15,7 @@ export default function EditPostPage({
 }) {
     const { slug } = use(params)
     const [title, setTitle] = useState('')
-    const [tags, setTags] = useState('')
+    const [tags, setTags] = useState<string[]>([])
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
     const [publishedAt, setPublishedAt] = useState('')
@@ -39,11 +40,7 @@ export default function EditPostPage({
                 .then((data) => {
                     if (data) {
                         setTitle(data.title)
-                        if (data.tags && Array.isArray(data.tags)) {
-                            setTags(data.tags.join(', '))
-                        } else {
-                            setTags('')
-                        }
+                        setTags(Array.isArray(data.tags) ? data.tags : [])
                         setContent(data.content)
                         setSummary(data.summary || '')
                         setPublishedAt(data.publishedAt)
@@ -71,7 +68,7 @@ export default function EditPostPage({
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     title,
-                    tags: tags.split(',').map((tag) => tag.trim()),
+                    tags,
                     content,
                     summary,
                     author,
@@ -161,15 +158,7 @@ export default function EditPostPage({
                                             className={inputClassName}
                                         />
                                     </div>
-                                    <div>
-                                        <label className={labelClassName}>Tags</label>
-                                        <input
-                                            type="text"
-                                            value={tags}
-                                            onChange={(e) => setTags(e.target.value)}
-                                            className={inputClassName}
-                                        />
-                                    </div>
+                                    <TagPicker selected={tags} onChange={setTags} />
                                     <div>
                                         <label className={labelClassName}>Summary</label>
                                         <textarea
