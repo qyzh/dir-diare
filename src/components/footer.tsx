@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { icons } from 'lucide-react'
 import CopyUrlButton from './copyurl'
+import KudosButton from './kudos-button'
 import { getAllTags } from '@/lib/tags'
 
 interface FooterProps {
@@ -17,6 +18,10 @@ interface FooterProps {
     backLabel?: string
     /** If set, renders a CopyUrlButton after the back link */
     copyUrl?: string
+    /** Post slug — if set, renders a KudosButton (writing variant only) */
+    slug?: string
+    /** Initial kudos count */
+    kudos?: number
 }
 
 export default async function Footer({
@@ -26,6 +31,8 @@ export default async function Footer({
     backHref = '/w',
     backLabel = 'back to journal',
     copyUrl,
+    slug,
+    kudos = 0,
 }: FooterProps) {
     const year = new Date().getFullYear()
 
@@ -68,7 +75,10 @@ export default async function Footer({
                             </svg>
                             {backLabel}
                         </Link>
-                        {copyUrl && <CopyUrlButton url={copyUrl} />}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                            {slug && <KudosButton slug={slug} initialCount={kudos} />}
+                            {copyUrl && <CopyUrlButton url={copyUrl} />}
+                        </div>
                     </div>
                     <span className="journal-article-colophon">
                         {publishedAt

@@ -20,6 +20,7 @@ export interface Post {
     tags?: string[]
     author: string
     status: 'draft' | 'published'
+    kudos?: number
 }
 
 const COLLECTION_NAME = 'dirpost'
