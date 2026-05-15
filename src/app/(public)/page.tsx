@@ -1,11 +1,14 @@
 import Link from 'next/link'
+import { icons } from 'lucide-react'
 import { getAllPublishedPosts } from '@/lib/posts'
+import { getAllTags } from '@/lib/tags'
 import { formatDate } from '@/lib/utils'
 import Footer from '@/components/footer'
 
 export default async function Page() {
-    const posts = await getAllPublishedPosts()
+    const [posts, allTags] = await Promise.all([getAllPublishedPosts(), getAllTags()])
     const recent = posts.slice(0, 9)
+    const tagMap = Object.fromEntries(allTags.map((t) => [t.name, t]))
 
     return (
         <main>
@@ -51,11 +54,16 @@ export default async function Page() {
                                 )}
                                 {post.tags && post.tags.length > 0 && (
                                     <div className="journal-card-tags">
-                                        {post.tags.map((tag) => (
-                                            <span key={tag} className="journal-card-tag">
-                                                {tag}
-                                            </span>
-                                        ))}
+                                        {post.tags.map((tagName) => {
+                                            const tag = tagMap[tagName]
+                                            const Icon = tag?.icon ? icons[tag.icon as keyof typeof icons] : null
+                                            return (
+                                                <span key={tagName} className="journal-card-tag">
+                                                    {Icon && <Icon size={10} style={{ display: 'inline', marginRight: '0.25rem', verticalAlign: 'middle' }} />}
+                                                    {tag?.name ?? tagName}
+                                                </span>
+                                            )
+                                        })}
                                     </div>
                                 )}
                             </Link>
