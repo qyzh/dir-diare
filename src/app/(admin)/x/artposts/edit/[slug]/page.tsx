@@ -172,7 +172,7 @@ export default function EditArtPostPage({
             ) : error && !title ? (
                 <p className="text-sm text-red-500 font-mono">{error}</p>
             ) : (
-                <form onSubmit={handleSubmit} className="max-w-5xl space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
                         <div className="space-y-6 lg:col-span-2">
                             <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">

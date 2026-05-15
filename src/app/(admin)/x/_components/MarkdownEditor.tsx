@@ -353,7 +353,7 @@ export default function MarkdownEditor({ value, onChange, rows = 24, required, p
             {tab === 'preview' && (
                 <div style={{ minHeight: `${rows * 1.5}rem`, padding: '20px 24px' }}>
                     {value.trim() ? (
-                        <div className="journal-article-body">
+                        <div className="journal-article-body" style={{ '--article-ink': '#ddd4c9', '--article-ink-soft': '#b0a598', '--article-ink-muted': '#7a6e65', '--article-line': '#2c261f', '--article-accent': '#c4aa7e' } as React.CSSProperties}>
                             <ReactMarkdown remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
                         </div>
                     ) : (
@@ -571,7 +571,7 @@ export default function MarkdownEditor({ value, onChange, rows = 24, required, p
                     {tab === 'preview' && (
                         <div style={{ width: '100%', maxWidth: '740px', padding: '48px 32px' }}>
                             {value.trim() ? (
-                                <div className="journal-article-body">
+                                <div className="journal-article-body" style={{ '--article-ink': '#ddd4c9', '--article-ink-soft': '#b0a598', '--article-ink-muted': '#7a6e65', '--article-line': '#2c261f', '--article-accent': '#c4aa7e' } as React.CSSProperties}>
                                     <ReactMarkdown remarkPlugins={[remarkGfm]}>{value}</ReactMarkdown>
                                 </div>
                             ) : (
