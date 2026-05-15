@@ -1,5 +1,7 @@
 import Link from 'next/link'
+import { icons } from 'lucide-react'
 import CopyUrlButton from './copyurl'
+import { getAllTags } from '@/lib/tags'
 
 interface FooterProps {
     /** 'default' — full nav footer used on landing / section pages
@@ -17,7 +19,7 @@ interface FooterProps {
     copyUrl?: string
 }
 
-export default function Footer({
+export default async function Footer({
     variant = 'default',
     publishedAt,
     tags,
@@ -28,16 +30,28 @@ export default function Footer({
     const year = new Date().getFullYear()
 
     if (variant === 'writing') {
+        const tagData = tags && tags.length > 0 ? await getAllTags() : []
+
         return (
             <footer className="journal-article-footer" role="contentinfo">
                 <div className="journal-article-footer-inner">
                     {tags && tags.length > 0 && (
                         <div className="journal-article-tags">
-                            {tags.map((tag) => (
-                                <span key={tag} className="journal-article-tag">
-                                    {tag}
-                                </span>
-                            ))}
+                            {tags.map((tag) => {
+                                const meta = tagData.find((t) => t.name === tag)
+                                const Icon = meta?.icon ? icons[meta.icon as keyof typeof icons] : null
+                                return (
+                                    <Link
+                                        key={tag}
+                                        href={`/w/tags/${tag.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
+                                        className="journal-article-tag"
+                                        style={{ display: 'inline-flex', alignItems: 'center', gap: '5px' }}
+                                    >
+                                        {Icon && <Icon size={12} />}
+                                        {tag}
+                                    </Link>
+                                )
+                            })}
                         </div>
                     )}
                     <div className="journal-article-footer-row">
@@ -69,12 +83,9 @@ export default function Footer({
     return (
         <footer className="site-footer" role="contentinfo">
             <div className="site-footer-inner">
-                {/* Left: wordmark */}
                 <Link href="/" className="site-footer-brand">
                     dir-diare &copy;&thinsp;{year}
                 </Link>
-
-                {/* Right: year */}
                 <span className="site-footer-copy">
                     — a mental dump folder
                 </span>

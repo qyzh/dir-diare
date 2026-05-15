@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { getAllPublishedPosts } from '@/lib/posts'
+import { getAllTags } from '@/lib/tags'
 import { formatDate } from '@/lib/utils'
 import type { Metadata } from 'next'
 import Footer from '@/components/footer'
 import { Calendar } from 'lucide-react'
+import CardTagLinks from './_components/CardTagLinks'
 
 export const metadata: Metadata = {
     title: 'Journal',
@@ -13,7 +15,7 @@ export const metadata: Metadata = {
 export const revalidate = 3600
 
 export default async function Page() {
-    const posts = await getAllPublishedPosts()
+    const [posts, tagData] = await Promise.all([getAllPublishedPosts(), getAllTags()])
 
     return (
         <main>
@@ -39,19 +41,15 @@ export default async function Page() {
                                 <p className="journal-card-excerpt">{post.summary}</p>
                             )}
 
-                            <div className="flex items-center gap-4 mt-6">
-                                <div className="flex items-center gap-1.5 text-[0.7rem] tracking-[0.1em] uppercase text-[var(--text-muted)]">
+                            <span className="flex items-center gap-4 mt-6">
+                                <span className="flex items-center gap-1.5 text-[0.7rem] tracking-[0.1em] uppercase text-[var(--text-muted)]">
                                     <Calendar className="w-3.5 h-3.5" />
                                     <span>{formatDate(post.publishedAt, false, 'short')}</span>
-                                </div>
+                                </span>
                                 {post.tags && post.tags.length > 0 && (
-                                    <div className="flex flex-wrap items-center gap-1.5">
-                                        {post.tags.map((tag) => (
-                                            <span key={tag} className="journal-card-tag" style={{ marginTop: 0 }}>{tag}</span>
-                                        ))}
-                                    </div>
+                                    <CardTagLinks tags={post.tags} tagData={tagData} />
                                 )}
-                            </div>
+                            </span>
                         </Link>
                     ))}
                     {posts.length === 0 && (

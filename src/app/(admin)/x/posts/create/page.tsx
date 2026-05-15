@@ -7,10 +7,11 @@ import MarkdownEditor from '../../_components/MarkdownEditor'
 import UKButton from '@/components/ui/ukbtn'
 import { AUTHORIZED_USER } from '@/lib/constants'
 import { inputClassName, labelClassName } from '../../_components/formStyles'
+import TagPicker from '../../_components/TagPicker'
 
 export default function CreatePostPage() {
     const [title, setTitle] = useState('')
-    const [tags, setTags] = useState('')
+    const [tags, setTags] = useState<string[]>([])
     const [content, setContent] = useState('')
     const [summary, setSummary] = useState('')
     const [author, setAuthor] = useState(AUTHORIZED_USER)
@@ -35,7 +36,7 @@ export default function CreatePostPage() {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     title,
-                    tags: tags.split(',').map((tag) => tag.trim()),
+                    tags,
                     content,
                     summary,
                     author,
@@ -111,16 +112,7 @@ export default function CreatePostPage() {
                                         className={inputClassName}
                                     />
                                 </div>
-                                <div>
-                                    <label className={labelClassName}>Tags</label>
-                                    <input
-                                        type="text"
-                                        value={tags}
-                                        onChange={(e) => setTags(e.target.value)}
-                                        className={inputClassName}
-                                        placeholder="tag1, tag2..."
-                                    />
-                                </div>
+                                <TagPicker selected={tags} onChange={setTags} />
                                 <div>
                                     <label className={labelClassName}>Summary</label>
                                     <textarea
