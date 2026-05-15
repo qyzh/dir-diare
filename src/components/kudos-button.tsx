@@ -41,9 +41,13 @@ export default function KudosButton({
             size="sm"
             onClick={handleKudos}
             disabled={sent}
+            aria-label={sent ? 'Kudos sent' : 'Send kudos'}
             className={`px-2 py-1${sent ? ' opacity-100' : ''}`}
         >
-            <Heart className={`w-4 h-4${sent ? ' text-amber-400' : ''}`} />
+            <Heart
+                aria-hidden="true"
+                className={`w-4 h-4${sent ? ' text-amber-400' : ''}`}
+            />
             {count > 0 && (
                 <span className="text-xs pl-0.5">{count}</span>
             )}
