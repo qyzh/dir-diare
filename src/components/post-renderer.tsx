@@ -1,6 +1,7 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { useMDXComponents } from '../../mdx-components'
 import { formatDate } from '@/lib/utils'
+import type { RelatedPost } from '@/lib/posts'
 import Image from 'next/image'
 import ArticleProgress from './article-progress'
 import Link from 'next/link'
@@ -9,14 +10,17 @@ import remarkFrontmatter from 'remark-frontmatter'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import Footer from './footer'
+import RelatedPosts from './related-posts'
 
 const components = useMDXComponents()
 export default function PostRenderer({
   post,
   type,
+  relatedPosts,
 }: {
   post: any
   type: 'art' | 'writing'
+  relatedPosts?: RelatedPost[]
 }) {
   const formattedDate = post.publishedAt
     ? formatDate(post.publishedAt)
@@ -177,6 +181,11 @@ export default function PostRenderer({
               />
             </article>
           </div>
+
+          {/* Related Posts */}
+          {relatedPosts && relatedPosts.length > 0 && (
+            <RelatedPosts posts={relatedPosts} />
+          )}
 
           {/* Footer */}
           <Footer

@@ -4,7 +4,10 @@ import {
     createDocument,
     updateDocumentByField,
     deleteDocumentByField,
+    getDb,
+    documentToObject,
 } from './db-helpers'
+import type { WithId, Document } from 'mongodb'
 
 export interface Post {
     _id: string
@@ -52,4 +55,26 @@ export async function updatePost(
 
 export async function deletePost(slug: string): Promise<boolean> {
     return deleteDocumentByField(COLLECTION_NAME, 'slug', slug)
+}
+
+export type RelatedPost = Pick<Post, '_id' | 'slug' | 'title' | 'summary' | 'publishedAt' | 'author' | 'tags'>
+
+export async function getRelatedPosts(
+    tags: string[] | undefined,
+    currentSlug: string
+): Promise<RelatedPost[]> {
+    if (!tags || tags.length === 0) return []
+    const db = await getDb()
+    const docs = await db
+        .collection(COLLECTION_NAME)
+        .find({
+            tags: { $in: tags },
+            slug: { $ne: currentSlug },
+            status: 'published',
+        })
+        .project({ slug: 1, title: 1, summary: 1, publishedAt: 1, author: 1, tags: 1 })
+        .sort({ publishedAt: -1 })
+        .limit(3)
+        .toArray()
+    return docs.map((doc) => documentToObject<RelatedPost>(doc as WithId<Document>))
 }

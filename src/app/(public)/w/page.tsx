@@ -3,6 +3,7 @@ import { getAllPublishedPosts } from '@/lib/posts'
 import { formatDate } from '@/lib/utils'
 import type { Metadata } from 'next'
 import Footer from '@/components/footer'
+import { Calendar } from 'lucide-react'
 
 export const metadata: Metadata = {
     title: 'Journal',
@@ -26,31 +27,35 @@ export default async function Page() {
             </div>
 
             <div style={{ padding: '3rem var(--page-pad)' }}>
-                <div className="journal-grid">
+                <div className="flex flex-col max-w-3xl mx-auto gap-[1px] bg-[var(--line)] ">
                     {posts.map((post, i) => (
                         <Link
                             key={post._id}
                             href={`/w/${post.slug}`}
                             className={`journal-card reveal reveal-delay-${Math.min(i + 1, 4)}`}
                         >
-                            <p className="journal-card-date">
-                                {formatDate(post.publishedAt, false, 'short')}
-                            </p>
                             <h2 className="journal-card-title">{post.title}</h2>
                             {post.summary && (
                                 <p className="journal-card-excerpt">{post.summary}</p>
                             )}
-                            {post.tags && post.tags.length > 0 && (
-                                <div className="journal-card-tags">
-                                    {post.tags.map((tag) => (
-                                        <span key={tag} className="journal-card-tag">{tag}</span>
-                                    ))}
+
+                            <div className="flex items-center gap-4 mt-6">
+                                <div className="flex items-center gap-1.5 text-[0.7rem] tracking-[0.1em] uppercase text-[var(--text-muted)]">
+                                    <Calendar className="w-3.5 h-3.5" />
+                                    <span>{formatDate(post.publishedAt, false, 'short')}</span>
                                 </div>
-                            )}
+                                {post.tags && post.tags.length > 0 && (
+                                    <div className="flex flex-wrap items-center gap-1.5">
+                                        {post.tags.map((tag) => (
+                                            <span key={tag} className="journal-card-tag" style={{ marginTop: 0 }}>{tag}</span>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
                         </Link>
                     ))}
                     {posts.length === 0 && (
-                        <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+                        <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', padding: '1.75rem', background: 'var(--bg)' }}>
                             No entries yet.
                         </p>
                     )}

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getAllArtPosts } from '@/lib/artpost'
 import type { Metadata } from 'next'
 import Footer from '@/components/footer'
+import { formatDate } from '@/lib/utils'
 
 export const metadata: Metadata = {
     title: 'Art',
@@ -13,6 +14,7 @@ export const revalidate = 3600
 export default async function Page() {
     const posts = await getAllArtPosts()
     const [featured, ...rest] = posts
+    const delayClass = ['', 'reveal-delay-1', 'reveal-delay-2', 'reveal-delay-3', 'reveal-delay-4']
 
     return (
         <main>
@@ -34,45 +36,48 @@ export default async function Page() {
                 <p className="page-subtitle">Things crafted, worked on, or tried for fun.</p>
             </div>
 
-            <div className="projects-section">
-                {featured && (
-                    <Link href={`/l/${featured.slug}`} className="project-featured reveal" style={{ textDecoration: 'none' }}>
-                        <div>
-                            <p className="project-featured-label">Featured</p>
-                            <h2 className="project-featured-title">{featured.title}</h2>
-                            {featured.summary && (
-                                <p className="project-featured-desc">{featured.summary}</p>
-                            )}
-                            <span className="project-link inline">View <svg xmlns="http://www.w3.org/2000/svg" width="14"
-                                height="14" fill="currentColor" viewBox="0 0 24 24" ><path d="M4 11v2h16v-2zm12 2v2h2v-2zm-2 2v2h2v-2zm-2 2v2h2v-2zm4-6V9h2v2z" /><path d="M14 15V7h2v8zm-2 2V5h2v12z" /></svg></span>
-                        </div>
-                        {featured.image && (
-                            <img
-                                src={featured.image}
-                                alt={featured.title}
-                                style={{ width: '100%', height: 'auto', display: 'block' }}
-                            />
-                        )}
-                    </Link>
-                )}
+            <div className="art-list">
+                {posts.length > 0 ? (
+                    posts.map((post, i) => {
+                        const formattedDate = formatDate(post.publishedAt, false, 'long')
 
-                {rest.length > 0 && (
-                    <div className="projects-grid">
-                        {rest.map((post) => (
-                            <Link key={post._id} href={`/l/${post.slug}`} className="project-card reveal">
-                                <p className="project-card-title">{post.title}</p>
-                                {post.summary && (
-                                    <p className="project-card-desc">{post.summary}</p>
-                                )}
+                        return (
+                            <Link
+                                key={post._id}
+                                href={`/l/${post.slug}`}
+                                className={`art-card reveal ${delayClass[i % delayClass.length]}`}
+                            >
+                                <div className="art-card-bg">
+                                    {post.image ? (
+                                        <img src={post.image} alt={post.title} className="art-card-image" />
+                                    ) : (
+                                        <div className="art-card-image-placeholder"></div>
+                                    )}
+                                </div>
+                                <div className="art-card-top">
+                                    <div className="art-card-logo">
+                                        {post.author}
+                                    </div>
+                                    <div className="art-card-date">
+                                        {formattedDate}
+                                    </div>
+                                </div>
+                                <div className="art-card-glass">
+                                    <div className="art-card-content">
+                                        <h2 className="art-card-title">{post.title}</h2>
+                                        {post.summary && (
+                                            <p className="art-card-summary">{post.summary}</p>
+                                        )}
+                                    </div>
+                                    <div className="art-card-action">
+                                        <span className="art-card-btn">Learn more</span>
+                                    </div>
+                                </div>
                             </Link>
-                        ))}
-                    </div>
-                )}
-
-                {posts.length === 0 && (
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.875rem', padding: 'var(--page-pad)' }}>
-                        No art posts yet.
-                    </p>
+                        )
+                    })
+                ) : (
+                    <p className="art-list-empty">No art posts yet.</p>
                 )}
             </div>
 
