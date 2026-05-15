@@ -1,62 +1,124 @@
 'use client'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import Breadcrumbs from '@/components/breadcrumbs'
+
 export default function NotFound() {
-    return (
-        <section>
-            <Err0r />
-        </section>
-    )
+    return <NotFoundContent />
 }
-function Err0r() {
+
+function NotFoundContent() {
     const pathname = usePathname()
+
     return (
-        <div className="flex flex-col mt-6 h-screen">
-      <Breadcrumbs/>
-            <div className="mt-4 mb-10 text-2xl items-center uppercase tracking-widest">
-                Status{' '}
-                <span className="text-2xl text-neutral-400"> Not Found </span>
-            </div>
-
-            <div className="flex items-center justify-between border-b-1 border-neutral-700 mb-10">
-                <div className="flex items-center justify-center text-center">
-                    <h1 className="text-6xl font-bold mb-4 tracking-widest">
-                        DENIED
-                    </h1>
-                    <span className="relative ml-6 mb-6">
-                        <span className="absolute -top-1 -right-1 flex h-4 w-4">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-4 w-4 bg-rose-500"></span>
-                        </span>
-                    </span>
-                </div>
-
-                <div className="uppercase text-amber-800 hover:text-amber-400">
-                    <Link href="/">./backdir</Link>
-                </div>
-            </div>
-            <div className="mb-2">
-                <span className="bg-white border-r-6 border-rose-500 ">
-                    <span className="mr-2 text-black pl-2 py-1 ">
-                        dir-diare
-                    </span>
-                    <span className="font-bold text-neutral-900  pr-2 py-1  break-all">
-                        {pathname}
-                    </span>
-                </span>
-            </div>
-            <p className="text-lg uppercase text-neutral-500 dark:text-neutral-400">
-                The page you are looking for either{' '}
-                <span className="border-b-4 hover:text-white hover:border-rose-600 hover:bg-rose-400 transition-all duration-200">
-                    does not exist
-                </span>
-                {''} or you {''}
-                <span className="border-b-4 hover:text-white hover:border-rose-600 hover:bg-rose-400 transition-all duration-200">
-                    don't have the necessary access.
-                </span>
+        <main
+            style={{
+                minHeight: '100svh',
+                background: 'var(--bg)',
+                color: 'var(--text-main)',
+                fontFamily: 'var(--font-body)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                padding: 'var(--page-pad)',
+                paddingBottom: 'clamp(3rem, 8vh, 5rem)',
+            }}
+        >
+            {/* Status label */}
+            <p
+                style={{
+                    fontSize: '0.65rem',
+                    letterSpacing: '0.18em',
+                    textTransform: 'uppercase',
+                    color: 'var(--text-muted)',
+                    marginBottom: '1.5rem',
+                }}
+            >
+                HTTP · 404
             </p>
-        </div>
+
+            {/* Big heading */}
+            <h1
+                style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 'clamp(4rem, 14vw, 10rem)',
+                    fontStyle: 'italic',
+                    fontWeight: 400,
+                    color: 'var(--text-bright)',
+                    lineHeight: 1,
+                    margin: '0 0 2rem',
+                }}
+            >
+                Not Found
+            </h1>
+
+            {/* Divider */}
+            <div
+                style={{
+                    width: '100%',
+                    height: '1px',
+                    background: 'var(--line)',
+                    marginBottom: '2rem',
+                }}
+            />
+
+            {/* Path display */}
+            <p
+                style={{
+                    fontSize: '0.8125rem',
+                    color: 'var(--text-dim)',
+                    letterSpacing: '0.04em',
+                    marginBottom: '0.5rem',
+                    fontFamily: 'var(--font-body)',
+                }}
+            >
+                <span style={{ color: 'var(--text-muted)' }}>path</span>
+                {' '}
+                <span style={{ color: 'var(--text-mid)' }}>{pathname}</span>
+                <span
+                    style={{
+                        display: 'inline-block',
+                        width: '2px',
+                        height: '0.9em',
+                        background: 'var(--text-muted)',
+                        marginLeft: '2px',
+                        verticalAlign: 'middle',
+                        animation: 'blink 1.2s step-end infinite',
+                    }}
+                />
+            </p>
+
+            {/* Description */}
+            <p
+                style={{
+                    fontSize: '0.875rem',
+                    color: 'var(--text-dim)',
+                    lineHeight: 1.7,
+                    maxWidth: '44ch',
+                    marginBottom: '2.5rem',
+                }}
+            >
+                The page you are looking for either does not exist or you
+                don't have the necessary access.
+            </p>
+
+            {/* Back link */}
+            <Link
+                href="/"
+                className="page-back"
+                style={{ marginBottom: 0 }}
+            >
+                <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                >
+                    <path d="M9 6H3M3 6L6 3M3 6L6 9" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                ./root
+            </Link>
+        </main>
     )
 }
-

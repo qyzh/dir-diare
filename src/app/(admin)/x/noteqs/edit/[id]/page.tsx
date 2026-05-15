@@ -80,7 +80,7 @@ export default function EditNoteQPage({
             {loading ? (
                 <p className="text-[#6e6255] font-mono">Loading note...</p>
             ) : (
-                <form onSubmit={handleSubmit} className="max-w-4xl space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                     <section className="border border-[#2a2520] bg-[#0f0e0c] p-6">
                         <div className="space-y-6">
                             <div>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import UKButton from '@/components/ui/ukbtn'
+import { Upload, FileText, Trash2, Pencil } from 'lucide-react'
 
 interface RowQuickActionsProps {
     editHref: string
@@ -24,7 +25,7 @@ export default function RowQuickActions({
                     disabled={disabled}
                     onClick={() => void onPublish()}
                 >
-                    Publish
+                    <Upload size={14} />
                 </UKButton>
             )}
             {onDraft && (
@@ -33,7 +34,7 @@ export default function RowQuickActions({
                     disabled={disabled}
                     onClick={() => void onDraft()}
                 >
-                    Draft
+                    <FileText size={14} />
                 </UKButton>
             )}
             {onDelete && (
@@ -43,12 +44,12 @@ export default function RowQuickActions({
                     disabled={disabled}
                     onClick={() => void onDelete()}
                 >
-                    Delete
+                    <Trash2 size={14} />
                 </UKButton>
             )}
             <Link href={editHref}>
                 <UKButton size="sm">
-                    Edit
+                    <Pencil size={14} />
                 </UKButton>
             </Link>
         </div>

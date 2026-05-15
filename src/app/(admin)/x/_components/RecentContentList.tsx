@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Pencil } from 'lucide-react'
 
 interface RecentContentItem {
     id: string
@@ -43,9 +44,10 @@ export default function RecentContentList({
                             </p>
                             <Link
                                 href={item.editHref}
-                                className="shrink-0 text-xs text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
+                                aria-label={`Edit ${item.label}`}
+                                className="shrink-0 text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
                             >
-                                Edit
+                                <Pencil size={14} />
                             </Link>
                         </div>
                     ))}

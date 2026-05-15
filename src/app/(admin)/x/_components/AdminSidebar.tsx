@@ -81,10 +81,10 @@ export default function AdminSidebar() {
                     bottom: 0,
                     left: 0,
                     right: 0,
+                    display: 'flex',
                     zIndex: 50,
                     background: '#0a0908',
                     borderTop: '1px solid #2a2520',
-                    display: 'flex',
                     alignItems: 'stretch',
                 }}
             >
