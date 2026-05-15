@@ -192,6 +192,8 @@ export default function PostRenderer({
             variant="writing"
             tags={tags}
             copyUrl={`https://dir.kyxis.my.id/w/${post.slug}`}
+            slug={post.slug}
+            kudos={post.kudos ?? 0}
           />
 
         </div>
