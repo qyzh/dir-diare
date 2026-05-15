@@ -1,8 +1,8 @@
 import Link from 'next/link'
 import { formatDate } from '@/lib/utils'
-import type { Post } from '@/lib/posts'
+import type { RelatedPost } from '@/lib/posts'
 
-export default function RelatedPosts({ posts }: { posts: Post[] }) {
+export default function RelatedPosts({ posts }: { posts: RelatedPost[] }) {
   if (posts.length === 0) return null
 
   return (

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { getAllArtPosts } from '@/lib/artpost'
 import type { Metadata } from 'next'
 import Footer from '@/components/footer'
+import { formatDate } from '@/lib/utils'
 
 export const metadata: Metadata = {
     title: 'Art',
@@ -38,12 +39,7 @@ export default async function Page() {
             <div className="art-list">
                 {posts.length > 0 ? (
                     posts.map((post, i) => {
-                        const date = new Date(post.publishedAt);
-                        const formattedDate = date.toLocaleDateString('en-US', {
-                            month: 'long',
-                            day: 'numeric',
-                            year: 'numeric'
-                        });
+                        const formattedDate = formatDate(post.publishedAt, false, 'long')
 
                         return (
                             <Link

@@ -1,6 +1,7 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { useMDXComponents } from '../../mdx-components'
 import { formatDate } from '@/lib/utils'
+import type { RelatedPost } from '@/lib/posts'
 import Image from 'next/image'
 import ArticleProgress from './article-progress'
 import Link from 'next/link'
@@ -19,7 +20,7 @@ export default function PostRenderer({
 }: {
   post: any
   type: 'art' | 'writing'
-  relatedPosts?: any[]
+  relatedPosts?: RelatedPost[]
 }) {
   const formattedDate = post.publishedAt
     ? formatDate(post.publishedAt)
