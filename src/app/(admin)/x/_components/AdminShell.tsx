@@ -125,7 +125,6 @@ export default function AdminShell({ title, actions, children }: AdminShellProps
                     style={{
                         flex: 1,
                         minWidth: 0,
-                        display: 'flex',
                         flexDirection: 'column',
                         // bottom padding for mobile bottom nav
                         paddingBottom: 'env(safe-area-inset-bottom)',
