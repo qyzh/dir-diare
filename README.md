@@ -12,8 +12,6 @@ Welcome to `dir-diare`, my personal corner of the internet. This project is more
 
 -   **Blog**: A space for my articles, tutorials, and thoughts on technology and life.
 -   **Art Showcase**: A gallery for my digital art and creative projects.
--   **Now Playing**: A real-time display of what I'm currently listening to on Spotify.
--   **Activity Log**: Integration with Strava to share my latest runs and workouts.
 -   **Community Interaction**: GitHub-powered comments section on posts for discussions.
 
 ## Tech Stack
