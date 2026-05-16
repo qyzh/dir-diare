@@ -16,7 +16,6 @@ const SECTION_LABELS: Record<string, string> = {
     '/n': 'Quotes',
     '/l': 'Projects',
     '/about': 'About',
-    '/m': 'Music',
 }
 
 function getSectionLabel(pathname: string): string | null {
