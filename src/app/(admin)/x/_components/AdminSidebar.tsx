@@ -75,7 +75,7 @@ export default function AdminSidebar() {
         <>
             {/* Mobile: fixed bottom nav */}
             <nav
-                className="md:hidden"
+                className="flex md:hidden"
                 style={{
                     position: 'fixed',
                     bottom: 0,
