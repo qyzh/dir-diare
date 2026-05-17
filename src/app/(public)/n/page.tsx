@@ -6,6 +6,7 @@ import Footer from '@/components/footer'
 export const metadata: Metadata = {
     title: 'Notes',
     description: 'Collection of quotes and notes from various sources.',
+    alternates: { canonical: '/n' },
 }
 
 export const revalidate = 3600

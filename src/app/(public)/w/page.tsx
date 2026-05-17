@@ -10,6 +10,7 @@ import CardTagLinks from './_components/CardTagLinks'
 export const metadata: Metadata = {
     title: 'Journal',
     description: 'Notes on building things, reading things, and the slow accumulation of days.',
+    alternates: { canonical: '/w' },
 }
 
 export const revalidate = 3600
