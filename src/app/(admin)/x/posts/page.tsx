@@ -124,7 +124,7 @@ export default function PostsManagePage() {
                         >
                             <div className="min-w-0 flex-1">
                                 <div className="mb-2 flex items-center gap-2">
-                                    <h3 className="truncate text-lg text-[#d4c9b4] font-[family-name:var(--font-tinos)]">
+                                    <h3 className="truncate text-lg text-[#d4c9b4] font-[family-name:var(--font-playfair)]">
                                         {post.title}
                                     </h3>
                                     <span className="text-[10px] uppercase tracking-widest text-[#c4aa7e] font-mono">

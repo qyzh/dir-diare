@@ -64,7 +64,7 @@ export default function ArtPostsPage() {
                             className="flex flex-col justify-between gap-3 border border-[#2a2520] bg-[#14120f] p-3 lg:flex-row"
                         >
                             <div className="min-w-0 flex-1">
-                                <h3 className="truncate text-lg text-[#d4c9b4] font-[family-name:var(--font-tinos)]">
+                                <h3 className="truncate text-lg text-[#d4c9b4] font-[family-name:var(--font-playfair)]">
                                     {post.title}
                                 </h3>
                                 <p className="mt-1 text-xs text-[#6e6255] font-mono">
