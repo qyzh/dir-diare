@@ -4,6 +4,19 @@ import { getAllPublishedPosts } from '@/lib/posts'
 import { getAllTags } from '@/lib/tags'
 import { formatDate } from '@/lib/utils'
 import Footer from '@/components/footer'
+import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/constants'
+
+export const metadata: Metadata = {
+    title: 'Dir-diare',
+    description: 'A personal journal. Notes on building things, reading things, and the slow accumulation of days.',
+    openGraph: {
+        title: 'Dir-diare',
+        description: 'A personal journal. Notes on building things, reading things, and the slow accumulation of days.',
+        url: SITE_URL,
+        type: 'website',
+    },
+}
 
 export default async function Page() {
     const [posts, allTags] = await Promise.all([getAllPublishedPosts(), getAllTags()])

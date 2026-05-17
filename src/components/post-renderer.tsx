@@ -11,6 +11,8 @@ import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import Footer from './footer'
 import RelatedPosts from './related-posts'
+import PostJsonLd from './post-json-ld'
+import { SITE_URL } from '@/lib/constants'
 
 const components = useMDXComponents()
 export default function PostRenderer({
@@ -34,26 +36,7 @@ export default function PostRenderer({
         <ArticleProgress />
         <main className="article-wrap article-wrap--writing">
           <div className="journal-article">
-            <script
-              type="application/ld+json"
-              suppressHydrationWarning
-              dangerouslySetInnerHTML={{
-                __html: JSON.stringify({
-                  '@context': 'https://schema.org',
-                  '@type': 'BlogPosting',
-                  headline: post.title,
-                  datePublished: post.publishedAt,
-                  dateModified: post.updatedAt || post.publishedAt,
-                  description: post.summary,
-                  image: `https://dir.kyxis.my.id/og?title=${post.title}`,
-                  url: `https://dir.kyxis.my.id/l/${post.slug}`,
-                  author: {
-                    '@type': 'Person',
-                    name: 'uki',
-                  },
-                }),
-              }}
-            />
+            <PostJsonLd post={post} type="art" />
 
             {/* Header */}
             <header className="journal-article-header">
@@ -65,11 +48,11 @@ export default function PostRenderer({
               </nav>
 
               <div className="journal-article-meta">
-                <time>{formattedDate}</time>
+                <time dateTime={post.publishedAt}>{formattedDate}</time>
                 {post.updatedAt && post.updatedAt !== post.publishedAt && (
                   <>
                     <span className="journal-article-meta-sep" aria-hidden="true" />
-                    <span>Revised {formatDate(post.updatedAt)}</span>
+                    <time dateTime={post.updatedAt}>Revised {formatDate(post.updatedAt)}</time>
                   </>
                 )}
               </div>
@@ -119,7 +102,7 @@ export default function PostRenderer({
               backLabel="Back to Art"
               tags={tags}
               publishedAt={formattedDate}
-              copyUrl={`https://dir.kyxis.my.id/l/${post.slug}`}
+              copyUrl={`${SITE_URL}/l/${post.slug}`}
             />
 
           </div>
@@ -133,8 +116,7 @@ export default function PostRenderer({
       <ArticleProgress />
       <main className="article-wrap article-wrap--writing">
         <div className="journal-article">
-
-          {/* Header */}
+          <PostJsonLd post={post} type="writing" />
           <header className="journal-article-header">
             <nav className="journal-article-nav">
               <Link href="/w" className="journal-article-back">
@@ -144,11 +126,11 @@ export default function PostRenderer({
             </nav>
 
             <div className="journal-article-meta">
-              <time>{formattedDate}</time>
+              <time dateTime={post.publishedAt}>{formattedDate}</time>
               {post.updatedAt && post.updatedAt !== post.publishedAt && (
                 <>
                   <span className="journal-article-meta-sep" aria-hidden="true" />
-                  <span>Revised {formatDate(post.updatedAt)}</span>
+                  <time dateTime={post.updatedAt}>Revised {formatDate(post.updatedAt)}</time>
                 </>
               )}
             </div>
@@ -191,7 +173,7 @@ export default function PostRenderer({
           <Footer
             variant="writing"
             tags={tags}
-            copyUrl={`https://dir.kyxis.my.id/w/${post.slug}`}
+            copyUrl={`${SITE_URL}/w/${post.slug}`}
             slug={post.slug}
             kudos={post.kudos ?? 0}
           />

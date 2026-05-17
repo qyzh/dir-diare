@@ -3,6 +3,7 @@ import { getAllArtPosts } from '@/lib/artpost'
 import type { Metadata } from 'next'
 import Footer from '@/components/footer'
 import { formatDate } from '@/lib/utils'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
     title: 'Art',
@@ -49,7 +50,7 @@ export default async function Page() {
                             >
                                 <div className="art-card-bg">
                                     {post.image ? (
-                                        <img src={post.image} alt={post.title} className="art-card-image" />
+                                        <Image src={post.image} alt={post.title} fill className="art-card-image" sizes="(max-width: 768px) 100vw, 50vw" />
                                     ) : (
                                         <div className="art-card-image-placeholder"></div>
                                     )}

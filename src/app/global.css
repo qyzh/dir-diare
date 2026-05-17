@@ -66,16 +66,12 @@ html {
 
 body {
     text-rendering: optimizeLegibility;
-    font-family: var(--font-domine);
+    font-family: var(--font-courier-prime), 'Courier New', monospace;
     font-size: 16px;
     /* Mobile-first: prevents iOS zoom on inputs */
     line-height: 1.6;
     @apply md:text-lg;
     /* 18px on desktop */
-}
-
-.dark body {
-    font-family: var(--font-inter);
 }
 
 /* Typography */
@@ -84,14 +80,7 @@ h2,
 h3,
 h4 {
     text-wrap: balance;
-    font-family: var(--font-tinos);
-}
-
-.dark h1,
-.dark h2,
-.dark h3,
-.dark h4 {
-    font-family: var(--font-bebas-neue);
+    font-family: var(--font-playfair), Georgia, serif;
 }
 
 h1 {
@@ -121,7 +110,8 @@ ol {
 }
 
 blockquote {
-    font-family: var(--font-noto-serif);
+    font-family: var(--font-playfair), Georgia, serif;
+    font-style: italic;
     line-height: 1.7;
 }
 
@@ -129,17 +119,9 @@ blockquote>*:last-child {
     margin-bottom: 0;
 }
 
-.dark blockquote {
-    font-family: var(--font-inter);
-}
-
 blockquote cite {
     @apply block mt-3 text-sm not-italic text-neutral-600 dark:text-neutral-400;
-    font-family: var(--font-domine);
-}
-
-.dark blockquote cite {
-    font-family: var(--font-inter);
+    font-family: var(--font-courier-prime), 'Courier New', monospace;
 }
 
 mark {
@@ -182,25 +164,6 @@ table {
 
 ::view-transition-new(lee) {
     animation: fade-in-up 0.4s ease-in-out;
-}
-
-/* Header components */
-.text-fonetik {
-    font-family: var(--font-noto-serif);
-}
-
-.dark .text-fonetik {
-    font-family: var(--font-noto-serif);
-}
-
-/* Front Desk */
-.front-link {
-    font-family: var(--font-noto-serif);
-    font-weight: semibold;
-}
-
-.dark .front-link {
-    font-family: var(--font-inter);
 }
 
 /* Post components */
@@ -253,7 +216,7 @@ table {
 /* Code blocks */
 code,
 pre {
-    font-family: var(--font-monaspace);
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
 }
 
 .token.class-name {
@@ -308,7 +271,7 @@ pre {
     --text-bright: #ede8e0;
     --font-serif: var(--font-playfair), Georgia, serif;
     --font-body: var(--font-courier-prime), 'Courier New', monospace;
-    --font-fell: var(--font-im-fell), Georgia, serif;
+    --font-fell: var(--font-playfair), Georgia, serif;
     --page-pad: clamp(1.25rem, 5vw, 3rem);
 }
 
@@ -1401,7 +1364,7 @@ pre {
 }
 
 .journal-article-body code {
-    font-family: var(--font-monaspace);
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
     font-size: 0.85em;
     background: var(--article-note);
     color: var(--article-ink-soft);

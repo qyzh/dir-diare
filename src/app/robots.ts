@@ -1,12 +1,13 @@
-const baseUrl = 'https://dir-diare.vercel.app'
+import { SITE_URL } from '@/lib/constants'
 
 export default function robots() {
     return {
         rules: [
             {
                 userAgent: '*',
+                disallow: ['/x/'],
             },
         ],
-        sitemap: `${baseUrl}/sitemap.xml`,
+        sitemap: `${SITE_URL}/sitemap.xml`,
     }
 }

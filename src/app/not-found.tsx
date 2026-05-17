@@ -1,14 +1,6 @@
-'use client'
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 export default function NotFound() {
-    return <NotFoundContent />
-}
-
-function NotFoundContent() {
-    const pathname = usePathname()
-
     return (
         <main
             style={{
@@ -23,7 +15,6 @@ function NotFoundContent() {
                 paddingBottom: 'clamp(3rem, 8vh, 5rem)',
             }}
         >
-            {/* Status label */}
             <p
                 style={{
                     fontSize: '0.65rem',
@@ -36,7 +27,6 @@ function NotFoundContent() {
                 HTTP · 404
             </p>
 
-            {/* Big heading */}
             <h1
                 style={{
                     fontFamily: 'var(--font-serif)',
@@ -51,7 +41,6 @@ function NotFoundContent() {
                 Not Found
             </h1>
 
-            {/* Divider */}
             <div
                 style={{
                     width: '100%',
@@ -61,33 +50,6 @@ function NotFoundContent() {
                 }}
             />
 
-            {/* Path display */}
-            <p
-                style={{
-                    fontSize: '0.8125rem',
-                    color: 'var(--text-dim)',
-                    letterSpacing: '0.04em',
-                    marginBottom: '0.5rem',
-                    fontFamily: 'var(--font-body)',
-                }}
-            >
-                <span style={{ color: 'var(--text-muted)' }}>path</span>
-                {' '}
-                <span style={{ color: 'var(--text-mid)' }}>{pathname}</span>
-                <span
-                    style={{
-                        display: 'inline-block',
-                        width: '2px',
-                        height: '0.9em',
-                        background: 'var(--text-muted)',
-                        marginLeft: '2px',
-                        verticalAlign: 'middle',
-                        animation: 'blink 1.2s step-end infinite',
-                    }}
-                />
-            </p>
-
-            {/* Description */}
             <p
                 style={{
                     fontSize: '0.875rem',
@@ -98,15 +60,10 @@ function NotFoundContent() {
                 }}
             >
                 The page you are looking for either does not exist or you
-                don't have the necessary access.
+                don&apos;t have the necessary access.
             </p>
 
-            {/* Back link */}
-            <Link
-                href="/"
-                className="page-back"
-                style={{ marginBottom: 0 }}
-            >
+            <Link href="/" className="page-back" style={{ marginBottom: 0 }}>
                 <svg
                     width="12"
                     height="12"
