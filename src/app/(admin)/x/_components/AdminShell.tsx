@@ -152,7 +152,7 @@ export default function AdminShell({ title, actions, children }: AdminShellProps
                             style={{
                                 fontSize: '18px',
                                 color: '#c4aa7e',
-                                fontFamily: 'var(--font-tinos)',
+                                fontFamily: 'var(--font-playfair)',
                                 lineHeight: 1.2,
                                 margin: 0,
                             }}

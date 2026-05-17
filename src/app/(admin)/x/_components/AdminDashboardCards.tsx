@@ -73,7 +73,7 @@ export default function AdminDashboardCards({
                             right: '-8px',
                             top: '-4px',
                             fontSize: '72px',
-                            fontFamily: 'var(--font-tinos)',
+                            fontFamily: 'var(--font-playfair)',
                             color: '#1a1713',
                             lineHeight: 1,
                             pointerEvents: 'none',
@@ -100,7 +100,7 @@ export default function AdminDashboardCards({
                             style={{
                                 fontSize: '40px',
                                 color: card.accentColor,
-                                fontFamily: 'var(--font-tinos)',
+                                fontFamily: 'var(--font-playfair)',
                                 lineHeight: 1,
                             }}
                         >
