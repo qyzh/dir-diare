@@ -5,9 +5,10 @@ import { Analytics } from '@vercel/analytics/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { monaspace } from '@/fonts'
 import Providers from '@/components/providers'
+import { SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://dir-diare.vercel.app'),
+    metadataBase: new URL(SITE_URL),
     alternates: {
         canonical: '/',
     },

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getArtPostBySlug, getAllArtPosts } from '@/lib/artpost'
 import PostRenderer from '@/components/post-renderer'
+import { SITE_URL } from '@/lib/constants'
 
 export async function generateStaticParams() {
     const posts = await getAllArtPosts()
@@ -27,7 +28,7 @@ export async function generateMetadata({
     }
 
     const { title, publishedAt: publishedTime, summary: description } = post
-    const ogImage = `https://kynoci.com/og?title=${title}`
+    const ogImage = `${SITE_URL}/og?title=${title}`
 
     return {
         title,
@@ -37,7 +38,7 @@ export async function generateMetadata({
             description,
             type: 'article',
             publishedTime,
-            url: `https://kynoci.com/l/${post.slug}`,
+            url: `${SITE_URL}/l/${post.slug}`,
             images: [
                 {
                     url: ogImage,
