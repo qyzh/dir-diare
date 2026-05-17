@@ -24,8 +24,19 @@ export default function PostJsonLd({ post, type }: PostJsonLdProps) {
         image: `${SITE_URL}/og?title=${encodeURIComponent(post.title)}`,
         author: {
             '@type': 'Person',
-            name: 'uki',
+            name: 'qyzh',
+            url: SITE_URL,
         },
+        publisher: {
+            '@type': 'Person',
+            name: 'qyzh',
+            url: SITE_URL,
+        },
+        mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `${SITE_URL}/${path}/${post.slug}`,
+        },
+        inLanguage: 'en',
     }
 
     return (

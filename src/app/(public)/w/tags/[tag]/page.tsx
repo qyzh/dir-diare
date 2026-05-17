@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getAllPublishedPosts } from '@/lib/posts'
-import { getTagBySlug } from '@/lib/tags'
+import { getTagBySlug, getAllTags } from '@/lib/tags'
 import { formatDate } from '@/lib/utils'
 import Footer from '@/components/footer'
 import { Calendar, icons } from 'lucide-react'
@@ -18,9 +18,16 @@ export async function generateMetadata({
     return {
         title: `#${tagDoc.name} — Journal`,
         description: `Posts tagged with ${tagDoc.name}`,
+        alternates: { canonical: `/w/tags/${tag}` },
     }
 }
 
+export async function generateStaticParams() {
+    const tags = await getAllTags()
+    return tags.map((t) => ({ tag: t.slug }))
+}
+
+export const dynamicParams = true
 export const revalidate = 3600
 
 export default async function TagPage({

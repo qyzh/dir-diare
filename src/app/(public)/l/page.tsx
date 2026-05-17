@@ -8,6 +8,7 @@ import Image from 'next/image'
 export const metadata: Metadata = {
     title: 'Art',
     description: 'A collection of recent things crafted, worked on, or tried for fun.',
+    alternates: { canonical: '/l' },
 }
 
 export const revalidate = 3600

@@ -8,15 +8,15 @@ import { SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
     metadataBase: new URL(SITE_URL),
-    alternates: {
-        canonical: '/',
-    },
     title: {
         default: 'Dir-diare',
         template: '%s | Dir-diare',
     },
     description:
         'My Dir - My little space on internet, place to share my thoughts and ideas',
+    openGraph: {
+        images: [{ url: `${SITE_URL}/og?title=Dir-diare` }],
+    },
 }
 
 const playfairDisplay = Playfair_Display({
@@ -46,7 +46,7 @@ export default function RootLayout({
             suppressHydrationWarning
             className={`scroll-smooth ${playfairDisplay.variable} ${courierPrime.variable}`}
         >
-            <body className="antialiased">
+            <body className="antialiased" suppressHydrationWarning>
                 <Providers>{children}</Providers>
                 <SpeedInsights />
                 <Analytics />

@@ -8,8 +8,9 @@ import type { Metadata } from 'next'
 import { SITE_URL } from '@/lib/constants'
 
 export const metadata: Metadata = {
-    title: 'Dir-diare',
+    title: { absolute: 'Dir-diare' },
     description: 'A personal journal. Notes on building things, reading things, and the slow accumulation of days.',
+    alternates: { canonical: '/' },
     openGraph: {
         title: 'Dir-diare',
         description: 'A personal journal. Notes on building things, reading things, and the slow accumulation of days.',

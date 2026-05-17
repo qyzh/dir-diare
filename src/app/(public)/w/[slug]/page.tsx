@@ -2,6 +2,7 @@ import { getPostBySlug, getAllPosts, getRelatedPosts } from '@/lib/posts'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import PostRenderer from '@/components/post-renderer'
+import { SITE_URL } from '@/lib/constants'
 
 export async function generateMetadata({
     params,
@@ -18,19 +19,28 @@ export async function generateMetadata({
         }
     }
 
+    const description = post.summary || `Read ${post.title} by ${post.author || 'qyzh'}`
+    const ogImage = `${SITE_URL}/og?title=${encodeURIComponent(post.title)}`
+
     return {
         title: post.title,
-        description:
-            post.summary || `Read ${post.title} by ${post.author || 'qyzh'}`,
+        description,
+        alternates: { canonical: `/w/${post.slug}` },
         openGraph: {
             title: post.title,
-            description:
-                post.summary ||
-                `Read ${post.title} by ${post.author || 'qyzh'}`,
+            description,
             type: 'article',
             publishedTime: post.publishedAt,
+            url: `${SITE_URL}/w/${post.slug}`,
             authors: [post.author || 'qyzh'],
             tags: post.tags,
+            images: [{ url: ogImage }],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description,
+            images: [ogImage],
         },
     }
 }

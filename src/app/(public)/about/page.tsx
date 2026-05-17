@@ -4,7 +4,8 @@ import Footer from '@/components/footer'
 
 export const metadata: Metadata = {
     title: 'About',
-    description: 'Little about me and this blog.',
+    description: 'Personal journal by qyzh — writing, art, and digital notes from a corner of the internet.',
+    alternates: { canonical: '/about' },
 }
 
 export default function Page() {
