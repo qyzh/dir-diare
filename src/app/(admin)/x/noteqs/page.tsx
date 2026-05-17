@@ -63,7 +63,7 @@ export default function NoteQsPage() {
                             className="flex flex-col justify-between gap-3 border border-[#2a2520] bg-[#14120f] p-3 lg:flex-row"
                         >
                             <div className="min-w-0 flex-1">
-                                <p className="text-sm text-[#d4c9b4] font-[family-name:var(--font-tinos)]">
+                                <p className="text-sm text-[#d4c9b4] font-[family-name:var(--font-playfair)]">
                                     {note.note.slice(0, 140)}
                                 </p>
                                 <p className="mt-1 text-xs text-[#6e6255] font-mono">
