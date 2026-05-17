@@ -1,38 +1,36 @@
-import { promises as fs } from 'fs';
-import path from 'path';
-
-const baseUrl = 'https://dir-diare.vercel.app';
-
-async function getNoteSlugs(dir: string) {
-  const entries = await fs.readdir(dir, {
-    recursive: true,
-    withFileTypes: true
-  });
-  return entries
-    .filter((entry) => entry.isFile() && entry.name === 'page.mdx')
-    .map((entry) => {
-      const relativePath = path.relative(
-        dir,
-        path.join(entry.parentPath, entry.name)
-      );
-      return path.dirname(relativePath);
-    })
-    .map((slug) => slug.replace(/\\/g, '/'));
-}
+import { SITE_URL } from '@/lib/constants'
+import { getAllPublishedPosts } from '@/lib/posts'
+import { getAllArtPosts } from '@/lib/artpost'
+import { getAllTags } from '@/lib/tags'
 
 export default async function sitemap() {
-  const notesDirectory = path.join(process.cwd(), 'src', 'app', '(public)', 'w');
-  const slugs = await getNoteSlugs(notesDirectory);
+    const [posts, artPosts, tags] = await Promise.all([
+        getAllPublishedPosts(),
+        getAllArtPosts(),
+        getAllTags(),
+    ])
 
-  const notes = slugs.map((slug) => ({
-    url: `${baseUrl}/w/${slug}`,
-    lastModified: new Date().toISOString()
-  }));
+    const now = new Date().toISOString()
 
-  const routes = ['', '/work'].map((route) => ({
-    url: `${baseUrl}${route}`,
-    lastModified: new Date().toISOString()
-  }));
+    const staticRoutes = ['', '/about', '/w', '/n', '/l'].map((route) => ({
+        url: `${SITE_URL}${route}`,
+        lastModified: now,
+    }))
 
-  return [...routes, ...notes];
+    const writingRoutes = posts.map((post) => ({
+        url: `${SITE_URL}/w/${post.slug}`,
+        lastModified: post.updatedAt || post.publishedAt || now,
+    }))
+
+    const artRoutes = artPosts.map((post) => ({
+        url: `${SITE_URL}/l/${post.slug}`,
+        lastModified: post.updatedAt || post.publishedAt || now,
+    }))
+
+    const tagRoutes = tags.map((tag) => ({
+        url: `${SITE_URL}/w/tags/${tag.slug}`,
+        lastModified: now,
+    }))
+
+    return [...staticRoutes, ...writingRoutes, ...artRoutes, ...tagRoutes]
 }
