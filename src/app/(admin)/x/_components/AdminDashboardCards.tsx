@@ -11,6 +11,7 @@ const CARD_META = [
         key: 'posts' as const,
         label: 'Posts',
         accentColor: '#c4aa7e',
+        dimColor: '#3a2e1e',
         manageHref: '/x/posts',
         createHref: '/x/posts/create',
     },
@@ -18,6 +19,7 @@ const CARD_META = [
         key: 'notes' as const,
         label: 'Notes',
         accentColor: '#8a9e7e',
+        dimColor: '#1e2e1a',
         manageHref: '/x/noteqs',
         createHref: '/x/noteqs/create',
     },
@@ -25,6 +27,7 @@ const CARD_META = [
         key: 'art' as const,
         label: 'Art',
         accentColor: '#9e7e8a',
+        dimColor: '#2e1e26',
         manageHref: '/x/artposts',
         createHref: '/x/artposts/create',
     },
@@ -45,10 +48,9 @@ export default function AdminDashboardCards({
         <div
             style={{
                 display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                 gap: '1px',
-                background: '#1e1b17',
-                border: '1px solid #1e1b17',
+                background: '#1a1814',
             }}
         >
             {CARD_META.map((card) => (
@@ -56,100 +58,59 @@ export default function AdminDashboardCards({
                     key={card.key}
                     style={{
                         background: '#14120f',
-                        padding: '24px 20px 20px',
+                        padding: '24px 22px 0',
                         display: 'flex',
                         flexDirection: 'column',
-                        gap: '16px',
-                        borderTop: `3px solid ${card.accentColor}`,
-                        position: 'relative',
-                        overflow: 'hidden',
+                        borderTop: `2px solid ${card.accentColor}`,
                     }}
                 >
-                    {/* Faint watermark number */}
-                    <span
-                        aria-hidden
+                    <p
                         style={{
-                            position: 'absolute',
-                            right: '-8px',
-                            top: '-4px',
-                            fontSize: '72px',
+                            fontSize: '8px',
+                            letterSpacing: '0.22em',
+                            textTransform: 'uppercase',
+                            color: '#3a3228',
+                            fontFamily: 'monospace',
+                            marginBottom: '12px',
+                        }}
+                    >
+                        {card.label}
+                    </p>
+
+                    <p
+                        style={{
+                            fontSize: '52px',
+                            color: card.accentColor,
                             fontFamily: 'var(--font-playfair)',
-                            color: '#1a1713',
                             lineHeight: 1,
-                            pointerEvents: 'none',
-                            userSelect: 'none',
+                            marginBottom: '24px',
+                            letterSpacing: '-0.02em',
                         }}
                     >
                         {counts[card.key]}
-                    </span>
-
-                    <div>
-                        <p
-                            style={{
-                                fontSize: '9px',
-                                letterSpacing: '0.2em',
-                                textTransform: 'uppercase',
-                                color: '#4a4038',
-                                fontFamily: 'monospace',
-                                marginBottom: '8px',
-                            }}
-                        >
-                            {card.label}
-                        </p>
-                        <p
-                            style={{
-                                fontSize: '40px',
-                                color: card.accentColor,
-                                fontFamily: 'var(--font-playfair)',
-                                lineHeight: 1,
-                            }}
-                        >
-                            {counts[card.key]}
-                        </p>
-                    </div>
+                    </p>
 
                     <div
                         style={{
                             display: 'flex',
-                            alignItems: 'center',
-                            gap: '0',
+                            borderTop: '1px solid #1e1b17',
                             marginTop: 'auto',
                         }}
                     >
                         <Link
                             href={card.manageHref}
-                            style={{
-                                flex: 1,
-                                fontSize: '10px',
-                                letterSpacing: '0.12em',
-                                textTransform: 'uppercase',
-                                fontFamily: 'monospace',
-                                color: '#6e6255',
-                                textDecoration: 'none',
-                                padding: '7px 0',
-                                borderTop: '1px solid #1e1b17',
-                                transition: 'color 0.15s',
-                            }}
-                            onMouseEnter={(e) => (e.currentTarget.style.color = '#d4c9b4')}
-                            onMouseLeave={(e) => (e.currentTarget.style.color = '#6e6255')}
+                            className="flex-1 py-3 text-[10px] tracking-[0.12em] uppercase font-mono text-[#6e6255] hover:text-[#a89f94] transition-colors duration-150"
+                            style={{ textDecoration: 'none' }}
                         >
                             Manage
                         </Link>
                         <Link
                             href={card.createHref}
+                            className="py-3 pl-4 text-[10px] tracking-[0.12em] uppercase font-mono transition-opacity duration-150 hover:opacity-70"
                             style={{
-                                fontSize: '10px',
-                                letterSpacing: '0.12em',
-                                textTransform: 'uppercase',
-                                fontFamily: 'monospace',
                                 color: card.accentColor,
                                 textDecoration: 'none',
-                                padding: '7px 0 7px 16px',
-                                borderTop: '1px solid #1e1b17',
-                                transition: 'opacity 0.15s',
                             }}
-                            onMouseEnter={(e) => (e.currentTarget.style.opacity = '0.7')}
-                            onMouseLeave={(e) => (e.currentTarget.style.opacity = '1')}
                         >
                             + New
                         </Link>

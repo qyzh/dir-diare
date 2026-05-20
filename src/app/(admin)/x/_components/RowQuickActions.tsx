@@ -18,14 +18,14 @@ export default function RowQuickActions({
     disabled = false,
 }: RowQuickActionsProps) {
     return (
-        <div className="flex flex-wrap items-center justify-end gap-2">
+        <div className="flex items-center justify-end gap-1.5">
             {onPublish && (
                 <UKButton
                     size="sm"
                     disabled={disabled}
                     onClick={() => void onPublish()}
                 >
-                    <Upload size={14} />
+                    <Upload size={13} />
                 </UKButton>
             )}
             {onDraft && (
@@ -34,9 +34,14 @@ export default function RowQuickActions({
                     disabled={disabled}
                     onClick={() => void onDraft()}
                 >
-                    <FileText size={14} />
+                    <FileText size={13} />
                 </UKButton>
             )}
+            <Link href={editHref}>
+                <UKButton size="sm">
+                    <Pencil size={13} />
+                </UKButton>
+            </Link>
             {onDelete && (
                 <UKButton
                     size="sm"
@@ -44,14 +49,9 @@ export default function RowQuickActions({
                     disabled={disabled}
                     onClick={() => void onDelete()}
                 >
-                    <Trash2 size={14} />
+                    <Trash2 size={13} />
                 </UKButton>
             )}
-            <Link href={editHref}>
-                <UKButton size="sm">
-                    <Pencil size={14} />
-                </UKButton>
-            </Link>
         </div>
     )
 }
