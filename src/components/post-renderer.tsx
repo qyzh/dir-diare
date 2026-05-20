@@ -12,6 +12,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import Footer from './footer'
 import RelatedPosts from './related-posts'
 import PostJsonLd from './post-json-ld'
+import PostTOC from './post-toc'
 import { SITE_URL } from '@/lib/constants'
 
 const components = useMDXComponents()
@@ -35,7 +36,8 @@ export default function PostRenderer({
       <>
         <ArticleProgress />
         <main className="article-wrap article-wrap--writing">
-          <div className="journal-article">
+          <div className="journal-article relative">
+            <PostTOC />
             <PostJsonLd post={post} type="art" />
 
             {/* Header */}
@@ -115,7 +117,8 @@ export default function PostRenderer({
     <>
       <ArticleProgress />
       <main className="article-wrap article-wrap--writing">
-        <div className="journal-article">
+        <div className="journal-article relative">
+          <PostTOC />
           <PostJsonLd post={post} type="writing" />
           <header className="journal-article-header">
             <nav className="journal-article-nav">
