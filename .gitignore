@@ -43,6 +43,7 @@ next-env.d.ts
 .superpowers/
 CLAUDE.md
 .claude/
+.antigravitycli/
 .prettierrc
 /content/dummy.mdx
 app/w/\[slug\]/post-page.tsx
