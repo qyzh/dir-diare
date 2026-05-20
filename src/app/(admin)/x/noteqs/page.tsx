@@ -48,7 +48,11 @@ export default function NoteQsPage() {
                 </Link>
             }
         >
-            {actionError && <p className="mb-3 text-sm text-red-500 font-mono">{actionError}</p>}
+            {actionError && (
+                <p className="mb-4 text-[11px] text-[#9e4a3a] font-mono border border-[#3a1a14] bg-[#1a0e0c] px-3 py-2">
+                    {actionError}
+                </p>
+            )}
             <ContentListPanel
                 title="Notes"
                 isLoading={isLoading}
@@ -56,17 +60,17 @@ export default function NoteQsPage() {
                 isEmpty={noteQs.length === 0}
                 emptyText="No notes yet."
             >
-                <div className="space-y-3">
+                <div className="space-y-1.5">
                     {noteQs.map((note) => (
                         <article
                             key={note._id}
-                            className="flex flex-col justify-between gap-3 border border-[#2a2520] bg-[#14120f] p-3 lg:flex-row"
+                            className="group flex flex-col justify-between gap-3 border border-[#1a1814] bg-[#0c0b09] px-4 py-3 hover:border-[#2a2520] transition-colors duration-150 lg:flex-row lg:items-center"
                         >
                             <div className="min-w-0 flex-1">
-                                <p className="text-sm text-[#d4c9b4] font-[family-name:var(--font-playfair)]">
+                                <p className="text-[13px] text-[#a89f94] font-[family-name:var(--font-playfair)] group-hover:text-[#d6cfc5] transition-colors duration-150 line-clamp-2">
                                     {note.note.slice(0, 140)}
                                 </p>
-                                <p className="mt-1 text-xs text-[#6e6255] font-mono">
+                                <p className="mt-0.5 text-[10px] text-[#3a3228] font-mono">
                                     {new Date(note.date).toLocaleDateString()}
                                 </p>
                             </div>

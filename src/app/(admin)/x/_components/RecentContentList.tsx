@@ -19,35 +19,93 @@ export default function RecentContentList({
     manageHref,
 }: RecentContentListProps) {
     return (
-        <section className="border border-[#2a2520] bg-[#1a1713] p-5">
-            <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-xs uppercase tracking-widest text-[#c4aa7e]">{title}</h2>
+        <section
+            style={{
+                border: '1px solid #1e1b17',
+                background: '#0f0e0c',
+            }}
+        >
+            <div
+                style={{
+                    padding: '14px 18px',
+                    borderBottom: '1px solid #1a1814',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <h2
+                    style={{
+                        fontSize: '9px',
+                        letterSpacing: '0.2em',
+                        textTransform: 'uppercase',
+                        color: '#c4aa7e',
+                        fontFamily: 'monospace',
+                    }}
+                >
+                    {title}
+                </h2>
                 <Link
                     href={manageHref}
-                    className="text-xs text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
+                    className="text-[9px] font-mono tracking-[0.12em] uppercase text-[#3a3228] hover:text-[#c4aa7e] transition-colors duration-150"
+                    style={{ textDecoration: 'none' }}
                 >
-                    Manage all
+                    All →
                 </Link>
             </div>
 
             {items.length === 0 ? (
-                <p className="text-sm text-[#6e6255]">No items yet.</p>
+                <p
+                    style={{
+                        padding: '20px 18px',
+                        fontFamily: 'monospace',
+                        fontSize: '11px',
+                        color: '#3a3228',
+                    }}
+                >
+                    No items yet.
+                </p>
             ) : (
-                <div className="space-y-3">
-                    {items.map((item) => (
+                <div>
+                    {items.map((item, i) => (
                         <div
                             key={item.id}
-                            className="flex items-center justify-between border-b border-[#2a2520] pb-2 last:border-0 last:pb-0"
+                            className="group"
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '12px',
+                                padding: '10px 18px',
+                                borderBottom: i < items.length - 1 ? '1px solid #161412' : 'none',
+                            }}
                         >
-                            <p className="truncate pr-4 text-sm text-[#d4c9b4] font-[family-name:var(--font-playfair)]">
+                            <span
+                                style={{
+                                    fontFamily: 'monospace',
+                                    fontSize: '9px',
+                                    color: '#2a2520',
+                                    letterSpacing: '0.05em',
+                                    flexShrink: 0,
+                                    width: '16px',
+                                    textAlign: 'right',
+                                }}
+                            >
+                                {String(i + 1).padStart(2, '0')}
+                            </span>
+
+                            <p
+                                className="truncate flex-1 font-[family-name:var(--font-playfair)] text-[#a89f94] group-hover:text-[#d4c9b4] transition-colors duration-150"
+                                style={{ fontSize: '13px' }}
+                            >
                                 {item.label}
                             </p>
+
                             <Link
                                 href={item.editHref}
                                 aria-label={`Edit ${item.label}`}
-                                className="shrink-0 text-[#6e6255] hover:text-[#c4aa7e] transition-colors"
+                                className="shrink-0 text-[#2a2520] hover:text-[#c4aa7e] transition-colors duration-150"
                             >
-                                <Pencil size={14} />
+                                <Pencil size={12} />
                             </Link>
                         </div>
                     ))}

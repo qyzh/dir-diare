@@ -87,15 +87,15 @@ export default function PostsManagePage() {
                 </Link>
             }
         >
-            <div className="mb-4 flex flex-wrap gap-2">
+            <div className="mb-5 flex flex-wrap gap-1.5">
                 {(['all', 'published', 'draft'] as const).map((value) => (
                     <button
                         key={value}
                         onClick={() => setFilter(value)}
-                        className={`px-3 py-1.5 text-sm font-mono transition-colors ${
+                        className={`px-3 py-1.5 text-[10px] font-mono tracking-[0.1em] uppercase transition-all duration-150 border ${
                             filter === value
-                                ? 'bg-[#1e1a14] text-[#c4aa7e] border border-[#2a2520]'
-                                : 'bg-[#151310] text-[#6e6255] border border-transparent hover:text-[#d4c9b4]'
+                                ? 'bg-[#161310] text-[#c4aa7e] border-[#2a2520]'
+                                : 'text-[#4a4038] border-transparent hover:text-[#a89f94] hover:border-[#1e1b17]'
                         }`}
                     >
                         {value === 'all'
@@ -107,7 +107,11 @@ export default function PostsManagePage() {
                 ))}
             </div>
 
-            {actionError && <p className="mb-3 text-sm text-red-500 font-mono">{actionError}</p>}
+            {actionError && (
+                <p className="mb-4 text-[11px] text-[#9e4a3a] font-mono border border-[#3a1a14] bg-[#1a0e0c] px-3 py-2">
+                    {actionError}
+                </p>
+            )}
 
             <ContentListPanel
                 title="Posts"
@@ -116,23 +120,30 @@ export default function PostsManagePage() {
                 isEmpty={filteredPosts.length === 0}
                 emptyText="No posts for this filter."
             >
-                <div className="space-y-3">
+                <div className="space-y-1.5">
                     {filteredPosts.map((post) => (
                         <article
                             key={post._id}
-                            className="flex flex-col justify-between gap-3 border border-[#2a2520] bg-[#14120f] p-3 lg:flex-row"
+                            className="group flex flex-col justify-between gap-3 border border-[#1a1814] bg-[#0c0b09] px-4 py-3 hover:border-[#2a2520] transition-colors duration-150 lg:flex-row lg:items-center"
                         >
                             <div className="min-w-0 flex-1">
-                                <div className="mb-2 flex items-center gap-2">
-                                    <h3 className="truncate text-lg text-[#d4c9b4] font-[family-name:var(--font-playfair)]">
+                                <div className="flex items-baseline gap-2.5 mb-1">
+                                    <h3 className="truncate text-[14px] text-[#c8c0b4] font-[family-name:var(--font-playfair)] group-hover:text-[#d6cfc5] transition-colors duration-150">
                                         {post.title}
                                     </h3>
-                                    <span className="text-[10px] uppercase tracking-widest text-[#c4aa7e] font-mono">
+                                    <span
+                                        className="shrink-0 text-[8px] uppercase tracking-[0.18em] font-mono px-1.5 py-0.5"
+                                        style={{
+                                            color: post.status === 'published' ? '#8a9e7e' : '#6e6255',
+                                            background: post.status === 'published' ? '#0f1a0d' : '#141210',
+                                            border: `1px solid ${post.status === 'published' ? '#1e2e1a' : '#1e1b17'}`,
+                                        }}
+                                    >
                                         {post.status}
                                     </span>
                                 </div>
                                 {post.summary && (
-                                    <p className="text-sm text-[#6e6255] font-mono line-clamp-1">
+                                    <p className="text-[11px] text-[#4a4038] font-mono line-clamp-1">
                                         {post.summary}
                                     </p>
                                 )}

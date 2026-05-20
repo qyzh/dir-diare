@@ -44,7 +44,11 @@ export default function TagsManagePage() {
                 </Link>
             }
         >
-            {actionError && <p className="mb-3 text-sm text-red-500 font-mono">{actionError}</p>}
+            {actionError && (
+                <p className="mb-4 text-[11px] text-[#9e4a3a] font-mono border border-[#3a1a14] bg-[#1a0e0c] px-3 py-2">
+                    {actionError}
+                </p>
+            )}
 
             <ContentListPanel
                 title="Tags"
@@ -53,37 +57,41 @@ export default function TagsManagePage() {
                 isEmpty={tags.length === 0}
                 emptyText="No tags yet."
             >
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                     {tags.map((tag) => (
                         <div
                             key={tag._id}
-                            className="flex items-center justify-between border border-[#2a2520] bg-[#14120f] px-4 py-3"
+                            className="group flex items-center justify-between border border-[#1a1814] bg-[#0c0b09] px-4 py-3 hover:border-[#2a2520] transition-colors duration-150"
                         >
-                            <div className="flex items-center gap-2 min-w-0">
-                                <TagIcon name={tag.icon} />
+                            <div className="flex items-center gap-2.5 min-w-0">
+                                <span className="text-[#3a3228] group-hover:text-[#6e6255] transition-colors duration-150">
+                                    <TagIcon name={tag.icon} />
+                                </span>
                                 <div className="min-w-0">
-                                    <span className="text-[#d4c9b4] font-mono text-sm">{tag.name}</span>
-                                    <span className="ml-3 text-[10px] text-[#4a4038] font-mono tracking-wider">
+                                    <span className="text-[#c8c0b4] font-mono text-[13px] group-hover:text-[#d6cfc5] transition-colors duration-150">
+                                        {tag.name}
+                                    </span>
+                                    <span className="ml-2.5 text-[9px] text-[#2e2b25] font-mono tracking-[0.08em]">
                                         /{tag.slug}
                                     </span>
                                     {tag.description && (
-                                        <p className="text-[11px] text-[#4a4038] font-mono mt-0.5 truncate">
+                                        <p className="text-[10px] text-[#3a3228] font-mono mt-0.5 truncate">
                                             {tag.description}
                                         </p>
                                     )}
                                 </div>
                             </div>
-                            <div className="flex items-center gap-2 ml-4 shrink-0">
+                            <div className="flex items-center gap-1.5 ml-4 shrink-0">
                                 <Link
                                     href={`/x/tags/edit/${tag._id}`}
-                                    className="px-3 py-1 text-xs font-mono text-[#6e6255] border border-[#2a2520] hover:text-[#c4aa7e] hover:border-[#3a3228] transition-colors"
+                                    className="px-2.5 py-1 text-[10px] font-mono tracking-[0.08em] uppercase text-[#4a4038] border border-[#1e1b17] hover:text-[#c4aa7e] hover:border-[#2a2520] transition-all duration-150"
                                 >
                                     Edit
                                 </Link>
                                 <button
                                     onClick={() => deleteTag(tag)}
                                     disabled={rowBusy === tag._id}
-                                    className="px-3 py-1 text-xs font-mono text-[#6e6255] border border-[#2a2520] hover:text-red-400 hover:border-red-900 transition-colors disabled:opacity-40"
+                                    className="px-2.5 py-1 text-[10px] font-mono tracking-[0.08em] uppercase text-[#4a4038] border border-[#1e1b17] hover:text-[#9e4a3a] hover:border-[#3a1a14] transition-all duration-150 disabled:opacity-30"
                                 >
                                     Delete
                                 </button>
