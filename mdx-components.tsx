@@ -4,7 +4,7 @@ import { highlight } from 'sugar-high'
 import UKCallout from '@/components/ui/ukcallout'
 import UKButton from '@/components/ui/ukbtn'
 import UKTagUser from '@/components/ui/uktaguser'
-import UKImage from '@/components/ui/ukimage'
+import Image from 'next/image'
 
 type HeadingProps = ComponentPropsWithoutRef<'h1'>
 type ParagraphProps = ComponentPropsWithoutRef<'p'>
@@ -79,17 +79,36 @@ function normalizeImageSrc(src: string): string {
     return trimmed
 }
 
-const AttractiveImage = ({ src, alt, ...props }: ImageProps) =>
-    typeof src === 'string' ? (
+const AttractiveImage = ({ src, alt, width, height, priority }: ImageProps) => {
+    if (typeof src !== 'string') return null
+
+    const normalizedSrc = normalizeImageSrc(src)
+
+    return (
         <figure className="my-8 mx-auto max-w-full">
             <div className="border border-[var(--line)] p-2 rounded-md">
-                <img
-                    src={normalizeImageSrc(src)}
-                    alt={alt || ''}
-                    className="w-full h-auto object-cover rounded-sm"
-                    loading="lazy"
-                    {...(props as any)}
-                />
+                {width && height ? (
+                    <Image
+                        src={normalizedSrc}
+                        alt={alt || ''}
+                        width={width}
+                        height={height}
+                        priority={priority}
+                        className="w-full h-auto object-cover rounded-sm"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 720px"
+                    />
+                ) : (
+                    <div className="relative w-full" style={{ aspectRatio: '16/9' }}>
+                        <Image
+                            src={normalizedSrc}
+                            alt={alt || ''}
+                            fill
+                            priority={priority}
+                            className="object-contain rounded-sm"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 720px"
+                        />
+                    </div>
+                )}
             </div>
             {alt && (
                 <figcaption className="mt-2 text-center text-sm text-[var(--text-dim)] italic">
@@ -97,7 +116,8 @@ const AttractiveImage = ({ src, alt, ...props }: ImageProps) =>
                 </figcaption>
             )}
         </figure>
-    ) : null
+    )
+}
 
 const components = {
     h1: (props: HeadingProps) => (

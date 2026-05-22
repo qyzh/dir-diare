@@ -81,6 +81,8 @@ export default function PostRenderer({
                     alt={post.title}
                     width={800}
                     height={600}
+                    priority
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px"
                     className="w-full h-auto mb-8 rounded-sm"
                   />
                 )}
