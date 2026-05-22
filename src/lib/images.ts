@@ -84,7 +84,6 @@ export async function uploadImageBuffer(
     const normalizedFilename = normalizeFilename(filename)
 
     const uploadStream = bucket.openUploadStream(normalizedFilename, {
-        contentType,
         metadata: { contentType },
     })
 
