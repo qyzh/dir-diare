@@ -29,6 +29,14 @@ const MODEL_CLASSES: Record<string, string> = {
     oldsketch: 'bg-[#f3deaf] p-4 rounded-lg shadow-lg mx-auto',
 } as const
 
+const SIZE_HINTS: Record<string, string> = {
+    small:     '128px',
+    medium:    '(max-width: 768px) 100vw, 50vw',
+    large:     '(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 800px',
+    hero:      '80vw',
+    thumbnail: '(max-width: 640px) 100vw, 512px',
+} as const
+
 const UKImage: React.FC<UKImageProps> = ({
     src,
     alt = '',
@@ -52,6 +60,7 @@ const UKImage: React.FC<UKImageProps> = ({
                 height={height}
                 priority={priority}
                 quality={quality}
+                sizes={SIZE_HINTS[size] || SIZE_HINTS.large}
                 className={`${className} w-full h-auto mx-auto rounded`}
                 loading={priority ? undefined : 'lazy'}
             />

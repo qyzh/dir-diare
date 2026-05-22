@@ -41,7 +41,6 @@ next-env.d.ts
 /apidev/
 /docs/
 .superpowers/
-CLAUDE.md
 .claude/
 .antigravitycli/
 .prettierrc
