@@ -49,7 +49,7 @@
         "preact": "^10.27.3"
     },
     "engines": {
-        "node": "20.x"
+        "node": "24.x"
     },
     "prettier": {
         "trailingComma": "es5",
