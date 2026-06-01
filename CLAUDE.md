@@ -65,7 +65,7 @@ Personal digital diary/blog built on **Next.js 16 App Router** with **MongoDB** 
 
 Two Next.js route groups in `src/app/`:
 
-- `(public)/` — public-facing site. Pages: `/` (home), `/w` (writing/journal), `/w/[slug]` (post), `/w/tags/[tag]`, `/l` (art), `/l/[slug]` (art post), `/m` (music/Spotify), `/n` (noteQ quotes), `/about`
+- `(public)/` — public-facing site. Pages: `/` (home), `/w` (writing/journal), `/w/[slug]` (post), `/w/tags/[tag]`, `/l` (art), `/l/[slug]` (art post), `/m` (music/Spotify), `/n` (noteQ quotes), `/g` (gallery/Unsplash photos), `/about`
 - `(admin)/x/` — password-protected admin panel for CRUD of all content types. Uses NextAuth session check. Routes: `/x/posts`, `/x/artposts`, `/x/tags`, `/x/noteqs`
 
 ### Data Layer
@@ -117,6 +117,8 @@ NEXTAUTH_URL
 SPOTIFY_CLIENT_ID
 SPOTIFY_CLIENT_SECRET
 SPOTIFY_REFRESH_TOKEN
+UNSPLASH_ACCESS_KEY
+UNSPLASH_USERNAME
 ```
 
 ## Design System

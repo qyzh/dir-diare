@@ -8,6 +8,7 @@ const NAV_LINKS = [
     { label: 'Journal', href: '/w' },
     { label: 'Quotes', href: '/n' },
     { label: 'Projects', href: '/l' },
+    { label: 'Gallery', href: '/g' },
     { label: 'About', href: '/about' },
 ]
 
@@ -15,6 +16,7 @@ const SECTION_LABELS: Record<string, string> = {
     '/w': 'Journal',
     '/n': 'Quotes',
     '/l': 'Projects',
+    '/g': 'Gallery',
     '/about': 'About',
 }
 
