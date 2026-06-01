@@ -1969,3 +1969,53 @@ pre {
     padding: 0.1em 0.4em;
     border-radius: 3px;
 }
+
+/* ── Gallery infinite scroll ── */
+.gallery-sentinel {
+    height: 1px;
+    margin-top: 1rem;
+}
+
+.gallery-loading {
+    display: flex;
+    justify-content: center;
+    padding: 2rem var(--page-pad);
+}
+
+.gallery-loading-dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gallery-loading-dots span {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    animation: gallery-pulse 1.2s ease-in-out infinite;
+}
+
+.gallery-loading-dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.gallery-loading-dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes gallery-pulse {
+    0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+    40%           { opacity: 1;   transform: scale(1); }
+}
+
+.gallery-end {
+    text-align: center;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    padding: 2rem var(--page-pad) 3rem;
+    font-family: var(--font-body);
+}
